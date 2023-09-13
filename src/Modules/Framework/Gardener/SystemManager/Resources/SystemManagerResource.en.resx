@@ -147,6 +147,9 @@
   <data name="ExtendParams" xml:space="preserve">
     <value>Extend parameters</value>
   </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
   <data name="LocalCodeName" xml:space="preserve">
     <value>Local code name</value>
   </data>

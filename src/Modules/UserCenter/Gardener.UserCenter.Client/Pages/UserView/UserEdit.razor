@@ -26,7 +26,7 @@
                     @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {
 
-                        <Tooltip Placement="Placement.LeftTop" Title="@UserCenterResource.ClickUpdateAvatar">
+                        <Tooltip Placement="Placement.LeftTop" Title="@Localizer[nameof(UserCenterResource.ClickUpdateAvatar)]">
                             <a @onclick="_ => OnAvatarClick(model)">
                                 <Avatar Src="@model.Avatar" />
                             </a>

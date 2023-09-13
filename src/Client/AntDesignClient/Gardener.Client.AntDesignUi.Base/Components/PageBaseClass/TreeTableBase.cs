@@ -212,7 +212,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected Task OnClickEdit(TDto dto)
         {
             TDialogInput option = GetEditOption(dto);
-            return OpenOperationDialogAsync(SharedLocalResource.Edit,
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Edit)],
                 option,
                  result =>
                 {
@@ -225,7 +225,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected Task OnClickAdd()
         {
-            return OpenOperationDialogAsync(SharedLocalResource.Add,
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Add)],
                 GetAddOption(),
                 result =>
                 {
@@ -240,7 +240,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected Task OnClickAddChildren(TDto dto)
         {
-            return OpenOperationDialogAsync(SharedLocalResource.Add,
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Add)],
                 GetAddOption(dto),
                  result =>
                 {
@@ -255,7 +255,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
             }
             else
             {
@@ -285,7 +285,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected Task OnClickDetail(TDto dto)
         {
             TDialogInput option = GetSelectOption(dto);
-            return OpenOperationDialogAsync(SharedLocalResource.Detail, option);
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Detail)], option);
         }
 
         /// <summary>

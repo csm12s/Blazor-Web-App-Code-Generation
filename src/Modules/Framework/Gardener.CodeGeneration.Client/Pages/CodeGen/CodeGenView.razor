@@ -21,7 +21,7 @@
                 <AntDesign.Col Span="24">
                     <Space>
                         <SpaceItem>
-                            <span>@Localizer[CodeGenLocalResource.TableName]: </span>
+                            <span>@Localizer[nameof(CodeGenLocalResource.TableName)]: </span>
                             <Select Mode="multiple"
                                     DataSource="@_select_TableName"
                                     @bind-Values="@_searchDto.TableName"
@@ -35,7 +35,7 @@
                             </Select>
                             </SpaceItem>
                             <SpaceItem>
-                            <span>@Localizer[CodeGenLocalResource.ClassName]: </span>
+                            <span>@Localizer[nameof(CodeGenLocalResource.ClassName)]: </span>
                             <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                                    @bind-Value="@_searchDto.ClassName"></Input>
                             </SpaceItem>
@@ -48,7 +48,7 @@
                         @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                     </Button>
                     <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
-                        @Localizer[CodeGenLocalResource.BatchGenerate]
+                        @Localizer[nameof(CodeGenLocalResource.BatchGenerate)]
                     </Button>
                     </AntDesign.Col>
                     <AntDesign.Col Span="16" Style="text-align:right">
@@ -66,7 +66,7 @@
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
-                                @Localizer[CodeGenLocalResource.OpenCodeGenFolder]
+                                @Localizer[nameof(CodeGenLocalResource.OpenCodeGenFolder)]
                             </Button>
                         </SpaceItem>
 
@@ -92,15 +92,15 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" />
-            <Column @bind-Field="@model.TableName" Title="@(Localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
-            <Column @bind-Field="@model.ClassName" Title="@(Localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
-            <Column @bind-Field="@model.Module" Title="@(Localizer[CodeGenLocalResource.Module])" Sortable Filterable />
-            <Column @bind-Field="@model.Remark" Title="@(Localizer[CodeGenLocalResource.Remark])" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
-            <Column @bind-Field="@model.CreatedTime" Title="@(Localizer[CodeGenLocalResource.CreatedTime])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <Column @bind-Field="@model.TableName" Title="@Localizer[nameof(CodeGenLocalResource.TableName)]" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@Localizer[nameof(CodeGenLocalResource.ClassName)]" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@Localizer[nameof(CodeGenLocalResource.Module)]" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@Localizer[nameof(CodeGenLocalResource.Remark)]" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.MenuName),"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.MenuName),"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.TableDescription),"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.TableDescription),"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
+             <Column @bind-Field="@model.CreatedTime" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
             <ActionColumn Title="@Localizer[nameof(SharedLocalResource.Action)]" Fixed="right">
                 <Space>
                     <SpaceItem>
@@ -116,7 +116,7 @@
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Icon="menu" OnClick="()=>OnClickGenerateMenu(model.Id)">
-                            @Localizer[CodeGenLocalResource.GenerateMenu]
+                            @Localizer[nameof(CodeGenLocalResource.GenerateMenu)]
                         </Button>
                     </SpaceItem>
 

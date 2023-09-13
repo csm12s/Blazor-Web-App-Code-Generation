@@ -66,7 +66,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         await OpenOperationDialogAsync
             <CodeGenConfigView, Guid, bool>
-            (SharedLocalResource.Setting, id,  result =>
+            (Localizer[nameof(SharedLocalResource.Setting)], id,  result =>
         {
             //await ReLoadTable();
             return Task.CompletedTask;
@@ -109,7 +109,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             .Where(it => it.Key.StartsWith(menuKey + "_")).ToList();
         oldMenus.AddRange(oldMenuButtons);
 
-        var title = Localizer[CodeGenLocalResource.IsContinue];
+        var title = Localizer[nameof(SharedLocalResource.IsContinue)];
         var menuInfoStr = "将添加以下菜单：" + menuKey + "\r\n";
         if (oldMenus.Any())
         {
@@ -145,7 +145,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
         var codeGenDto = await BaseService.Get(codeGenId);
 
-        var title = Localizer[CodeGenLocalResource.IsContinue];
+        var title = Localizer[nameof(SharedLocalResource.IsContinue)];
         var message = Localizer["MlLgWBeImp"];
         if (await ConfirmService.YesNo(title, message) == ConfirmResult.Yes)
         {
@@ -171,12 +171,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         if (_selectedRows == null || _selectedRows.Count() == 0)
         {
-            MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+            MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
         }
         else
         {
             _generatesBtnLoading = true;
-            if (await ConfirmService.YesNo(Localizer[CodeGenLocalResource.BatchGenerate], CodeGenLocalResource.IsContinue) == ConfirmResult.Yes)
+            if (await ConfirmService.YesNo(Localizer[nameof(CodeGenLocalResource.BatchGenerate)], nameof(SharedLocalResource.IsContinue)) == ConfirmResult.Yes)
             {
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
@@ -222,7 +222,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         });
 
         await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                    SharedLocalResource.SeedData,
+                    Localizer[nameof(SharedLocalResource.SeedData)],
                     data,
                     width: 1500);
     }

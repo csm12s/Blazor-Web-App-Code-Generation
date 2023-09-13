@@ -67,15 +67,15 @@
                 <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                     <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
                 </ResourceAuthorize>
-                <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" Title="@Localizer[SystemManagerResource.Group]" />
-                <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" Title="@Localizer[SystemManagerResource.Service]" />
-                <Column @bind-Field="@model.Summary" Width="150" Sortable="false" Ellipsis Title="@Localizer[SystemManagerResource.Summary]" />
-                <Column @bind-Field="@model.Description" Width="200" Sortable="false" Ellipsis Title="@Localizer[SystemManagerResource.Description]" />
-                <Column @bind-Field="@model.Path" Width="150" Sortable="false" Ellipsis Title="@Localizer[SystemManagerResource.Path]" />
-                <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters" Title="@Localizer[SystemManagerResource.Method]">
+                <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" Title="@Localizer[nameof(SharedLocalResource.Group)]" />
+                 <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" Title="@Localizer[nameof(SharedLocalResource.Service)]" />
+                <Column @bind-Field="@model.Summary" Width="150" Sortable="false" Ellipsis Title="@Localizer[nameof(SharedLocalResource.Summary)]" />
+                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" Ellipsis Title="@Localizer[nameof(SharedLocalResource.Description)]" />
+                <Column @bind-Field="@model.Path" Width="150" Sortable="false" Ellipsis Title="@Localizer[nameof(SharedLocalResource.Path)]" />
+                 <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters" Title="@Localizer[nameof(SharedLocalResource.Method)]">
                     <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
-                <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable Title="@Localizer[SystemManagerResource.EnableAudit]">
+                <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable Title="@Localizer[nameof(SystemManagerResource.EnableAudit)]">
                     <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
                 </Column>
             </ColumnDefinitions>

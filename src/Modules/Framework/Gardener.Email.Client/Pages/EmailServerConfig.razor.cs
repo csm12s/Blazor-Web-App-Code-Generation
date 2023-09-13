@@ -25,7 +25,7 @@ namespace Gardener.Email.Client.Pages
         {
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.Select(id);
-            await OpenOperationDialogAsync<EmailServerConfigTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(SharedLocalResource.Send, input);
+            await OpenOperationDialogAsync<EmailServerConfigTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(Localizer[nameof(SharedLocalResource.Send)], input);
         }
     }
 }

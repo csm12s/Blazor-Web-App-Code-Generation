@@ -10,10 +10,10 @@
     <FormItem Label="@Localizer[nameof(SharedLocalResource.Id)]">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>
-         <FormItem Label="@AttachmentLocalResource.BusinessId">
+         <FormItem Label="@Localizer[nameof(AttachmentLocalResource.BusinessId)]">
         <Input @bind-Value="@model.BusinessId" Disabled />
     </FormItem>
-         <FormItem Label="@AttachmentLocalResource.BusinessType">
+         <FormItem Label="@Localizer[nameof(AttachmentLocalResource.BusinessType)]">
         <SimpleSelect @bind-Value="@_currentEditModelBusinessType"
                       DefaultValue="@(model.BusinessType.ToString())"
                       Style="">
@@ -25,10 +25,10 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.ContentType">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.ContentType)]">
         <Input @bind-Value="@model.ContentType" />
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.FileType">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.FileType)]">
         <SimpleSelect @bind-Value="@_currentEditModelFileType"
                       DefaultValue="@(model.FileType.ToString())"
                       Style="">
@@ -40,22 +40,22 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.OriginalName">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.OriginalName)]">
         <Input @bind-Value="@model.OriginalName" />
     </FormItem>
         <FormItem Label="@Localizer[nameof(SharedLocalResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.Suffix">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.Suffix)]">
         <Input @bind-Value="@model.Suffix" />
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.Size">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.Size)]">
         <Input @bind-Value="@model.Size" />
     </FormItem>
         <FormItem Label="@Localizer[nameof(SharedLocalResource.Path)]">
         <Input @bind-Value="@model.Path" />
     </FormItem>
-        <FormItem Label="@AttachmentLocalResource.Url">
+        <FormItem Label="@Localizer[nameof(AttachmentLocalResource.Url)]">
         <Input @bind-Value="@model.Url" />
     </FormItem>
 

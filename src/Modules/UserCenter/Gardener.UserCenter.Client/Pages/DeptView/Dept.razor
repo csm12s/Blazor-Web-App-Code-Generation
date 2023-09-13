@@ -44,12 +44,12 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" />
-            <Column @bind-Field="@model.Name" Width="15%" Title="@UserCenterResource.Name" />
+             <Column @bind-Field="@model.Name" Width="15%" Title="@Localizer[nameof(UserCenterResource.Name)]" />
              <Column Width="10%" TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                 <span>@model.Tenant?.Name</span>
             </Column>
-            <Column @bind-Field="@model.Contacts" Width="10%" Title="@UserCenterResource.Contacts" />
-            <Column @bind-Field="@model.Tel" Width="10%" Title="@UserCenterResource.Tel" />
+            <Column @bind-Field="@model.Contacts" Width="10%" Title="@Localizer[nameof(UserCenterResource.Contacts)]" />
+            <Column @bind-Field="@model.Tel" Width="10%" Title="@Localizer[nameof(UserCenterResource.Tel)]" />
              <Column @bind-Field="@model.Order" Width="5%" Title="@Localizer[nameof(SharedLocalResource.Order)]" />
              <Column @bind-Field="@model.Remark" Width="10%" Title="@Localizer[nameof(SharedLocalResource.Remark)]" />
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[nameof(SharedLocalResource.IsLocked)]">
@@ -74,14 +74,14 @@
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                             </Tooltip>
                         </SpaceItem>

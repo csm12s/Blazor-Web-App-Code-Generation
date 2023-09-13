@@ -6,13 +6,13 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@Localizer[SystemManagerResource.CodeTypeName]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.CodeTypeName)]">
         <Input @bind-Value="@model.CodeTypeName" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.CodeTypeValue]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.CodeTypeValue)]">
         <Input @bind-Value="@model.CodeTypeValue" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Remark]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">

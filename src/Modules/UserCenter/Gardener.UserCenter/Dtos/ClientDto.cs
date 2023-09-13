@@ -5,8 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -14,48 +15,52 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 客户端信息
     /// </summary>
+    [Display(Name = nameof(UserCenterResource.Client), ResourceType = typeof(UserCenterResource))]
     public class ClientDto:BaseDto<Guid>
     {
         /// <summary>
         /// 名称
         /// </summary>
-        [DisplayName("Name")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(30, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(UserCenterResource.Name), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(30, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Name { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
-        [DisplayName("Remark")]
+        [Display(Name = nameof(SharedLocalResource.Remark), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(500, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Remark { get; set; } = null!;
 
         /// <summary>
         /// 联系人
         /// </summary>
-        [DisplayName("Contacts")]
-        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(UserCenterResource.Contacts), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Contacts { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
-        [DisplayName("Tel")]
-        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(UserCenterResource.Tel), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Tel { get; set; }
 
         /// <summary>
         /// 私钥
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), StringLength(64, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("SecretKey")]
+        [Display(Name = nameof(UserCenterResource.SecretKey), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(64, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? SecretKey { get; set; }
         
         /// <summary>
         /// 邮箱
         /// </summary>
-        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Email")]
+        [Display(Name = nameof(UserCenterResource.Email), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Email { get; set; }
     }
 }

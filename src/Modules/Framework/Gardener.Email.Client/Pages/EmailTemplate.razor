@@ -45,8 +45,8 @@
         </TitleTemplate>
             <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_email_template_delete_selected"]" />
-             <Column @bind-Field="@model.Id" Filterable Title="@Localizer[EmailLocalResource.Id]" />
-             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[EmailLocalResource.Name]" />
+             <Column @bind-Field="@model.Id" Filterable Title="@Localizer[nameof(SharedLocalResource.Id)]" />
+             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[nameof(SharedLocalResource.Name)]" />
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[nameof(SharedLocalResource.IsLocked)]">
                 <ResourceAuthorize ResourceKey="system_manager_email_template_lock">
                     <Authorized>
@@ -62,14 +62,14 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -77,14 +77,14 @@
 
                     <ResourceAuthorize ResourceKey="system_manager_email_template_send">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Send)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Send)]" ArrowPointAtCenter="true">
                                 <Button Icon="send" Type="@ButtonType.Primary" OnClick="()=>OnClickSend(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

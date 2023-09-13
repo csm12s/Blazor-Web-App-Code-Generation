@@ -5,9 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Enums;
+using Gardener.SystemManager.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.SystemManager.Dtos
@@ -15,61 +16,67 @@ namespace Gardener.SystemManager.Dtos
     /// <summary>
     /// 功能信息
     /// </summary>
-    [Description("功能信息")]
+    [Display(Name = nameof(SystemManagerResource.Function), ResourceType = typeof(SystemManagerResource))]
     public class FunctionDto : BaseDto<Guid>
     {
         /// <summary>
         /// 分组
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Group")]
+        [Display(Name = nameof(SharedLocalResource.Group), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(200, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Group { get; set; } = null!;
 
         /// <summary>
         /// 服务
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Service")]
+        [Display(Name = nameof(SharedLocalResource.Service), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(200, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Service { get; set; } = null!;
 
         /// <summary>
         /// 概要
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Summary")]
+        [Display(Name = nameof(SharedLocalResource.Summary), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Summary { get; set; } = null!;
 
         /// <summary>
         /// 唯一键
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Key")]
+        [Display(Name = nameof(SharedLocalResource.Key), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Key { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Description")]
+        [Display(Name = nameof(SharedLocalResource.Description), ResourceType = typeof(SharedLocalResource))]
+        [MaxLength(500, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Description { get; set; }
 
         /// <summary>
         /// API路由地址
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Path")]
+        [Display(Name = nameof(SharedLocalResource.Path), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(200, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Path { get; set; }
 
         /// <summary>
         /// 接口请求方法
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), DisplayName("Method")]
+        [Display(Name = nameof(SharedLocalResource.Method), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public HttpMethod Method { get; set; }
 
         /// <summary>
         /// 启用审计
         /// </summary>
-        [DisplayName("EnableAudit")]
+        [Display(Name = nameof(SystemManagerResource.EnableAudit), ResourceType = typeof(SystemManagerResource))]
         public bool EnableAudit { get; set; }
     }
 }

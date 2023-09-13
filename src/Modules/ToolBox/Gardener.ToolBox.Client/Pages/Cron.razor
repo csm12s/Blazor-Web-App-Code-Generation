@@ -83,7 +83,7 @@
     {
         if (string.IsNullOrEmpty(cron))
         {
-            await messageService.Warn("Cron " + SharedLocalResource.IsNullOrEmpty, duration: 1);
+            await messageService.Warn("Cron " + Localizer[nameof(SharedLocalResource.IsNullOrEmpty)], duration: 1);
             return;
         }
         int cronStringFormat = 0;
@@ -103,7 +103,7 @@
         if (!checkResult.IsValid)
         {
 #pragma warning disable CS4014
-            messageService.Warn(SharedLocalResource.Invalid + " Cron", duration: 1);
+            messageService.Warn(Localizer[nameof(SharedLocalResource.Invalid)] + " Cron", duration: 1);
 #pragma warning disable CS4014
             runDateTimes = null;
         }

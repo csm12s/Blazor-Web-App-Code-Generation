@@ -28,7 +28,7 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnClickSend(Guid id)
         {
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.Select(id);
-            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(SharedLocalResource.Send, input);
+            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(Localizer[nameof(SharedLocalResource.Send)], input);
         }
     }
 }

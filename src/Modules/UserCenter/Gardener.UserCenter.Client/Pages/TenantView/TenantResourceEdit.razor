@@ -26,7 +26,7 @@
         <AntDesign.Col>
             <Space>
                 <SpaceItem>
-                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?SharedLocalResource.Close:SharedLocalResource.Expand)">
+                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?Localizer[nameof(SharedLocalResource.Close)]:Localizer[nameof(SharedLocalResource.Expand)])">
                         <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
                     </Tooltip>
                 </SpaceItem>

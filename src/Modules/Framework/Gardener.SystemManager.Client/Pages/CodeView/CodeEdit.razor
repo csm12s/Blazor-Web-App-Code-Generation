@@ -6,13 +6,13 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@Localizer[SystemManagerResource.CodeName]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.CodeName)]">
         <Input @bind-Value="@model.CodeName" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.CodeValue]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.CodeValue)]">
         <Input @bind-Value="@model.CodeValue" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.CodeType]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.CodeType)]">
         @if (codeTypeDtos != null)
         {
             <Select DataSource="@codeTypeDtos"
@@ -26,13 +26,13 @@
         }
         
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Order]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.Order)]">
         <Input @bind-Value="@model.Order" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Color]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.Color)]">
         <Input @bind-Value="@model.Color" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.ExtendParams]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.ExtendParams)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.ExtendParams"></TextArea>
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">

@@ -29,8 +29,8 @@
         @if(_fields.Any()){
             string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
-            string begin = SharedLocalResource.Begin;
-            string end = SharedLocalResource.End;
+            string begin = localizer[nameof(SharedLocalResource.Begin)];
+            string end = localizer[nameof(SharedLocalResource.End)];
             foreach (TableSearchField fieldInfo in _fields)
             {
                 string displayName = fieldInfo.DisplayName;

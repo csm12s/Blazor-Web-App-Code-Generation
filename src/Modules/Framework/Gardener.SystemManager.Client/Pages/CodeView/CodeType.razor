@@ -28,7 +28,7 @@
                         <ResourceAuthorize ResourceKey="system_manager_code_type_refresh_code_util_cache">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="sync" OnClick="OnClickRefreshCodeUtilCache">
-                                    @Localizer[SystemManagerResource.RefreshCodeUtilCache]
+                                    @Localizer[nameof(SystemManagerResource.RefreshCodeUtilCache)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -68,11 +68,11 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@_userUnauthorizedResources["system_manager_code_type_delete_selected"]" />
-            <Column Title="@Localizer[SystemManagerResource.Id]" @bind-Field="@model.Id" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.CodeTypeName]" @bind-Field="@model.CodeTypeName" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.CodeTypeValue]" @bind-Field="@model.CodeTypeValue" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.Remark]" @bind-Field="@model.Remark" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.IsLocked]" @bind-Field="@model.IsLocked" Filterable>
+            <Column Title="@Localizer[nameof(SharedLocalResource.Id)]" @bind-Field="@model.Id" Filterable />
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeTypeName)]" @bind-Field="@model.CodeTypeName" Filterable />
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeTypeValue)]" @bind-Field="@model.CodeTypeValue" Filterable />
+             <Column Title="@Localizer[nameof(SharedLocalResource.Remark)]" @bind-Field="@model.Remark" Filterable />
+             <Column Title="@Localizer[nameof(SharedLocalResource.IsLocked)]" @bind-Field="@model.IsLocked" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_code_type_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -87,28 +87,28 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_code_type_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_code_type_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_code_type_codes_manager">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SystemManagerResource.CodeManager])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[nameof(SystemManagerResource.CodeManager)])" ArrowPointAtCenter="true">
                                 <Button Icon="select" Type="@ButtonType.Primary" OnClick="()=>OnClickShowCodesManager(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_code_type_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

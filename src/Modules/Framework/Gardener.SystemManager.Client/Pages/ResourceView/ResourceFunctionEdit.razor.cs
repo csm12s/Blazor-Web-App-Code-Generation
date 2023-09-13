@@ -147,7 +147,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -191,7 +191,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
             _bindLoading = true;
@@ -235,7 +235,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             Task<string> data = resourceFunctionService.GetSeedData(resourceIds);
 
             await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                       SharedLocalResource.SeedData,
+                       Localizer[nameof(SharedLocalResource.SeedData)],
                        data,
                        width: 1300);
         }

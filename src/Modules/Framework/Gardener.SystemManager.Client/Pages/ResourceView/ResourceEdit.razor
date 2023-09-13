@@ -8,10 +8,10 @@
           OnFinish="OnFormFinish"
           Context="model"
           Style="min-height:600px;">
-        <FormItem Label="@Localizer[SystemManagerResource.Id]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Id)]">
             <Input @bind-Value="@model.Id" Disabled />
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.Parent]">
+         <FormItem Label="@Localizer[nameof(SharedLocalResource.Parent)]">
             <Input @bind-Value="@model.ParentId" Type="hidden" />
             @if (resources != null && resources.Count > 0)
             {
@@ -31,13 +31,13 @@
                 </TreeSelect>
             }
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.Name]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Name)]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.Key]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Key)]">
             <Input @bind-Value="@model.Key" />
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.Type]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Type)]">
             <RadioGroup @bind-Value="@(model.Type)">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
                 {
@@ -47,26 +47,26 @@
         </FormItem>
         @if (model.Type.Equals(ResourceType.Menu))
         {
-            <FormItem Label="@Localizer[SystemManagerResource.Path]">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.Path)]">
                 <Input @bind-Value="@model.Path" Placeholder="/module/view" />
             </FormItem>
-            <FormItem Label="@Localizer[SystemManagerResource.Icon]">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.Icon)]">
                 <Input @bind-Value="@model.Icon" />
             </FormItem>
-            <FormItem Label="@Localizer[SystemManagerResource.Hide]">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.Hide)]">
                 <Switch @bind-Value="@model.Hide"></Switch>
             </FormItem>
         }
-        <FormItem Label="@Localizer[SystemManagerResource.Order]">
+        <FormItem Label="@Localizer[nameof(SystemManagerResource.Order)]">
             <AntDesign.InputNumber @bind-Value="@model.Order" />
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.SupportMultiTenant]">
+        <FormItem Label="@Localizer[nameof(SystemManagerResource.SupportMultiTenant)]">
             <Switch @bind-Value="@model.SupportMultiTenant"></Switch>
         </FormItem>
            <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
-        <FormItem Label="@Localizer[SystemManagerResource.Remark]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))

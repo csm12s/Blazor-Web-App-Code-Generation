@@ -129,6 +129,9 @@
   <data name="ArrayRangeValidationError" xml:space="preserve">
     <value>{0} must be between {1} and {2} in length</value>
   </data>
+  <data name="CompareMustMatchValidationError" xml:space="preserve">
+    <value>{0} and {1} do not match.</value>
+  </data>
   <data name="DefaultValidationError" xml:space="preserve">
     <value>Validation error on field {0}</value>
   </data>

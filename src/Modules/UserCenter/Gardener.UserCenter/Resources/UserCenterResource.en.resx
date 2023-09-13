@@ -144,6 +144,9 @@
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
   </data>
+  <data name="Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
   <data name="ConfirmNewPassword" xml:space="preserve">
     <value>Confirm new password</value>
   </data>

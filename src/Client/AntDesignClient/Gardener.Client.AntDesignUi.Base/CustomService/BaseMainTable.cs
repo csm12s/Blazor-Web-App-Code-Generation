@@ -304,7 +304,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             Task<string> seedData = _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(SharedLocalResource.SeedData, seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(localizer[nameof(SharedLocalResource.SeedData)], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 return;
             };
 
-            await OpenOperationDialogAsync(SharedLocalResource.Add, input, onClose);
+            await OpenOperationDialogAsync(localizer[nameof(SharedLocalResource.Add)], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -477,7 +477,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 }
                 return;
             };
-            await OpenOperationDialogAsync(SharedLocalResource.Edit, input, onClose);
+            await OpenOperationDialogAsync(localizer[nameof(SharedLocalResource.Edit)], input, onClose);
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task OnClickDetail(TKey id)
         {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Select(id);
-            await OpenOperationDialogAsync(SharedLocalResource.Detail, input);
+            await OpenOperationDialogAsync(localizer[nameof(SharedLocalResource.Detail)], input);
         }
 
         /// <summary>

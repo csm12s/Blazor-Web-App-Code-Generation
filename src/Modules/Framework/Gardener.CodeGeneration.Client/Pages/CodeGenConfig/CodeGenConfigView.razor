@@ -18,17 +18,17 @@
         <Row>
             <AntDesign.Col Span="8">
                 <Button Type="@ButtonType.Primary" Danger OnClick="OnClickSaveAllAndClose" Loading="_saveAllBtnLoading">
-                    @Localizer[CodeGenLocalResource.SaveAndClose]
+                    @Localizer[nameof(CodeGenLocalResource.SaveAndClose)]
                 </Button>
                 <Button Type="@ButtonType.Primary" OnClick="OnClickSaveAll" Loading="_saveAllBtnLoading">
-                    @Localizer[CodeGenLocalResource.OnlySave]
+                    @Localizer[nameof(CodeGenLocalResource.OnlySave)]
                 </Button>
             </AntDesign.Col>
             <AntDesign.Col Span="16" Style="text-align:right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                            @Localizer[CodeGenLocalResource.Refresh]
+                             @Localizer[nameof(SharedLocalResource.Refresh)]
                         </Button>
                     </SpaceItem>
                 </Space>

@@ -147,6 +147,9 @@
   <data name="ExtendParams" xml:space="preserve">
     <value>扩展参数</value>
   </data>
+  <data name="Function" xml:space="preserve">
+    <value>功能</value>
+  </data>
   <data name="LocalCodeName" xml:space="preserve">
     <value>本地字典名</value>
   </data>

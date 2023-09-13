@@ -33,12 +33,12 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             {
                 //成功
                 await base.ReLoadTable();
-                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(nameof(EasyJobLocalResource.Pause), nameof(SharedLocalResource.Success)));
             }
             else
             {
                 //失败
-                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(EasyJobLocalResource.Pause), nameof(SharedLocalResource.Fail)));
             }
         }
         /// <summary>
@@ -52,13 +52,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             if (result)
             {
                 //成功
-                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(nameof(EasyJobLocalResource.Start), nameof(SharedLocalResource.Success)));
                 await base.ReLoadTable();
             }
             else
             {
                 //失败
-                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(EasyJobLocalResource.Start), nameof(SharedLocalResource.Fail)));
             }
         }
         /// <summary>

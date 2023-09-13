@@ -70,28 +70,28 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_send">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Send)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Send)]" ArrowPointAtCenter="true">
                                 <Button Icon="send" Type="@ButtonType.Primary" OnClick="()=>OnClickSend(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

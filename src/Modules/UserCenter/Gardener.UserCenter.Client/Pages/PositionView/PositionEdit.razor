@@ -20,19 +20,19 @@
             </Select>
         </FormItem>
     </ResourceAuthorize>
-    <FormItem Label="@UserCenterResource.Name">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="@UserCenterResource.Target">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Target)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Target"></TextArea>
     </FormItem>
-    <FormItem Label="@UserCenterResource.Duty">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Duty)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Duty"></TextArea>
     </FormItem>
-    <FormItem Label="@UserCenterResource.Right">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Right)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Right"></TextArea>
     </FormItem>
-    <FormItem Label="@UserCenterResource.Grade">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Grade)]">
         <Select DataSource="@grades"
                 @bind-Value="@model.Grade"
                 ValueName="@nameof(CodeDto.CodeValue)"
@@ -42,10 +42,10 @@
                 AllowClear>
         </Select>
     </FormItem>
-    <FormItem Label="@UserCenterResource.Qualifications">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Qualifications)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Qualifications"></TextArea>
     </FormItem>
-    <FormItem Label="@UserCenterResource.Salary">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Salary)]">
         <Input @bind-Value="@model.Salary" />
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">

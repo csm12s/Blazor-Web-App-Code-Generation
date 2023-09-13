@@ -303,7 +303,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, SharedLocalResource.Fail));
+                messageService.Error(Localizer.Combination(nameof(WoChatResource.OpenSession),nameof(SharedLocalResource.Fail)));
             }
             else
             {
@@ -355,7 +355,7 @@ namespace Gardener.WoChat.Client.Components
             IEnumerable<int> userIds = openGroupSelectedUsers.SelectKeys(true);
             if (!userIds.Any())
             {
-                messageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
             //发起群聊
@@ -368,7 +368,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, SharedLocalResource.Fail));
+                messageService.Error(Localizer.Combination(nameof(WoChatResource.OpenSession), nameof(SharedLocalResource.Fail)));
             }
             else
             {
@@ -399,7 +399,7 @@ namespace Gardener.WoChat.Client.Components
             }
             if (string.IsNullOrEmpty(inputMessage))
             {
-                messageService.Warn(Localizer[WoChatResource.PleaseInputContent]);
+                messageService.Warn(Localizer[nameof(WoChatResource.PleaseInputContent)]);
                 return;
             }
             ImSessionMessageDto message = new ImSessionMessageDto();
@@ -495,7 +495,7 @@ namespace Gardener.WoChat.Client.Components
         {
             if (sessionListSelectedSessionId == null)
             {
-                messageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
 
@@ -508,7 +508,7 @@ namespace Gardener.WoChat.Client.Components
             }
             else
             {
-                messageService.Error(action + Localizer[SharedLocalResource.Fail]);
+                messageService.Error(action + Localizer[nameof(SharedLocalResource.Fail)]);
             }
         }
 
@@ -541,7 +541,7 @@ namespace Gardener.WoChat.Client.Components
             }
             else
             {
-                messageService.Warn(Localizer.Combination(sessionListSelectedSession.DisableSendMessage ? WoChatResource.EnableSessionSendMessage : WoChatResource.DisableSessionSendMessage, SharedLocalResource.Fail));
+                messageService.Warn(Localizer.Combination(sessionListSelectedSession.DisableSendMessage ? nameof(WoChatResource.EnableSessionSendMessage) : nameof(WoChatResource.DisableSessionSendMessage), nameof(SharedLocalResource.Fail)));
             }
             disableSendMessageLoading = false;
         }

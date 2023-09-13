@@ -63,19 +63,19 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@_userUnauthorizedResources["system_manager_code_delete_selected"]" />
-            <Column Title="@Localizer[SystemManagerResource.CodeName]" @bind-Field="@model.CodeName" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.LocalCodeName]" @bind-Field="@model.LocalCodeName"  />
-            <Column Title="@Localizer[SystemManagerResource.CodeValue]" @bind-Field="@model.CodeValue" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.CodeTypeId]" @bind-Field="@model.CodeTypeId" Filterable Sortable DefaultSortOrder="@SortDirection.Descending">
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeName)]" @bind-Field="@model.CodeName" Filterable />
+            <Column Title="@Localizer[nameof(SystemManagerResource.LocalCodeName)]" @bind-Field="@model.LocalCodeName"  />
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeValue)]" @bind-Field="@model.CodeValue" Filterable />
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeTypeId)]" @bind-Field="@model.CodeTypeId" Filterable Sortable DefaultSortOrder="@SortDirection.Descending">
                 @model.CodeTypeId
             </Column>
-            <Column Title="@Localizer[SystemManagerResource.CodeType]" @bind-Field="@model.CodeTypeId">
+            <Column Title="@Localizer[nameof(SystemManagerResource.CodeType)]" @bind-Field="@model.CodeTypeId">
                  @model.CodeType.CodeTypeName
             </Column>
-            <Column Title="@Localizer[SystemManagerResource.Order]" @bind-Field="@model.Order" Filterable Sortable DefaultSortOrder="@SortDirection.Ascending" />
-            <Column Title="@Localizer[SystemManagerResource.Color]" @bind-Field="@model.Color" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.ExtendParams]" @bind-Field="@model.ExtendParams" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.IsLocked]" @bind-Field="@model.IsLocked" Filterable>
+            <Column Title="@Localizer[nameof(SystemManagerResource.Order)]" @bind-Field="@model.Order" Filterable Sortable DefaultSortOrder="@SortDirection.Ascending" />
+            <Column Title="@Localizer[nameof(SystemManagerResource.Color)]" @bind-Field="@model.Color" Filterable />
+            <Column Title="@Localizer[nameof(SystemManagerResource.ExtendParams)]" @bind-Field="@model.ExtendParams" Filterable />
+            <Column Title="@Localizer[nameof(SharedLocalResource.IsLocked)]" @bind-Field="@model.IsLocked" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_code_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -90,21 +90,21 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_code_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_code_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_code_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

@@ -41,7 +41,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             var setting = base.GetOperationDialogSettings();
             setting.Width = 1000;
-            await OpenOperationDialogAsync<FunctionImport, int, bool>(SharedLocalResource.Import, 0, async r =>
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(Localizer[nameof(SharedLocalResource.Import)], 0, async r =>
             {
                 await ReLoadTable();
 

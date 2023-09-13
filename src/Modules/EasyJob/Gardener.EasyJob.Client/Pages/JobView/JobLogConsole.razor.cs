@@ -256,10 +256,10 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             int index = 1;
             foreach (var item in sysJobLogs)
             {
-                string status = SharedLocalResource.Success;
+                string status = Localizer[nameof(SharedLocalResource.Success)];
                 if (!item.Succeeded)
                 {
-                    status = SharedLocalResource.Fail;
+                    status = Localizer[nameof(SharedLocalResource.Fail)];
                 }
                 contentSb.AppendLine($"[{index++}] {item.CreatedTime.ToString(ClientConstant.DateTimeFormat)} - [{item.JobDetailDescription ?? item.JobId}({item.JobId})] - [{item.JobTriggerDescription ?? item.TriggerId}({item.TriggerId})] - [{item.ElapsedTime} ms] - [{status}]");
                 if (!string.IsNullOrEmpty(item.Result))
@@ -301,7 +301,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             SysJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
             if (result == null)
             {
-                MessageService.Error((enable ? SharedLocalResource.Open : SharedLocalResource.Close) + SharedLocalResource.Fail);
+                MessageService.Error((enable ? Localizer[nameof(SharedLocalResource.Open)] : Localizer[nameof(SharedLocalResource.Close)]) + Localizer[nameof(SharedLocalResource.Fail)]);
             }
             else
             {

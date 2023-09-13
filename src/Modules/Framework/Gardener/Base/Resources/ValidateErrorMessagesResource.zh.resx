@@ -129,6 +129,9 @@
   <data name="ArrayRangeValidationError" xml:space="preserve">
     <value>{0}的长度必须介于{1}和{2}之间</value>
   </data>
+  <data name="CompareMustMatchValidationError" xml:space="preserve">
+    <value>{0}和{1}不匹配。</value>
+  </data>
   <data name="DefaultValidationError" xml:space="preserve">
     <value>字段{0}上的验证错误</value>
   </data>

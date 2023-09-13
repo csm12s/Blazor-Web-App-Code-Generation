@@ -35,6 +35,11 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AttachmentLocalResource.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Audit\Resources\AuditLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AuditLocalResource.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Base\Resources\CodeLocalResource.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -55,12 +60,31 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ValidateErrorMessagesResource.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="CodeGeneration\Resources\CodeGenLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>CodeGenLocalResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Email\Resources\EmailLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>EmailLocalResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="SystemManager\Resources\SystemManagerResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SystemManagerResource.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Update="Attachment\Resources\AttachmentLocalResource.resx">
 		  <Generator>PublicResXFileCodeGenerator</Generator>
 		  <LastGenOutput>AttachmentLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Audit\Resources\AuditLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>AuditLocalResource.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.resx">
 		  <Generator>PublicResXFileCodeGenerator</Generator>
@@ -111,12 +135,24 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
+		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>CodeGenLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
+		<EmbeddedResource Update="Email\Resources\EmailLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>EmailLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.en.resx">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>SystemManagerResource.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.zh.resx">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>

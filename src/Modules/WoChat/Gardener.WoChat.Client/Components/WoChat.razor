@@ -174,7 +174,7 @@
                                         </GridRow>
                                         <GridRow>
                                             <GridCol Span="24" Style="padding-right:2px;">
-                                                <TextArea MinRows="4" @bind-Value="@inputMessage" Placeholder="@(sessionListSelectedSession.CurrentUserCanSendMessage?Localizer[WoChatResource.DisableSendMessage]:Localizer[WoChatResource.PleaseInputContent])" Disabled="@sessionListSelectedSession.CurrentUserCanSendMessage" ShowCount MaxLength="100" />
+                                                <TextArea MinRows="4" @bind-Value="@inputMessage" Placeholder="@(sessionListSelectedSession.CurrentUserCanSendMessage?Localizer[nameof(WoChatResource.DisableSendMessage)]:Localizer[nameof(WoChatResource.PleaseInputContent)])" Disabled="@sessionListSelectedSession.CurrentUserCanSendMessage" ShowCount MaxLength="100" />
                                             </GridCol>
                                         </GridRow>
                                         <GridRow>
@@ -217,7 +217,7 @@
                                                 @if (sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
                                                 {
                                                     <GridRow>
-                                                        <GridCol Span="10"><span> @WoChatResource.DisableSendMessage ：</span></GridCol>
+                                                        <GridCol Span="10"><span> @Localizer[nameof(WoChatResource.DisableSendMessage)] ：</span></GridCol>
                                                         <GridCol Span="14">
                                                             <Switch Checked="@sessionListSelectedSession.DisableSendMessage" Loading="@disableSendMessageLoading" Control OnClick="OnDisableSendMessage" />
                                                         </GridCol>
@@ -227,11 +227,11 @@
                                                     <GridCol Span="24">
                                                         @if (sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
                                                         {
-                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.RemoveGroupChat])">@WoChatResource.RemoveGroupChat</Button>
+                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[nameof(WoChatResource.RemoveGroupChat)])">@WoChatResource.RemoveGroupChat</Button>
                                                         }
                                                         else
                                                         {
-                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.QuitGroupChat])">@WoChatResource.QuitGroupChat</Button>
+                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[nameof(WoChatResource.QuitGroupChat)])">@WoChatResource.QuitGroupChat</Button>
                                                         }
                                                     </GridCol>
                                                 </GridRow>
@@ -239,7 +239,7 @@
                                             }
                                             else
                                             {
-                                                <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.DeleteSession])">@WoChatResource.DeleteSession</Button>
+                                                <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[nameof(WoChatResource.DeleteSession)])">@WoChatResource.DeleteSession</Button>
                                             }
                                         </GridCol>
                                     </GridRow>
@@ -264,14 +264,14 @@
                                             @if (openGroupMode)
                                             {
                                                 <InputGroup Compact>
-                                                 <Input Placeholder="@WoChatResource.InputGroupName" @bind-Value="@openGroupName" Style="width: 80%;" />
+                                                 <Input Placeholder="@Localizer[nameof(WoChatResource.InputGroupName)]" @bind-Value="@openGroupName" Style="width: 80%;" />
                                                 <Button Type="@ButtonType.Primary" Icon="@IconType.Outline.Check" Size="@ButtonSize.Default" OnClick="OnClickOpenGroupModeOk" />
                                             </InputGroup>
 
                                             }
                                             else
                                             {
-                                                <Button Block Icon="@IconType.Outline.Plus" Size="@ButtonSize.Default" OnClick="OnClickOpenGroupMode">@WoChatResource.InitiateGroupChat</Button>
+                                                <Button Block Icon="@IconType.Outline.Plus" Size="@ButtonSize.Default" OnClick="OnClickOpenGroupMode">@Localizer[nameof(WoChatResource.InitiateGroupChat)]</Button>
                                             }
                                         </GridCol>
                                     </GridRow>
@@ -313,7 +313,7 @@
                                     }
                                     else
                                     {
-                                        <Descriptions Title="@WoChatResource.UserInfo" Bordered Style="text-align:center;">
+                                        <Descriptions Title="@Localizer[nameof(WoChatResource.UserInfo)]" Bordered Style="text-align:center;">
                                             <DescriptionsItem Title="@Localizer[nameof(SharedLocalResource.Avatar)]" Span="3">
                                                 @if (userListSelectedUser?.Avatar == null)
                                                 {
@@ -335,7 +335,7 @@
                                     @if (userListSelectedUser != null)
                                     {
                                         <Button Type="@ButtonType.Primary" OnClick="OnClickOpenSession">
-                                            @WoChatResource.SendMessage
+                                            @Localizer[nameof(WoChatResource.SendMessage)]
                                         </Button>
                                     }
                                 </GridCol>

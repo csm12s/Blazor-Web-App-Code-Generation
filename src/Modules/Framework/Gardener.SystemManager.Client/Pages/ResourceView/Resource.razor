@@ -42,7 +42,7 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" Hidden="@_userUnauthorizedResources["system_manager_resource_delete_selected"]" />
-            <Column @bind-Field="@model.Name" Width="20%" Title="@Localizer[SystemManagerResource.Name]">
+             <Column @bind-Field="@model.Name" Width="20%" Title="@Localizer[nameof(SharedLocalResource.Name)]">
                 <span>
                     @if (!string.IsNullOrEmpty(model.Icon))
                     {
@@ -54,15 +54,15 @@
 
             @*<Column @bind-Field="@model.Key" Width="10%" />
             <Column @bind-Field="@model.Path" Width="10%"/>*@
-            <Column @bind-Field="@model.Type" Width="5%" Title="@Localizer[SystemManagerResource.Type]">
+            <Column @bind-Field="@model.Type" Width="5%" Title="@Localizer[nameof(SharedLocalResource.Type)]">
                 <TagPro Text="@(EnumHelper.GetEnumDescription(model.Type))"></TagPro>
             </Column>
-            <Column @bind-Field="@model.Key" Width="5%" Title="@Localizer[SystemManagerResource.Key]" />
-            <Column @bind-Field="@model.Order" Width="5%" Title="@Localizer[SystemManagerResource.Order]" />
-            <Column @bind-Field="@model.SupportMultiTenant" Filterable Title="@Localizer[SystemManagerResource.SupportMultiTenant]">
+            <Column @bind-Field="@model.Key" Width="5%" Title="@Localizer[nameof(SharedLocalResource.Key)]" />
+            <Column @bind-Field="@model.Order" Width="5%" Title="@Localizer[nameof(SystemManagerResource.Order)]" />
+            <Column @bind-Field="@model.SupportMultiTenant" Filterable Title="@Localizer[nameof(SystemManagerResource.SupportMultiTenant)]">
                  <TagYesNo Yes="model.SupportMultiTenant"></TagYesNo>
              </Column>
-             <Column @bind-Field="@model.Hide" Filterable Title="@Localizer[SystemManagerResource.Hide]">
+             <Column @bind-Field="@model.Hide" Filterable Title="@Localizer[nameof(SharedLocalResource.Hide)]">
                  <TagYesNo Yes="model.Hide"></TagYesNo>
              </Column>
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[nameof(SharedLocalResource.IsLocked)]">
@@ -86,7 +86,7 @@
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_resource_download_seed_data">
                         <SpaceItem>
-                            <Tooltip Title="@(SharedLocalResource.SeedData)" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.SeedData)]" ArrowPointAtCenter="true">
                                 <Button Icon="download" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnDownloadSeedDataClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -95,7 +95,7 @@
                     {
                         <ResourceAuthorize ResourceKey="system_manager_resource_edit">
                             <SpaceItem>
-                                <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                                <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                     <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model)"></Button>
                                 </Tooltip>
                             </SpaceItem>
@@ -110,7 +110,7 @@
 
                         <ResourceAuthorize ResourceKey="system_manager_resource_detail">
                             <SpaceItem>
-                                <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                                <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                     <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                                 </Tooltip>
                             </SpaceItem>
@@ -126,7 +126,7 @@
                     }else{
                      <ResourceAuthorize ResourceKey="system_manager_resource_detail">
                             <SpaceItem>
-                                <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                                <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                     <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                                 </Tooltip>
                             </SpaceItem>

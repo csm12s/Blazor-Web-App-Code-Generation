@@ -5,13 +5,13 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@UserCenterResource.Name">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="@UserCenterResource.Email">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Email)]">
         <Input @bind-Value="@model.Email" />
     </FormItem>
-    <FormItem Label="@UserCenterResource.Tel">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Tel)]">
         <Input @bind-Value="@model.Tel" />
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">

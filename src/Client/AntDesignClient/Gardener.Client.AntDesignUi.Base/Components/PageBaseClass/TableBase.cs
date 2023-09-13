@@ -314,14 +314,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (!result)
                 {
                     temp1.IsLocked = !isLocked;
-                    string msg = isLocked ? SharedLocalResource.Lock : SharedLocalResource.Unlock;
+                    string msg = isLocked ? Localizer[nameof(SharedLocalResource.Lock)] : Localizer[nameof(SharedLocalResource.Unlock)];
 
-                    MessageService.Error($"{msg} {SharedLocalResource.Fail}");
+                    MessageService.Error($"{msg} {Localizer[nameof(SharedLocalResource.Fail)]}");
                 }
             }
             else
             {
-                MessageService.Error($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
+                MessageService.Error($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
             }
 
             _lockBtnLoading.Stop(model);
@@ -380,7 +380,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }

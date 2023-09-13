@@ -113,7 +113,7 @@
                      <Column @bind-Field="@model.Avatar" Title="@Localizer[nameof(SharedLocalResource.Avatar)]">
                          <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
                              <Authorized>
-                                 <Tooltip Placement="Placement.LeftTop" Title="@UserCenterResource.ClickUpdateAvatar">
+                                 <Tooltip Placement="Placement.LeftTop" Title="@Localizer[nameof(UserCenterResource.ClickUpdateAvatar)]">
                                      <a @onclick="_=>OnAvatarClick(model)">
                                          @if (model.Avatar == null)
                                         {
@@ -164,14 +164,14 @@
                          <Space>
                              <ResourceAuthorize ResourceKey="user_center_user_edit">
                                  <SpaceItem>
-                                     <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                          <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>
                              </ResourceAuthorize>
                              <ResourceAuthorize ResourceKey="user_center_user_detail">
                                  <SpaceItem>
-                                     <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                          <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>
@@ -185,7 +185,7 @@
                              </ResourceAuthorize>
                              <ResourceAuthorize ResourceKey="user_center_user_delete">
                                  <SpaceItem>
-                                     <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                          <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>

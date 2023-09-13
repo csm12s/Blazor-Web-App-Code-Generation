@@ -99,6 +99,15 @@ namespace Gardener.Base.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string CompareMustMatchValidationError {
+            get {
+                return ResourceManager.GetString("CompareMustMatchValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string DefaultValidationError {
             get {
                 return ResourceManager.GetString("DefaultValidationError", resourceCulture);

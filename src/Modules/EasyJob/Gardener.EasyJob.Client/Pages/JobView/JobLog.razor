@@ -41,13 +41,13 @@
             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[nameof(EasyJobLocalResource.JobId)]" Width="150" Fixed="left">
                  <a href="system_manager/easy_job_detail?JobId=@model.JobId">@model.JobId</a>
              </Column>
-             <Column @bind-Field="@model.JobDetailDescription" Filterable Title="@(Localizer.Combination(EasyJobLocalResource.Job,SharedLocalResource.Description))" Width="150" Fixed="left">
+             <Column @bind-Field="@model.JobDetailDescription" Filterable Title="@(Localizer.Combination(nameof(EasyJobLocalResource.Job),nameof(SharedLocalResource.Description)))" Width="150" Fixed="left">
                  <a href="system_manager/easy_job_detail?JobId=@model.JobId">@(model.JobDetailDescription ?? model.JobId)</a>
             </Column>
             <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[nameof(EasyJobLocalResource.TriggerId)]" Width="150" Fixed="left">
                  <a href="system_manager/easy_job_trigger?TriggerId=@model.TriggerId">@model.TriggerId</a>
              </Column>
-             <Column @bind-Field="@model.JobTriggerDescription" Filterable Title="@(Localizer.Combination(EasyJobLocalResource.Trigger,SharedLocalResource.Description))" Width="150" Fixed="left">
+             <Column @bind-Field="@model.JobTriggerDescription" Filterable Title="@(Localizer.Combination(nameof(EasyJobLocalResource.Trigger),nameof(SharedLocalResource.Description)))" Width="150" Fixed="left">
                  <a href="system_manager/easy_job_trigger?TriggerId=@model.TriggerId">@(model.JobTriggerDescription ?? model.TriggerId)</a>
             </Column>
             <Column @bind-Field="@model.Succeeded" Filterable Title="@Localizer[nameof(SharedLocalResource.Succeed)]" Width="150" Fixed="left">
@@ -61,7 +61,7 @@
                  <Space>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_log_detail">
                          <SpaceItem>
-                             <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
+                             <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                  <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>

@@ -18,18 +18,18 @@
             </Select>
         </FormItem>
     </ResourceAuthorize>
-    <FormItem Label="@UserCenterResource.Name">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
     </FormItem>
     <ResourceAuthorize ResourceKey="user_center_role_set_is_super_administrator">
-        <FormItem Label="@UserCenterResource.IsSuperAdministrator">
+        <FormItem Label="@Localizer[nameof(UserCenterResource.IsSuperAdministrator)]">
             <Switch @bind-Value="@model.IsSuperAdministrator"></Switch>
         </FormItem>
     </ResourceAuthorize>
-    <FormItem Label="@UserCenterResource.IsDefault">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.IsDefault)]">
         <Switch @bind-Value="@model.IsDefault"></Switch>
     </FormItem>
     <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">

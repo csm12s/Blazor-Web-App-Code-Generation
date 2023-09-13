@@ -144,6 +144,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Client {
+            get {
+                return ResourceManager.GetString("Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string ConfirmNewPassword {
             get {
                 return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);

@@ -61,7 +61,7 @@ namespace AntDesign
         /// <param name="title"></param>
         /// <returns></returns>
         /// <remarks>
-        /// <para>content此时为 <see cref="nameof(SharedLocalResource.OperateConfirmMessage)"/></para>
+        /// <para>content此时为 <see cref="SharedLocalResource.OperateConfirmMessage"/></para>
         /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
         /// </remarks>
         public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title)
@@ -74,8 +74,8 @@ namespace AntDesign
         /// <param name="confirmService"></param>
         /// <returns></returns>
         /// <remarks>
-        /// <para>title此时为 <see cref="nameof(SharedLocalResource.Delete)"/></para>
-        /// <para>content此时为 <see cref="nameof(SharedLocalResource.OperateConfirmMessage)"/></para>
+        /// <para>title此时为 <see cref="SharedLocalResource.Delete"/></para>
+        /// <para>content此时为 <see cref="SharedLocalResource.OperateConfirmMessage"/></para>
         /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
         /// </remarks>
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)

@@ -44,14 +44,14 @@
                    SelectedRowsChanged="SelectedRowsChanged"
                    EnableVirtualization>
                 <Selection Key="@(model.Path+"_"+model.Method)" />
-                <Column Title="@Localizer[SystemManagerResource.Service]" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
-                 <Column Title="@Localizer[SystemManagerResource.Summary]" @bind-Field="@model.Summary" Width="150" Sortable="false" Filterable />
-                 <Column Title="@Localizer[SystemManagerResource.Description]" @bind-Field="@model.Description" Width="200" Sortable="false" Filterable />
-                <Column Title="@Localizer[SystemManagerResource.Path]" @bind-Field="@model.Path" Width="150" Sortable="false" Filterable />
-                 <Column Title="@Localizer[SystemManagerResource.Method]" @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
+                <Column Title="@Localizer[nameof(SharedLocalResource.Service)]" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
+                 <Column Title="@Localizer[nameof(SharedLocalResource.Summary)]" @bind-Field="@model.Summary" Width="150" Sortable="false" Filterable />
+                 <Column Title="@Localizer[nameof(SharedLocalResource.Description)]" @bind-Field="@model.Description" Width="200" Sortable="false" Filterable />
+                <Column Title="@Localizer[nameof(SharedLocalResource.Path)]" @bind-Field="@model.Path" Width="150" Sortable="false" Filterable />
+                 <Column Title="@Localizer[nameof(SharedLocalResource.Method)]" @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
                     <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
-                 <Column Title="@Localizer[SystemManagerResource.EnableAudit]" @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
+                 <Column Title="@Localizer[nameof(SystemManagerResource.EnableAudit)]" @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
                     <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
                 </Column>
             </Table>
@@ -68,7 +68,7 @@
     <AntDesign.Col Span="8" Offset="8">
         <Space>
             <SpaceItem>
-                <Tooltip Placement="@Placement.Top" Title="@(SharedLocalResource.Import)">
+                <Tooltip Placement="@Placement.Top" Title="@Localizer[nameof(SharedLocalResource.Import)]">
                     <Button Type="@ButtonType.Primary" OnClick="OnImportClick" Loading="_importLoading">
                         @Localizer[nameof(SharedLocalResource.Import)]
                     </Button>

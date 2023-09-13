@@ -93,7 +93,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        MessageService.Error(SharedLocalResource.DataNotFound);
+                        MessageService.Error(Localizer[nameof(SharedLocalResource.DataNotFound)]);
                     }
                 }
 
@@ -184,7 +184,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }

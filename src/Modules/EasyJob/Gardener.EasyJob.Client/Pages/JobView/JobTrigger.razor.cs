@@ -134,13 +134,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 if (result)
                 {
                     //成功
-                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(nameof(EasyJobLocalResource.Pause), nameof(SharedLocalResource.Success)));
                     await base.ReLoadTable();
                 }
                 else
                 {
                     //失败
-                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(EasyJobLocalResource.Pause), nameof(SharedLocalResource.Fail)));
                 }
             }
         }
@@ -157,13 +157,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 if (result)
                 {
                     //成功
-                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(nameof(EasyJobLocalResource.Start), nameof(SharedLocalResource.Success)));
                     await base.ReLoadTable();
                 }
                 else
                 {
                     //失败
-                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(EasyJobLocalResource.Start), nameof(SharedLocalResource.Fail)));
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             SysJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
             if (result == null)
             {
-                MessageService.Error((enable ? SharedLocalResource.Open : SharedLocalResource.Close) + SharedLocalResource.Fail);
+                MessageService.Error((enable ? Localizer[nameof(SharedLocalResource.Open)] : Localizer[nameof(SharedLocalResource.Close)]) + Localizer[nameof(SharedLocalResource.Fail)]);
             }
             else
             {

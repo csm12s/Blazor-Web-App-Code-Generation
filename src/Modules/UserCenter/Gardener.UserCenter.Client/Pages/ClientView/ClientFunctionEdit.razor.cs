@@ -130,7 +130,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -169,7 +169,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
 

@@ -8,28 +8,28 @@
             WrapperCol="new ColLayoutParam { Span = 18 }"
             OnFinish="OnFormFinish"
             Context="model">
-        <FormItem Label="@Localizer[EmailLocalResource.Name]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Name)]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Host]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Host)]">
             <Input @bind-Value="@model.Host" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Port]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Port)]">
             <Input @bind-Value="@model.Port" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.FromEmail]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.FromEmail)]">
             <Input @bind-Value="@model.FromEmail" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.AccountName]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.AccountName)]">
             <Input @bind-Value="@model.AccountName" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.AccountPassword]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.AccountPassword)]">
             <Input @bind-Value="@model.AccountPassword" Type="password" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Remark]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Remark]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Tags)]">
             <Input @bind-Value="@model.Tags" Type="hidden" />
             <SimpleSelect Mode="multiple" @bind-Values="@_tags">
                 <SelectOptions>
@@ -40,7 +40,7 @@
                 </SelectOptions>
             </SimpleSelect>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.EnableSsl]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.EnableSsl)]">
             <Switch @bind-Value="@model.EnableSsl"></Switch>
         </FormItem>
         <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">

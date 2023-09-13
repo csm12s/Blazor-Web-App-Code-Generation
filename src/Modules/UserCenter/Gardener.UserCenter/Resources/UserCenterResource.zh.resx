@@ -138,6 +138,9 @@
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>点击修改头像</value>
   </data>
+  <data name="Client" xml:space="preserve">
+    <value>客户端</value>
+  </data>
   <data name="ConfirmNewPassword" xml:space="preserve">
     <value>确认新密码</value>
   </data>

@@ -272,7 +272,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
             }
             else
             {
@@ -341,7 +341,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
             }
             else
             {
@@ -388,7 +388,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             Task<string> seedData = BaseService.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(SharedLocalResource.SeedData, seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(Localizer[nameof(SharedLocalResource.SeedData)], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>

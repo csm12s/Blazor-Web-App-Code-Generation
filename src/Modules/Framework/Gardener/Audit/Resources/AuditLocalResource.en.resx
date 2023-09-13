@@ -126,6 +126,9 @@
   <data name="DisplayName" xml:space="preserve">
     <value>Display name</value>
   </data>
+  <data name="FieldChangeDetails" xml:space="preserve">
+    <value>Field change details</value>
+  </data>
   <data name="FieldName" xml:space="preserve">
     <value>Field name</value>
   </data>

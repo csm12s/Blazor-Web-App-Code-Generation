@@ -71,7 +71,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                     }
                     else
                     {
-                        MessageService.Error(SharedLocalResource.DataNotFound);
+                        MessageService.Error(Localizer[nameof(SharedLocalResource.DataNotFound)]);
                     }
 
                 }
