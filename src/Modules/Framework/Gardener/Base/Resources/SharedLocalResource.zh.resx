@@ -765,4 +765,34 @@
   <data name="Cron" xml:space="preserve">
     <value>Cron</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="SystemTenant" xml:space="preserve">
+    <value>系统租户</value>
+  </data>
+  <data name="SystemTenantResource" xml:space="preserve">
+    <value>系统租户资源</value>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>浏览器</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌面</value>
+  </data>
+  <data name="LoginToken" xml:space="preserve">
+    <value>登录令牌</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>服务端</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>值</value>
+  </data>
 </root>

@@ -62,7 +62,6 @@ namespace Gardener.SystemManager.Dtos
         /// API路由地址
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Path), ResourceType = typeof(SharedLocalResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(200, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Path { get; set; }
 

@@ -6,27 +6,28 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using Gardener.Base.Resources;
 
 namespace Gardener.Base.Dto
 {
     /// <summary>
     /// 租户资源
     /// </summary>
+    [Display(Name = nameof(SharedLocalResource.SystemTenantResource), ResourceType = typeof(SharedLocalResource))]
     public class SystemTenantResourceDto : TenantBaseDtoNoKey
     {
         /// <summary>
         /// 租户编号
         /// </summary>
-        [Required]
-        [DisplayName("租户编号")]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [Display(Name = nameof(SharedLocalResource.TenantId), ResourceType = typeof(SharedLocalResource))]
         public new Guid TenantId { get; set; }
 
         /// <summary>
         /// 资源编号
         /// </summary>
-        [Required]
-        [DisplayName("资源编号")]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [Display(Name = nameof(SharedLocalResource.ResourceId), ResourceType = typeof(SharedLocalResource))]
         public Guid ResourceId { get; set; }
     }
 }

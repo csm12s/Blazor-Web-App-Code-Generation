@@ -61,7 +61,61 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AuditEntity 的本地化字符串。
+        /// </summary>
+        public static string AuditEntity {
+            get {
+                return ResourceManager.GetString("AuditEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AuditEntityId 的本地化字符串。
+        /// </summary>
+        public static string AuditEntityId {
+            get {
+                return ResourceManager.GetString("AuditEntityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AuditEntitys 的本地化字符串。
+        /// </summary>
+        public static string AuditEntitys {
+            get {
+                return ResourceManager.GetString("AuditEntitys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AuditOperation 的本地化字符串。
+        /// </summary>
+        public static string AuditOperation {
+            get {
+                return ResourceManager.GetString("AuditOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AuditProperties 的本地化字符串。
+        /// </summary>
+        public static string AuditProperties {
+            get {
+                return ResourceManager.GetString("AuditProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AuditProperty 的本地化字符串。
+        /// </summary>
+        public static string AuditProperty {
+            get {
+                return ResourceManager.GetString("AuditProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 DataId 的本地化字符串。
         /// </summary>
         public static string DataId {
             get {
@@ -70,7 +124,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DataType 的本地化字符串。
         /// </summary>
         public static string DataType {
             get {
@@ -79,7 +133,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DisplayName 的本地化字符串。
         /// </summary>
         public static string DisplayName {
             get {
@@ -88,7 +142,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FieldChangeDetails 的本地化字符串。
         /// </summary>
         public static string FieldChangeDetails {
             get {
@@ -97,7 +151,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FieldName 的本地化字符串。
         /// </summary>
         public static string FieldName {
             get {
@@ -106,7 +160,34 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Ip 的本地化字符串。
+        /// </summary>
+        public static string Ip {
+            get {
+                return ResourceManager.GetString("Ip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Method 的本地化字符串。
+        /// </summary>
+        public static string Method {
+            get {
+                return ResourceManager.GetString("Method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Name 的本地化字符串。
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NewValue 的本地化字符串。
         /// </summary>
         public static string NewValue {
             get {
@@ -115,7 +196,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OperaterId 的本地化字符串。
         /// </summary>
         public static string OperaterId {
             get {
@@ -124,7 +205,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OperaterName 的本地化字符串。
         /// </summary>
         public static string OperaterName {
             get {
@@ -133,7 +214,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OperaterType 的本地化字符串。
         /// </summary>
         public static string OperaterType {
             get {
@@ -142,7 +223,16 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OperationId 的本地化字符串。
+        /// </summary>
+        public static string OperationId {
+            get {
+                return ResourceManager.GetString("OperationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OperationType 的本地化字符串。
         /// </summary>
         public static string OperationType {
             get {
@@ -151,7 +241,7 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OriginalValue 的本地化字符串。
         /// </summary>
         public static string OriginalValue {
             get {
@@ -160,7 +250,34 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Parameters 的本地化字符串。
+        /// </summary>
+        public static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Path 的本地化字符串。
+        /// </summary>
+        public static string Path {
+            get {
+                return ResourceManager.GetString("Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ResourceId 的本地化字符串。
+        /// </summary>
+        public static string ResourceId {
+            get {
+                return ResourceManager.GetString("ResourceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ResourceName 的本地化字符串。
         /// </summary>
         public static string ResourceName {
             get {
@@ -169,11 +286,20 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TypeName 的本地化字符串。
         /// </summary>
         public static string TypeName {
             get {
                 return ResourceManager.GetString("TypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 UserAgent 的本地化字符串。
+        /// </summary>
+        public static string UserAgent {
+            get {
+                return ResourceManager.GetString("UserAgent", resourceCulture);
             }
         }
     }

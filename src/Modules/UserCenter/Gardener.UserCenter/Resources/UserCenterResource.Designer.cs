@@ -90,6 +90,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Avatar {
+            get {
+                return ResourceManager.GetString("Avatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string BaseInfo {
             get {
                 return ResourceManager.GetString("BaseInfo", resourceCulture);
@@ -135,6 +144,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string CityId {
+            get {
+                return ResourceManager.GetString("CityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string ClickUpdateAvatar {
             get {
                 return ResourceManager.GetString("ClickUpdateAvatar", resourceCulture);
@@ -147,6 +165,24 @@ namespace Gardener.UserCenter.Resources {
         public static string Client {
             get {
                 return ResourceManager.GetString("Client", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ClientFunction {
+            get {
+                return ResourceManager.GetString("ClientFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ClientId {
+            get {
+                return ResourceManager.GetString("ClientId", resourceCulture);
             }
         }
         
@@ -174,6 +210,15 @@ namespace Gardener.UserCenter.Resources {
         public static string Contacts {
             get {
                 return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string CreatedTime {
+            get {
+                return ResourceManager.GetString("CreatedTime", resourceCulture);
             }
         }
         
@@ -219,6 +264,15 @@ namespace Gardener.UserCenter.Resources {
         public static string EmailConfirmed {
             get {
                 return ResourceManager.GetString("EmailConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string FunctionId {
+            get {
+                return ResourceManager.GetString("FunctionId", resourceCulture);
             }
         }
         
@@ -333,6 +387,24 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ParentId {
+            get {
+                return ResourceManager.GetString("ParentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
@@ -405,9 +477,54 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ResourceId {
+            get {
+                return ResourceManager.GetString("ResourceId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string Right {
             get {
                 return ResourceManager.GetString("Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string RoleId {
+            get {
+                return ResourceManager.GetString("RoleId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string RoleResource {
+            get {
+                return ResourceManager.GetString("RoleResource", resourceCulture);
             }
         }
         
@@ -468,9 +585,36 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string UpdateUserAvatar {
+            get {
+                return ResourceManager.GetString("UpdateUserAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string UserCenter {
             get {
                 return ResourceManager.GetString("UserCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string UserExtension {
+            get {
+                return ResourceManager.GetString("UserExtension", resourceCulture);
             }
         }
         
@@ -489,6 +633,15 @@ namespace Gardener.UserCenter.Resources {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string UserRole {
+            get {
+                return ResourceManager.GetString("UserRole", resourceCulture);
             }
         }
         

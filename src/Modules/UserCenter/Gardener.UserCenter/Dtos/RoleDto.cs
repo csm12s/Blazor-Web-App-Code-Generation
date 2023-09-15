@@ -16,6 +16,7 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 角色
     /// </summary>
+    [Display(Name = nameof(UserCenterResource.Role), ResourceType = typeof(UserCenterResource))]
     public class RoleDto : TenantBaseDto<int>
     {
         /// <summary>

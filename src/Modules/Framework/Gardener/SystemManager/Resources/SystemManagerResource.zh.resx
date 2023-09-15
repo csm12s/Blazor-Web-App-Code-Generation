@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>子集</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>字典</value>
+  </data>
   <data name="CodeManager" xml:space="preserve">
     <value>字典管理</value>
   </data>
@@ -141,6 +150,9 @@
   <data name="Color" xml:space="preserve">
     <value>颜色</value>
   </data>
+  <data name="CreatedTime" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
   <data name="EnableAudit" xml:space="preserve">
     <value>启用审计</value>
   </data>
@@ -150,16 +162,61 @@
   <data name="Function" xml:space="preserve">
     <value>功能</value>
   </data>
+  <data name="FunctionId" xml:space="preserve">
+    <value>功能编号</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>键</value>
+  </data>
   <data name="LocalCodeName" xml:space="preserve">
     <value>本地字典名</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>菜单</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>排序</value>
   </data>
+  <data name="ParentId" xml:space="preserve">
+    <value>父级编号</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>地址</value>
+  </data>
   <data name="RefreshCodeUtilCache" xml:space="preserve">
     <value>刷新字典工具缓存</value>
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Resource" xml:space="preserve">
+    <value>资源</value>
+  </data>
+  <data name="ResourceFunction" xml:space="preserve">
+    <value>资源功能</value>
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value>资源编号</value>
+  </data>
+  <data name="Root" xml:space="preserve">
+    <value>根节点</value>
+  </data>
   <data name="SupportMultiTenant" xml:space="preserve">
     <value>支持多租户</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>视图</value>
   </data>
 </root>

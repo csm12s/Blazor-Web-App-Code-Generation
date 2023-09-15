@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base.Entity.Domains
 {
@@ -21,12 +22,14 @@ namespace Gardener.Base.Entity.Domains
         /// 名称
         /// </summary>
         [DisplayName("名称")]
+        [Required, MaxLength(100)]
         public string DisplayName { get; set; } = null!;
 
         /// <summary>
         /// 字段名称
         /// </summary>
         [DisplayName("字段名称")]
+        [Required, MaxLength(100)]
         public string FieldName { get; set; } = null!;
 
         /// <summary>
@@ -45,13 +48,14 @@ namespace Gardener.Base.Entity.Domains
         /// 数据类型
         /// </summary>
         [DisplayName("数据类型")]
+        [MaxLength(100)]
         public string? DataType { get; set; }
 
         /// <summary>
         /// 实体审计编号  
         /// </summary>
         [DisplayName("实体审计编号")]
-        public Guid AuditEntityid { get; set; }
+        public Guid AuditEntityId { get; set; }
 
         /// <summary>
         /// 审计实体

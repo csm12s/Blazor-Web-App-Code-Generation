@@ -4,8 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -13,27 +14,27 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 客户端功能信息
     /// </summary>
-    [Description("资源功能信息")]
+    [Display(Name = nameof(UserCenterResource.ClientFunction), ResourceType = typeof(UserCenterResource))]
     public class ClientFunctionDto
     {
         /// <summary>
         /// 客户端编号
         /// </summary>
-        [Required(ErrorMessage = "不能为空")]
-        [DisplayName("客户端编号")]
+        [Display(Name = nameof(UserCenterResource.ClientId), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public Guid ClientId { get; set; }
 
         /// <summary>
         /// 功能Id
         /// </summary>
-        [Required(ErrorMessage = "不能为空")]
-        [DisplayName("功能编号")]
+        [Display(Name = nameof(UserCenterResource.FunctionId), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public Guid FunctionId { get; set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        [DisplayName("创建时间")]
+        [Display(Name = nameof(UserCenterResource.CreatedTime), ResourceType = typeof(UserCenterResource))]
         public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
     }
 }

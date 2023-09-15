@@ -162,6 +162,9 @@
   <data name="Break" xml:space="preserve">
     <value>Break</value>
   </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
   <data name="Button" xml:space="preserve">
     <value>Button</value>
   </data>
@@ -255,6 +258,9 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
   </data>
@@ -269,6 +275,9 @@
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="Email_Server_No_Find" xml:space="preserve">
     <value>Email server no find</value>
@@ -372,6 +381,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
   <data name="Invalid" xml:space="preserve">
     <value>Invalid</value>
   </data>
@@ -411,6 +423,9 @@
   <data name="LoginId" xml:space="preserve">
     <value>Login id</value>
   </data>
+  <data name="LoginToken" xml:space="preserve">
+    <value>Login token</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
@@ -425,6 +440,9 @@
   </data>
   <data name="Method" xml:space="preserve">
     <value>Method</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -594,6 +612,9 @@
   <data name="SendImage" xml:space="preserve">
     <value>Send image</value>
   </data>
+  <data name="Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
   <data name="Service" xml:space="preserve">
     <value>Service</value>
   </data>
@@ -628,6 +649,12 @@
   <data name="SystemNotification" xml:space="preserve">
     <value>System notification</value>
   </data>
+  <data name="SystemTenant" xml:space="preserve">
+    <value>System tenant</value>
+  </data>
+  <data name="SystemTenantResource" xml:space="preserve">
+    <value>System tenant resource</value>
+  </data>
   <data name="System_Default_Error_Message" xml:space="preserve">
     <value>System error,Please contact the administrator</value>
     <comment>ErrorCodeMessage</comment>
@@ -646,6 +673,9 @@
   <data name="Task_Not_Exist" xml:space="preserve">
     <value>Task not exist</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>Tel</value>
   </data>
   <data name="Tenant" xml:space="preserve">
     <value>Tenant</value>
@@ -677,6 +707,9 @@
   <data name="Unlock" xml:space="preserve">
     <value>Unlock</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="UpdateBy" xml:space="preserve">
     <value>Modifier</value>
   </data>
@@ -694,6 +727,9 @@
   </data>
   <data name="UploadFail" xml:space="preserve">
     <value>Upload fail</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
   <data name="UserCenter" xml:space="preserve">
     <value>User center</value>
@@ -718,6 +754,9 @@
   <data name="User_Name_Repeat" xml:space="preserve">
     <value>User name repeat</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
   <data name="Verify_Code_Verification_Failed" xml:space="preserve">
     <value>Verify code verification failed</value>

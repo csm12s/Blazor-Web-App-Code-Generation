@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Attachment" xml:space="preserve">
+    <value>附件</value>
+  </data>
   <data name="BusinessId" xml:space="preserve">
     <value>业务编号</value>
   </data>
@@ -129,8 +132,14 @@
   <data name="FileType" xml:space="preserve">
     <value>文件类型</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
   <data name="OriginalName" xml:space="preserve">
     <value>原始名称</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>地址</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>大小</value>

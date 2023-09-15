@@ -61,7 +61,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AccountName 的本地化字符串。
         /// </summary>
         public static string AccountName {
             get {
@@ -70,7 +70,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AccountPassword 的本地化字符串。
         /// </summary>
         public static string AccountPassword {
             get {
@@ -79,7 +79,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Action 的本地化字符串。
         /// </summary>
         public static string Action {
             get {
@@ -88,7 +88,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Add 的本地化字符串。
         /// </summary>
         public static string Add {
             get {
@@ -97,7 +97,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AddChildren 的本地化字符串。
         /// </summary>
         public static string AddChildren {
             get {
@@ -106,7 +106,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Authorizing 的本地化字符串。
         /// </summary>
         public static string Authorizing {
             get {
@@ -115,7 +115,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Avatar 的本地化字符串。
         /// </summary>
         public static string Avatar {
             get {
@@ -124,7 +124,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BatchDelete 的本地化字符串。
         /// </summary>
         public static string BatchDelete {
             get {
@@ -133,7 +133,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BatchEdit 的本地化字符串。
         /// </summary>
         public static string BatchEdit {
             get {
@@ -142,7 +142,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BatchFakeDelete 的本地化字符串。
         /// </summary>
         public static string BatchFakeDelete {
             get {
@@ -151,7 +151,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Begin 的本地化字符串。
         /// </summary>
         public static string Begin {
             get {
@@ -160,7 +160,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Binding 的本地化字符串。
         /// </summary>
         public static string Binding {
             get {
@@ -169,7 +169,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BindingApi 的本地化字符串。
         /// </summary>
         public static string BindingApi {
             get {
@@ -178,7 +178,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BindingResource 的本地化字符串。
         /// </summary>
         public static string BindingResource {
             get {
@@ -187,7 +187,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Break 的本地化字符串。
         /// </summary>
         public static string Break {
             get {
@@ -196,7 +196,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Browser 的本地化字符串。
+        /// </summary>
+        public static string Browser {
+            get {
+                return ResourceManager.GetString("Browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Button 的本地化字符串。
         /// </summary>
         public static string Button {
             get {
@@ -205,7 +214,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CallBack 的本地化字符串。
         /// </summary>
         public static string CallBack {
             get {
@@ -214,7 +223,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
         public static string Cancel {
             get {
@@ -223,7 +232,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CH 的本地化字符串。
         /// </summary>
         public static string CH {
             get {
@@ -232,7 +241,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Check 的本地化字符串。
         /// </summary>
         public static string Check {
             get {
@@ -241,7 +250,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ClickRefresh 的本地化字符串。
         /// </summary>
         public static string ClickRefresh {
             get {
@@ -250,7 +259,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Client 的本地化字符串。
         /// </summary>
         public static string Client {
             get {
@@ -259,7 +268,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Client_Login_Fail 的本地化字符串。
         /// </summary>
         public static string Client_Login_Fail {
             get {
@@ -268,7 +277,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Client_No_Find 的本地化字符串。
         /// </summary>
         public static string Client_No_Find {
             get {
@@ -277,7 +286,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Close 的本地化字符串。
         /// </summary>
         public static string Close {
             get {
@@ -286,7 +295,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Code_Gen_Template_Compile_Error 的本地化字符串。
         /// </summary>
         public static string Code_Gen_Template_Compile_Error {
             get {
@@ -295,7 +304,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Collapse 的本地化字符串。
         /// </summary>
         public static string Collapse {
             get {
@@ -304,7 +313,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Complete 的本地化字符串。
         /// </summary>
         public static string Complete {
             get {
@@ -313,7 +322,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Confirm 的本地化字符串。
         /// </summary>
         public static string Confirm {
             get {
@@ -322,7 +331,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Confirm_New_Password_Inconformity 的本地化字符串。
         /// </summary>
         public static string Confirm_New_Password_Inconformity {
             get {
@@ -331,7 +340,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Connecting 的本地化字符串。
         /// </summary>
         public static string Connecting {
             get {
@@ -340,7 +349,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Connection 的本地化字符串。
         /// </summary>
         public static string Connection {
             get {
@@ -349,7 +358,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Controller_Need_Comment 的本地化字符串。
         /// </summary>
         public static string Controller_Need_Comment {
             get {
@@ -358,7 +367,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Copy 的本地化字符串。
         /// </summary>
         public static string Copy {
             get {
@@ -367,7 +376,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CreateBy 的本地化字符串。
         /// </summary>
         public static string CreateBy {
             get {
@@ -376,7 +385,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CreatedTime 的本地化字符串。
         /// </summary>
         public static string CreatedTime {
             get {
@@ -385,7 +394,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CreateIdentityType 的本地化字符串。
         /// </summary>
         public static string CreateIdentityType {
             get {
@@ -394,7 +403,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Cron 的本地化字符串。
         /// </summary>
         public static string Cron {
             get {
@@ -403,7 +412,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Data 的本地化字符串。
         /// </summary>
         public static string Data {
             get {
@@ -412,7 +421,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Data_Key_Uniqueness_Conflict 的本地化字符串。
         /// </summary>
         public static string Data_Key_Uniqueness_Conflict {
             get {
@@ -421,7 +430,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Data_Not_Find 的本地化字符串。
         /// </summary>
         public static string Data_Not_Find {
             get {
@@ -430,7 +439,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DataNotFound 的本地化字符串。
         /// </summary>
         public static string DataNotFound {
             get {
@@ -439,7 +448,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Debug 的本地化字符串。
         /// </summary>
         public static string Debug {
             get {
@@ -448,7 +457,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Delete 的本地化字符串。
         /// </summary>
         public static string Delete {
             get {
@@ -457,7 +466,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DeleteAndIncludChildren 的本地化字符串。
         /// </summary>
         public static string DeleteAndIncludChildren {
             get {
@@ -466,7 +475,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DeleteSelected 的本地化字符串。
         /// </summary>
         public static string DeleteSelected {
             get {
@@ -475,7 +484,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Description 的本地化字符串。
         /// </summary>
         public static string Description {
             get {
@@ -484,7 +493,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Desktop 的本地化字符串。
+        /// </summary>
+        public static string Desktop {
+            get {
+                return ResourceManager.GetString("Desktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Detail 的本地化字符串。
         /// </summary>
         public static string Detail {
             get {
@@ -493,7 +511,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Disabled 的本地化字符串。
         /// </summary>
         public static string Disabled {
             get {
@@ -502,7 +520,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Do 的本地化字符串。
         /// </summary>
         public static string Do {
             get {
@@ -511,7 +529,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Download 的本地化字符串。
         /// </summary>
         public static string Download {
             get {
@@ -520,7 +538,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Edit 的本地化字符串。
         /// </summary>
         public static string Edit {
             get {
@@ -529,7 +547,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Email 的本地化字符串。
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Email_Server_No_Find 的本地化字符串。
         /// </summary>
         public static string Email_Server_No_Find {
             get {
@@ -538,7 +565,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EN 的本地化字符串。
         /// </summary>
         public static string EN {
             get {
@@ -547,7 +574,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Enable 的本地化字符串。
         /// </summary>
         public static string Enable {
             get {
@@ -556,7 +583,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 End 的本地化字符串。
         /// </summary>
         public static string End {
             get {
@@ -565,7 +592,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EndTime 的本地化字符串。
         /// </summary>
         public static string EndTime {
             get {
@@ -574,7 +601,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Error 的本地化字符串。
         /// </summary>
         public static string Error {
             get {
@@ -583,7 +610,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Exception 的本地化字符串。
         /// </summary>
         public static string Exception {
             get {
@@ -592,7 +619,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Expand 的本地化字符串。
         /// </summary>
         public static string Expand {
             get {
@@ -601,7 +628,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Export 的本地化字符串。
         /// </summary>
         public static string Export {
             get {
@@ -610,7 +637,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Fail 的本地化字符串。
         /// </summary>
         public static string Fail {
             get {
@@ -619,7 +646,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Failed 的本地化字符串。
         /// </summary>
         public static string Failed {
             get {
@@ -628,7 +655,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FakeDelete 的本地化字符串。
         /// </summary>
         public static string FakeDelete {
             get {
@@ -637,7 +664,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FatalException 的本地化字符串。
         /// </summary>
         public static string FatalException {
             get {
@@ -646,7 +673,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Female 的本地化字符串。
         /// </summary>
         public static string Female {
             get {
@@ -655,7 +682,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Field_Cannot_Be_Modified 的本地化字符串。
         /// </summary>
         public static string Field_Cannot_Be_Modified {
             get {
@@ -664,7 +691,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Field_In_Type_Not_Found 的本地化字符串。
         /// </summary>
         public static string Field_In_Type_Not_Found {
             get {
@@ -673,7 +700,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Field_Required 的本地化字符串。
         /// </summary>
         public static string Field_Required {
             get {
@@ -682,7 +709,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FieldChangeDetails 的本地化字符串。
         /// </summary>
         public static string FieldChangeDetails {
             get {
@@ -691,7 +718,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Filter_Group_Operate_Error 的本地化字符串。
         /// </summary>
         public static string Filter_Group_Operate_Error {
             get {
@@ -700,7 +727,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Forbidden 的本地化字符串。
         /// </summary>
         public static string Forbidden {
             get {
@@ -709,7 +736,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Generate 的本地化字符串。
         /// </summary>
         public static string Generate {
             get {
@@ -718,7 +745,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 GoHome 的本地化字符串。
         /// </summary>
         public static string GoHome {
             get {
@@ -727,7 +754,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Group 的本地化字符串。
         /// </summary>
         public static string Group {
             get {
@@ -736,7 +763,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Hide 的本地化字符串。
         /// </summary>
         public static string Hide {
             get {
@@ -745,7 +772,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Host 的本地化字符串。
         /// </summary>
         public static string Host {
             get {
@@ -754,7 +781,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Icon 的本地化字符串。
         /// </summary>
         public static string Icon {
             get {
@@ -763,7 +790,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Id 的本地化字符串。
         /// </summary>
         public static string Id {
             get {
@@ -772,7 +799,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IdentityId 的本地化字符串。
         /// </summary>
         public static string IdentityId {
             get {
@@ -781,7 +808,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IdentityName 的本地化字符串。
         /// </summary>
         public static string IdentityName {
             get {
@@ -790,7 +817,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IdentityNickName 的本地化字符串。
         /// </summary>
         public static string IdentityNickName {
             get {
@@ -799,7 +826,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IdentityType 的本地化字符串。
         /// </summary>
         public static string IdentityType {
             get {
@@ -808,7 +835,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Import 的本地化字符串。
         /// </summary>
         public static string Import {
             get {
@@ -817,7 +844,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Info 的本地化字符串。
         /// </summary>
         public static string Info {
             get {
@@ -826,7 +853,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Insert 的本地化字符串。
         /// </summary>
         public static string Insert {
             get {
@@ -835,7 +862,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Invalid 的本地化字符串。
         /// </summary>
         public static string Invalid {
             get {
@@ -844,7 +871,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Ip 的本地化字符串。
         /// </summary>
         public static string Ip {
             get {
@@ -853,7 +880,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IsContinue 的本地化字符串。
         /// </summary>
         public static string IsContinue {
             get {
@@ -862,7 +889,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IsDeleted 的本地化字符串。
         /// </summary>
         public static string IsDeleted {
             get {
@@ -871,7 +898,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IsLocked 的本地化字符串。
         /// </summary>
         public static string IsLocked {
             get {
@@ -880,7 +907,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IsNullOrEmpty 的本地化字符串。
         /// </summary>
         public static string IsNullOrEmpty {
             get {
@@ -889,7 +916,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Key 的本地化字符串。
         /// </summary>
         public static string Key {
             get {
@@ -898,7 +925,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 LastRunTime 的本地化字符串。
         /// </summary>
         public static string LastRunTime {
             get {
@@ -907,7 +934,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Load 的本地化字符串。
         /// </summary>
         public static string Load {
             get {
@@ -916,7 +943,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Loading 的本地化字符串。
         /// </summary>
         public static string Loading {
             get {
@@ -925,7 +952,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Lock 的本地化字符串。
         /// </summary>
         public static string Lock {
             get {
@@ -934,7 +961,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 LoginClientType 的本地化字符串。
         /// </summary>
         public static string LoginClientType {
             get {
@@ -943,7 +970,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 LoginId 的本地化字符串。
         /// </summary>
         public static string LoginId {
             get {
@@ -952,7 +979,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 LoginToken 的本地化字符串。
+        /// </summary>
+        public static string LoginToken {
+            get {
+                return ResourceManager.GetString("LoginToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Logout 的本地化字符串。
         /// </summary>
         public static string Logout {
             get {
@@ -961,7 +997,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Male 的本地化字符串。
         /// </summary>
         public static string Male {
             get {
@@ -970,7 +1006,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 MaxNumberOfErrors 的本地化字符串。
         /// </summary>
         public static string MaxNumberOfErrors {
             get {
@@ -979,7 +1015,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 MaxNumberOfRuns 的本地化字符串。
         /// </summary>
         public static string MaxNumberOfRuns {
             get {
@@ -988,7 +1024,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Method 的本地化字符串。
         /// </summary>
         public static string Method {
             get {
@@ -997,7 +1033,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Mobile 的本地化字符串。
+        /// </summary>
+        public static string Mobile {
+            get {
+                return ResourceManager.GetString("Mobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Name 的本地化字符串。
         /// </summary>
         public static string Name {
             get {
@@ -1006,7 +1051,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NextRunTime 的本地化字符串。
         /// </summary>
         public static string NextRunTime {
             get {
@@ -1015,7 +1060,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NickName 的本地化字符串。
         /// </summary>
         public static string NickName {
             get {
@@ -1024,7 +1069,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 No 的本地化字符串。
         /// </summary>
         public static string No {
             get {
@@ -1033,7 +1078,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 No_Includ_File 的本地化字符串。
         /// </summary>
         public static string No_Includ_File {
             get {
@@ -1042,7 +1087,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 No_Permission_Modify_The_Data 的本地化字符串。
         /// </summary>
         public static string No_Permission_Modify_The_Data {
             get {
@@ -1051,7 +1096,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NoRowsAreSelected 的本地化字符串。
         /// </summary>
         public static string NoRowsAreSelected {
             get {
@@ -1060,7 +1105,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberOfErrors 的本地化字符串。
         /// </summary>
         public static string NumberOfErrors {
             get {
@@ -1069,7 +1114,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberOfRuns 的本地化字符串。
         /// </summary>
         public static string NumberOfRuns {
             get {
@@ -1078,7 +1123,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumRetries 的本地化字符串。
         /// </summary>
         public static string NumRetries {
             get {
@@ -1087,7 +1132,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 On 的本地化字符串。
         /// </summary>
         public static string On {
             get {
@@ -1096,7 +1141,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OnlineTime 的本地化字符串。
         /// </summary>
         public static string OnlineTime {
             get {
@@ -1105,7 +1150,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Open 的本地化字符串。
         /// </summary>
         public static string Open {
             get {
@@ -1114,7 +1159,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Operate 的本地化字符串。
         /// </summary>
         public static string Operate {
             get {
@@ -1123,7 +1168,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OperateConfirmMessage 的本地化字符串。
         /// </summary>
         public static string OperateConfirmMessage {
             get {
@@ -1132,7 +1177,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Order 的本地化字符串。
         /// </summary>
         public static string Order {
             get {
@@ -1141,7 +1186,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Other 的本地化字符串。
         /// </summary>
         public static string Other {
             get {
@@ -1150,7 +1195,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Page404Message 的本地化字符串。
         /// </summary>
         public static string Page404Message {
             get {
@@ -1159,7 +1204,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Parameters 的本地化字符串。
         /// </summary>
         public static string Parameters {
             get {
@@ -1168,7 +1213,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Parent 的本地化字符串。
         /// </summary>
         public static string Parent {
             get {
@@ -1177,7 +1222,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Password_Error 的本地化字符串。
         /// </summary>
         public static string Password_Error {
             get {
@@ -1186,7 +1231,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Path 的本地化字符串。
         /// </summary>
         public static string Path {
             get {
@@ -1195,7 +1240,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 PersonalSettings 的本地化字符串。
         /// </summary>
         public static string PersonalSettings {
             get {
@@ -1204,7 +1249,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 PleaseSelect 的本地化字符串。
         /// </summary>
         public static string PleaseSelect {
             get {
@@ -1213,7 +1258,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 PleaseSelectSearchField 的本地化字符串。
         /// </summary>
         public static string PleaseSelectSearchField {
             get {
@@ -1222,7 +1267,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Port 的本地化字符串。
         /// </summary>
         public static string Port {
             get {
@@ -1231,7 +1276,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Query_Value_Type_No_Find_Converter 的本地化字符串。
         /// </summary>
         public static string Query_Value_Type_No_Find_Converter {
             get {
@@ -1240,7 +1285,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Refresh 的本地化字符串。
         /// </summary>
         public static string Refresh {
             get {
@@ -1249,7 +1294,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Refreshtoken_Cannot_Used_In_Authentication 的本地化字符串。
         /// </summary>
         public static string Refreshtoken_Cannot_Used_In_Authentication {
             get {
@@ -1258,7 +1303,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Refreshtoken_No_Exist_Or_Expire 的本地化字符串。
         /// </summary>
         public static string Refreshtoken_No_Exist_Or_Expire {
             get {
@@ -1267,7 +1312,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Remark 的本地化字符串。
         /// </summary>
         public static string Remark {
             get {
@@ -1276,7 +1321,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Request_Url_Is_Invalid 的本地化字符串。
         /// </summary>
         public static string Request_Url_Is_Invalid {
             get {
@@ -1285,7 +1330,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ResetOnlyOnce 的本地化字符串。
         /// </summary>
         public static string ResetOnlyOnce {
             get {
@@ -1294,7 +1339,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Resource 的本地化字符串。
         /// </summary>
         public static string Resource {
             get {
@@ -1303,7 +1348,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Resource_Key_Repeat 的本地化字符串。
         /// </summary>
         public static string Resource_Key_Repeat {
             get {
@@ -1312,7 +1357,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ResourceId 的本地化字符串。
         /// </summary>
         public static string ResourceId {
             get {
@@ -1321,7 +1366,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Result 的本地化字符串。
         /// </summary>
         public static string Result {
             get {
@@ -1330,7 +1375,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ResuqesException 的本地化字符串。
         /// </summary>
         public static string ResuqesException {
             get {
@@ -1339,7 +1384,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ResuqesFail 的本地化字符串。
         /// </summary>
         public static string ResuqesFail {
             get {
@@ -1348,7 +1393,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RetryTimeout 的本地化字符串。
         /// </summary>
         public static string RetryTimeout {
             get {
@@ -1357,7 +1402,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RunOnceOnStart 的本地化字符串。
         /// </summary>
         public static string RunOnceOnStart {
             get {
@@ -1366,7 +1411,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Save 的本地化字符串。
         /// </summary>
         public static string Save {
             get {
@@ -1375,7 +1420,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Scheduler_Not_Find 的本地化字符串。
         /// </summary>
         public static string Scheduler_Not_Find {
             get {
@@ -1384,7 +1429,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Scheduling 的本地化字符串。
         /// </summary>
         public static string Scheduling {
             get {
@@ -1393,7 +1438,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Script_Code_Compile_Fail 的本地化字符串。
         /// </summary>
         public static string Script_Code_Compile_Fail {
             get {
@@ -1402,7 +1447,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Script_Code_JobDetail_Not_Find 的本地化字符串。
         /// </summary>
         public static string Script_Code_JobDetail_Not_Find {
             get {
@@ -1411,7 +1456,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Script_Code_JobId_Inconsistency 的本地化字符串。
         /// </summary>
         public static string Script_Code_JobId_Inconsistency {
             get {
@@ -1420,7 +1465,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Search 的本地化字符串。
         /// </summary>
         public static string Search {
             get {
@@ -1429,7 +1474,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Search_Error_DB_Field_Is_Null 的本地化字符串。
         /// </summary>
         public static string Search_Error_DB_Field_Is_Null {
             get {
@@ -1438,7 +1483,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SeedData 的本地化字符串。
         /// </summary>
         public static string SeedData {
             get {
@@ -1447,7 +1492,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Select 的本地化字符串。
         /// </summary>
         public static string Select {
             get {
@@ -1456,7 +1501,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SelectAll 的本地化字符串。
         /// </summary>
         public static string SelectAll {
             get {
@@ -1465,7 +1510,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Send 的本地化字符串。
         /// </summary>
         public static string Send {
             get {
@@ -1474,7 +1519,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SendImage 的本地化字符串。
         /// </summary>
         public static string SendImage {
             get {
@@ -1483,7 +1528,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Server 的本地化字符串。
+        /// </summary>
+        public static string Server {
+            get {
+                return ResourceManager.GetString("Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Service 的本地化字符串。
         /// </summary>
         public static string Service {
             get {
@@ -1492,7 +1546,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SessionDisableSendMessage 的本地化字符串。
         /// </summary>
         public static string SessionDisableSendMessage {
             get {
@@ -1501,7 +1555,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Setting 的本地化字符串。
         /// </summary>
         public static string Setting {
             get {
@@ -1510,7 +1564,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SettingRoles 的本地化字符串。
         /// </summary>
         public static string SettingRoles {
             get {
@@ -1519,7 +1573,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Settings 的本地化字符串。
         /// </summary>
         public static string Settings {
             get {
@@ -1528,7 +1582,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StartNow 的本地化字符串。
         /// </summary>
         public static string StartNow {
             get {
@@ -1537,7 +1591,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StartTime 的本地化字符串。
         /// </summary>
         public static string StartTime {
             get {
@@ -1546,7 +1600,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Status 的本地化字符串。
         /// </summary>
         public static string Status {
             get {
@@ -1555,7 +1609,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Succeed 的本地化字符串。
         /// </summary>
         public static string Succeed {
             get {
@@ -1564,7 +1618,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Success 的本地化字符串。
         /// </summary>
         public static string Success {
             get {
@@ -1573,7 +1627,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Sugar_Repository_Init_Fail 的本地化字符串。
         /// </summary>
         public static string Sugar_Repository_Init_Fail {
             get {
@@ -1582,7 +1636,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Summary 的本地化字符串。
         /// </summary>
         public static string Summary {
             get {
@@ -1591,7 +1645,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 System_Default_Error_Message 的本地化字符串。
         /// </summary>
         public static string System_Default_Error_Message {
             get {
@@ -1600,7 +1654,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SystemNotification 的本地化字符串。
         /// </summary>
         public static string SystemNotification {
             get {
@@ -1609,7 +1663,25 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 SystemTenant 的本地化字符串。
+        /// </summary>
+        public static string SystemTenant {
+            get {
+                return ResourceManager.GetString("SystemTenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SystemTenantResource 的本地化字符串。
+        /// </summary>
+        public static string SystemTenantResource {
+            get {
+                return ResourceManager.GetString("SystemTenantResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Table_Name_Exist 的本地化字符串。
         /// </summary>
         public static string Table_Name_Exist {
             get {
@@ -1618,7 +1690,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Tags 的本地化字符串。
         /// </summary>
         public static string Tags {
             get {
@@ -1627,7 +1699,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Task_Allready_Exist 的本地化字符串。
         /// </summary>
         public static string Task_Allready_Exist {
             get {
@@ -1636,7 +1708,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Task_Not_Exist 的本地化字符串。
         /// </summary>
         public static string Task_Not_Exist {
             get {
@@ -1645,7 +1717,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Tel 的本地化字符串。
+        /// </summary>
+        public static string Tel {
+            get {
+                return ResourceManager.GetString("Tel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tenant 的本地化字符串。
         /// </summary>
         public static string Tenant {
             get {
@@ -1654,7 +1735,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TenantId 的本地化字符串。
         /// </summary>
         public static string TenantId {
             get {
@@ -1663,7 +1744,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Times 的本地化字符串。
         /// </summary>
         public static string Times {
             get {
@@ -1672,7 +1753,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Timespan_Is_Expired 的本地化字符串。
         /// </summary>
         public static string Timespan_Is_Expired {
             get {
@@ -1681,7 +1762,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Token_Invalid 的本地化字符串。
         /// </summary>
         public static string Token_Invalid {
             get {
@@ -1690,7 +1771,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Total 的本地化字符串。
         /// </summary>
         public static string Total {
             get {
@@ -1699,7 +1780,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Type 的本地化字符串。
         /// </summary>
         public static string Type {
             get {
@@ -1708,7 +1789,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Unauthorized 的本地化字符串。
         /// </summary>
         public static string Unauthorized {
             get {
@@ -1717,7 +1798,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Unknown 的本地化字符串。
         /// </summary>
         public static string Unknown {
             get {
@@ -1726,7 +1807,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Unlock 的本地化字符串。
         /// </summary>
         public static string Unlock {
             get {
@@ -1735,7 +1816,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Update 的本地化字符串。
         /// </summary>
         public static string Update {
             get {
@@ -1744,7 +1825,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UpdateBy 的本地化字符串。
         /// </summary>
         public static string UpdateBy {
             get {
@@ -1753,7 +1834,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UpdatedTime 的本地化字符串。
         /// </summary>
         public static string UpdatedTime {
             get {
@@ -1762,7 +1843,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UpdateIdentityType 的本地化字符串。
         /// </summary>
         public static string UpdateIdentityType {
             get {
@@ -1771,7 +1852,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UplaodAvatar 的本地化字符串。
         /// </summary>
         public static string UplaodAvatar {
             get {
@@ -1780,7 +1861,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Upload 的本地化字符串。
         /// </summary>
         public static string Upload {
             get {
@@ -1789,7 +1870,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UploadFail 的本地化字符串。
         /// </summary>
         public static string UploadFail {
             get {
@@ -1798,7 +1879,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 User 的本地化字符串。
         /// </summary>
         public static string User {
             get {
@@ -1807,7 +1888,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 User_Info_Get_Error_Retry_Login 的本地化字符串。
         /// </summary>
         public static string User_Info_Get_Error_Retry_Login {
             get {
@@ -1816,7 +1897,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 User_Locked 的本地化字符串。
         /// </summary>
         public static string User_Locked {
             get {
@@ -1825,7 +1906,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 User_Name_Or_Password_Error 的本地化字符串。
         /// </summary>
         public static string User_Name_Or_Password_Error {
             get {
@@ -1834,7 +1915,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 User_Name_Repeat 的本地化字符串。
         /// </summary>
         public static string User_Name_Repeat {
             get {
@@ -1843,7 +1924,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UserAgent 的本地化字符串。
         /// </summary>
         public static string UserAgent {
             get {
@@ -1852,7 +1933,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UserCenter 的本地化字符串。
         /// </summary>
         public static string UserCenter {
             get {
@@ -1861,7 +1942,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UserName 的本地化字符串。
         /// </summary>
         public static string UserName {
             get {
@@ -1870,7 +1951,16 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Value 的本地化字符串。
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Verify_Code_Verification_Failed 的本地化字符串。
         /// </summary>
         public static string Verify_Code_Verification_Failed {
             get {
@@ -1879,7 +1969,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Warn 的本地化字符串。
         /// </summary>
         public static string Warn {
             get {
@@ -1888,7 +1978,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Yes 的本地化字符串。
         /// </summary>
         public static string Yes {
             get {

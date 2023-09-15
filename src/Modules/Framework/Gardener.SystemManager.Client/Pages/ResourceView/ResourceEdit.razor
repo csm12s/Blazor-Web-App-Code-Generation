@@ -41,7 +41,7 @@
             <RadioGroup @bind-Value="@(model.Type)">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
                 {
-                    <Radio Value="gitem.Key" Disabled="@((int)gitem.Key < (int)currentResourceTypeCopy)">@gitem.Value</Radio>
+                    <Radio Value="gitem.Key" Disabled="@((int)gitem.Key < (int)currentResourceTypeCopy)">@Localizer[gitem.Value]</Radio>
                 }
             </RadioGroup>
         </FormItem>

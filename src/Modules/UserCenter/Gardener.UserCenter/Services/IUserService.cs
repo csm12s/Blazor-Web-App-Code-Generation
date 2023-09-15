@@ -48,7 +48,7 @@ namespace Gardener.UserCenter.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<bool> UpdateAvatar(UserUpdateAvatarInput input);
+        Task<bool> UpdateAvatar(UpdateUserAvatarInput input);
 
         /// <summary>
         /// 根据用户编号集合获取多个用户

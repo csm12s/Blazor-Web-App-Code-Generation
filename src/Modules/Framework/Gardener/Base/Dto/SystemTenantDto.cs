@@ -6,41 +6,43 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using Gardener.Base.Resources;
 
 namespace Gardener.Base
 {
     /// <summary>
     /// 租户
     /// </summary>
+    [Display(Name = nameof(SharedLocalResource.SystemTenant), ResourceType = typeof(SharedLocalResource))]
     public class SystemTenantDto : BaseDto<Guid>, ITenant
     {
         /// <summary>
         /// 租户名称
         /// </summary>
-        [DisplayName("Name")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SharedLocalResource.Name), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Name { get; set; } = null!;
 
         /// <summary>
         /// 电子邮箱
         /// </summary>
-        [MaxLength(256, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Email")]
+        [Display(Name = nameof(SharedLocalResource.Email), ResourceType = typeof(SharedLocalResource))]
+        [MaxLength(256, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Email { get; set; }
 
         /// <summary>
         /// 手机号码
         /// </summary>
-        [MaxLength(32, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Tel")]
+        [Display(Name = nameof(SharedLocalResource.Tel), ResourceType = typeof(SharedLocalResource))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Tel { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
-        [DisplayName("Remark")]
-        [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SharedLocalResource.Remark), ResourceType = typeof(SharedLocalResource))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Remark { get; set; }
     }
 }

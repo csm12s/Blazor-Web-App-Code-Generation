@@ -8,60 +8,65 @@ using Gardener.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Gardener.Attributes;
+using Gardener.SystemManager.Resources;
+using Gardener.Base.Resources;
 
 namespace Gardener.SystemManager.Dtos
 {
     /// <summary>
     /// 字典信息
     /// </summary>
-    [Description("Code")]
+    [Display(Name = nameof(SystemManagerResource.Code), ResourceType = typeof(SystemManagerResource))]
     public class CodeDto : BaseDto<int>
     {
         /// <summary>
         /// 字段类型编号
         /// </summary>
-        [DisplayName("CodeTypeId")]
-        [Required(ErrorMessage ="不能为空")]
+        [Display(Name = nameof(SystemManagerResource.CodeTypeId), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public int CodeTypeId { get; set; }
         /// <summary>
         /// 字典值
         /// </summary>
-        [DisplayName("CodeValue")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.CodeValue), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string CodeValue { get; set; } = null!;
         /// <summary>
         /// 字典名称
         /// </summary>
-        [DisplayName("CodeName")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.CodeName), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string CodeName { get; set; } = null!;
         /// <summary>
         /// 本地化字典名称
         /// </summary>
-        [DisplayName("LocalCodeName")]
         [DisabledSearchField]
+        [Display(Name = nameof(SystemManagerResource.LocalCodeName), ResourceType = typeof(SystemManagerResource))]
         public string LocalCodeName { get; set; } = null!;
         /// <summary>
         /// 排序
         /// </summary>
-        [DisplayName("Order")]
-        [Required(ErrorMessage = "不能为空")]
+        [Display(Name = nameof(SystemManagerResource.Order), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public int Order { get; set; }
         /// <summary>
         /// 扩展参数
         /// </summary>
-        [DisplayName("ExtendParams")]
-        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.ExtendParams), ResourceType = typeof(SystemManagerResource))]
+        [MaxLength(500, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? ExtendParams { get; set; }
         /// <summary>
         /// 颜色
         /// </summary>
-        [DisplayName("Color")]
-        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.Color), ResourceType = typeof(SystemManagerResource))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Color { get; set; }
         /// <summary>
         /// 字典类型
         /// </summary>
+        [Display(Name = nameof(SystemManagerResource.CodeType), ResourceType = typeof(SystemManagerResource))]
         public CodeTypeDto CodeType { get; set; } = null!;
     }
 }

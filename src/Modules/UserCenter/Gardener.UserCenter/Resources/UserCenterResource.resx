@@ -126,6 +126,9 @@
   <data name="AutoLogin" xml:space="preserve">
     <value />
   </data>
+  <data name="Avatar" xml:space="preserve">
+    <value />
+  </data>
   <data name="BaseInfo" xml:space="preserve">
     <value />
   </data>
@@ -141,10 +144,19 @@
   <data name="ChangePassword" xml:space="preserve">
     <value />
   </data>
+  <data name="CityId" xml:space="preserve">
+    <value />
+  </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value />
   </data>
   <data name="Client" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientFunction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ClientId" xml:space="preserve">
     <value />
   </data>
   <data name="ConfirmNewPassword" xml:space="preserve">
@@ -154,6 +166,9 @@
     <value />
   </data>
   <data name="Contacts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreatedTime" xml:space="preserve">
     <value />
   </data>
   <data name="Dept" xml:space="preserve">
@@ -169,6 +184,9 @@
     <value />
   </data>
   <data name="EmailConfirmed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FunctionId" xml:space="preserve">
     <value />
   </data>
   <data name="Gender" xml:space="preserve">
@@ -207,6 +225,12 @@
   <data name="OldPassword" xml:space="preserve">
     <value />
   </data>
+  <data name="Order" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ParentId" xml:space="preserve">
+    <value />
+  </data>
   <data name="Password" xml:space="preserve">
     <value />
   </data>
@@ -231,7 +255,22 @@
   <data name="Qualifications" xml:space="preserve">
     <value />
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value />
+  </data>
   <data name="Right" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleResource" xml:space="preserve">
     <value />
   </data>
   <data name="Roles" xml:space="preserve">
@@ -252,13 +291,25 @@
   <data name="Tel" xml:space="preserve">
     <value />
   </data>
+  <data name="UpdateUserAvatar" xml:space="preserve">
+    <value />
+  </data>
+  <data name="User" xml:space="preserve">
+    <value />
+  </data>
   <data name="UserCenter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserExtension" xml:space="preserve">
     <value />
   </data>
   <data name="UserId" xml:space="preserve">
     <value />
   </data>
   <data name="UserName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserRole" xml:space="preserve">
     <value />
   </data>
   <data name="VerifyCode" xml:space="preserve">

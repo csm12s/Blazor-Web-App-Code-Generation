@@ -10,6 +10,7 @@ using Gardener.Authentication.Enums;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.Base.Entity.Domains
@@ -32,16 +33,19 @@ namespace Gardener.Base.Entity.Domains
         /// 数据编号
         /// </summary>
         [DisplayName("数据编号")]
+        [Required, MaxLength(100)]
         public string DataId { get; set; } = null!;
         /// <summary>
         /// 实体名称
         /// </summary>
         [DisplayName("实体名称")]
+        [Required, MaxLength(200)]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 实体类型名称
         /// </summary>
         [DisplayName("实体类型名称")]
+        [Required, MaxLength(200)]
         public string TypeName { get; set; } = null!;
         /// <summary>
         /// 操作类型
@@ -52,12 +56,14 @@ namespace Gardener.Base.Entity.Domains
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; } = null!;
+        [MaxLength(100)]
+        public string? OperaterId { get; set; }
         /// <summary>
         /// 操作者名称
         /// </summary>
         [DisplayName("操作者名称")]
-        public string OperaterName { get; set; } = null!;
+        [MaxLength(100)]
+        public string? OperaterName { get; set; }
         /// <summary>
         /// 操作者类型
         /// </summary>

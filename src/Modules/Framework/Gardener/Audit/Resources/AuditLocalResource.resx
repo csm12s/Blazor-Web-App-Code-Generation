@@ -117,43 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuditEntity" xml:space="preserve">
+    <value>AuditEntity</value>
+  </data>
+  <data name="AuditEntityId" xml:space="preserve">
+    <value>AuditEntityId</value>
+  </data>
+  <data name="AuditEntitys" xml:space="preserve">
+    <value>AuditEntitys</value>
+  </data>
+  <data name="AuditOperation" xml:space="preserve">
+    <value>AuditOperation</value>
+  </data>
+  <data name="AuditProperties" xml:space="preserve">
+    <value>AuditProperties</value>
+  </data>
+  <data name="AuditProperty" xml:space="preserve">
+    <value>AuditProperty</value>
+  </data>
   <data name="DataId" xml:space="preserve">
-    <value />
+    <value>DataId</value>
   </data>
   <data name="DataType" xml:space="preserve">
-    <value />
+    <value>DataType</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value />
+    <value>DisplayName</value>
   </data>
   <data name="FieldChangeDetails" xml:space="preserve">
-    <value />
+    <value>FieldChangeDetails</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value />
+    <value>FieldName</value>
+  </data>
+  <data name="Ip" xml:space="preserve">
+    <value>Ip</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NewValue" xml:space="preserve">
-    <value />
+    <value>NewValue</value>
   </data>
   <data name="OperaterId" xml:space="preserve">
-    <value />
+    <value>OperaterId</value>
   </data>
   <data name="OperaterName" xml:space="preserve">
-    <value />
+    <value>OperaterName</value>
   </data>
   <data name="OperaterType" xml:space="preserve">
-    <value />
+    <value>OperaterType</value>
+  </data>
+  <data name="OperationId" xml:space="preserve">
+    <value>OperationId</value>
   </data>
   <data name="OperationType" xml:space="preserve">
-    <value />
+    <value>OperationType</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
-    <value />
+    <value>OriginalValue</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value>ResourceId</value>
   </data>
   <data name="ResourceName" xml:space="preserve">
-    <value />
+    <value>ResourceName</value>
   </data>
   <data name="TypeName" xml:space="preserve">
-    <value />
+    <value>TypeName</value>
+  </data>
+  <data name="UserAgent" xml:space="preserve">
+    <value>UserAgent</value>
   </data>
 </root>

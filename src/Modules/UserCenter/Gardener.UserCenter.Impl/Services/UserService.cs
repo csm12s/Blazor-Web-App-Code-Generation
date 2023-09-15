@@ -300,7 +300,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)
+        public async Task<bool> UpdateAvatar(UpdateUserAvatarInput input)
         {
             User user = await _userRepository.FindAsync(input.Id);
             if (user == null)

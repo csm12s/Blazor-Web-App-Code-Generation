@@ -13,6 +13,7 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 修改密码输入
     /// </summary>
+    [Display(Name = nameof(UserCenterResource.ChangePassword), ResourceType = typeof(UserCenterResource))]
     public class ChangePasswordInput
     {
         /// <summary>

@@ -52,24 +52,24 @@
             }
              @if (!_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey])
             {
-                <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" Width="100" Fixed="left">
+                <Column @bind-Field="@model.Tenant" TData="ITenant" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" Width="100" Fixed="left">
                     <span>@model.Tenant?.Name</span>
                 </Column>
              }
-             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[nameof(SharedLocalResource.LoginId)]" Width="150" Fixed="left" >
+             <Column @bind-Field="@model.LoginId" Filterable Width="150" Fixed="left" >
                  <label style="font-size:12px;">@model.LoginId</label>
              </Column>
-             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityId)]" Width="120" Fixed="left" />
-             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityName)]" Width="150" Fixed="left" />
-             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityNickName)]" Width="150"/>
-             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[nameof(SharedLocalResource.IdentityType)]" Width="120">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagPro>
+             <Column @bind-Field="@model.IdentityId" Filterable Width="120" Fixed="left" />
+             <Column @bind-Field="@model.IdentityName" Filterable Width="150" Fixed="left" />
+             <Column @bind-Field="@model.IdentityNickName" Filterable Width="150"/>
+             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Width="120">
+                 <TagPro Text="@Localizer[EnumHelper.GetEnumDescriptionOrName(model.IdentityType)]"></TagPro>
             </Column>
-             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[nameof(SharedLocalResource.LoginClientType)]" Width="120">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagPro>
+             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Width="120">
+                 <TagPro Text="@Localizer[EnumHelper.GetEnumDescriptionOrName(model.LoginClientType)]"></TagPro>
             </Column>
-             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[nameof(SharedLocalResource.Ip)]" Width="150" />
-             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[nameof(SharedLocalResource.IsLocked)]" Width="150">
+             <Column @bind-Field="@model.Ip" Filterable Width="150" />
+             <Column @bind-Field="@model.IsLocked" Filterable Width="150">
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -79,9 +79,9 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.UpdatedTime)]" Width="200" />
-             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.EndTime)]" Width="200" />
-             <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.OnlineTime)]" Width="200">
+             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="200" />
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="200" />
+             <Column Title="@Localizer[nameof(SharedLocalResource.OnlineTime)]" TData="string" Width="200">
                 @if(model.UpdatedTime.HasValue)
                 {
                     <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>
@@ -91,7 +91,7 @@
                     <span>--</span>
                 }
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" Fixed="right" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="200" Fixed="right" />
              <ActionColumn Width="100" Fixed="right">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete">

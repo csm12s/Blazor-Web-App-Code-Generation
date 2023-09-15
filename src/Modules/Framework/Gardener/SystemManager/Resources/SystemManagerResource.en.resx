@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
   <data name="CodeManager" xml:space="preserve">
     <value>Code manager</value>
   </data>
@@ -141,6 +150,9 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="CreatedTime" xml:space="preserve">
+    <value>Created time</value>
+  </data>
   <data name="EnableAudit" xml:space="preserve">
     <value>Enable audit</value>
   </data>
@@ -150,16 +162,61 @@
   <data name="Function" xml:space="preserve">
     <value>Function</value>
   </data>
+  <data name="FunctionId" xml:space="preserve">
+    <value>Function id</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
   <data name="LocalCodeName" xml:space="preserve">
     <value>Local code name</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
   </data>
+  <data name="ParentId" xml:space="preserve">
+    <value>Parent id</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
   <data name="RefreshCodeUtilCache" xml:space="preserve">
     <value>Refresh code util cache</value>
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Resource" xml:space="preserve">
+    <value>Resource</value>
+  </data>
+  <data name="ResourceFunction" xml:space="preserve">
+    <value>Resource function</value>
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value>Resource id</value>
+  </data>
+  <data name="Root" xml:space="preserve">
+    <value>Root</value>
+  </data>
   <data name="SupportMultiTenant" xml:space="preserve">
     <value>Support multi tenant</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

@@ -151,7 +151,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 return;
             }
             //更新到数据库
-            var state = await UserService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
+            var state = await UserService.UpdateAvatar(new UpdateUserAvatarInput { Id = userDto.Id, Avatar = imageUrl });
             if (state)
             {
                 MessagerService.Success(Localizer.Combination(nameof(SharedLocalResource.Avatar), nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));

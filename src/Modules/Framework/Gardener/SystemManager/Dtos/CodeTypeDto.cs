@@ -5,34 +5,37 @@
 // -----------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 using Gardener.Base;
+using Gardener.SystemManager.Resources;
+using Gardener.Base.Resources;
 
 namespace Gardener.SystemManager.Dtos
 {
     /// <summary>
     /// 字典类型
     /// </summary>
-    [Description("CodeType")]
+    [Display(Name = nameof(SystemManagerResource.CodeType), ResourceType = typeof(SystemManagerResource))]
     public class CodeTypeDto : BaseDto<int>
     {
         /// <summary>
         /// 字典类型名称
         /// </summary>
-        [DisplayName("CodeTypeName")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.CodeTypeName), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string CodeTypeName { get; set; } = null!;
         /// <summary>
         /// 字典类型值
         /// </summary>
-        [DisplayName("CodeTypeValue")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.CodeTypeValue), ResourceType = typeof(SystemManagerResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string CodeTypeValue { get; set; } = null!;
         /// <summary>
         /// 备注
         /// </summary>
-        [DisplayName("Remark")]
-        [MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
+        [Display(Name = nameof(SystemManagerResource.Remark), ResourceType = typeof(SystemManagerResource))]
+        [MaxLength(200, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Remark { get; set; }
     }
 }
