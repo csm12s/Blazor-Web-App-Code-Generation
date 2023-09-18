@@ -117,37 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountName" xml:space="preserve">
+    <value>AccountName</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>AccountPassword</value>
+  </data>
   <data name="ContentTemplate" xml:space="preserve">
-    <value />
+    <value>EmailServerConfig</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
   </data>
   <data name="EmailServerConfig" xml:space="preserve">
-    <value />
+    <value>EmailServerConfig</value>
+  </data>
+  <data name="EmailServerConfigId" xml:space="preserve">
+    <value>EmailServerConfigId</value>
   </data>
   <data name="EmailTemplate" xml:space="preserve">
-    <value />
+    <value>EmailTemplate</value>
   </data>
   <data name="EnableSsl" xml:space="preserve">
-    <value />
+    <value>EnableSsl</value>
   </data>
   <data name="Example" xml:space="preserve">
-    <value />
+    <value>Example</value>
   </data>
   <data name="FromEmail" xml:space="preserve">
-    <value />
+    <value>FromEmail</value>
   </data>
   <data name="FromName" xml:space="preserve">
-    <value />
+    <value>FromName</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
   </data>
   <data name="IsHtml" xml:space="preserve">
-    <value />
+    <value>IsHtml</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="SendEmailInput" xml:space="preserve">
+    <value>SendEmailInput</value>
+  </data>
+  <data name="ServerTag" xml:space="preserve">
+    <value>ServerTag</value>
   </data>
   <data name="SubjectTemplate" xml:space="preserve">
-    <value />
+    <value>SubjectTemplate</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
-    <value />
+    <value>TemplateId</value>
   </data>
   <data name="ToEmail" xml:space="preserve">
-    <value />
+    <value>ToEmail</value>
   </data>
 </root>

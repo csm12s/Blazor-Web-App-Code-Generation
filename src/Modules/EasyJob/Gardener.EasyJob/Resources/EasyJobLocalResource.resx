@@ -118,126 +118,186 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Archived" xml:space="preserve">
-    <value />
+    <value>Archived</value>
   </data>
   <data name="AssemblyName" xml:space="preserve">
-    <value />
+    <value>AssemblyName</value>
   </data>
   <data name="Backlog" xml:space="preserve">
-    <value />
+    <value>Backlog</value>
   </data>
   <data name="BaseInfo" xml:space="preserve">
-    <value />
+    <value>BaseInfo</value>
   </data>
   <data name="BasicInformation" xml:space="preserve">
-    <value />
+    <value>BasicInformation</value>
   </data>
   <data name="Blocked" xml:space="preserve">
-    <value />
+    <value>Blocked</value>
   </data>
   <data name="BuiltIn" xml:space="preserve">
-    <value />
+    <value>BuiltIn</value>
   </data>
   <data name="Concurrent" xml:space="preserve">
-    <value />
+    <value>Concurrent</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="ElapsedTime" xml:space="preserve">
-    <value />
+    <value>ElapsedTime</value>
+  </data>
+  <data name="EnableRealTimeMonitor" xml:space="preserve">
+    <value>EnableRealTimeMonitor</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>EndTime</value>
   </data>
   <data name="ErrorToReady" xml:space="preserve">
-    <value />
+    <value>ErrorToReady</value>
   </data>
   <data name="GroupName" xml:space="preserve">
-    <value />
+    <value>GroupName</value>
   </data>
   <data name="Http" xml:space="preserve">
-    <value />
+    <value>Http</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>IdentityId</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>IdentityType</value>
   </data>
   <data name="IncludeAnnotations" xml:space="preserve">
-    <value />
+    <value>IncludeAnnotations</value>
   </data>
   <data name="Interval" xml:space="preserve">
-    <value />
+    <value>Interval</value>
   </data>
   <data name="Job" xml:space="preserve">
-    <value />
+    <value>Job</value>
   </data>
   <data name="JobId" xml:space="preserve">
-    <value />
+    <value>JobId</value>
   </data>
   <data name="JobType" xml:space="preserve">
-    <value />
+    <value>JobType</value>
   </data>
   <data name="JobTypeFullName" xml:space="preserve">
-    <value />
+    <value>JobTypeFullName</value>
+  </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>LastRunTime</value>
   </data>
   <data name="Log" xml:space="preserve">
-    <value />
+    <value>Log</value>
+  </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>MaxNumberOfErrors</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>MaxNumberOfRuns</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>NextRunTime</value>
   </data>
   <data name="NotStart" xml:space="preserve">
-    <value />
+    <value>NotStart</value>
+  </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>NumberOfErrors</value>
   </data>
   <data name="NumberOfRuns" xml:space="preserve">
-    <value />
+    <value>NumberOfRuns</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>NumRetries</value>
   </data>
   <data name="Overrun" xml:space="preserve">
-    <value />
+    <value>Overrun</value>
   </data>
   <data name="Panic" xml:space="preserve">
-    <value />
+    <value>Panic</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value />
+    <value>Pause</value>
   </data>
   <data name="Properties" xml:space="preserve">
-    <value />
+    <value>Properties</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value />
+    <value>Ready</value>
   </data>
   <data name="RealTimeMonitor" xml:space="preserve">
-    <value />
+    <value>RealTimeMonitor</value>
+  </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>ResetOnlyOnce</value>
   </data>
   <data name="ResetOnlyOnceTIPS" xml:space="preserve">
-    <value />
+    <value>ResetOnlyOnceTIPS</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>RetryTimeout</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value />
+    <value>Running</value>
   </data>
   <data name="RunningStatus" xml:space="preserve">
-    <value />
+    <value>RunningStatus</value>
+  </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>RunOnceOnStart</value>
   </data>
   <data name="Script" xml:space="preserve">
-    <value />
+    <value>Script</value>
   </data>
   <data name="ScriptCode" xml:space="preserve">
-    <value />
+    <value>ScriptCode</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value />
+    <value>Start</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>StartNow</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>StartTime</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SysJobTrigger" xml:space="preserve">
+    <value>SysJobTrigger</value>
+  </data>
+  <data name="SysJobUserConfig" xml:space="preserve">
+    <value>SysJobUserConfig</value>
   </data>
   <data name="TaskSittings" xml:space="preserve">
-    <value />
+    <value>TaskSittings</value>
   </data>
   <data name="Trigger" xml:space="preserve">
-    <value />
+    <value>Trigger</value>
   </data>
   <data name="TriggerArgs" xml:space="preserve">
-    <value />
+    <value>TriggerArgs</value>
   </data>
   <data name="TriggerAssemblyType" xml:space="preserve">
-    <value />
+    <value>TriggerAssemblyType</value>
   </data>
   <data name="TriggerId" xml:space="preserve">
-    <value />
+    <value>TriggerId</value>
   </data>
   <data name="UnknownJobAssembly" xml:space="preserve">
-    <value />
+    <value>UnknownJobAssembly</value>
   </data>
   <data name="UnknownTriggerType" xml:space="preserve">
-    <value />
+    <value>UnknownTriggerType</value>
   </data>
   <data name="Unoccupied" xml:space="preserve">
-    <value />
+    <value>Unoccupied</value>
   </data>
 </root>

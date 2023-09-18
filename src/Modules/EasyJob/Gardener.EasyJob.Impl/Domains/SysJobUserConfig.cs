@@ -7,6 +7,7 @@
 using Gardener.Authentication.Enums;
 using Gardener.Base;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.EasyJob.Impl.Domains
 {
@@ -19,11 +20,13 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 身份唯一编号
         /// </summary>
         [DisplayName("身份唯一编号")]
+        [Required, MaxLength(100)]
         public string IdentityId { get; set; } = null!;
         /// <summary>
         /// 身份类型
         /// </summary>
         [DisplayName("身份类型")]
+        [Required]
         public IdentityType IdentityType { get; set; }
         /// <summary>
         /// 是否启用实时监控

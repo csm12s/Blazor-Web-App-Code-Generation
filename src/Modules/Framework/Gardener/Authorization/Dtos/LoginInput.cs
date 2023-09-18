@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Enums;
+using Gardener.Base.Resources;
 using Gardener.Enums;
 using Gardener.VerifyCode.Dtos;
 using System.ComponentModel;
@@ -15,34 +16,37 @@ namespace Gardener.Authorization.Dtos
     /// <summary>
     /// 登录输入参数
     /// </summary>
+    [Display(Name = nameof(SharedLocalResource.LoginInput), ResourceType = typeof(SharedLocalResource))]
     public class LoginInput: ImageVerifyCodeCheckInput
     {
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required(ErrorMessage = "用户名不能为空。")]
-        [MinLength(5, ErrorMessage = "长度不能小于5位。")]
-        [MaxLength(32, ErrorMessage = "长度不能大于32位。")]
-        [DisplayName("用户名")]
+        [Display(Name = nameof(SharedLocalResource.UserName), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         public string UserName { get; set; } = null!;
 
         /// <summary>
         /// 密码
         /// </summary>
-        [Required(ErrorMessage = "密码不能为空。")]
-        [MinLength(5, ErrorMessage = "长度不能小于5位。")]
-        [MaxLength(32, ErrorMessage = "长度不能大于32位。")]
-        [DisplayName("密码")]
+        [Display(Name = nameof(SharedLocalResource.Password), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         public string Password { get; set; } = null!;
 
         /// <summary>
         /// 登录类型
         /// </summary>
         /// 
+        [Display(Name = nameof(SharedLocalResource.LoginType), ResourceType = typeof(SharedLocalResource))]
         public LoginType LoginType { get; set; } = LoginType.AccountPassword;
         /// <summary>
         /// 登录客户端类型
         /// </summary>
+        [Display(Name = nameof(SharedLocalResource.LoginClientType), ResourceType = typeof(SharedLocalResource))]
         public LoginClientType LoginClientType { get; set; } = LoginClientType.Browser;
 
     }

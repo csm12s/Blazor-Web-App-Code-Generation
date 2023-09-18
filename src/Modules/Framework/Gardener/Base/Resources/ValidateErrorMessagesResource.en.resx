@@ -135,6 +135,9 @@
   <data name="DefaultValidationError" xml:space="preserve">
     <value>Validation error on field {0}</value>
   </data>
+  <data name="EmailAddressValidationError" xml:space="preserve">
+    <value>The {0} field is not a valid e-mail address</value>
+  </data>
   <data name="NumberLenValidationError" xml:space="preserve">
     <value>{0} must equal {1}</value>
   </data>

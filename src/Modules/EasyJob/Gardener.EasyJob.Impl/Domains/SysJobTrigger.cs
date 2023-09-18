@@ -36,6 +36,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </summary>
         /// <remarks>存储的是类型的 FullName</remarks>
         [DisplayName("作业触发器类型")]
+        [MaxLength(200)]
         public string? TriggerType { get; set; }
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </summary>
         /// <remarks>存储的是程序集 Name</remarks>
         [DisplayName("作业触发器类型所在程序集")]
+        [MaxLength(200)]
         public string? AssemblyName { get; set; }
 
         /// <summary>
@@ -50,12 +52,14 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </summary>
         /// <remarks>运行时将反序列化为 object[] 类型并作为构造函数参数</remarks>
         [DisplayName("作业触发器参数")]
+        [MaxLength(500)]
         public string? Args { get; set; }
 
         /// <summary>
         /// 描述信息
         /// </summary>
         [DisplayName("描述信息")]
+        [MaxLength(200)]
         public string? Description { get; set; }
 
         /// <summary>
@@ -156,6 +160,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 本次执行结果
         /// </summary>
         [DisplayName("本次执行结果")]
+        [MaxLength(5000)]
         public string? Result { get; set; }
 
         /// <summary>

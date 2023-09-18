@@ -286,6 +286,24 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
+        ///   查找类似 ClientId 的本地化字符串。
+        /// </summary>
+        public static string ClientId {
+            get {
+                return ResourceManager.GetString("ClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ClientLoginInput 的本地化字符串。
+        /// </summary>
+        public static string ClientLoginInput {
+            get {
+                return ResourceManager.GetString("ClientLoginInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Close 的本地化字符串。
         /// </summary>
         public static string Close {
@@ -579,6 +597,15 @@ namespace Gardener.Base.Resources {
         public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EncryptionValue 的本地化字符串。
+        /// </summary>
+        public static string EncryptionValue {
+            get {
+                return ResourceManager.GetString("EncryptionValue", resourceCulture);
             }
         }
         
@@ -979,11 +1006,29 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
+        ///   查找类似 LoginInput 的本地化字符串。
+        /// </summary>
+        public static string LoginInput {
+            get {
+                return ResourceManager.GetString("LoginInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 LoginToken 的本地化字符串。
         /// </summary>
         public static string LoginToken {
             get {
                 return ResourceManager.GetString("LoginToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 LoginType 的本地化字符串。
+        /// </summary>
+        public static string LoginType {
+            get {
+                return ResourceManager.GetString("LoginType", resourceCulture);
             }
         }
         
@@ -1222,6 +1267,15 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Password 的本地化字符串。
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Password_Error 的本地化字符串。
         /// </summary>
         public static string Password_Error {
@@ -1290,6 +1344,15 @@ namespace Gardener.Base.Resources {
         public static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RefreshToken 的本地化字符串。
+        /// </summary>
+        public static string RefreshToken {
+            get {
+                return ResourceManager.GetString("RefreshToken", resourceCulture);
             }
         }
         
@@ -1749,6 +1812,15 @@ namespace Gardener.Base.Resources {
         public static string Times {
             get {
                 return ResourceManager.GetString("Times", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Timespan 的本地化字符串。
+        /// </summary>
+        public static string Timespan {
+            get {
+                return ResourceManager.GetString("Timespan", resourceCulture);
             }
         }
         

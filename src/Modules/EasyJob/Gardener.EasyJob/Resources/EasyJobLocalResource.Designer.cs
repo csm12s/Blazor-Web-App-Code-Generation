@@ -61,7 +61,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Archived 的本地化字符串。
         /// </summary>
         public static string Archived {
             get {
@@ -70,7 +70,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AssemblyName 的本地化字符串。
         /// </summary>
         public static string AssemblyName {
             get {
@@ -79,7 +79,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Backlog 的本地化字符串。
         /// </summary>
         public static string Backlog {
             get {
@@ -88,7 +88,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BaseInfo 的本地化字符串。
         /// </summary>
         public static string BaseInfo {
             get {
@@ -97,7 +97,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BasicInformation 的本地化字符串。
         /// </summary>
         public static string BasicInformation {
             get {
@@ -106,7 +106,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Blocked 的本地化字符串。
         /// </summary>
         public static string Blocked {
             get {
@@ -115,7 +115,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 BuiltIn 的本地化字符串。
         /// </summary>
         public static string BuiltIn {
             get {
@@ -124,7 +124,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Concurrent 的本地化字符串。
         /// </summary>
         public static string Concurrent {
             get {
@@ -133,7 +133,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Description 的本地化字符串。
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ElapsedTime 的本地化字符串。
         /// </summary>
         public static string ElapsedTime {
             get {
@@ -142,7 +151,25 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EnableRealTimeMonitor 的本地化字符串。
+        /// </summary>
+        public static string EnableRealTimeMonitor {
+            get {
+                return ResourceManager.GetString("EnableRealTimeMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EndTime 的本地化字符串。
+        /// </summary>
+        public static string EndTime {
+            get {
+                return ResourceManager.GetString("EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ErrorToReady 的本地化字符串。
         /// </summary>
         public static string ErrorToReady {
             get {
@@ -151,7 +178,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 GroupName 的本地化字符串。
         /// </summary>
         public static string GroupName {
             get {
@@ -160,7 +187,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Http 的本地化字符串。
         /// </summary>
         public static string Http {
             get {
@@ -169,7 +196,25 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 IdentityId 的本地化字符串。
+        /// </summary>
+        public static string IdentityId {
+            get {
+                return ResourceManager.GetString("IdentityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IdentityType 的本地化字符串。
+        /// </summary>
+        public static string IdentityType {
+            get {
+                return ResourceManager.GetString("IdentityType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IncludeAnnotations 的本地化字符串。
         /// </summary>
         public static string IncludeAnnotations {
             get {
@@ -178,7 +223,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Interval 的本地化字符串。
         /// </summary>
         public static string Interval {
             get {
@@ -187,7 +232,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Job 的本地化字符串。
         /// </summary>
         public static string Job {
             get {
@@ -196,7 +241,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 JobId 的本地化字符串。
         /// </summary>
         public static string JobId {
             get {
@@ -205,7 +250,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 JobType 的本地化字符串。
         /// </summary>
         public static string JobType {
             get {
@@ -214,7 +259,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 JobTypeFullName 的本地化字符串。
         /// </summary>
         public static string JobTypeFullName {
             get {
@@ -223,7 +268,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 LastRunTime 的本地化字符串。
+        /// </summary>
+        public static string LastRunTime {
+            get {
+                return ResourceManager.GetString("LastRunTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Log 的本地化字符串。
         /// </summary>
         public static string Log {
             get {
@@ -232,7 +286,34 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 MaxNumberOfErrors 的本地化字符串。
+        /// </summary>
+        public static string MaxNumberOfErrors {
+            get {
+                return ResourceManager.GetString("MaxNumberOfErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 MaxNumberOfRuns 的本地化字符串。
+        /// </summary>
+        public static string MaxNumberOfRuns {
+            get {
+                return ResourceManager.GetString("MaxNumberOfRuns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NextRunTime 的本地化字符串。
+        /// </summary>
+        public static string NextRunTime {
+            get {
+                return ResourceManager.GetString("NextRunTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NotStart 的本地化字符串。
         /// </summary>
         public static string NotStart {
             get {
@@ -241,7 +322,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberOfErrors 的本地化字符串。
+        /// </summary>
+        public static string NumberOfErrors {
+            get {
+                return ResourceManager.GetString("NumberOfErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NumberOfRuns 的本地化字符串。
         /// </summary>
         public static string NumberOfRuns {
             get {
@@ -250,7 +340,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumRetries 的本地化字符串。
+        /// </summary>
+        public static string NumRetries {
+            get {
+                return ResourceManager.GetString("NumRetries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Overrun 的本地化字符串。
         /// </summary>
         public static string Overrun {
             get {
@@ -259,7 +358,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Panic 的本地化字符串。
         /// </summary>
         public static string Panic {
             get {
@@ -268,7 +367,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Pause 的本地化字符串。
         /// </summary>
         public static string Pause {
             get {
@@ -277,7 +376,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Properties 的本地化字符串。
         /// </summary>
         public static string Properties {
             get {
@@ -286,7 +385,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Ready 的本地化字符串。
         /// </summary>
         public static string Ready {
             get {
@@ -295,7 +394,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RealTimeMonitor 的本地化字符串。
         /// </summary>
         public static string RealTimeMonitor {
             get {
@@ -304,7 +403,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ResetOnlyOnce 的本地化字符串。
+        /// </summary>
+        public static string ResetOnlyOnce {
+            get {
+                return ResourceManager.GetString("ResetOnlyOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ResetOnlyOnceTIPS 的本地化字符串。
         /// </summary>
         public static string ResetOnlyOnceTIPS {
             get {
@@ -313,7 +421,25 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Result 的本地化字符串。
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RetryTimeout 的本地化字符串。
+        /// </summary>
+        public static string RetryTimeout {
+            get {
+                return ResourceManager.GetString("RetryTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Running 的本地化字符串。
         /// </summary>
         public static string Running {
             get {
@@ -322,7 +448,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RunningStatus 的本地化字符串。
         /// </summary>
         public static string RunningStatus {
             get {
@@ -331,7 +457,16 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RunOnceOnStart 的本地化字符串。
+        /// </summary>
+        public static string RunOnceOnStart {
+            get {
+                return ResourceManager.GetString("RunOnceOnStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Script 的本地化字符串。
         /// </summary>
         public static string Script {
             get {
@@ -340,7 +475,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ScriptCode 的本地化字符串。
         /// </summary>
         public static string ScriptCode {
             get {
@@ -349,7 +484,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Start 的本地化字符串。
         /// </summary>
         public static string Start {
             get {
@@ -358,7 +493,52 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StartNow 的本地化字符串。
+        /// </summary>
+        public static string StartNow {
+            get {
+                return ResourceManager.GetString("StartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 StartTime 的本地化字符串。
+        /// </summary>
+        public static string StartTime {
+            get {
+                return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Status 的本地化字符串。
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobTrigger 的本地化字符串。
+        /// </summary>
+        public static string SysJobTrigger {
+            get {
+                return ResourceManager.GetString("SysJobTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobUserConfig 的本地化字符串。
+        /// </summary>
+        public static string SysJobUserConfig {
+            get {
+                return ResourceManager.GetString("SysJobUserConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TaskSittings 的本地化字符串。
         /// </summary>
         public static string TaskSittings {
             get {
@@ -367,7 +547,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Trigger 的本地化字符串。
         /// </summary>
         public static string Trigger {
             get {
@@ -376,7 +556,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TriggerArgs 的本地化字符串。
         /// </summary>
         public static string TriggerArgs {
             get {
@@ -385,7 +565,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TriggerAssemblyType 的本地化字符串。
         /// </summary>
         public static string TriggerAssemblyType {
             get {
@@ -394,7 +574,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TriggerId 的本地化字符串。
         /// </summary>
         public static string TriggerId {
             get {
@@ -403,7 +583,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UnknownJobAssembly 的本地化字符串。
         /// </summary>
         public static string UnknownJobAssembly {
             get {
@@ -412,7 +592,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 UnknownTriggerType 的本地化字符串。
         /// </summary>
         public static string UnknownTriggerType {
             get {
@@ -421,7 +601,7 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Unoccupied 的本地化字符串。
         /// </summary>
         public static string Unoccupied {
             get {

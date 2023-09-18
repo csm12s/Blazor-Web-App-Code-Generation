@@ -135,6 +135,9 @@
   <data name="DefaultValidationError" xml:space="preserve">
     <value>字段{0}上的验证错误</value>
   </data>
+  <data name="EmailAddressValidationError" xml:space="preserve">
+    <value>{0}字段不是有效的电子邮件地址</value>
+  </data>
   <data name="NumberLenValidationError" xml:space="preserve">
     <value>{0}必须等于{1}</value>
   </data>

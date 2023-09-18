@@ -186,6 +186,12 @@
   <data name="Client" xml:space="preserve">
     <value>Client</value>
   </data>
+  <data name="ClientId" xml:space="preserve">
+    <value>ClientId</value>
+  </data>
+  <data name="ClientLoginInput" xml:space="preserve">
+    <value>ClientLoginInput</value>
+  </data>
   <data name="Client_Login_Fail" xml:space="preserve">
     <value>Client_Login_Fail</value>
   </data>
@@ -290,6 +296,9 @@
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
+  </data>
+  <data name="EncryptionValue" xml:space="preserve">
+    <value>EncryptionValue</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
@@ -423,8 +432,14 @@
   <data name="LoginId" xml:space="preserve">
     <value>LoginId</value>
   </data>
+  <data name="LoginInput" xml:space="preserve">
+    <value>LoginInput</value>
+  </data>
   <data name="LoginToken" xml:space="preserve">
     <value>LoginToken</value>
+  </data>
+  <data name="LoginType" xml:space="preserve">
+    <value>LoginType</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
@@ -504,6 +519,9 @@
   <data name="Parent" xml:space="preserve">
     <value>Parent</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="Password_Error" xml:space="preserve">
     <value>Password_Error</value>
   </data>
@@ -527,6 +545,9 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>RefreshToken</value>
   </data>
   <data name="Refreshtoken_Cannot_Used_In_Authentication" xml:space="preserve">
     <value>Refreshtoken_Cannot_Used_In_Authentication</value>
@@ -680,6 +701,9 @@
   </data>
   <data name="Times" xml:space="preserve">
     <value>Times</value>
+  </data>
+  <data name="Timespan" xml:space="preserve">
+    <value>Timespan</value>
   </data>
   <data name="Timespan_Is_Expired" xml:space="preserve">
     <value>Timespan_Is_Expired</value>

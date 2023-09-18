@@ -61,7 +61,25 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 AccountName 的本地化字符串。
+        /// </summary>
+        public static string AccountName {
+            get {
+                return ResourceManager.GetString("AccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AccountPassword 的本地化字符串。
+        /// </summary>
+        public static string AccountPassword {
+            get {
+                return ResourceManager.GetString("AccountPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EmailServerConfig 的本地化字符串。
         /// </summary>
         public static string ContentTemplate {
             get {
@@ -70,7 +88,16 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Data 的本地化字符串。
+        /// </summary>
+        public static string Data {
+            get {
+                return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EmailServerConfig 的本地化字符串。
         /// </summary>
         public static string EmailServerConfig {
             get {
@@ -79,7 +106,16 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EmailServerConfigId 的本地化字符串。
+        /// </summary>
+        public static string EmailServerConfigId {
+            get {
+                return ResourceManager.GetString("EmailServerConfigId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EmailTemplate 的本地化字符串。
         /// </summary>
         public static string EmailTemplate {
             get {
@@ -88,7 +124,7 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EnableSsl 的本地化字符串。
         /// </summary>
         public static string EnableSsl {
             get {
@@ -97,7 +133,7 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Example 的本地化字符串。
         /// </summary>
         public static string Example {
             get {
@@ -106,7 +142,7 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FromEmail 的本地化字符串。
         /// </summary>
         public static string FromEmail {
             get {
@@ -115,7 +151,7 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 FromName 的本地化字符串。
         /// </summary>
         public static string FromName {
             get {
@@ -124,7 +160,16 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Host 的本地化字符串。
+        /// </summary>
+        public static string Host {
+            get {
+                return ResourceManager.GetString("Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IsHtml 的本地化字符串。
         /// </summary>
         public static string IsHtml {
             get {
@@ -133,7 +178,52 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Name 的本地化字符串。
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Port 的本地化字符串。
+        /// </summary>
+        public static string Port {
+            get {
+                return ResourceManager.GetString("Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Remark 的本地化字符串。
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SendEmailInput 的本地化字符串。
+        /// </summary>
+        public static string SendEmailInput {
+            get {
+                return ResourceManager.GetString("SendEmailInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ServerTag 的本地化字符串。
+        /// </summary>
+        public static string ServerTag {
+            get {
+                return ResourceManager.GetString("ServerTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SubjectTemplate 的本地化字符串。
         /// </summary>
         public static string SubjectTemplate {
             get {
@@ -142,7 +232,16 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Tags 的本地化字符串。
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TemplateId 的本地化字符串。
         /// </summary>
         public static string TemplateId {
             get {
@@ -151,7 +250,7 @@ namespace Gardener.Email.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ToEmail 的本地化字符串。
         /// </summary>
         public static string ToEmail {
             get {

@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,27 +14,29 @@ namespace Gardener.Authorization.Dtos
     /// <summary>
     /// 客户端登录输入
     /// </summary>
+    [Display(Name = nameof(SharedLocalResource.ClientLoginInput), ResourceType = typeof(SharedLocalResource))]
     public class ClientLoginInput
     {
         /// <summary>
         /// 客户端编号
         /// </summary>
-        [DisplayName("客户端编号")]
-        [Required]
+        [Display(Name = nameof(SharedLocalResource.ClientId), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public Guid ClientId { get; set; }
 
         /// <summary>
         /// 时间戳
         /// </summary>
-        [DisplayName("时间戳")]
-        [Required]
+        [Display(Name = nameof(SharedLocalResource.Timespan), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public long Timespan { get; set; }
 
         /// <summary>
         /// 加密的值
         /// </summary>
-        [Required]
-        [DisplayName("加密的值")]
+        [Display(Name = nameof(SharedLocalResource.EncryptionValue), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(64, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string EncryptionValue { get; set; } = null!;
     }
 }

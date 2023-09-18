@@ -138,14 +138,29 @@
   <data name="Concurrent" xml:space="preserve">
     <value>Concurrent</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>Elapsed time</value>
+  </data>
+  <data name="EnableRealTimeMonitor" xml:space="preserve">
+    <value>Enable real time monitor</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End time</value>
   </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>ErrorToReady</value>
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>Group name</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>Identity id</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>Identity type</value>
   </data>
   <data name="IncludeAnnotations" xml:space="preserve">
     <value>Include annotations</value>
@@ -162,14 +177,32 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>Job type full name</value>
   </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>Last run time</value>
+  </data>
   <data name="Log" xml:space="preserve">
     <value>Log</value>
+  </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>Max number of errors</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>Max number of runs</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>Next tun time</value>
   </data>
   <data name="NotStart" xml:space="preserve">
     <value>NotStart</value>
   </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>Number of errors</value>
+  </data>
   <data name="NumberOfRuns" xml:space="preserve">
     <value>Number of runs</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>Num retries</value>
   </data>
   <data name="Overrun" xml:space="preserve">
     <value>Overrun</value>
@@ -189,8 +222,17 @@
   <data name="RealTimeMonitor" xml:space="preserve">
     <value>Real time monitor</value>
   </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>Reset only once</value>
+  </data>
   <data name="ResetOnlyOnceTIPS" xml:space="preserve">
     <value>Whether to reset a job with a maximum number of triggers equal to one at startup</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>Retry timeout</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>Running</value>
@@ -198,11 +240,29 @@
   <data name="RunningStatus" xml:space="preserve">
     <value>Running status</value>
   </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>Run once on start</value>
+  </data>
   <data name="ScriptCode" xml:space="preserve">
     <value>Script code</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>Start now</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SysJobTrigger" xml:space="preserve">
+    <value>Sys job trigger</value>
+  </data>
+  <data name="SysJobUserConfig" xml:space="preserve">
+    <value>System job user config</value>
   </data>
   <data name="TaskSittings" xml:space="preserve">
     <value>Task sittings</value>

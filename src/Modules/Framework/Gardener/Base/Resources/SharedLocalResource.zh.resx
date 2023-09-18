@@ -795,4 +795,28 @@
   <data name="Value" xml:space="preserve">
     <value>值</value>
   </data>
+  <data name="ClientId" xml:space="preserve">
+    <value>客户端编号</value>
+  </data>
+  <data name="ClientLoginInput" xml:space="preserve">
+    <value>客户端登录输入</value>
+  </data>
+  <data name="EncryptionValue" xml:space="preserve">
+    <value>加密的值</value>
+  </data>
+  <data name="LoginInput" xml:space="preserve">
+    <value>登录输入</value>
+  </data>
+  <data name="LoginType" xml:space="preserve">
+    <value>登录类型</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>刷新令牌</value>
+  </data>
+  <data name="Timespan" xml:space="preserve">
+    <value>时间戳</value>
+  </data>
 </root>

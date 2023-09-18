@@ -135,6 +135,9 @@
   <data name="DefaultValidationError" xml:space="preserve">
     <value />
   </data>
+  <data name="EmailAddressValidationError" xml:space="preserve">
+    <value />
+  </data>
   <data name="NumberLenValidationError" xml:space="preserve">
     <value />
   </data>

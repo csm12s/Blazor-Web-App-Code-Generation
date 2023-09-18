@@ -117,6 +117,15 @@ namespace Gardener.Base.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string EmailAddressValidationError {
+            get {
+                return ResourceManager.GetString("EmailAddressValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string NumberLenValidationError {
             get {
                 return ResourceManager.GetString("NumberLenValidationError", resourceCulture);
