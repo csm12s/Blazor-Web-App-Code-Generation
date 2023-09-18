@@ -124,6 +124,15 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 ClusterId 的本地化字符串。
+        /// </summary>
+        public static string ClusterId {
+            get {
+                return ResourceManager.GetString("ClusterId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Concurrent 的本地化字符串。
         /// </summary>
         public static string Concurrent {
@@ -174,6 +183,24 @@ namespace Gardener.EasyJob.Resources {
         public static string ErrorToReady {
             get {
                 return ResourceManager.GetString("ErrorToReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Exception 的本地化字符串。
+        /// </summary>
+        public static string Exception {
+            get {
+                return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ExceptionMessage 的本地化字符串。
+        /// </summary>
+        public static string ExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExceptionMessage", resourceCulture);
             }
         }
         
@@ -241,11 +268,47 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 JobDetailDescription 的本地化字符串。
+        /// </summary>
+        public static string JobDetailDescription {
+            get {
+                return ResourceManager.GetString("JobDetailDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 JobId 的本地化字符串。
         /// </summary>
         public static string JobId {
             get {
                 return ResourceManager.GetString("JobId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 JobName 的本地化字符串。
+        /// </summary>
+        public static string JobName {
+            get {
+                return ResourceManager.GetString("JobName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 JobTriggerDescription 的本地化字符串。
+        /// </summary>
+        public static string JobTriggerDescription {
+            get {
+                return ResourceManager.GetString("JobTriggerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 JobTriggers 的本地化字符串。
+        /// </summary>
+        public static string JobTriggers {
+            get {
+                return ResourceManager.GetString("JobTriggers", resourceCulture);
             }
         }
         
@@ -520,6 +583,51 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Succeeded 的本地化字符串。
+        /// </summary>
+        public static string Succeeded {
+            get {
+                return ResourceManager.GetString("Succeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobCluster 的本地化字符串。
+        /// </summary>
+        public static string SysJobCluster {
+            get {
+                return ResourceManager.GetString("SysJobCluster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobDetail 的本地化字符串。
+        /// </summary>
+        public static string SysJobDetail {
+            get {
+                return ResourceManager.GetString("SysJobDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobLog 的本地化字符串。
+        /// </summary>
+        public static string SysJobLog {
+            get {
+                return ResourceManager.GetString("SysJobLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SysJobLogElapsedTime 的本地化字符串。
+        /// </summary>
+        public static string SysJobLogElapsedTime {
+            get {
+                return ResourceManager.GetString("SysJobLogElapsedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 SysJobTrigger 的本地化字符串。
         /// </summary>
         public static string SysJobTrigger {
@@ -543,6 +651,15 @@ namespace Gardener.EasyJob.Resources {
         public static string TaskSittings {
             get {
                 return ResourceManager.GetString("TaskSittings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Time 的本地化字符串。
+        /// </summary>
+        public static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
         
@@ -579,6 +696,15 @@ namespace Gardener.EasyJob.Resources {
         public static string TriggerId {
             get {
                 return ResourceManager.GetString("TriggerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TriggerStatus 的本地化字符串。
+        /// </summary>
+        public static string TriggerStatus {
+            get {
+                return ResourceManager.GetString("TriggerStatus", resourceCulture);
             }
         }
         

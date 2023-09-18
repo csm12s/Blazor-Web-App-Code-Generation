@@ -4,12 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Audit.Resources;
 using Gardener.Authentication.Enums;
 using Gardener.Base;
 using Gardener.Base.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Authentication.Dtos

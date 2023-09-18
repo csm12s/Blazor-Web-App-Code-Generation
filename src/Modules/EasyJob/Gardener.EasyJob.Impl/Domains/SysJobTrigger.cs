@@ -66,6 +66,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 作业触发器状态
         /// </summary>
         [DisplayName("作业触发器状态")]
+        [Required]
         public TriggerStatus Status { get; set; } = TriggerStatus.Ready;
 
         /// <summary>
@@ -96,6 +97,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 触发次数
         /// </summary>
         [DisplayName("触发次数")]
+        [Required]
         public long NumberOfRuns { get; set; }
 
         /// <summary>
@@ -106,12 +108,14 @@ namespace Gardener.EasyJob.Impl.Domains
         /// <para>n：N 次</para>
         /// </remarks>
         [DisplayName("最大触发次数")]
+        [Required]
         public long MaxNumberOfRuns { get; set; }
 
         /// <summary>
         /// 出错次数
         /// </summary>
         [DisplayName("出错次数")]
+        [Required]
         public long NumberOfErrors { get; set; }
 
         /// <summary>
@@ -122,12 +126,14 @@ namespace Gardener.EasyJob.Impl.Domains
         /// <para>n：N 次</para>
         /// </remarks>
         [DisplayName("最大出错次数")]
+        [Required]
         public long MaxNumberOfErrors { get; set; }
 
         /// <summary>
         /// 重试次数
         /// </summary>
         [DisplayName("重试次数")]
+        [Required]
         public int NumRetries { get; set; } = 0;
 
         /// <summary>
@@ -135,18 +141,21 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </summary>
         /// <remarks>默认1000毫秒</remarks>
         [DisplayName("重试间隔时间")]
+        [Required]
         public int RetryTimeout { get; set; } = 1000;
 
         /// <summary>
         /// 是否立即启动
         /// </summary>
         [DisplayName("是否立即启动")]
+        [Required]
         public bool StartNow { get; set; } = true;
 
         /// <summary>
         /// 是否启动时执行一次
         /// </summary>
         [DisplayName("是否启动时执行一次")]
+        [Required]
         public bool RunOnStart { get; set; } = false;
 
         /// <summary>
@@ -154,6 +163,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </summary>
         /// <remarks>解决因持久化数据已完成一次触发但启动时不再执行的问题</remarks>
         [DisplayName("是否在启动时重置最大触发次数等于一次的作业")]
+        [Required]
         public bool ResetOnlyOnce { get; set; } = true;
 
         /// <summary>
@@ -167,6 +177,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 本次执行耗时
         /// </summary>
         [DisplayName("本次执行耗时")]
+        [Required]
         public long ElapsedTime { get; set; }
     }
 }

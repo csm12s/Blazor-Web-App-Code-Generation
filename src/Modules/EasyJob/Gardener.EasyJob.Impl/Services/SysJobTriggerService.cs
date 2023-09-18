@@ -8,7 +8,6 @@ using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Furion.Schedule;
-using Gardener.Base;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Resources;

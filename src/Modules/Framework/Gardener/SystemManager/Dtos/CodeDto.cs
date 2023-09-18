@@ -6,7 +6,6 @@
 
 using Gardener.Base;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 using Gardener.Attributes;
 using Gardener.SystemManager.Resources;
 using Gardener.Base.Resources;

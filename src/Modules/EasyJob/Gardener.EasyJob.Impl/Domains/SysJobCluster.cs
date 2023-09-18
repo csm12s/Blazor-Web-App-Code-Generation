@@ -27,13 +27,14 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 描述信息
         /// </summary>
         [DisplayName("描述信息")]
-        [MaxLength(128)]
+        [MaxLength(200)]
         public string? Description { get; set; }
 
         /// <summary>
         /// 状态
         /// </summary>
         [DisplayName("状态")]
-        public ClusterStatus Status { get; set; }
+        [Required]
+        public ClusterStatus Status { get; set; } = ClusterStatus.Crashed;
     }
 }

@@ -138,6 +138,9 @@
   <data name="BuiltIn" xml:space="preserve">
     <value>内置</value>
   </data>
+  <data name="ClusterId" xml:space="preserve">
+    <value>集群编号</value>
+  </data>
   <data name="Concurrent" xml:space="preserve">
     <value>并行执行</value>
   </data>
@@ -155,6 +158,12 @@
   </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>由失败进入就绪</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>异常信息</value>
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>组名</value>
@@ -177,8 +186,20 @@
   <data name="Job" xml:space="preserve">
     <value>任务</value>
   </data>
+  <data name="JobDetailDescription" xml:space="preserve">
+    <value>任务描述</value>
+  </data>
   <data name="JobId" xml:space="preserve">
     <value>任务编号</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>任务名</value>
+  </data>
+  <data name="JobTriggerDescription" xml:space="preserve">
+    <value>触发器描述</value>
+  </data>
+  <data name="JobTriggers" xml:space="preserve">
+    <value>任务触发器集合</value>
   </data>
   <data name="JobType" xml:space="preserve">
     <value>任务类型</value>
@@ -270,6 +291,21 @@
   <data name="Status" xml:space="preserve">
     <value>状态</value>
   </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>成功的</value>
+  </data>
+  <data name="SysJobCluster" xml:space="preserve">
+    <value>定时任务集群</value>
+  </data>
+  <data name="SysJobDetail" xml:space="preserve">
+    <value>定时任务详情</value>
+  </data>
+  <data name="SysJobLog" xml:space="preserve">
+    <value>定时任务日志</value>
+  </data>
+  <data name="SysJobLogElapsedTime" xml:space="preserve">
+    <value>定时任务运行耗时</value>
+  </data>
   <data name="SysJobTrigger" xml:space="preserve">
     <value>定时任务触发器</value>
   </data>
@@ -278,6 +314,9 @@
   </data>
   <data name="TaskSittings" xml:space="preserve">
     <value>任务设置</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
   </data>
   <data name="Trigger" xml:space="preserve">
     <value>触发器</value>
@@ -290,6 +329,9 @@
   </data>
   <data name="TriggerId" xml:space="preserve">
     <value>触发器编号</value>
+  </data>
+  <data name="TriggerStatus" xml:space="preserve">
+    <value>触发器状态</value>
   </data>
   <data name="UnknownJobAssembly" xml:space="preserve">
     <value>未知作业处理程序</value>

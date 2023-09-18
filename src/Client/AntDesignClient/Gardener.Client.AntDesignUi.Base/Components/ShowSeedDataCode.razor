@@ -10,31 +10,3 @@
 <Spin Spinning="_loading">
     <StandaloneCodeEditor @ref="_editor" Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="EditorOnDidInit" />
 </Spin>
-@code {
-    private StandaloneCodeEditor _editor = null!;
-    private bool _loading = false;
-    
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
-    private async Task EditorOnDidInit()
-    {
-        _loading = true;
-        await _editor.SetValue(await this.Options);
-        _loading = false;
-    }
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="editor"></param>
-    /// <returns></returns>
-    private StandaloneEditorConstructionOptions EditorConstructionOptions(Editor editor)
-    {
-        return new StandaloneEditorConstructionOptions
-            {
-                AutomaticLayout = true,
-                Language = "csharp"
-            };
-    }
-}

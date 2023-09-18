@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Client.Core.Services;
 using Gardener.LocalizationLocalizer;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core

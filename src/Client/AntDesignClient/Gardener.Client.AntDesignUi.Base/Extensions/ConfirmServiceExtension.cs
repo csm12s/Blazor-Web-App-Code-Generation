@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using Gardener.Client.Base;
 using Gardener.LocalizationLocalizer;
 
 namespace AntDesign

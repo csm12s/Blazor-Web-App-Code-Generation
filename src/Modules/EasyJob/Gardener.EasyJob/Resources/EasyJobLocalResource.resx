@@ -138,6 +138,9 @@
   <data name="BuiltIn" xml:space="preserve">
     <value>BuiltIn</value>
   </data>
+  <data name="ClusterId" xml:space="preserve">
+    <value>ClusterId</value>
+  </data>
   <data name="Concurrent" xml:space="preserve">
     <value>Concurrent</value>
   </data>
@@ -155,6 +158,12 @@
   </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>ErrorToReady</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>ExceptionMessage</value>
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>GroupName</value>
@@ -177,8 +186,20 @@
   <data name="Job" xml:space="preserve">
     <value>Job</value>
   </data>
+  <data name="JobDetailDescription" xml:space="preserve">
+    <value>JobDetailDescription</value>
+  </data>
   <data name="JobId" xml:space="preserve">
     <value>JobId</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>JobName</value>
+  </data>
+  <data name="JobTriggerDescription" xml:space="preserve">
+    <value>JobTriggerDescription</value>
+  </data>
+  <data name="JobTriggers" xml:space="preserve">
+    <value>JobTriggers</value>
   </data>
   <data name="JobType" xml:space="preserve">
     <value>JobType</value>
@@ -270,6 +291,21 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>Succeeded</value>
+  </data>
+  <data name="SysJobCluster" xml:space="preserve">
+    <value>SysJobCluster</value>
+  </data>
+  <data name="SysJobDetail" xml:space="preserve">
+    <value>SysJobDetail</value>
+  </data>
+  <data name="SysJobLog" xml:space="preserve">
+    <value>SysJobLog</value>
+  </data>
+  <data name="SysJobLogElapsedTime" xml:space="preserve">
+    <value>SysJobLogElapsedTime</value>
+  </data>
   <data name="SysJobTrigger" xml:space="preserve">
     <value>SysJobTrigger</value>
   </data>
@@ -278,6 +314,9 @@
   </data>
   <data name="TaskSittings" xml:space="preserve">
     <value>TaskSittings</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
   </data>
   <data name="Trigger" xml:space="preserve">
     <value>Trigger</value>
@@ -290,6 +329,9 @@
   </data>
   <data name="TriggerId" xml:space="preserve">
     <value>TriggerId</value>
+  </data>
+  <data name="TriggerStatus" xml:space="preserve">
+    <value>TriggerStatus</value>
   </data>
   <data name="UnknownJobAssembly" xml:space="preserve">
     <value>UnknownJobAssembly</value>

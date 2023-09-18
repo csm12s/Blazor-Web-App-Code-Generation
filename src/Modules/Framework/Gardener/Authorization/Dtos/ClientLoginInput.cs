@@ -6,7 +6,6 @@
 
 using Gardener.Base.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Authorization.Dtos

@@ -11,7 +11,6 @@ using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Gardener.EasyJob.Impl.Services
 {

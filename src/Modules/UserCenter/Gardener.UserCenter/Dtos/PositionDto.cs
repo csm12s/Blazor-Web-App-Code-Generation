@@ -8,7 +8,6 @@ using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.UserCenter.Resources;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos

@@ -6,7 +6,6 @@
 
 using System.ComponentModel.DataAnnotations;
 using Gardener.Base;
-using System.ComponentModel;
 using Gardener.EasyJob.Enums;
 using Gardener.Base.Resources;
 using Gardener.EasyJob.Resources;

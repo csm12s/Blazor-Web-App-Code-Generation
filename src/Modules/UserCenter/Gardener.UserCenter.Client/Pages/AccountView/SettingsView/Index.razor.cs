@@ -10,7 +10,6 @@ using Gardener.Client.Base;
 using Gardener.UserCenter.Resources;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
 {

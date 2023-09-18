@@ -8,7 +8,6 @@ using Gardener.Authentication.Enums;
 using Gardener.Base.Resources;
 using Gardener.Enums;
 using Gardener.VerifyCode.Dtos;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Authorization.Dtos

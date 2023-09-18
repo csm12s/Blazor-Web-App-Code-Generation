@@ -10,7 +10,6 @@ using Gardener.Base.Resources;
 using Gardener.Enums;
 using Gardener.UserCenter.Resources;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos

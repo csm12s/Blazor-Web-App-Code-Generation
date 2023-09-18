@@ -7,7 +7,6 @@
 using Gardener.Base.Resources;
 using Gardener.SystemManager.Resources;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.SystemManager.Dtos
