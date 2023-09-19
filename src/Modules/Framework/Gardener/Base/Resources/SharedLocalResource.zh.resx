@@ -123,12 +123,6 @@
   <data name="Add" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="AddChildren" xml:space="preserve">
-    <value>添加子项</value>
-  </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>验证中</value>
-  </data>
   <data name="Avatar" xml:space="preserve">
     <value>头像</value>
   </data>
@@ -144,9 +138,6 @@
   <data name="Binding" xml:space="preserve">
     <value>绑定</value>
   </data>
-  <data name="BindingApi" xml:space="preserve">
-    <value>绑定接口</value>
-  </data>
   <data name="BindingResource" xml:space="preserve">
     <value>绑定资源</value>
   </data>
@@ -159,14 +150,6 @@
   <data name="CH" xml:space="preserve">
     <value>中文</value>
   </data>
-  <data name="Client_Login_Fail" xml:space="preserve">
-    <value>客户端登录失败</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Client_No_Find" xml:space="preserve">
-    <value>客户端未找到</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -176,10 +159,6 @@
   </data>
   <data name="Collapse" xml:space="preserve">
     <value>收起</value>
-  </data>
-  <data name="Controller_Need_Comment" xml:space="preserve">
-    <value>接口方法需要备注</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
@@ -196,9 +175,6 @@
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="DeleteAndIncludChildren" xml:space="preserve">
-    <value>删除(包含子项)</value>
-  </data>
   <data name="DeleteSelected" xml:space="preserve">
     <value>删除选中</value>
   </data>
@@ -213,10 +189,6 @@
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
-  </data>
-  <data name="Email_Server_No_Find" xml:space="preserve">
-    <value>邮件服务器未找到</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="EN" xml:space="preserve">
     <value>英文</value>
@@ -476,10 +448,6 @@
   <data name="Enable" xml:space="preserve">
     <value>启用</value>
   </data>
-  <data name="Data_Not_Find" xml:space="preserve">
-    <value>数据未找到</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="User_Info_Get_Error_Retry_Login" xml:space="preserve">
     <value>用户信息获取失败,请重新登陆。</value>
   </data>
@@ -640,10 +608,6 @@
   <data name="Times" xml:space="preserve">
     <value>次</value>
   </data>
-  <data name="Data_Key_Uniqueness_Conflict" xml:space="preserve">
-    <value>数据键“{0}”唯一性冲突</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Search_Error_DB_Field_Is_Null" xml:space="preserve">
     <value>查询出错，检索字段在数据库中可能为null</value>
     <comment>ErrorCodeMessage</comment>
@@ -752,9 +716,6 @@
   <data name="Total" xml:space="preserve">
     <value>总数</value>
   </data>
-  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
-    <value>确认密码不一致</value>
-  </data>
   <data name="Exception" xml:space="preserve">
     <value>异常</value>
   </data>
@@ -818,5 +779,11 @@
   </data>
   <data name="Timespan" xml:space="preserve">
     <value>时间戳</value>
+  </data>
+  <data name="AddChildren" xml:space="preserve">
+    <value>添加子集</value>
+  </data>
+  <data name="DeleteAndIncludChildren" xml:space="preserve">
+    <value>删除时同时删除子集</value>
   </data>
 </root>

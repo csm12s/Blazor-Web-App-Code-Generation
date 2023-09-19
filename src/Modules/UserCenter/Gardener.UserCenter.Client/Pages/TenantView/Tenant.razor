@@ -64,7 +64,7 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="user_center_tenant_set_resource">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer["BindingResource"])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(Localizer[nameof(SharedLocalResource.BindingResource)])" ArrowPointAtCenter="true">
                                 <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditTenantResourceClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>

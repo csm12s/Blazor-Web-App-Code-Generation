@@ -29,7 +29,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 
         public RenderFragment GetPageTitle()
         {
-            return localizer["UserCenter"].ToRenderFragment();
+            return localizer[nameof(UserCenterResource.UserCenter)].ToRenderFragment();
         }
 
         /// <summary>

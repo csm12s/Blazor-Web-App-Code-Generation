@@ -131,12 +131,12 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.UserName" Filterable Title="@Localizer["UserName"]" />
-                     <Column @bind-Field="@model.NickName" Filterable Title="@Localizer["NickName"]" />
-                     <Column TData="string" Title="@Localizer["Dept"]">
+                    <Column @bind-Field="@model.UserName" Filterable Title="@Localizer[nameof(UserCenterResource.UserName)]" />
+                     <Column @bind-Field="@model.NickName" Filterable Title="@Localizer[nameof(UserCenterResource.NickName)]" />
+                     <Column TData="string" Title="@Localizer[nameof(UserCenterResource.Dept)]">
                          @model.Dept?.Name
                      </Column>
-                     <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters" Title="@Localizer["Gender"]">
+                     <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters" Title="@Localizer[nameof(UserCenterResource.Gender)]">
                          <TagPro Text="@model.Gender">@Localizer[EnumHelper.GetEnumDescriptionOrName(model.Gender)]</TagPro>
                      </Column>
                      @*<Column @bind-Field="@model.PhoneNumber" />
@@ -178,7 +178,7 @@
                              </ResourceAuthorize>
                              <ResourceAuthorize ResourceKey="user_center_user_role_edit">
                                  <SpaceItem>
-                                     <Tooltip Title="@(Localizer["SettingRoles"])" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@(Localizer[nameof(UserCenterResource.SettingRoles)])" ArrowPointAtCenter="true">
                                          <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model)"></Button>
                                      </Tooltip>
                                  </SpaceItem>

@@ -16,7 +16,6 @@ namespace Gardener.EasyJob.Dtos
     /// <summary>
     /// 任务详情
     /// </summary>
-    [Description("任务详情")]
     [Display(Name = nameof(EasyJobLocalResource.SysJobDetail), ResourceType = typeof(EasyJobLocalResource))]
     public class SysJobDetailDto : BaseDto<int>
     {

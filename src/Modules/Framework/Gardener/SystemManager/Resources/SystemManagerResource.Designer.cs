@@ -70,6 +70,24 @@ namespace Gardener.SystemManager.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Binding 的本地化字符串。
+        /// </summary>
+        public static string Binding {
+            get {
+                return ResourceManager.GetString("Binding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 BindingApi 的本地化字符串。
+        /// </summary>
+        public static string BindingApi {
+            get {
+                return ResourceManager.GetString("BindingApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
         public static string Children {

@@ -132,9 +132,6 @@
   <data name="AddChildren" xml:space="preserve">
     <value>AddChildren</value>
   </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>Authorizing</value>
-  </data>
   <data name="Avatar" xml:space="preserve">
     <value>Avatar</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="Binding" xml:space="preserve">
     <value>Binding</value>
-  </data>
-  <data name="BindingApi" xml:space="preserve">
-    <value>BindingApi</value>
   </data>
   <data name="BindingResource" xml:space="preserve">
     <value>BindingResource</value>
@@ -192,12 +186,6 @@
   <data name="ClientLoginInput" xml:space="preserve">
     <value>ClientLoginInput</value>
   </data>
-  <data name="Client_Login_Fail" xml:space="preserve">
-    <value>Client_Login_Fail</value>
-  </data>
-  <data name="Client_No_Find" xml:space="preserve">
-    <value>Client_No_Find</value>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -213,17 +201,11 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
-    <value>Confirm_New_Password_Inconformity</value>
-  </data>
   <data name="Connecting" xml:space="preserve">
     <value>Connecting</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
-  </data>
-  <data name="Controller_Need_Comment" xml:space="preserve">
-    <value>Controller_Need_Comment</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
@@ -245,12 +227,6 @@
   </data>
   <data name="DataNotFound" xml:space="preserve">
     <value>DataNotFound</value>
-  </data>
-  <data name="Data_Key_Uniqueness_Conflict" xml:space="preserve">
-    <value>Data_Key_Uniqueness_Conflict</value>
-  </data>
-  <data name="Data_Not_Find" xml:space="preserve">
-    <value>Data_Not_Find</value>
   </data>
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
@@ -287,9 +263,6 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
-  </data>
-  <data name="Email_Server_No_Find" xml:space="preserve">
-    <value>Email_Server_No_Find</value>
   </data>
   <data name="EN" xml:space="preserve">
     <value>EN</value>

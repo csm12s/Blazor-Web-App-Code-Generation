@@ -306,6 +306,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string IsLocked {
+            get {
+                return ResourceManager.GetString("IsLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string IsSuperAdministrator {
             get {
                 return ResourceManager.GetString("IsSuperAdministrator", resourceCulture);
@@ -561,6 +570,15 @@ namespace Gardener.UserCenter.Resources {
         public static string SecuritySettings {
             get {
                 return ResourceManager.GetString("SecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string SettingRoles {
+            get {
+                return ResourceManager.GetString("SettingRoles", resourceCulture);
             }
         }
         

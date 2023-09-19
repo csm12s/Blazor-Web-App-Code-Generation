@@ -113,7 +113,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="user"></param>
         private Task OnEditUserRoleClick(UserDto user)
         {
-            return OpenOperationDialogAsync<UserRoleEdit, UserDto, bool>(Localizer["SettingRoles"], user, width: 500);
+            return OpenOperationDialogAsync<UserRoleEdit, UserDto, bool>(Localizer[nameof(UserCenterResource.SettingRoles)], user, width: 500);
         }
         /// <summary>
         /// 点击头像

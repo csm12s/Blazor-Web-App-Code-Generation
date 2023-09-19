@@ -16,10 +16,10 @@
                         </a>
                     </Tooltip>
                 </FormItem>
-                <FormItem Label="@Localizer["NickName"]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+                <FormItem Label="@Localizer[nameof(UserCenterResource.NickName)]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
                     <Input @bind-Value="@model.NickName" />
                 </FormItem>
-                <FormItem Label="@Localizer["Gender"]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Type=FormFieldType.Enum} })>
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Gender)]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Type=FormFieldType.Enum} })>
                     <RadioGroup @bind-Value="@(model.Gender)">
                         @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                         {

@@ -118,63 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArrayLenValidationError" xml:space="preserve">
-    <value />
+    <value>ArrayLenValidationError</value>
   </data>
   <data name="ArrayMaxValidationError" xml:space="preserve">
-    <value />
+    <value>ArrayMaxValidationError</value>
   </data>
   <data name="ArrayMinValidationError" xml:space="preserve">
-    <value />
+    <value>ArrayMinValidationError</value>
   </data>
   <data name="ArrayRangeValidationError" xml:space="preserve">
-    <value />
+    <value>ArrayRangeValidationError</value>
   </data>
   <data name="CompareMustMatchValidationError" xml:space="preserve">
-    <value />
+    <value>CompareMustMatchValidationError</value>
   </data>
   <data name="DefaultValidationError" xml:space="preserve">
-    <value />
+    <value>DefaultValidationError</value>
   </data>
   <data name="EmailAddressValidationError" xml:space="preserve">
-    <value />
+    <value>EmailAddressValidationError</value>
   </data>
   <data name="NumberLenValidationError" xml:space="preserve">
-    <value />
+    <value>NumberLenValidationError</value>
   </data>
   <data name="NumberMaxValidationError" xml:space="preserve">
-    <value />
+    <value>NumberMaxValidationError</value>
   </data>
   <data name="NumberMinValidationError" xml:space="preserve">
-    <value />
+    <value>NumberMinValidationError</value>
   </data>
   <data name="NumberRangeValidationError" xml:space="preserve">
-    <value />
+    <value>NumberRangeValidationError</value>
   </data>
   <data name="OneOfValidationError" xml:space="preserve">
-    <value />
+    <value>OneOfValidationError</value>
   </data>
   <data name="PatternMismatchValidationError" xml:space="preserve">
-    <value />
+    <value>PatternMismatchValidationError</value>
   </data>
   <data name="RequiredValidationError" xml:space="preserve">
-    <value />
+    <value>RequiredValidationError</value>
   </data>
   <data name="StringLenValidationError" xml:space="preserve">
-    <value />
+    <value>StringLenValidationError</value>
   </data>
   <data name="StringMaxValidationError" xml:space="preserve">
-    <value />
+    <value>StringMaxValidationError</value>
   </data>
   <data name="StringMinValidationError" xml:space="preserve">
-    <value />
+    <value>StringMinValidationError</value>
   </data>
   <data name="StringRangeValidationError" xml:space="preserve">
-    <value />
+    <value>StringRangeValidationError</value>
   </data>
   <data name="TypesDefaultValidationError" xml:space="preserve">
-    <value />
+    <value>TypesDefaultValidationError</value>
   </data>
   <data name="WhitespaceValidationError" xml:space="preserve">
-    <value />
+    <value>WhitespaceValidationError</value>
   </data>
 </root>

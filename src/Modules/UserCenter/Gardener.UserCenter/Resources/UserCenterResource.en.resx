@@ -198,6 +198,9 @@
   <data name="IsDefault" xml:space="preserve">
     <value>Is default</value>
   </data>
+  <data name="IsLocked" xml:space="preserve">
+    <value>Is locked</value>
+  </data>
   <data name="IsSuperAdministrator" xml:space="preserve">
     <value>Is super administrator</value>
   </data>
@@ -284,6 +287,9 @@
   </data>
   <data name="SecuritySettings" xml:space="preserve">
     <value>Security settings</value>
+  </data>
+  <data name="SettingRoles" xml:space="preserve">
+    <value>Setting roles</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Target</value>

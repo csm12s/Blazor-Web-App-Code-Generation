@@ -106,15 +106,6 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Authorizing 的本地化字符串。
-        /// </summary>
-        public static string Authorizing {
-            get {
-                return ResourceManager.GetString("Authorizing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Avatar 的本地化字符串。
         /// </summary>
         public static string Avatar {
@@ -165,15 +156,6 @@ namespace Gardener.Base.Resources {
         public static string Binding {
             get {
                 return ResourceManager.GetString("Binding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 BindingApi 的本地化字符串。
-        /// </summary>
-        public static string BindingApi {
-            get {
-                return ResourceManager.GetString("BindingApi", resourceCulture);
             }
         }
         
@@ -268,24 +250,6 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Client_Login_Fail 的本地化字符串。
-        /// </summary>
-        public static string Client_Login_Fail {
-            get {
-                return ResourceManager.GetString("Client_Login_Fail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Client_No_Find 的本地化字符串。
-        /// </summary>
-        public static string Client_No_Find {
-            get {
-                return ResourceManager.GetString("Client_No_Find", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 ClientId 的本地化字符串。
         /// </summary>
         public static string ClientId {
@@ -349,15 +313,6 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Confirm_New_Password_Inconformity 的本地化字符串。
-        /// </summary>
-        public static string Confirm_New_Password_Inconformity {
-            get {
-                return ResourceManager.GetString("Confirm_New_Password_Inconformity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Connecting 的本地化字符串。
         /// </summary>
         public static string Connecting {
@@ -372,15 +327,6 @@ namespace Gardener.Base.Resources {
         public static string Connection {
             get {
                 return ResourceManager.GetString("Connection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Controller_Need_Comment 的本地化字符串。
-        /// </summary>
-        public static string Controller_Need_Comment {
-            get {
-                return ResourceManager.GetString("Controller_Need_Comment", resourceCulture);
             }
         }
         
@@ -435,24 +381,6 @@ namespace Gardener.Base.Resources {
         public static string Data {
             get {
                 return ResourceManager.GetString("Data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Data_Key_Uniqueness_Conflict 的本地化字符串。
-        /// </summary>
-        public static string Data_Key_Uniqueness_Conflict {
-            get {
-                return ResourceManager.GetString("Data_Key_Uniqueness_Conflict", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Data_Not_Find 的本地化字符串。
-        /// </summary>
-        public static string Data_Not_Find {
-            get {
-                return ResourceManager.GetString("Data_Not_Find", resourceCulture);
             }
         }
         
@@ -570,15 +498,6 @@ namespace Gardener.Base.Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Email_Server_No_Find 的本地化字符串。
-        /// </summary>
-        public static string Email_Server_No_Find {
-            get {
-                return ResourceManager.GetString("Email_Server_No_Find", resourceCulture);
             }
         }
         

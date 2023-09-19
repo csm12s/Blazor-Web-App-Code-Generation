@@ -61,7 +61,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ArrayLenValidationError 的本地化字符串。
         /// </summary>
         public static string ArrayLenValidationError {
             get {
@@ -70,7 +70,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ArrayMaxValidationError 的本地化字符串。
         /// </summary>
         public static string ArrayMaxValidationError {
             get {
@@ -79,7 +79,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ArrayMinValidationError 的本地化字符串。
         /// </summary>
         public static string ArrayMinValidationError {
             get {
@@ -88,7 +88,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 ArrayRangeValidationError 的本地化字符串。
         /// </summary>
         public static string ArrayRangeValidationError {
             get {
@@ -97,7 +97,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 CompareMustMatchValidationError 的本地化字符串。
         /// </summary>
         public static string CompareMustMatchValidationError {
             get {
@@ -106,7 +106,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 DefaultValidationError 的本地化字符串。
         /// </summary>
         public static string DefaultValidationError {
             get {
@@ -115,7 +115,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 EmailAddressValidationError 的本地化字符串。
         /// </summary>
         public static string EmailAddressValidationError {
             get {
@@ -124,7 +124,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberLenValidationError 的本地化字符串。
         /// </summary>
         public static string NumberLenValidationError {
             get {
@@ -133,7 +133,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberMaxValidationError 的本地化字符串。
         /// </summary>
         public static string NumberMaxValidationError {
             get {
@@ -142,7 +142,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberMinValidationError 的本地化字符串。
         /// </summary>
         public static string NumberMinValidationError {
             get {
@@ -151,7 +151,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NumberRangeValidationError 的本地化字符串。
         /// </summary>
         public static string NumberRangeValidationError {
             get {
@@ -160,7 +160,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 OneOfValidationError 的本地化字符串。
         /// </summary>
         public static string OneOfValidationError {
             get {
@@ -169,7 +169,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 PatternMismatchValidationError 的本地化字符串。
         /// </summary>
         public static string PatternMismatchValidationError {
             get {
@@ -178,7 +178,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 RequiredValidationError 的本地化字符串。
         /// </summary>
         public static string RequiredValidationError {
             get {
@@ -187,7 +187,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StringLenValidationError 的本地化字符串。
         /// </summary>
         public static string StringLenValidationError {
             get {
@@ -196,7 +196,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StringMaxValidationError 的本地化字符串。
         /// </summary>
         public static string StringMaxValidationError {
             get {
@@ -205,7 +205,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StringMinValidationError 的本地化字符串。
         /// </summary>
         public static string StringMinValidationError {
             get {
@@ -214,7 +214,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 StringRangeValidationError 的本地化字符串。
         /// </summary>
         public static string StringRangeValidationError {
             get {
@@ -223,7 +223,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 TypesDefaultValidationError 的本地化字符串。
         /// </summary>
         public static string TypesDefaultValidationError {
             get {
@@ -232,7 +232,7 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 WhitespaceValidationError 的本地化字符串。
         /// </summary>
         public static string WhitespaceValidationError {
             get {

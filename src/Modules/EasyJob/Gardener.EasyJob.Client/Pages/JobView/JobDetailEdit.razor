@@ -9,10 +9,9 @@
       TModel="SysJobDetailDto"
       Context="model">
     <Tabs DefaultActiveKey="1" Type="@TabType.Line" @bind-ActiveKey="tabActiveKey">
-        <TabPane Key="baseInfo" Tab="@Localizer["Job"]" Closable="false">
+        <TabPane Key="baseInfo" Tab="@Localizer[nameof(EasyJobLocalResource.Job)]" Closable="false">
             <Row Gutter="24">
                 <GridCol Span="11">
-                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider> *@
                     <FormItem Label="@Localizer[nameof(EasyJobLocalResource.JobId)]">
                         <Input @bind-Value="@model.JobId" />
                     </FormItem>
@@ -33,7 +32,6 @@
                     }
                 </GridCol>
                 <GridCol Offset="1" Span="12">
-                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["TaskSittings"]</Divider> *@
                     <FormItem Label="@Localizer[nameof(EasyJobLocalResource.JobType)]">
                         <RadioGroup @bind-Value="@(model.CreateType)">
                             @foreach (var gitem in EnumHelper.EnumToDictionary<JobCreateType>())
@@ -64,7 +62,7 @@
             </Row>
            
         </TabPane>
-        <TabPane Key="script" Tab="@Localizer["Script"]" Closable="false" Disabled="@(!JobCreateType.Script.Equals(model.CreateType))">
+        <TabPane Key="script" Tab="@Localizer[nameof(EasyJobLocalResource.Script)]" Closable="false" Disabled="@(!JobCreateType.Script.Equals(model.CreateType))">
             <style>
                 .my-editor-class {
                     min-height: 70Vh

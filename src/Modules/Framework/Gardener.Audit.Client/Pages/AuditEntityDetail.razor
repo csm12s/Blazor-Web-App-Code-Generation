@@ -4,7 +4,7 @@
     <Collapse DefaultActiveKey="@(new[] { AuditEntitys.Select(x=>x.Id.ToString()).FirstOrDefault()})" Accordion Style="max-height:85Vh;overflow-y:scroll;">
         @foreach (AuditEntityDto item in AuditEntitys)
         {
-             var title = $"[{item.OperaterName} {Localizer["On"]} {item.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")} {Localizer[EnumHelper.GetEnumDescription(item.OperationType)??item.OperationType.ToString()]}  {item.Name}（{item.DataId}）]";
+        var title = $"[{item.OperaterName} {Localizer[nameof(SharedLocalResource.On)]} {item.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")} {Localizer[EnumHelper.GetEnumDescriptionOrName(item.OperationType)??item.OperationType.ToString()]}  {item.Name}（{item.DataId}）]";
         <Panel Header="@title" Key="@item.Id.ToString()" OnActiveChange="b=>{listBindValue[item.Id]=b;}">
                 @if (listBindValue[item.Id])
                 {

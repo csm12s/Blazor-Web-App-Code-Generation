@@ -142,6 +142,15 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Cron 的本地化字符串。
+        /// </summary>
+        public static string Cron {
+            get {
+                return ResourceManager.GetString("Cron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Description 的本地化字符串。
         /// </summary>
         public static string Description {

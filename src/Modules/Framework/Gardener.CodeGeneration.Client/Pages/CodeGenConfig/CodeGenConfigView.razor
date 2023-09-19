@@ -38,28 +38,29 @@
     <ColumnDefinitions>
         @*TODO: Key，ColumnName无法固定左侧*@
         <Selection Key="@(model.Id.ToString())" Fixed="left" />
-        <Column @bind-Field="@model.ColumnName" Title="@(Localizer["ColumnName"])" Width="150" Filterable Fixed="left"></Column>
-        <Column @bind-Field="@model.NetColumnName" Title="@(Localizer["NetColumnName"])" Width="120" Filterable>
+        <Column @bind-Field="@model.ColumnName" Title="@(Localizer[nameof(CodeGenLocalResource.ColumnName)])" Width="150" Filterable Fixed="left"></Column>
+        <Column @bind-Field="@model.NetColumnName" Title="@(Localizer[nameof(CodeGenLocalResource.NetColumnName)])" Width="120" Filterable>
             <Input Type="text" @bind-Value="@model.NetColumnName" />
         </Column>
-        <Column @bind-Field="@model.NetType" Width="120" Filterable Title="@(Localizer["NetType"])" />
-        <Column @bind-Field="@model.DbDataType" Width="120" Filterable Title="@(Localizer["DbDataType"])" />
+        <Column @bind-Field="@model.NetType" Width="120" Filterable Title="@(Localizer[nameof(CodeGenLocalResource.NetType)])" />
+        <Column @bind-Field="@model.DbDataType" Width="120" Filterable Title="@(Localizer[nameof(CodeGenLocalResource.DbDataType)])" />
 
         @*View*@
         <Column @bind-Field="@model.IsView" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsView"])</span>
+                    <span>
+                        @(Localizer[nameof(CodeGenLocalResource.IsView)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = false)">
-                        @(Localizer["Clear"])
+                        @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = !it.IsView)">
-                        @(Localizer["ToggleSelect"])
+                        @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -67,7 +68,7 @@
                 <Switch @bind-Checked="model.IsView"></Switch>
             </ChildContent>
         </Column>
-        <Column @bind-Field="@model.ViewComponentType" Width="150" Title="@(Localizer["ViewComponentType"])">
+        <Column @bind-Field="@model.ViewComponentType" Width="150" Title="@(Localizer[nameof(CodeGenLocalResource.ViewComponentType)])">
             <Select Mode="single"
             @bind-Value="@model.ViewComponentType"
                     TItem="ClientComponentType"
@@ -87,17 +88,18 @@
         <Column @bind-Field="@model.IsEdit" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsEdit"])</span>
+                    <span>
+                        @(Localizer[nameof(CodeGenLocalResource.IsEdit)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = false)">
-                        @(Localizer["Clear"])
+                        @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = !it.IsEdit)">
-                        @(Localizer["ToggleSelect"])
+                        @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -105,7 +107,7 @@
                 <Switch @bind-Checked="model.IsEdit"></Switch>
             </ChildContent>
         </Column>
-        <Column @bind-Field="@model.EditComponentType" Width="150" Title="@(Localizer["EditComponentType"])">
+        <Column @bind-Field="@model.EditComponentType" Width="150" Title="@(Localizer[nameof(CodeGenLocalResource.EditComponentType)])">
             <Select Mode="single"
             @bind-Value="@model.EditComponentType"
                     TItem="ClientComponentType"
@@ -125,17 +127,18 @@
         <Column @bind-Field="@model.IsSearch" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsSearch"])</span>
+                    <span>
+                        @(Localizer[nameof(CodeGenLocalResource.IsSearch)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = false)">
-                        @(Localizer["Clear"])
+                        @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = !it.IsSearch)">
-                        @(Localizer["ToggleSelect"])
+                        @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -146,17 +149,18 @@
         <Column @bind-Field="@model.IsCustomSearch" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsCustomSearch"])</span>
+                    <span>
+                        @(Localizer[nameof(CodeGenLocalResource.IsCustomSearch)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = false)">
-                        @(Localizer["Clear"])
+                        @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = !it.IsCustomSearch)">
-                        @(Localizer["ToggleSelect"])
+                        @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -164,7 +168,7 @@
                 <Switch @bind-Checked="model.IsCustomSearch"></Switch>
             </ChildContent>
         </Column>
-        <Column @bind-Field="@model.CustomSearchType" Width="150" Title="@(Localizer["CustomSearchType"])">
+        <Column @bind-Field="@model.CustomSearchType" Width="150" Title="@(Localizer[nameof(CodeGenLocalResource.CustomSearchType)])">
             <Select Mode="single"
             @bind-Value="@model.CustomSearchType"
                     TItem="ClientComponentType"
@@ -179,7 +183,7 @@
                 </SelectOptions>
             </Select>
         </Column>
-        <Column @bind-Field="@model.CustomSearchLength" Width="100" Filterable Title="@(Localizer["CustomSearchLength"])">
+        <Column @bind-Field="@model.CustomSearchLength" Width="100" Filterable Title="@(Localizer[nameof(CodeGenLocalResource.CustomSearchLength)])">
             <Input Type="number" @bind-Value="@model.CustomSearchLength" />
         </Column>
 
@@ -187,17 +191,18 @@
         <Column @bind-Field="@model.IsRequired" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsRequired"])</span>
+                    <span>
+                        @(Localizer[nameof(CodeGenLocalResource.IsRequired)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = false)">
-                        @(Localizer["Clear"])
+                        @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = !it.IsRequired)">
-                        @(Localizer["ToggleSelect"])
+                            @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -211,17 +216,17 @@
         <Column @bind-Field="@model.IsEntity" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>@(Localizer["IsEntity"])</span>
+                    <span>@(Localizer[nameof(CodeGenLocalResource.IsEntity)])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
-                        @(Localizer["SelectAll"])
+                        @(Localizer[nameof(CodeGenLocalResource.SelectAll)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
-                        @(Localizer["Clear"])
+                            @(Localizer[nameof(CodeGenLocalResource.Clear)])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
-                        @(Localizer["ToggleSelect"])
+                            @(Localizer[nameof(CodeGenLocalResource.ToggleSelect)])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -230,10 +235,10 @@
             </ChildContent>
         </Column>
 
-        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable Title="@(Localizer["ColumnDescription"])">
+        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable Title="@(Localizer[nameof(CodeGenLocalResource.ColumnDescription)])">
             <Input Type="text" @bind-Value="@model.ColumnDescription" />
         </Column>
-        <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable Title="@(Localizer["ColumnSummary"])">
+        <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable Title="@(Localizer[nameof(CodeGenLocalResource.ColumnSummary)])">
             <Input Type="text" @bind-Value="@model.ColumnSummary" />
         </Column>
     </ColumnDefinitions>

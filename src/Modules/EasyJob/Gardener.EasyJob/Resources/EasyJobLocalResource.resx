@@ -144,6 +144,9 @@
   <data name="Concurrent" xml:space="preserve">
     <value>Concurrent</value>
   </data>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.SystemManager.Resources;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
 using System;
@@ -22,7 +23,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionClick(ClientDto model)
         {
             await OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-            $"{Localizer["BindingApi"]}-[{model.Name}]",
+            $"{Localizer[nameof(SystemManagerResource.BindingApi)]}-[{model.Name}]",
             new ClientFunctionEditOption
             {
                 Id = model.Id,

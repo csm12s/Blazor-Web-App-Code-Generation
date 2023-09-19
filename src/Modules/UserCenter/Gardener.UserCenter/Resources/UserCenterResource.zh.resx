@@ -192,6 +192,9 @@
   <data name="IsDefault" xml:space="preserve">
     <value>是默认的</value>
   </data>
+  <data name="IsLocked" xml:space="preserve">
+    <value>是否锁定</value>
+  </data>
   <data name="IsSuperAdministrator" xml:space="preserve">
     <value>是超级管理员</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="SecuritySettings" xml:space="preserve">
     <value>安全设置</value>
+  </data>
+  <data name="SettingRoles" xml:space="preserve">
+    <value>设置角色</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>目标</value>

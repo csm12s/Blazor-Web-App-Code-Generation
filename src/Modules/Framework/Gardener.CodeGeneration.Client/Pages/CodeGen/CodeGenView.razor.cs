@@ -146,7 +146,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         var codeGenDto = await BaseService.Get(codeGenId);
 
         var title = Localizer[nameof(SharedLocalResource.IsContinue)];
-        var message = Localizer["MlLgWBeImp"];
+        var message = Localizer[nameof(CodeGenLocalResource.MlLgWBeImp)];
         if (await ConfirmService.YesNo(title, message) == ConfirmResult.Yes)
         {
             var success = await codeGenClientService.GenerateLocale(codeGenId);

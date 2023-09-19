@@ -120,6 +120,12 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="Binding" xml:space="preserve">
+    <value>Binding</value>
+  </data>
+  <data name="BindingApi" xml:space="preserve">
+    <value>Binding api</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Children</value>
   </data>

@@ -166,7 +166,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionAddPageClick(ResourceDto resource)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                $"{localizer["BindingApi"]}-[{this.Options.Name}]",
+                $"{localizer[nameof(SystemManagerResource.BindingApi)]}-[{this.Options.Name}]",
                      new ResourceFunctionEditOption(resource, this.Options.Name, 1),
                      width: 1300,
             onClose: async result =>

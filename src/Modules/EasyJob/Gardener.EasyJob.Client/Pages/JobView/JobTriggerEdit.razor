@@ -9,7 +9,7 @@
           Context="model"
           Size="@AntSizeLDSType.Small">
         <Tabs DefaultActiveKey="1" Type="@TabType.Line" @bind-ActiveKey="tabActiveKey">
-            <TabPane Key="baseInfo" Tab="@Localizer["BasicInformation"]" Closable="false">
+            <TabPane Key="baseInfo" Tab="@Localizer[nameof(EasyJobLocalResource.BasicInformation)]" Closable="false">
                 <Row Gutter="24">
                     <GridCol Span="14">
                         <FormItem Label="@Localizer[nameof(EasyJobLocalResource.TriggerId)]">
@@ -35,7 +35,7 @@
                         }
                         else if (EasyJobConstant.TriggerTypeCron.Equals(model.TriggerType))
                         {
-                            <FormItem Label="@Localizer[nameof(SharedLocalResource.Cron)]">
+                            <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Cron)]">
                                 <AntDesign.Input TValue="string" @bind-Value="@triggerCron">
                                     <AddOnAfter>
                                         <Select TItem="string" TItemValue="int" @bind-Value="@cronType" Style="width: auto;">
@@ -53,37 +53,37 @@
                         <FormItem Label="@Localizer[nameof(EasyJobLocalResource.TriggerArgs)]">
                             <label>@model.Args</label>
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.StartTime)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.StartTime)]">
                             <Input @bind-Value="@model.StartTime" />
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.EndTime)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.EndTime)]">
                             <Input @bind-Value="@model.EndTime" />
                         </FormItem>
                     </GridCol>
                     <GridCol Offset="2" Span="8">
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.MaxNumberOfRuns)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.MaxNumberOfRuns)]">
                             <InputNumber @bind-Value="@model.MaxNumberOfRuns" />
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.MaxNumberOfErrors)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.MaxNumberOfErrors)]">
                             <InputNumber @bind-Value="@model.MaxNumberOfErrors" />
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.NumRetries)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.NumRetries)]">
                             <InputNumber @bind-Value="@model.NumRetries" />
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.RetryTimeout)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.RetryTimeout)]">
                             <InputNumber @bind-Value="@model.RetryTimeout" />
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.StartNow)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.StartNow)]">
                             <Switch @bind-Value="@model.StartNow"></Switch>
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.RunOnceOnStart)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.RunOnceOnStart)]">
                             <Switch @bind-Value="@model.RunOnStart"></Switch>
                         </FormItem>
-                        <FormItem Label="@Localizer[nameof(SharedLocalResource.ResetOnlyOnce)]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.ResetOnlyOnce)]">
                             <LabelTemplate>
                                 <label for="ResetOnlyOnce">
-                                    <Tooltip Title="@Localizer["ResetOnlyOnceTIPS"]">
-                                        @Localizer[nameof(SharedLocalResource.ResetOnlyOnce)]<Icon Type="question-circle" Theme="outline" />
+                                    <Tooltip Title="@Localizer[nameof(EasyJobLocalResource.ResetOnlyOnceTIPS)]">
+                                        @Localizer[nameof(EasyJobLocalResource.ResetOnlyOnce)]<Icon Type="question-circle" Theme="outline" />
                                     </Tooltip>
                                 </label>
                             </LabelTemplate>
@@ -94,32 +94,32 @@
                     </GridCol>
                 </Row>
             </TabPane>
-            <TabPane Key="status" Tab="@Localizer["RunningStatus"]" Closable="false">
+            <TabPane Key="status" Tab="@Localizer[nameof(EasyJobLocalResource.RunningStatus)]" Closable="false">
                 <FormItem Label="@Localizer[nameof(EasyJobLocalResource.AssemblyName)]">
                     <lable>@model.AssemblyName</lable>
                 </FormItem>
                 <FormItem Label="@Localizer[nameof(EasyJobLocalResource.TriggerAssemblyType)]">
                     <lable>@model.TriggerType</lable>
                 </FormItem>
-                <FormItem Label="@Localizer[nameof(SharedLocalResource.Status)]">
+                <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Status)]">
                     <TagPro Text="@model.Status" Localizer="Localizer"></TagPro>
                 </FormItem>
                 <FormItem Label="@Localizer[nameof(EasyJobLocalResource.NumberOfRuns)]">
                     <lable>@model.NumberOfRuns</lable>
                 </FormItem>
-                <FormItem Label="@Localizer[nameof(SharedLocalResource.NumberOfErrors)]">
+                <FormItem Label="@Localizer[nameof(EasyJobLocalResource.NumberOfErrors)]">
                     <lable>@model.NumberOfErrors</lable>
                 </FormItem>
-                <FormItem Label="@Localizer[nameof(SharedLocalResource.LastRunTime)]">
+                <FormItem Label="@Localizer[nameof(EasyJobLocalResource.LastRunTime)]">
                     <lable>@model.LastRunTime?.ToLocalTime().ToString(ClientConstant.DateTimeFormat)</lable>
                 </FormItem>
-                <FormItem Label="@Localizer[nameof(SharedLocalResource.NextRunTime)]">
+                <FormItem Label="@Localizer[nameof(EasyJobLocalResource.NextRunTime)]">
                     <lable>@model.NextRunTime?.ToLocalTime().ToString(ClientConstant.DateTimeFormat)</lable>
                 </FormItem>
                 <FormItem Label="@Localizer[nameof(EasyJobLocalResource.ElapsedTime)]">
                     <lable>@model.ElapsedTime</lable>
                 </FormItem>
-                <FormItem Label="@Localizer[nameof(SharedLocalResource.Result)]">
+                <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Result)]">
                     <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Result"></TextArea>
                 </FormItem>
             </TabPane>

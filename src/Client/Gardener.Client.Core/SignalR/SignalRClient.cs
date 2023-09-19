@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 #nullable enable
 
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -90,7 +91,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionClosed(Exception? arg)
         {
-            clientLogger.Warn($"{ClientName} {localizer["Connection"]} {(arg == null ? localizer["Close"] : localizer["Break"])}", ex: arg, sendNotify: arg != null);
+            clientLogger.Warn($"{ClientName} {localizer[nameof(SharedLocalResource.Connection)]} {(arg == null ? localizer[nameof(SharedLocalResource.Close)] : localizer[nameof(SharedLocalResource.Break)])}", ex: arg, sendNotify: arg != null);
             if (Closed != null)
             {
                 //回调
@@ -105,7 +106,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionReconnecting(Exception? arg)
         {
-            clientLogger.Warn($"{ClientName} {localizer["Connecting"]}", ex: arg);
+            clientLogger.Warn($"{ClientName} {localizer[nameof(SharedLocalResource.Connection)]}", ex: arg);
             if (Reconnecting != null)
             {
                 return Reconnecting.Invoke(arg);
@@ -119,7 +120,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionReconnected(string? arg)
         {
-            clientLogger.Warn($"{ClientName} {localizer["Connection"]} {localizer["Complete"]} ![{(arg == null ? "" : arg)}]");
+            clientLogger.Warn($"{ClientName} {localizer[nameof(SharedLocalResource.Connection)]} {localizer[nameof(SharedLocalResource.Complete)]} ![{(arg == null ? "" : arg)}]");
             if (Reconnected != null)
             {
                 return Reconnected.Invoke(arg);
@@ -154,7 +155,7 @@ namespace Gardener.Client.Core
             try
             {
                 Uri uri = new Uri(url);
-                clientLogger.Info($"{ClientName} {localizer["Begin"]} {localizer["Connection"]},url={uri.AbsoluteUri}");
+                clientLogger.Info($"{ClientName} {localizer[nameof(SharedLocalResource.Begin)]} {localizer[nameof(SharedLocalResource.Connection)]},url={uri.AbsoluteUri}");
 
                 IHubConnectionBuilder builder = new HubConnectionBuilder()
                             //配置请求
@@ -186,7 +187,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                clientLogger.Error($"{ClientName} {localizer["Connection"]} {localizer["Error"]}", ex: ex);
+                clientLogger.Error($"{ClientName} {localizer[nameof(SharedLocalResource.Connection)]} {localizer[nameof(SharedLocalResource.Error)]}", ex: ex);
             }
             return Task.CompletedTask;
         }

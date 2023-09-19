@@ -67,7 +67,7 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="user_center_dept_add_children">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer["AddChildren"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[nameof(SharedLocalResource.AddChildren)])" ArrowPointAtCenter="true">
                                 <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickAddChildren(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -95,7 +95,7 @@
                     </ResourceAuthorize>*@
                     <ResourceAuthorize ResourceKey="user_center_dept_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer["DeleteAndIncludChildren"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[nameof(SharedLocalResource.DeleteAndIncludChildren)])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model)"></Button>
                             </Tooltip>
                         </SpaceItem>

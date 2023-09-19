@@ -120,6 +120,12 @@
   <data name="Action" xml:space="preserve">
     <value>操作</value>
   </data>
+  <data name="Binding" xml:space="preserve">
+    <value>绑定</value>
+  </data>
+  <data name="BindingApi" xml:space="preserve">
+    <value>绑定接口</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>子集</value>
   </data>

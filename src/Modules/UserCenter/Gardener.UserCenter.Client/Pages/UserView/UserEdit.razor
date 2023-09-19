@@ -9,7 +9,8 @@
           Context="model">
         <Row Gutter="24">
             <GridCol Span="11">
-                <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
+                <Divider Orientation="left" Style="font-weight:bold">
+                    @Localizer[nameof(UserCenterResource.BasicInformation)]</Divider>
                 <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
                     <FormItem Label="@Localizer[nameof(SharedLocalResource.Tenant)]">
                         <Select DataSource="@_tenants"
@@ -38,7 +39,7 @@
                         <Avatar Src="@model.Avatar" />
                     }
                 </FormItem>
-                <FormItem Label="@Localizer["Dept"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Dept)]">
                     @if (deptDatas != null)
                     {
                         <TreeSelect TItem="DeptDto"
@@ -55,7 +56,7 @@
                         </TreeSelect>
                     }
                 </FormItem>
-                <FormItem Label="@Localizer["Position"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Position)]">
                     <Select DataSource="@positions"
                     @bind-Value="@model.PositionId"
                             ValueName="@nameof(PositionDto.Id)"
@@ -66,16 +67,16 @@
                             AllowClear>
                     </Select>
                 </FormItem>
-                <FormItem Label="@Localizer["UserName"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.UserName)]">
                     <Input @bind-Value="@model.UserName" />
                 </FormItem>
-                <FormItem Label="@Localizer["Password"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Password)]">
                     <Input Type="password" @bind-Value="@model.Password" />
                 </FormItem>
-                <FormItem Label="@Localizer["NickName"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.NickName)]">
                     <Input @bind-Value="@model.NickName" />
                 </FormItem>
-                <FormItem Label="@Localizer["Gender"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Gender)]">
                     <RadioGroup @bind-Value="@(model.Gender)">
                         @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                         {
@@ -83,32 +84,33 @@
                         }
                     </RadioGroup>
                 </FormItem>
-                <FormItem Label="@Localizer["IsLocked"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.IsLocked)]">
                     <Switch @bind-Value="@model.IsLocked"></Switch>
                 </FormItem>
             </GridCol>
             <GridCol Offset="2" Span="11">
-                <Divider Orientation="left" Style="font-weight:bold">@Localizer["ContactInformation"]</Divider>
-                <FormItem Label="@Localizer["PhoneNumber"]">
+                <Divider Orientation="left" Style="font-weight:bold">
+                    @Localizer[nameof(UserCenterResource.ContactInformation)]</Divider>
+                <FormItem Label="@Localizer[nameof(UserCenterResource.PhoneNumber)]">
                     <Input @bind-Value="@model.PhoneNumber" />
                 </FormItem>
-                <FormItem Label="@Localizer["PhoneNumberConfirmed"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.PhoneNumberConfirmed)]">
                     <Switch @bind-Value="@model.PhoneNumberConfirmed"></Switch>
                 </FormItem>
-                <FormItem Label="@Localizer["Email"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.Email)]">
                     <Input @bind-Value="@model.Email" />
                 </FormItem>
-                <FormItem Label="@Localizer["EmailConfirmed"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.EmailConfirmed)]">
                     <Switch @bind-Value="@model.EmailConfirmed"></Switch>
                 </FormItem>
                 @if (model.UserExtension == null)
                 {
                     model.UserExtension = new UserExtensionDto() { UserId = model.Id };
                 }
-                <FormItem Label="@Localizer["QQ"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.QQ)]">
                     <Input @bind-Value="@model.UserExtension.QQ" />
                 </FormItem>
-                <FormItem Label="@Localizer["WeChat"]">
+                <FormItem Label="@Localizer[nameof(UserCenterResource.WeChat)]">
                     <Input @bind-Value="@model.UserExtension.WeChat" />
                 </FormItem>
             </GridCol>

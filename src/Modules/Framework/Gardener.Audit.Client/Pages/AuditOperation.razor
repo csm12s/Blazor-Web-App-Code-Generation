@@ -53,7 +53,7 @@
              <Column @bind-Field="@model.OperaterId" Filterable Title="@Localizer[nameof(AuditLocalResource.OperaterId)]" />
              <Column @bind-Field="@model.OperaterName" Filterable Title="@Localizer[nameof(AuditLocalResource.OperaterName)]" />
              <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[nameof(AuditLocalResource.OperaterType)]">
-                 <TagPro Text="@model.OperaterType">@Localizer[EnumHelper.GetEnumDescription(model.OperaterType)??model.OperaterType.ToString()]</TagPro>
+                 <TagPro Text="@model.OperaterType">@Localizer[EnumHelper.GetEnumDescriptionOrName(model.OperaterType)??model.OperaterType.ToString()]</TagPro>
             </Column>
              <Column @bind-Field="@model.ResourceName" Style="max-width:200px;" Filterable Title="@Localizer[nameof(AuditLocalResource.ResourceName)]" />
              <Column @bind-Field="@model.Ip" Title="@Localizer[nameof(SharedLocalResource.Ip)]" />

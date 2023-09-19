@@ -132,9 +132,6 @@
   <data name="AddChildren" xml:space="preserve">
     <value>Add children</value>
   </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>Authorizing</value>
-  </data>
   <data name="Avatar" xml:space="preserve">
     <value>Avatar</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="Binding" xml:space="preserve">
     <value>Binding</value>
-  </data>
-  <data name="BindingApi" xml:space="preserve">
-    <value>Binding api</value>
   </data>
   <data name="BindingResource" xml:space="preserve">
     <value>Binding resource</value>
@@ -189,14 +183,6 @@
   <data name="ClientLoginInput" xml:space="preserve">
     <value>Client login input</value>
   </data>
-  <data name="Client_Login_Fail" xml:space="preserve">
-    <value>Client login fail</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Client_No_Find" xml:space="preserve">
-    <value>Client no find</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -207,15 +193,8 @@
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
   </data>
-  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
-    <value>Confirm new password is inconformity</value>
-  </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
-  </data>
-  <data name="Controller_Need_Comment" xml:space="preserve">
-    <value>Controller need comment</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
@@ -238,14 +217,6 @@
   <data name="DataNotFound" xml:space="preserve">
     <value>Data not found</value>
   </data>
-  <data name="Data_Key_Uniqueness_Conflict" xml:space="preserve">
-    <value>Data key “{0}” unique conflict</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Data_Not_Find" xml:space="preserve">
-    <value>Data not find</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
   </data>
@@ -253,7 +224,7 @@
     <value>Delete</value>
   </data>
   <data name="DeleteAndIncludChildren" xml:space="preserve">
-    <value>Delete(includ children)</value>
+    <value>Delete and includ children</value>
   </data>
   <data name="DeleteSelected" xml:space="preserve">
     <value>Delete selected</value>
@@ -284,10 +255,6 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
-  </data>
-  <data name="Email_Server_No_Find" xml:space="preserve">
-    <value>Email server no find</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="EN" xml:space="preserve">
     <value>EN</value>

@@ -102,12 +102,12 @@
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateService">
-                                @(Localizer["GenerateService"])
+                                @(Localizer[nameof(CodeGenLocalResource.GenerateService)])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateLocaleFile">
-                                @(Localizer["GenerateLocaleFile"])
+                                @(Localizer[nameof(CodeGenLocalResource.GenerateLocaleFile)])
                         </Checkbox>
                         </Col>
                     </Row>
@@ -139,7 +139,7 @@
                     </Row>
                 </CheckboxGroup>
             </FormItem>
-            <FormItem Label=@Localizer["GenerateSelectFields"]>
+            <FormItem Label=@Localizer[nameof(CodeGenLocalResource.GenerateSelectFields)]>
                 <Switch @bind-Value="@model.GenerateSelectFields"></Switch>
             </FormItem>
             <FormItem Label=@Localizer[nameof(CodeGenLocalResource.UseCustomTemplate)]>
@@ -149,7 +149,7 @@
             <FormItem Label=@Localizer[nameof(CodeGenLocalResource.UseChineseKey)]>
                 <Switch @bind-Value="@model.UseChineseKey"></Switch>
             </FormItem>
-            <FormItem Label=@Localizer["UseNetColumnAsKey"]>
+            <FormItem Label=@Localizer[nameof(CodeGenLocalResource.UseNetColumnAsKey)]>
                 <Switch @bind-Value="@model.UseNetColumnAsKey"></Switch>
             </FormItem>
 

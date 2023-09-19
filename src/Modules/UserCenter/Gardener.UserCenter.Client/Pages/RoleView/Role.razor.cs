@@ -24,7 +24,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(RoleDto role)
         {
-            await OpenOperationDialogAsync<RoleResourceEdit, RoleDto, bool>(Localizer["BindingResource"], role, width: 600);
+            await OpenOperationDialogAsync<RoleResourceEdit, RoleDto, bool>(Localizer[nameof(SharedLocalResource.BindingResource)], role, width: 600);
         }
 
 
