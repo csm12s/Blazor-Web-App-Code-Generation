@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230822070131_v0.0.1")]
+    [Migration("20230919032638_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -120,19 +120,23 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("IdentityId")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("IdentityName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("IdentityNickName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("IdentityType")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Ip")
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -146,6 +150,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("LoginId")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("TenantId")
@@ -161,6 +166,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Value")
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -580,6 +586,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("DataId")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -590,14 +597,15 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OperaterId")
-                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OperaterName")
-                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OperaterType")
@@ -614,6 +622,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("TypeName")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -648,6 +657,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Ip")
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -660,9 +670,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("OperaterId")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OperaterName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OperaterType")
@@ -672,12 +684,14 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Path")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ResourceId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ResourceName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("TenantId")
@@ -693,6 +707,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserAgent")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -706,7 +721,7 @@ namespace Gardener.Api.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("AuditEntityid")
+                    b.Property<Guid>("AuditEntityId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreateBy")
@@ -719,14 +734,17 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DataType")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FieldName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -755,7 +773,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuditEntityid");
+                    b.HasIndex("AuditEntityId");
 
                     b.ToTable("AuditProperty");
                 });
@@ -14584,7 +14602,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(128)
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -14617,6 +14635,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Concurrent")
@@ -14635,9 +14654,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("GroupName")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IncludeAnnotations")
@@ -14655,12 +14676,15 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("JobType")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Properties")
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ScriptCode")
+                        .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -14696,9 +14720,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Exception")
+                        .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExceptionMessage")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -14731,6 +14757,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Result")
+                        .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Succeeded")
@@ -14765,9 +14792,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Args")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreateBy")
@@ -14780,6 +14809,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<long>("ElapsedTime")
@@ -14824,6 +14854,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Result")
+                        .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RetryTimeout")
@@ -14847,6 +14878,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TriggerType")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -14883,6 +14915,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("IdentityId")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("IdentityType")
@@ -15403,7 +15436,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Grade")
-                        .HasMaxLength(500)
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -18474,7 +18507,7 @@ namespace Gardener.Api.Core.Migrations
                 {
                     b.HasOne("Gardener.Base.Entity.Domains.AuditEntity", "AuditEntity")
                         .WithMany("AuditProperties")
-                        .HasForeignKey("AuditEntityid")
+                        .HasForeignKey("AuditEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
