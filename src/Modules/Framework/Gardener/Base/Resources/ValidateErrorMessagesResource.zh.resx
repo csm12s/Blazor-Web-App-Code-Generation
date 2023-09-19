@@ -169,7 +169,7 @@
     <value>{0}必须至少为{1}个字符</value>
   </data>
   <data name="StringRangeValidationError" xml:space="preserve">
-    <value>{0}必须介于{1}和{2}之间</value>
+    <value>{0}字符数必须介于{1}和{2}之间</value>
   </data>
   <data name="TypesDefaultValidationError" xml:space="preserve">
     <value>{0}不是有效的{1}</value>
