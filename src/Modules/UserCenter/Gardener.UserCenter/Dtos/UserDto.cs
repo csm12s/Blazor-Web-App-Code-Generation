@@ -33,9 +33,9 @@ namespace Gardener.UserCenter.Dtos
         /// 昵称
         /// </summary>
         [Display(Name = nameof(UserCenterResource.NickName), ResourceType = typeof(UserCenterResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        //[Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        //[MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         [Order(2)]
         public string? NickName { get; set; }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Display(Name = nameof(UserCenterResource.Password), ResourceType = typeof(UserCenterResource))]
         [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        //[MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         public string? Password { get; set; }
 
         /// <summary>
@@ -117,7 +117,15 @@ namespace Gardener.UserCenter.Dtos
         /// <returns></returns>
         public string GetAvatarFromName()
         {
-            return (this.NickName ?? this.UserName).Substring(0,1);
+            if (!string.IsNullOrEmpty(this.NickName))
+            {
+                return this.NickName.Substring(0, 1);
+            }
+            if (!string.IsNullOrEmpty(this.UserName))
+            {
+                return this.UserName.Substring(0, 1);
+            }
+            return string.Empty;
         }
         /// <summary>
         /// 是否是超级管理员
