@@ -33,9 +33,7 @@ namespace Gardener.UserCenter.Dtos
         /// 昵称
         /// </summary>
         [Display(Name = nameof(UserCenterResource.NickName), ResourceType = typeof(UserCenterResource))]
-        //[Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
-        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        //[MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         [Order(2)]
         public string? NickName { get; set; }
         /// <summary>
@@ -43,7 +41,7 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Display(Name = nameof(UserCenterResource.Password), ResourceType = typeof(UserCenterResource))]
         [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        //[MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         public string? Password { get; set; }
 
         /// <summary>

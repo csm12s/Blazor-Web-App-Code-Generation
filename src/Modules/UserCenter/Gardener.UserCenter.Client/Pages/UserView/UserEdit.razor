@@ -10,7 +10,8 @@
         <Row Gutter="24">
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">
-                    @Localizer[nameof(UserCenterResource.BasicInformation)]</Divider>
+                    @Localizer[nameof(UserCenterResource.BasicInformation)]
+                </Divider>
                 <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
                     <FormItem Label="@Localizer[nameof(SharedLocalResource.Tenant)]">
                         <Select DataSource="@_tenants"
@@ -20,11 +21,11 @@
                                 TItem="SystemTenantDto"
                                 TItemValue="Guid?"
                             AllowClear>
-                    </Select>
-                </FormItem>
-            </ResourceAuthorize>
+                     </Select>
+                 </FormItem>
+             </ResourceAuthorize>
              <FormItem Label="@Localizer[nameof(SharedLocalResource.Avatar)]">
-                    @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
+                 @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {
 
                         <Tooltip Placement="Placement.LeftTop" Title="@Localizer[nameof(UserCenterResource.ClickUpdateAvatar)]">
@@ -47,13 +48,13 @@
                                     DataSource="deptDatas"
                         @bind-Value="@DeptId"
                                     Placeholder="@Localizer[nameof(SharedLocalResource.PleaseSelect)]"
-                                    AllowClear
-                                    TitleExpression="node => node.DataItem.Name"
-                                    KeyExpression="node => node.DataItem.Id.ToString()"
-                                    ChildrenExpression="node => node.DataItem.Children?.ToList()"
-                                    IsLeafExpression="node => node.DataItem.Children == null"
-                                    TreeDefaultExpandAll>
-                        </TreeSelect>
+                                AllowClear
+                                 TitleExpression="node => node.DataItem.Name"
+                                 KeyExpression="node => node.DataItem.Id.ToString()"
+                                 ChildrenExpression="node => node.DataItem.Children?.ToList()"
+                                 IsLeafExpression="node => node.DataItem.Children == null"
+                                TreeDefaultExpandAll>
+                 </TreeSelect>
                     }
                 </FormItem>
                 <FormItem Label="@Localizer[nameof(UserCenterResource.Position)]">
@@ -64,21 +65,21 @@
                             OnSelectedItemChanged="OnSelectedItemChangedHandler"
                             TItem="PositionDto"
                             TItemValue="int?"
-                            AllowClear>
-                    </Select>
-                </FormItem>
-                <FormItem Label="@Localizer[nameof(UserCenterResource.UserName)]">
-                    <Input @bind-Value="@model.UserName" />
-                </FormItem>
-                <FormItem Label="@Localizer[nameof(UserCenterResource.Password)]">
-                    <Input Type="password" @bind-Value="@model.Password" />
-                </FormItem>
-                <FormItem Label="@Localizer[nameof(UserCenterResource.NickName)]">
-                    <Input @bind-Value="@model.NickName" />
-                </FormItem>
-                <FormItem Label="@Localizer[nameof(UserCenterResource.Gender)]">
-                    <RadioGroup @bind-Value="@(model.Gender)">
-                        @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
+                        AllowClear>
+                 </Select>
+             </FormItem>
+             <FormItem Label="@Localizer[nameof(UserCenterResource.UserName)]">
+                 <Input @bind-Value="@model.UserName" />
+             </FormItem>
+             <FormItem Label="@Localizer[nameof(UserCenterResource.Password)]">
+                 <InputPassword @bind-Value="@model.Password" AllowClear=true />
+             </FormItem>
+             <FormItem Label="@Localizer[nameof(UserCenterResource.NickName)]">
+                 <Input @bind-Value="@model.NickName" AllowClear=true />
+             </FormItem>
+             <FormItem Label="@Localizer[nameof(UserCenterResource.Gender)]">
+                 <RadioGroup @bind-Value="@(model.Gender)">
+                     @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                         {
                             <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
                         }
@@ -90,7 +91,8 @@
             </GridCol>
             <GridCol Offset="2" Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">
-                    @Localizer[nameof(UserCenterResource.ContactInformation)]</Divider>
+                    @Localizer[nameof(UserCenterResource.ContactInformation)]
+                </Divider>
                 <FormItem Label="@Localizer[nameof(UserCenterResource.PhoneNumber)]">
                     <Input @bind-Value="@model.PhoneNumber" />
                 </FormItem>
