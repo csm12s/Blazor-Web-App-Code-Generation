@@ -1,5 +1,6 @@
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base.Services;
 using Gardener.LocalizationLocalizer;
@@ -39,7 +40,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         new FormValidationRule { Required=true,Validator = (validationContext) => {
                 if (!string.Equals(validationContext.Value,model.NewPassword))
                 {
-                    string errorMessage = Lo.GetValue<UserCenterResource>("Confirm_New_Password_Inconformity");
+                    string errorMessage = Lo.GetValue<UserCenterResource>(nameof(UserCenterResource.ConfirmNewPassword));
                     var result = new ValidationResult(errorMessage, new string[] { validationContext.FieldName });
                     return result;
                 }
@@ -59,7 +60,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
             bool result = await accountService.ChangePassword(model);
             if (result)
             {
-                clientMessageService.Success(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Succeed));
+                clientMessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Succeed)));
             }
             await StopLoading();
         }

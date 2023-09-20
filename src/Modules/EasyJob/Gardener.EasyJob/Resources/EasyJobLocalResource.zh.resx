@@ -135,23 +135,59 @@
   <data name="Blocked" xml:space="preserve">
     <value>阻塞</value>
   </data>
+  <data name="Body" xml:space="preserve">
+    <value>主体</value>
+  </data>
   <data name="BuiltIn" xml:space="preserve">
     <value>内置</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>客户端名称</value>
+  </data>
+  <data name="ClusterId" xml:space="preserve">
+    <value>集群编号</value>
   </data>
   <data name="Concurrent" xml:space="preserve">
     <value>并行执行</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述信息</value>
+  </data>
   <data name="ElapsedTime" xml:space="preserve">
     <value>耗时</value>
   </data>
+  <data name="EnableRealTimeMonitor" xml:space="preserve">
+    <value>启用实时监控</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="EnsureSuccessStatusCode" xml:space="preserve">
+    <value>必须是成功状态</value>
+  </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>由失败进入就绪</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>异常信息</value>
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>组名</value>
   </data>
   <data name="Http" xml:space="preserve">
     <value>Http</value>
+  </data>
+  <data name="HttpMethod" xml:space="preserve">
+    <value>请求方法</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>身份编号</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>身份类型</value>
   </data>
   <data name="IncludeAnnotations" xml:space="preserve">
     <value>扫描特性</value>
@@ -162,8 +198,20 @@
   <data name="Job" xml:space="preserve">
     <value>任务</value>
   </data>
+  <data name="JobDetailDescription" xml:space="preserve">
+    <value>任务描述</value>
+  </data>
   <data name="JobId" xml:space="preserve">
     <value>任务编号</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>任务名</value>
+  </data>
+  <data name="JobTriggerDescription" xml:space="preserve">
+    <value>触发器描述</value>
+  </data>
+  <data name="JobTriggers" xml:space="preserve">
+    <value>任务触发器集合</value>
   </data>
   <data name="JobType" xml:space="preserve">
     <value>任务类型</value>
@@ -171,14 +219,32 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>任务类型名称</value>
   </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>最近运行时间</value>
+  </data>
   <data name="Log" xml:space="preserve">
     <value>日志</value>
+  </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>最大出错次数</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>最大触发次数</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>下一次运行时间</value>
   </data>
   <data name="NotStart" xml:space="preserve">
     <value>未启动</value>
   </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>出错次数</value>
+  </data>
   <data name="NumberOfRuns" xml:space="preserve">
     <value>运行次数</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>重试次数</value>
   </data>
   <data name="Overrun" xml:space="preserve">
     <value>超限</value>
@@ -198,14 +264,29 @@
   <data name="RealTimeMonitor" xml:space="preserve">
     <value>实时监控</value>
   </data>
+  <data name="RequestUri" xml:space="preserve">
+    <value>请求地址</value>
+  </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>启动时重置</value>
+  </data>
   <data name="ResetOnlyOnceTIPS" xml:space="preserve">
     <value>是否在启动时重置最大触发次数等于一次的作业</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>结果</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>重试间隔时间</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>正在运行</value>
   </data>
   <data name="RunningStatus" xml:space="preserve">
     <value>运行状态</value>
+  </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>启动时执行一次</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>脚本</value>
@@ -216,8 +297,41 @@
   <data name="Start" xml:space="preserve">
     <value>启动</value>
   </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>立即启动</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>起始时间</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>成功的</value>
+  </data>
+  <data name="SysJobCluster" xml:space="preserve">
+    <value>定时任务集群</value>
+  </data>
+  <data name="SysJobDetail" xml:space="preserve">
+    <value>定时任务详情</value>
+  </data>
+  <data name="SysJobLog" xml:space="preserve">
+    <value>定时任务日志</value>
+  </data>
+  <data name="SysJobLogElapsedTime" xml:space="preserve">
+    <value>定时任务运行耗时</value>
+  </data>
+  <data name="SysJobTrigger" xml:space="preserve">
+    <value>定时任务触发器</value>
+  </data>
+  <data name="SysJobUserConfig" xml:space="preserve">
+    <value>定时任务用户配置</value>
+  </data>
   <data name="TaskSittings" xml:space="preserve">
     <value>任务设置</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
   </data>
   <data name="Trigger" xml:space="preserve">
     <value>触发器</value>
@@ -230,6 +344,9 @@
   </data>
   <data name="TriggerId" xml:space="preserve">
     <value>触发器编号</value>
+  </data>
+  <data name="TriggerStatus" xml:space="preserve">
+    <value>触发器状态</value>
   </data>
   <data name="UnknownJobAssembly" xml:space="preserve">
     <value>未知作业处理程序</value>

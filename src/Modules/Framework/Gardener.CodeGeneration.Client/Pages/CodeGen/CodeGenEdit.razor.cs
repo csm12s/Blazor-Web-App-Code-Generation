@@ -102,12 +102,12 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
         var result = await BaseService.Update(_editModel);
         if (result)
         {
-            MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
+            MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));
             await base.FeedbackRef.CloseAsync(OperationDialogOutput<Guid>.Succeed(_editModel.Id));
         }
         else
         {
-            MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
+            MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Fail)));
         }
         _dialogLoading.Stop();
     }

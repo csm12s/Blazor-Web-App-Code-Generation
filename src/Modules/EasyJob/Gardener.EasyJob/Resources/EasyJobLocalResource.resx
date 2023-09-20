@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
+  <data name="AssemblyName" xml:space="preserve">
+    <value>AssemblyName</value>
+  </data>
+  <data name="Backlog" xml:space="preserve">
+    <value>Backlog</value>
+  </data>
+  <data name="BaseInfo" xml:space="preserve">
+    <value>BaseInfo</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>BasicInformation</value>
+  </data>
+  <data name="Blocked" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="BuiltIn" xml:space="preserve">
+    <value>BuiltIn</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>ClientName</value>
+  </data>
+  <data name="ClusterId" xml:space="preserve">
+    <value>ClusterId</value>
+  </data>
+  <data name="Concurrent" xml:space="preserve">
+    <value>Concurrent</value>
+  </data>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>ElapsedTime</value>
+  </data>
+  <data name="EnableRealTimeMonitor" xml:space="preserve">
+    <value>EnableRealTimeMonitor</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>EndTime</value>
+  </data>
+  <data name="EnsureSuccessStatusCode" xml:space="preserve">
+    <value>EnsureSuccessStatusCode</value>
+  </data>
+  <data name="ErrorToReady" xml:space="preserve">
+    <value>ErrorToReady</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>ExceptionMessage</value>
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>GroupName</value>
+  </data>
+  <data name="Http" xml:space="preserve">
+    <value>Http</value>
+  </data>
+  <data name="HttpMethod" xml:space="preserve">
+    <value>HttpMethod</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>IdentityId</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>IdentityType</value>
+  </data>
+  <data name="IncludeAnnotations" xml:space="preserve">
+    <value>IncludeAnnotations</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Job</value>
+  </data>
+  <data name="JobDetailDescription" xml:space="preserve">
+    <value>JobDetailDescription</value>
+  </data>
+  <data name="JobId" xml:space="preserve">
+    <value>JobId</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>JobName</value>
+  </data>
+  <data name="JobTriggerDescription" xml:space="preserve">
+    <value>JobTriggerDescription</value>
+  </data>
+  <data name="JobTriggers" xml:space="preserve">
+    <value>JobTriggers</value>
+  </data>
+  <data name="JobType" xml:space="preserve">
+    <value>JobType</value>
+  </data>
+  <data name="JobTypeFullName" xml:space="preserve">
+    <value>JobTypeFullName</value>
+  </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>LastRunTime</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>MaxNumberOfErrors</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>MaxNumberOfRuns</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>NextRunTime</value>
+  </data>
+  <data name="NotStart" xml:space="preserve">
+    <value>NotStart</value>
+  </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>NumberOfErrors</value>
+  </data>
+  <data name="NumberOfRuns" xml:space="preserve">
+    <value>NumberOfRuns</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>NumRetries</value>
+  </data>
+  <data name="Overrun" xml:space="preserve">
+    <value>Overrun</value>
+  </data>
+  <data name="Panic" xml:space="preserve">
+    <value>Panic</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="RealTimeMonitor" xml:space="preserve">
+    <value>RealTimeMonitor</value>
+  </data>
+  <data name="RequestUri" xml:space="preserve">
+    <value>RequestUri</value>
+  </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>ResetOnlyOnce</value>
+  </data>
+  <data name="ResetOnlyOnceTIPS" xml:space="preserve">
+    <value>ResetOnlyOnceTIPS</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>RetryTimeout</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="RunningStatus" xml:space="preserve">
+    <value>RunningStatus</value>
+  </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>RunOnceOnStart</value>
+  </data>
+  <data name="Script" xml:space="preserve">
+    <value>Script</value>
+  </data>
+  <data name="ScriptCode" xml:space="preserve">
+    <value>ScriptCode</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>StartNow</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>StartTime</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>Succeeded</value>
+  </data>
+  <data name="SysJobCluster" xml:space="preserve">
+    <value>SysJobCluster</value>
+  </data>
+  <data name="SysJobDetail" xml:space="preserve">
+    <value>SysJobDetail</value>
+  </data>
+  <data name="SysJobLog" xml:space="preserve">
+    <value>SysJobLog</value>
+  </data>
+  <data name="SysJobLogElapsedTime" xml:space="preserve">
+    <value>SysJobLogElapsedTime</value>
+  </data>
+  <data name="SysJobTrigger" xml:space="preserve">
+    <value>SysJobTrigger</value>
+  </data>
+  <data name="SysJobUserConfig" xml:space="preserve">
+    <value>SysJobUserConfig</value>
+  </data>
+  <data name="TaskSittings" xml:space="preserve">
+    <value>TaskSittings</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Trigger" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+  <data name="TriggerArgs" xml:space="preserve">
+    <value>TriggerArgs</value>
+  </data>
+  <data name="TriggerAssemblyType" xml:space="preserve">
+    <value>TriggerAssemblyType</value>
+  </data>
+  <data name="TriggerId" xml:space="preserve">
+    <value>TriggerId</value>
+  </data>
+  <data name="TriggerStatus" xml:space="preserve">
+    <value>TriggerStatus</value>
+  </data>
+  <data name="UnknownJobAssembly" xml:space="preserve">
+    <value>UnknownJobAssembly</value>
+  </data>
+  <data name="UnknownTriggerType" xml:space="preserve">
+    <value>UnknownTriggerType</value>
+  </data>
+  <data name="Unoccupied" xml:space="preserve">
+    <value>Unoccupied</value>
+  </data>
+</root>

@@ -11,4 +11,19 @@
     <ProjectReference Include="..\..\Framework\Gardener\Gardener.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\EasyJobLocalResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EasyJobLocalResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\EasyJobLocalResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EasyJobLocalResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_audit_entity_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport"  Loading="_exportDataLoading">
-                                    @Localizer[SharedLocalResource.Export]
+                                    @Localizer[nameof(SharedLocalResource.Export)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -45,33 +45,33 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_audit_entity_delete_selected"]" />
-             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+             <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
-             <Column @bind-Field="@model.OperaterId" Filterable Title="@Localizer[AuditLocalResource.OperaterId]" />
-             <Column @bind-Field="@model.OperaterName" Filterable Title="@Localizer[AuditLocalResource.OperaterName]" />
-             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[AuditLocalResource.OperaterType]">
+             <Column @bind-Field="@model.OperaterId" Filterable Title="@Localizer[nameof(AuditLocalResource.OperaterId)]" />
+             <Column @bind-Field="@model.OperaterName" Filterable Title="@Localizer[nameof(AuditLocalResource.OperaterName)]" />
+             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[nameof(AuditLocalResource.OperaterType)]">
                  <TagPro Text="@model.OperaterType">@Localizer[EnumHelper.GetEnumDescription(model.OperaterType)??model.OperaterType.ToString()]</TagPro>
             </Column>
-             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[AuditLocalResource.Name]" />
-             <Column @bind-Field="@model.TypeName" Filterable Title="@Localizer[AuditLocalResource.TypeName]" />
-             <Column @bind-Field="@model.DataId" Width="300" Title="@Localizer[AuditLocalResource.DataId]" />
-             <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters" Title="@Localizer[AuditLocalResource.OperationType]">
+             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[nameof(SharedLocalResource.Name)]" />
+             <Column @bind-Field="@model.TypeName" Filterable Title="@Localizer[nameof(AuditLocalResource.TypeName)]" />
+             <Column @bind-Field="@model.DataId" Width="300" Title="@Localizer[nameof(AuditLocalResource.DataId)]" />
+             <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters" Title="@Localizer[nameof(AuditLocalResource.OperationType)]">
                  <TagPro Text="model.OperationType">@Localizer[EnumHelper.GetEnumDescription(model.OperationType)??model.OperationType.ToString()]</TagPro>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

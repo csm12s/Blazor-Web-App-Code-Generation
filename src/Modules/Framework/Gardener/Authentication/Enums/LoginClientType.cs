@@ -16,30 +16,30 @@ namespace Gardener.Authentication.Enums
         /// <summary>
         /// 未知
         /// </summary>
-        [Description("未知")]
+        [Description("Unknown")]
         Unknown,
         /// <summary>
         /// 浏览器类型
         /// </summary>
-        [Description("浏览器")]
+        [Description("Browser")]
         Browser,
 
         /// <summary>
         /// 桌面客户端
         /// </summary>
-        [Description("桌面")]
+        [Description("Desktop")]
         Desktop,
 
         /// <summary>
         /// 手机客户端
         /// </summary>
-        [Description("手机")]
+        [Description("Mobile")]
         Mobile,
 
         /// <summary>
         /// 服务端
         /// </summary>
-        [Description("服务端")]
+        [Description("Server")]
         Server
     }
 }

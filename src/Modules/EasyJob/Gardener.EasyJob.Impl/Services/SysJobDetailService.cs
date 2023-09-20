@@ -5,14 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.FriendlyException;
 using Furion.Schedule;
 using Gardener.Base;
 using Gardener.EasyJob.Dtos;
-using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Core;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Resources;
@@ -20,12 +18,10 @@ using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Gardener.LocalizationLocalizer;
-using IdGen;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 
 namespace Gardener.EasyJob.Impl.Services
@@ -90,13 +86,6 @@ namespace Gardener.EasyJob.Impl.Services
                     });
                 }
             }
-            //HttpJobMessage httpJobMessage = new HttpJobMessage();
-            //httpJobMessage.RequestUri = "http://www.baidu.com";
-            //httpJobMessage.HttpMethod = System.Net.Http.HttpMethod.Get;
-            //httpJobMessage.ClientName = "test";
-            //httpJobMessage.EnsureSuccessStatusCode = true;
-            //httpJobMessage.Body = null;
-            //var me = System.Text.Json.JsonSerializer.Serialize(httpJobMessage);
             return page;
         }
 

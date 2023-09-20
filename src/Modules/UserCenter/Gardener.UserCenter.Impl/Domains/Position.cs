@@ -53,7 +53,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 岗位等级
         /// </summary>
         [DisplayName("岗位等级")]
-        [MaxLength(500)]
+        [MaxLength(10)]
         public string? Grade { get; set; }
 
         /// <summary>

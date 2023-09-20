@@ -132,9 +132,6 @@
   <data name="AddChildren" xml:space="preserve">
     <value>Add children</value>
   </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>Authorizing</value>
-  </data>
   <data name="Avatar" xml:space="preserve">
     <value>Avatar</value>
   </data>
@@ -153,14 +150,14 @@
   <data name="Binding" xml:space="preserve">
     <value>Binding</value>
   </data>
-  <data name="BindingApi" xml:space="preserve">
-    <value>Binding api</value>
-  </data>
   <data name="BindingResource" xml:space="preserve">
     <value>Binding resource</value>
   </data>
   <data name="Break" xml:space="preserve">
     <value>Break</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Browser</value>
   </data>
   <data name="Button" xml:space="preserve">
     <value>Button</value>
@@ -180,13 +177,11 @@
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
   </data>
-  <data name="Client_Login_Fail" xml:space="preserve">
-    <value>Client login fail</value>
-    <comment>ErrorCodeMessage</comment>
+  <data name="ClientId" xml:space="preserve">
+    <value>Client id</value>
   </data>
-  <data name="Client_No_Find" xml:space="preserve">
-    <value>Client no find</value>
-    <comment>ErrorCodeMessage</comment>
+  <data name="ClientLoginInput" xml:space="preserve">
+    <value>Client login input</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
@@ -198,15 +193,8 @@
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
   </data>
-  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
-    <value>Confirm new password is inconformity</value>
-  </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
-  </data>
-  <data name="Controller_Need_Comment" xml:space="preserve">
-    <value>Controller need comment</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
@@ -220,19 +208,14 @@
   <data name="CreateIdentityType" xml:space="preserve">
     <value>Creater type</value>
   </data>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
   <data name="Data" xml:space="preserve">
     <value>Data</value>
   </data>
   <data name="DataNotFound" xml:space="preserve">
     <value>Data not found</value>
-  </data>
-  <data name="Data_Key_Uniqueness_Conflict" xml:space="preserve">
-    <value>Data key “{0}” unique conflict</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Data_Not_Find" xml:space="preserve">
-    <value>Data not find</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
@@ -241,7 +224,7 @@
     <value>Delete</value>
   </data>
   <data name="DeleteAndIncludChildren" xml:space="preserve">
-    <value>Delete(includ children)</value>
+    <value>Delete and includ children</value>
   </data>
   <data name="DeleteSelected" xml:space="preserve">
     <value>Delete selected</value>
@@ -251,6 +234,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
@@ -267,15 +253,17 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="Email_Server_No_Find" xml:space="preserve">
-    <value>Email server no find</value>
-    <comment>ErrorCodeMessage</comment>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="EN" xml:space="preserve">
     <value>EN</value>
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>
+  </data>
+  <data name="EncryptionValue" xml:space="preserve">
+    <value>Encryption value</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
@@ -369,6 +357,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
   <data name="Invalid" xml:space="preserve">
     <value>Invalid</value>
   </data>
@@ -408,6 +399,15 @@
   <data name="LoginId" xml:space="preserve">
     <value>Login id</value>
   </data>
+  <data name="LoginInput" xml:space="preserve">
+    <value>Login input</value>
+  </data>
+  <data name="LoginToken" xml:space="preserve">
+    <value>Login token</value>
+  </data>
+  <data name="LoginType" xml:space="preserve">
+    <value>Login type</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
@@ -422,6 +422,9 @@
   </data>
   <data name="Method" xml:space="preserve">
     <value>Method</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -482,6 +485,9 @@
   <data name="Parent" xml:space="preserve">
     <value>Parent</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="Password_Error" xml:space="preserve">
     <value>Password error</value>
     <comment>ErrorCodeMessage</comment>
@@ -507,6 +513,9 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>Refresh token</value>
   </data>
   <data name="Refreshtoken_Cannot_Used_In_Authentication" xml:space="preserve">
     <value>RefreshToken cannot used in authentication</value>
@@ -591,6 +600,9 @@
   <data name="SendImage" xml:space="preserve">
     <value>Send image</value>
   </data>
+  <data name="Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
   <data name="Service" xml:space="preserve">
     <value>Service</value>
   </data>
@@ -625,6 +637,12 @@
   <data name="SystemNotification" xml:space="preserve">
     <value>System notification</value>
   </data>
+  <data name="SystemTenant" xml:space="preserve">
+    <value>System tenant</value>
+  </data>
+  <data name="SystemTenantResource" xml:space="preserve">
+    <value>System tenant resource</value>
+  </data>
   <data name="System_Default_Error_Message" xml:space="preserve">
     <value>System error,Please contact the administrator</value>
     <comment>ErrorCodeMessage</comment>
@@ -644,6 +662,9 @@
     <value>Task not exist</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Tel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
   <data name="Tenant" xml:space="preserve">
     <value>Tenant</value>
   </data>
@@ -652,6 +673,9 @@
   </data>
   <data name="Times" xml:space="preserve">
     <value>Times</value>
+  </data>
+  <data name="Timespan" xml:space="preserve">
+    <value>Timespan</value>
   </data>
   <data name="Timespan_Is_Expired" xml:space="preserve">
     <value>Timespan is expired</value>
@@ -674,6 +698,9 @@
   <data name="Unlock" xml:space="preserve">
     <value>Unlock</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="UpdateBy" xml:space="preserve">
     <value>Modifier</value>
   </data>
@@ -691,6 +718,9 @@
   </data>
   <data name="UploadFail" xml:space="preserve">
     <value>Upload fail</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
   <data name="UserCenter" xml:space="preserve">
     <value>User center</value>
@@ -715,6 +745,9 @@
   <data name="User_Name_Repeat" xml:space="preserve">
     <value>User name repeat</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
   <data name="Verify_Code_Verification_Failed" xml:space="preserve">
     <value>Verify code verification failed</value>

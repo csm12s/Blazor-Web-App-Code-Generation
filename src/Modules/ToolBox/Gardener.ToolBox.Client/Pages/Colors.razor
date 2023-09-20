@@ -47,7 +47,7 @@
     /// <returns></returns>
     private Task copyTextToClipboard(string text)
     {
-        messageService.Success(Localizer.Combination(SharedLocalResource.Copy, SharedLocalResource.Success));
+        messageService.Success(Localizer.Combination(nameof(SharedLocalResource.Copy), nameof(SharedLocalResource.Success)));
         return js.Document.copyTextToClipboard(text);
     }
 }

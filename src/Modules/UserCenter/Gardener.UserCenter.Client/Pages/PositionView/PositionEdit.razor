@@ -9,7 +9,7 @@
       OnFinish="OnFormFinish"
       Context="model">
     <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
-        <FormItem Label="@Localizer[UserCenterResource.Tenant]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Tenant)]">
             <Select DataSource="@_tenants"
             @bind-Value="@model.TenantId"
                     ValueName="@nameof(SystemTenantDto.Id)"
@@ -20,19 +20,19 @@
             </Select>
         </FormItem>
     </ResourceAuthorize>
-    <FormItem Label="@Localizer[UserCenterResource.Name]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Target]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Target)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Target"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Duty]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Duty)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Duty"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Right]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Right)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Right"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Grade]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Grade)]">
         <Select DataSource="@grades"
                 @bind-Value="@model.Grade"
                 ValueName="@nameof(CodeDto.CodeValue)"
@@ -42,22 +42,22 @@
                 AllowClear>
         </Select>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Qualifications]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Qualifications)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Qualifications"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Salary]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Salary)]">
         <Input @bind-Value="@model.Salary" />
     </FormItem>
-    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -67,13 +67,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @Localizer[SharedLocalResource.Save]
+                        @Localizer[nameof(SharedLocalResource.Save)]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

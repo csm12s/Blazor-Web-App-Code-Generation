@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuditEntity" xml:space="preserve">
+    <value>审计实体</value>
+  </data>
+  <data name="AuditEntityId" xml:space="preserve">
+    <value>审计实体编号</value>
+  </data>
+  <data name="AuditEntitys" xml:space="preserve">
+    <value>审计实体集</value>
+  </data>
+  <data name="AuditOperation" xml:space="preserve">
+    <value>审计操作</value>
+  </data>
+  <data name="AuditProperties" xml:space="preserve">
+    <value>审计属性</value>
+  </data>
+  <data name="AuditProperty" xml:space="preserve">
+    <value>审计属性</value>
+  </data>
   <data name="DataId" xml:space="preserve">
     <value>数据编号</value>
   </data>
@@ -126,8 +144,20 @@
   <data name="DisplayName" xml:space="preserve">
     <value>显示名称</value>
   </data>
+  <data name="FieldChangeDetails" xml:space="preserve">
+    <value>字段变更详情</value>
+  </data>
   <data name="FieldName" xml:space="preserve">
     <value>字段名称</value>
+  </data>
+  <data name="Ip" xml:space="preserve">
+    <value>Ip</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>方法</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
   </data>
   <data name="NewValue" xml:space="preserve">
     <value>新值</value>
@@ -141,16 +171,31 @@
   <data name="OperaterType" xml:space="preserve">
     <value>操作者类型</value>
   </data>
+  <data name="OperationId" xml:space="preserve">
+    <value>操作编号</value>
+  </data>
   <data name="OperationType" xml:space="preserve">
     <value>操作类型</value>
   </data>
   <data name="OriginalValue" xml:space="preserve">
     <value>原值</value>
   </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>参数集</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value>资源编号</value>
+  </data>
   <data name="ResourceName" xml:space="preserve">
     <value>资源名称</value>
   </data>
   <data name="TypeName" xml:space="preserve">
     <value>类型名称</value>
+  </data>
+  <data name="UserAgent" xml:space="preserve">
+    <value>UserAgent</value>
   </data>
 </root>

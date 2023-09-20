@@ -289,7 +289,7 @@ namespace Gardener.WoChat.Client.Components
         {
             if (userListSelectedUser == null)
             {
-                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
 
@@ -303,7 +303,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
+                messageService.Error(Localizer.Combination(nameof(WoChatResource.OpenSession),nameof(SharedLocalResource.Fail)));
             }
             else
             {
@@ -355,7 +355,7 @@ namespace Gardener.WoChat.Client.Components
             IEnumerable<int> userIds = openGroupSelectedUsers.SelectKeys(true);
             if (!userIds.Any())
             {
-                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
             //发起群聊
@@ -368,7 +368,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
+                messageService.Error(Localizer.Combination(nameof(WoChatResource.OpenSession), nameof(SharedLocalResource.Fail)));
             }
             else
             {
@@ -399,7 +399,7 @@ namespace Gardener.WoChat.Client.Components
             }
             if (string.IsNullOrEmpty(inputMessage))
             {
-                messageService.Warn(Localizer[WoChatResource.PleaseInputContent]);
+                messageService.Warn(Localizer[nameof(WoChatResource.PleaseInputContent)]);
                 return;
             }
             ImSessionMessageDto message = new ImSessionMessageDto();
@@ -495,7 +495,7 @@ namespace Gardener.WoChat.Client.Components
         {
             if (sessionListSelectedSessionId == null)
             {
-                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
                 return;
             }
 
@@ -508,7 +508,7 @@ namespace Gardener.WoChat.Client.Components
             }
             else
             {
-                messageService.Error(action + Localizer[WoChatResource.Fail]);
+                messageService.Error(action + Localizer[nameof(SharedLocalResource.Fail)]);
             }
         }
 
@@ -541,7 +541,7 @@ namespace Gardener.WoChat.Client.Components
             }
             else
             {
-                messageService.Warn(Localizer.Combination(sessionListSelectedSession.DisableSendMessage ? WoChatResource.EnableSessionSendMessage : WoChatResource.DisableSessionSendMessage, WoChatResource.Fail));
+                messageService.Warn(Localizer.Combination(sessionListSelectedSession.DisableSendMessage ? nameof(WoChatResource.EnableSessionSendMessage) : nameof(WoChatResource.DisableSessionSendMessage), nameof(SharedLocalResource.Fail)));
             }
             disableSendMessageLoading = false;
         }
@@ -619,12 +619,12 @@ namespace Gardener.WoChat.Client.Components
                 else
                 {
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
+                    messageService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Success)));
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                messageService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
+                messageService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Fail)));
             }
         }
         /// <summary>

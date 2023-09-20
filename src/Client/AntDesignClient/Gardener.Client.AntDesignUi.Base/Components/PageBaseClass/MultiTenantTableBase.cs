@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
-using Gardener.Base.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -19,7 +18,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
     /// <typeparam name="TLocalResource">本地化资源</typeparam>
     /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
     /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
-    public class MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
+    public class MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new()
     {
         /// <summary>
         /// 租户数据
@@ -138,7 +137,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
     /// </remarks>
     public abstract class MultiTenantTableBase<TDto, TKey, TLocalResource> : MultiTenantTableBase<TDto, TKey, TLocalResource, TKey, bool>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResource
     {
     }
 

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Resources;
 using System;
@@ -20,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
         /// <returns></returns>
         private async Task OnEditTenantResourceClick(SystemTenantDto tenant)
         {
-            await OpenOperationDialogAsync<TenantResourceEdit, SystemTenantDto, bool>(Localizer["BindingResource"], tenant, width: 600);
+            await OpenOperationDialogAsync<TenantResourceEdit, SystemTenantDto, bool>(Localizer[nameof(SharedLocalResource.BindingResource)], tenant, width: 600);
         }
 
     }

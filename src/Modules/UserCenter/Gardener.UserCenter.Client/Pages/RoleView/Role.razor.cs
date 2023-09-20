@@ -24,7 +24,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(RoleDto role)
         {
-            await OpenOperationDialogAsync<RoleResourceEdit, RoleDto, bool>(Localizer["BindingResource"], role, width: 600);
+            await OpenOperationDialogAsync<RoleResourceEdit, RoleDto, bool>(Localizer[nameof(SharedLocalResource.BindingResource)], role, width: 600);
         }
 
 
@@ -35,7 +35,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         private async Task OnDownloadClick()
         {
             Task<string> seedData = roleService.GetRoleResourceSeedData();
-            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(Localizer[SharedLocalResource.SeedData], seedData, width: 1300);
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(SharedLocalResource.SeedData, seedData, width: 1300);
         }
     }
 }

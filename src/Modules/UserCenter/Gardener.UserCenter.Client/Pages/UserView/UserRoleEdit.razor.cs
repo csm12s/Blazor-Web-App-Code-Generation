@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Dtos;
@@ -39,7 +40,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 var rolesResult = await t1;
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
-                    MessageService.Error(Localizer[UserCenterResource.NoRoleNeedAdd]);
+                    MessageService.Error(Localizer[nameof(UserCenterResource.NoRoleNeedAdd)]);
                     _isLoading = false;
                     return;
                 }
@@ -74,12 +75,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             var result = await UserService.Role(_userId, selectRoles.Select(x => int.Parse(x)).ToArray());
             if (result)
             {
-                MessageService.Success(Localizer.Combination(UserCenterResource.Setting,UserCenterResource.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Setting),nameof(SharedLocalResource.Success)));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                MessageService.Error(Localizer.Combination(UserCenterResource.Setting, UserCenterResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Setting), nameof(SharedLocalResource.Fail)));
             }
             _isLoading = false;
         }

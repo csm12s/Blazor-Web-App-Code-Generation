@@ -22,7 +22,7 @@
                 <Input @bind-Value="cron" />
             </GridCol>
             <GridCol Span="14" Offset="1">
-                <Button Type="@ButtonType.Primary" OnClick="OnCheck">@Localizer[SharedLocalResource.Check]</Button>
+                <Button Type="@ButtonType.Primary" OnClick="OnCheck">@Localizer[nameof(SharedLocalResource.Check)]</Button>
             </GridCol>
         </GridRow>
         @if (runDateTimes != null)
@@ -83,7 +83,7 @@
     {
         if (string.IsNullOrEmpty(cron))
         {
-            await messageService.Warn("Cron " + Localizer[SharedLocalResource.IsNullOrEmpty], duration: 1);
+            await messageService.Warn("Cron " + Localizer[nameof(SharedLocalResource.IsNullOrEmpty)], duration: 1);
             return;
         }
         int cronStringFormat = 0;
@@ -103,14 +103,14 @@
         if (!checkResult.IsValid)
         {
 #pragma warning disable CS4014
-            messageService.Warn(Localizer[SharedLocalResource.Invalid] + " Cron", duration: 1);
+            messageService.Warn(Localizer[nameof(SharedLocalResource.Invalid)] + " Cron", duration: 1);
 #pragma warning disable CS4014
             runDateTimes = null;
         }
         else
         {
 #pragma warning disable CS4014
-            messageService.Success(Localizer.Combination(SharedLocalResource.Check, SharedLocalResource.Success), duration: 1);
+            messageService.Success(Localizer.Combination(nameof(SharedLocalResource.Check), nameof(SharedLocalResource.Success)), duration: 1);
 #pragma warning disable CS4014
             runDateTimes = checkResult.RunTimes;
 

@@ -15,23 +15,23 @@ namespace Gardener.Base.Enums
         /// <summary>
         /// 根节点
         /// </summary>
-        [Description("根节点")]
+        [Description("Root")]
         //[IgnoreOnConvertToMap]
         Root = 0,
         /// <summary>
         /// 菜单
         /// </summary>
-        [Description("菜单")]
+        [Description("Menu")]
         Menu = 1000,
         /// <summary>
         /// 操作
         /// </summary>
-        [Description("操作")]
+        [Description("Action")]
         Action = 2000,
         /// <summary>
         /// 视图
         /// </summary>
-        [Description("视图")]
+        [Description("View")]
         View = 3000,
     }
 }

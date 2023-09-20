@@ -21,7 +21,7 @@
                 <AntDesign.Col Span="24">
                     <Space>
                         <SpaceItem>
-                            <span>@Localizer[CodeGenLocalResource.TableName]: </span>
+                            <span>@Localizer[nameof(CodeGenLocalResource.TableName)]: </span>
                             <Select Mode="multiple"
                                     DataSource="@_select_TableName"
                                     @bind-Values="@_searchDto.TableName"
@@ -35,7 +35,7 @@
                             </Select>
                             </SpaceItem>
                             <SpaceItem>
-                            <span>@Localizer[CodeGenLocalResource.ClassName]: </span>
+                            <span>@Localizer[nameof(CodeGenLocalResource.ClassName)]: </span>
                             <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                                    @bind-Value="@_searchDto.ClassName"></Input>
                             </SpaceItem>
@@ -45,39 +45,39 @@
                             <Row>
                             <AntDesign.Col Span="8">
                             <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                        @Localizer[SharedLocalResource.DeleteSelected]
+                        @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                     </Button>
                     <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
-                        @Localizer[CodeGenLocalResource.BatchGenerate]
+                        @Localizer[nameof(CodeGenLocalResource.BatchGenerate)]
                     </Button>
                     </AntDesign.Col>
                     <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                @Localizer[SharedLocalResource.Add]
+                                @Localizer[nameof(SharedLocalResource.Add)]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                @Localizer[SharedLocalResource.Refresh]
+                                @Localizer[nameof(SharedLocalResource.Refresh)]
                             </Button>
                         </SpaceItem>
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
-                                @Localizer[CodeGenLocalResource.OpenCodeGenFolder]
+                                @Localizer[nameof(CodeGenLocalResource.OpenCodeGenFolder)]
                             </Button>
                         </SpaceItem>
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
-                                @Localizer[SharedLocalResource.SeedData]
+                                @Localizer[nameof(SharedLocalResource.SeedData)]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
-                                @(Localizer.Combination(SharedLocalResource.Settings, SharedLocalResource.SeedData))
+                                @(Localizer.Combination(nameof(SharedLocalResource.Settings), nameof(SharedLocalResource.SeedData)))
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
@@ -92,31 +92,31 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" />
-            <Column @bind-Field="@model.TableName" Title="@(Localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
-            <Column @bind-Field="@model.ClassName" Title="@(Localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
-            <Column @bind-Field="@model.Module" Title="@(Localizer[CodeGenLocalResource.Module])" Sortable Filterable />
-            <Column @bind-Field="@model.Remark" Title="@(Localizer[CodeGenLocalResource.Remark])" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.CreatedTime" Title="@(Localizer[CodeGenLocalResource.CreatedTime])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-            <ActionColumn Title="@Localizer[SharedLocalResource.Action]" Fixed="right">
+            <Column @bind-Field="@model.TableName" Title="@Localizer[nameof(CodeGenLocalResource.TableName)]" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@Localizer[nameof(CodeGenLocalResource.ClassName)]" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@Localizer[nameof(CodeGenLocalResource.Module)]" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@Localizer[nameof(CodeGenLocalResource.Remark)]" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.MenuName),"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.MenuName),"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.TableDescription),"(",nameof(SharedLocalResource.EN),")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(nameof(CodeGenLocalResource.TableDescription),"(",nameof(SharedLocalResource.CH),")"))" Sortable Filterable />
+             <Column @bind-Field="@model.CreatedTime" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn Title="@Localizer[nameof(SharedLocalResource.Action)]" Fixed="right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
-                            @Localizer[SharedLocalResource.Edit]
+                            @Localizer[nameof(SharedLocalResource.Edit)]
                         </Button>
                     </SpaceItem>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickConfigure(model.Id)">
-                            @Localizer[SharedLocalResource.Setting]
+                            @Localizer[nameof(SharedLocalResource.Setting)]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Icon="menu" OnClick="()=>OnClickGenerateMenu(model.Id)">
-                            @Localizer[CodeGenLocalResource.GenerateMenu]
+                            @Localizer[nameof(CodeGenLocalResource.GenerateMenu)]
                         </Button>
                     </SpaceItem>
 
@@ -128,13 +128,13 @@
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Icon="code" OnClick="()=>OnClickGenerate(model.Id)">
-                            @Localizer[SharedLocalResource.Generate]
+                            @Localizer[nameof(SharedLocalResource.Generate)]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
-                            @Localizer[SharedLocalResource.Delete]
+                            @Localizer[nameof(SharedLocalResource.Delete)]
                         </Button>
                         </SpaceItem>
                         </Space>

@@ -6,16 +6,16 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@base.Localizer[EmailLocalResource.TemplateId]">
+    <FormItem Label="@Localizer[nameof(EmailLocalResource.TemplateId)]">
         <Input Disabled="true" @bind-Value="@model.TemplateId" />
     </FormItem>
-    <FormItem Label="@base.Localizer[EmailLocalResource.ToEmail]">
+    <FormItem Label="@Localizer[nameof(EmailLocalResource.ToEmail)]">
         <Input @bind-Value="@model.ToEmail" />
     </FormItem>
-    <FormItem Label="@base.Localizer[EmailLocalResource.Data]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Data)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_emailData"></TextArea>
     </FormItem>
-    <FormItem Label="@base.Localizer[EmailLocalResource.EmailServerConfig]">
+    <FormItem Label="@Localizer[nameof(EmailLocalResource.EmailServerConfig)]">
         <Select DataSource="@emailServerConfigs"
                 @bind-Value="@model.EmailServerConfigId"
                 ValueName="@nameof(EmailServerConfigDto.Id)"
@@ -27,12 +27,12 @@
         <Space>
             <SpaceItem>
                 <Button Type="@ButtonType.Primary" HtmlType="submit">
-                    @Localizer[SharedLocalResource.Send]
+                    @Localizer[nameof(SharedLocalResource.Send)]
                 </Button>
             </SpaceItem>
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

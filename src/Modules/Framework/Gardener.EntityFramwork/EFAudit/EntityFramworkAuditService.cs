@@ -107,8 +107,8 @@ namespace Gardener.EntityFramwork.EFAudit
                     {
                         TypeName = entityType.FullName ?? string.Empty,
                         Name = entityType.GetDescription() ?? string.Empty,
-                        OperaterId = user != null ? user.Id.ToString() : string.Empty,
-                        OperaterName = user != null ? user.NickName ?? user.Name : string.Empty,
+                        OperaterId = user != null ? user.Id.ToString() : null,
+                        OperaterName = user != null ? user.NickName ?? user.Name : null,
                         OperaterType = user != null ? user.IdentityType : IdentityType.Unknown,
                         OperationId = Guid.NewGuid(),
                         CurrentValues = currentValues,

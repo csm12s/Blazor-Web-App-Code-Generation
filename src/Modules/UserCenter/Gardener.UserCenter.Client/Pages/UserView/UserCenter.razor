@@ -6,23 +6,23 @@
     <Space Size=@(("8", "8")) Wrap Align="start">
         <SpaceItem>
             <GridCol>
-                <Card Title=@localizer["PersonalInformation"] Style="width: 350px" Bordered Hoverable>
+                 <Card Title=@localizer[nameof(UserCenterResource.PersonalInformation)] Style="width: 350px" Bordered Hoverable>
                 <ChildContent>
                     <body>
                         <p style="margin-top:10px">
                             <Avatar Src="@userDto.Avatar" /><Text>@userDto.UserName</Text>
                         </p>
                         <p>
-                            <Text>@localizer["UserName"]：</Text><Text>@userDto.UserName</Text>
+                             <Text>@localizer[nameof(UserCenterResource.UserName)]：</Text><Text>@userDto.UserName</Text>
                         </p>
                         <p>
-                            <Text>@localizer["NickName"]： </Text><Text>@userDto.NickName</Text>
+                             <Text>@localizer[nameof(UserCenterResource.NickName)]： </Text><Text>@userDto.NickName</Text>
                         </p>
                         <p>
-                            <Text>@localizer["PhoneNumber"]：</Text><Text>@userDto.PhoneNumber</Text>
+                             <Text>@localizer[nameof(UserCenterResource.PhoneNumber)]：</Text><Text>@userDto.PhoneNumber</Text>
                         </p>
                         <p>
-                            <Text>@localizer["Gender"]： </Text><Text>@userDto.Gender</Text>
+                             <Text>@localizer[nameof(UserCenterResource.Gender)]： </Text><Text>@userDto.Gender</Text>
                         </p>
 
                     </body>
@@ -32,18 +32,18 @@
     </SpaceItem>
     <SpaceItem>
         <GridCol>
-            <Card Title=@localizer["ModifyPersonalInformation"] Bordered Hoverable>
+             <Card Title=@localizer[nameof(UserCenterResource.ModifyPersonalInformation)] Bordered Hoverable>
                 <ChildContent>
                     <Form Model="@userDto"
                           LabelColSpan="8"
                           WrapperColSpan="16">
-                        <FormItem Label="@localizer["UserName"]">
+                        <FormItem Label="@localizer[nameof(UserCenterResource.UserName)]">
                             <Input @bind-Value="@context.UserName" />
                         </FormItem>
-                        <FormItem Label="@localizer["NickName"]">
+                        <FormItem Label="@localizer[nameof(UserCenterResource.NickName)]">
                             <Input @bind-Value="@context.NickName" />
                         </FormItem>
-                        <FormItem Label="@localizer["Gender"]">
+                        <FormItem Label="@localizer[nameof(UserCenterResource.Gender)]">
                             <RadioGroup @bind-Value="@(context.Gender)">
                                 @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                                     {
@@ -54,7 +54,7 @@
 
                             <FormItem WrapperColOffset="8" WrapperColSpan="16">
                                 <Button Type="@ButtonType.Primary" OnClick="SaveUserInfo">
-                                    @localizer[UserCenterResource.Save]
+                                    @localizer[nameof(SharedLocalResource.Save)]
                                 </Button>
                             </FormItem>
                         </Form>

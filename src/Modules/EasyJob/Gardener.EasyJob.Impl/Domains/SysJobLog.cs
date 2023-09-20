@@ -40,30 +40,35 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 本次执行结果
         /// </summary>
         [DisplayName("本次执行结果")]
+        [MaxLength(5000)]
         public string? Result { get; set; }
 
         /// <summary>
         /// 本次执行耗时
         /// </summary>
         [DisplayName("本次执行耗时")]
+        [Required]
         public long ElapsedTime { get; set; }
 
         /// <summary>
         /// 是否成功
         /// </summary>
         [DisplayName("是否成功")]
+        [Required]
         public bool Succeeded { get; set; }
 
         /// <summary>
         /// 异常
         /// </summary>
         [DisplayName("异常")]
+        [MaxLength(5000)]
         public string? Exception { get; set; }
 
         /// <summary>
         /// 异常信息
         /// </summary>
         [DisplayName("异常信息")]
+        [MaxLength(1000)]
         public string? ExceptionMessage { get; set; }
 
         /// <summary>
@@ -82,12 +87,14 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 触发次数
         /// </summary>
         [DisplayName("触发次数")]
+        [Required]
         public long NumberOfRuns { get; set; }
 
         /// <summary>
         /// 出错次数
         /// </summary>
         [DisplayName("出错次数")]
+        [Required]
         public long NumberOfErrors { get; set; }
 
 

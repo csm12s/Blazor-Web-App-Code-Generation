@@ -2,16 +2,16 @@
 @if (AuditProperties != null)
 {
     <Table PageSize="AuditProperties.Count" DataSource="@AuditProperties" Bordered=@true Size=@TableSize.Small HidePagination="true">
-        <Column @bind-Field="@context.FieldName" Title="@Localizer[AuditLocalResource.FieldName]" />
-        <Column @bind-Field="@context.DisplayName" Title="@Localizer[AuditLocalResource.DisplayName]" />
-        <Column @bind-Field="@context.DataType" Title="@Localizer[AuditLocalResource.DataType]" />
+        <Column @bind-Field="@context.FieldName" Title="@Localizer[nameof(AuditLocalResource.FieldName)]" />
+        <Column @bind-Field="@context.DisplayName" Title="@Localizer[nameof(AuditLocalResource.DisplayName)]" />
+        <Column @bind-Field="@context.DataType" Title="@Localizer[nameof(AuditLocalResource.DataType)]" />
         @if (!EntityOperateType.Insert.Equals(OperationType))
         {
-            <Column @bind-Field="@context.OriginalValue" Style="max-width:200px" Title="@Localizer[AuditLocalResource.OriginalValue]" />
+            <Column @bind-Field="@context.OriginalValue" Style="max-width:200px" Title="@Localizer[nameof(AuditLocalResource.OriginalValue)]" />
         }
         @if (!EntityOperateType.Delete.Equals(OperationType))
         {
-            <Column @bind-Field="@context.NewValue" Style="max-width:200px" Title="@Localizer[AuditLocalResource.NewValue]" />
+            <Column @bind-Field="@context.NewValue" Style="max-width:200px" Title="@Localizer[nameof(AuditLocalResource.NewValue)]" />
         }
     </Table>
 }

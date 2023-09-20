@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Dtos;
@@ -49,7 +50,7 @@ namespace Gardener.Client.Core
                 //还是取不到
                 if (user == null)
                 {
-                    await logger.ErrorAsync(localizer["User_Info_Get_Error_Retry_Login"]);
+                    await logger.ErrorAsync(localizer[nameof(SharedLocalResource.User_Info_Get_Error_Retry_Login)]);
                     return authenticationState;
                 }
                 else 
@@ -60,7 +61,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                await logger.ErrorAsync(localizer["User_Info_Get_Error_Retry_Login"], ex:ex);
+                await logger.ErrorAsync(localizer[nameof(SharedLocalResource.User_Info_Get_Error_Retry_Login)], ex:ex);
                 return authenticationState;
             }
         }

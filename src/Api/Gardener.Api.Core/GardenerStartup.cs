@@ -20,8 +20,6 @@ using Gardener.Sugar;
 using Gardener.DistributedLock;
 using Gardener.EasyJob.Impl.Core;
 using Gardener.LocalizationLocalizer;
-using Gardener.Api.Core;
-using Microsoft.Extensions.Options;
 
 namespace Gardener.Admin
 {

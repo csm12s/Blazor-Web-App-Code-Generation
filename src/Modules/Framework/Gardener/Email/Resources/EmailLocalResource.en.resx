@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountName" xml:space="preserve">
+    <value>Account name</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>Account password</value>
+  </data>
   <data name="ContentTemplate" xml:space="preserve">
     <value>Content template</value>
   </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
   <data name="EmailServerConfig" xml:space="preserve">
     <value>Email server config</value>
+  </data>
+  <data name="EmailServerConfigId" xml:space="preserve">
+    <value>EmailServer config id</value>
   </data>
   <data name="EmailTemplate" xml:space="preserve">
     <value>Email template</value>
@@ -138,11 +150,32 @@
   <data name="FromName" xml:space="preserve">
     <value>From name</value>
   </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
   <data name="IsHtml" xml:space="preserve">
     <value>Is html</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="SendEmailInput" xml:space="preserve">
+    <value>Send email input</value>
+  </data>
+  <data name="ServerTag" xml:space="preserve">
+    <value>Server tag</value>
+  </data>
   <data name="SubjectTemplate" xml:space="preserve">
     <value>Subject template</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
     <value>Template id</value>

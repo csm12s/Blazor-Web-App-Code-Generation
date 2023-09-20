@@ -6,9 +6,10 @@
 
 using Gardener.Attributes;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Enums;
+using Gardener.UserCenter.Resources;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -16,93 +17,97 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 用户数据转换实体
     /// </summary>
-    [Description("用户信息")]
+    [Display(Name = nameof(UserCenterResource.User), ResourceType = typeof(UserCenterResource))]
     public class UserDto : TenantBaseDto<int>
     {
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
-        [DisplayName("UserName")]
+        [Display(Name = nameof(UserCenterResource.UserName), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         [Order(1)]
         public string UserName { get; set; } = null!;
         /// <summary>
         /// 昵称
         /// </summary>
-        [MaxLength(32)]
-        [MinLength(5)]
-        [DisplayName("NickName")]
+        [Display(Name = nameof(UserCenterResource.NickName), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         [Order(2)]
         public string? NickName { get; set; }
         /// <summary>
         /// 密码加密后的
         /// </summary>
-        //[Required(ErrorMessage = "不能为空")]
-        [MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
-        [DisplayName("Password")]
+        [Display(Name = nameof(UserCenterResource.Password), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
         public string? Password { get; set; }
 
         /// <summary>
         /// 头像
         /// </summary>
-        [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Avatar")]
+        [Display(Name = nameof(UserCenterResource.Avatar), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Avatar { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
-        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Email")]
+        [Display(Name = nameof(UserCenterResource.Email), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Email { get; set; }
         /// <summary>
         /// 邮箱是否确认
         /// </summary>
-        [DisplayName("EmailConfirmed")]
+        [Display(Name = nameof(UserCenterResource.EmailConfirmed), ResourceType = typeof(UserCenterResource))]
         public bool EmailConfirmed { get; set; }
         /// <summary>
         /// 手机
         /// </summary>
-        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("PhoneNumber")]
+        [Display(Name = nameof(UserCenterResource.PhoneNumber), ResourceType = typeof(UserCenterResource))]
+        [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? PhoneNumber { get; set; }
         /// <summary>
         /// 手机是否确认
         /// </summary>
-        [DisplayName("PhoneNumberConfirmed")]
+        [Display(Name = nameof(UserCenterResource.PhoneNumberConfirmed), ResourceType = typeof(UserCenterResource))]
         public bool PhoneNumberConfirmed { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), DefaultValue(Gender.Male)]
-        [DisplayName("Gender")]
+        [Display(Name = nameof(UserCenterResource.Gender), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [Order(3)]
         public Gender Gender { get; set; }
         /// <summary>
         /// 多对多
         /// </summary>
-        [DisplayName("Roles")]
+        [Display(Name = nameof(UserCenterResource.Roles), ResourceType = typeof(UserCenterResource))]
         public ICollection<RoleDto>? Roles { get; set; }
         /// <summary>
         /// 用户扩展信息
         /// </summary>
+        [Display(Name = nameof(UserCenterResource.UserExtension), ResourceType = typeof(UserCenterResource))]
         public UserExtensionDto? UserExtension { get; set; }
         /// <summary>
         /// 部门编号
         /// </summary>
-        [DisplayName("DeptId")]
+        [Display(Name = nameof(UserCenterResource.DeptId), ResourceType = typeof(UserCenterResource))]
         public int? DeptId { get; set; }
         /// <summary>
         /// 部门
         /// </summary>
+        [Display(Name = nameof(UserCenterResource.Dept), ResourceType = typeof(UserCenterResource))]
         public DeptDto? Dept { get; set; }
         /// <summary>
         /// 岗位编号
         /// </summary>
-        [DisplayName("PositionId")]
+        [Display(Name = nameof(UserCenterResource.PositionId), ResourceType = typeof(UserCenterResource))]
         public int? PositionId { get; set; }
         /// <summary>
         /// 岗位
         /// </summary>
+        [Display(Name = nameof(UserCenterResource.Position), ResourceType = typeof(UserCenterResource))]
         public PositionDto? Position;
         /// <summary>
         /// 从名字获取头像
@@ -110,7 +115,15 @@ namespace Gardener.UserCenter.Dtos
         /// <returns></returns>
         public string GetAvatarFromName()
         {
-            return (this.NickName ?? this.UserName).Substring(0,1);
+            if (!string.IsNullOrEmpty(this.NickName))
+            {
+                return this.NickName.Substring(0, 1);
+            }
+            if (!string.IsNullOrEmpty(this.UserName))
+            {
+                return this.UserName.Substring(0, 1);
+            }
+            return string.Empty;
         }
         /// <summary>
         /// 是否是超级管理员
@@ -119,6 +132,7 @@ namespace Gardener.UserCenter.Dtos
         /// 判断规则 <see cref="Gardener.Authorization.Core.IAuthorizationService.IsSuperAdministrator"/>
         /// </remarks>
         [DisabledSearchField]
+        [Display(Name = nameof(UserCenterResource.IsSuperAdministrator), ResourceType = typeof(UserCenterResource))]
         public bool? IsSuperAdministrator { get;set; }
     }
 }

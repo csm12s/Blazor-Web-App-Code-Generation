@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_email_server_config_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @Localizer[SharedLocalResource.Add]
+                                    @Localizer[nameof(SharedLocalResource.Add)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_email_server_config_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -45,17 +45,17 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_email_server_config_delete_selected"]" />
-            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[SharedLocalResource.Name]" />
-             <Column @bind-Field="@model.Host" Filterable Title="@Localizer[SharedLocalResource.Host]" />
-             <Column @bind-Field="@model.Port" Filterable Title="@Localizer[SharedLocalResource.Port]" />
-             <Column @bind-Field="@model.AccountName" Filterable Title="@Localizer[SharedLocalResource.AccountName]" />
-             <Column @bind-Field="@model.Tags" Title="@Localizer[SharedLocalResource.Tags]">
+            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[nameof(SharedLocalResource.Name)]" />
+             <Column @bind-Field="@model.Host" Filterable Title="@Localizer[nameof(SharedLocalResource.Host)]" />
+             <Column @bind-Field="@model.Port" Filterable Title="@Localizer[nameof(SharedLocalResource.Port)]" />
+             <Column @bind-Field="@model.AccountName" Filterable Title="@Localizer[nameof(SharedLocalResource.AccountName)]" />
+             <Column @bind-Field="@model.Tags" Title="@Localizer[nameof(SharedLocalResource.Tags)]">
                 @foreach (EmailServerTag tag in model.GetEmailServerTagEnums())
                 {
                     <TagPro Text="@EnumHelper.GetEnumDescriptionOrName(tag)"></TagPro>
                 }
             </Column>
-            <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
+            <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[nameof(SharedLocalResource.IsLocked)]">
                 <ResourceAuthorize ResourceKey="system_manager_email_server_config_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -65,33 +65,33 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Edit)]" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_send">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Send])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Send)]" ArrowPointAtCenter="true">
                                 <Button Icon="send" Type="@ButtonType.Primary" OnClick="()=>OnClickSend(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

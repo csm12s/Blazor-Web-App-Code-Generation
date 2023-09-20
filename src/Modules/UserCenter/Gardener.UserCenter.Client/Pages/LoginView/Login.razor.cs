@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authorization.Dtos;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.LocalizationLocalizer;
@@ -72,7 +73,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var loginResult = await AccountService.Login(loginInput);
             if (loginResult != null)
             {
-                //MessageService.Success(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Success), 0.8);
+                //MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Login), nameof(SharedLocalResource.Success)), 0.8);
                 await AuthenticationStateManager.Login(loginResult, autoLogin);
                 Navigation.NavigateTo(returnUrl ?? "/");
                 loading = false;
@@ -80,7 +81,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             else
             {
                 loading = false;
-                MessageService.Error(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(UserCenterResource.Login), nameof(SharedLocalResource.Fail)));
                 if (_imageVerifyCode != null)
                 {
                     await _imageVerifyCode.ReLoadVerifyCode();

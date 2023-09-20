@@ -26,7 +26,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TOperationDialogOutput"></typeparam>
     public class EditOperationDialogBase<TDto, TKey, TLocalResource, TOperationDialogInput, TOperationDialogOutput> : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResource
         where TOperationDialogInput : OperationDialogInput<TKey>, new()
         where TOperationDialogOutput : OperationDialogOutput, new()
     {
@@ -94,7 +93,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        MessageService.Error(Localizer[SharedLocalResource.DataNotFound]);
+                        MessageService.Error(Localizer[nameof(SharedLocalResource.DataNotFound)]);
                     }
                 }
 
@@ -146,13 +145,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
                 if (result != null)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Success)));
                     operationDialogOutput.IsSucceed(GetKey(result));
                     await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Fail)));
                 }
             }
             else
@@ -161,13 +160,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await BaseService.Update(_editModel);
                 if (result)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));
                     operationDialogOutput.IsSucceed();
                     await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Fail)));
                 }
             }
             await StopLoading();
@@ -185,7 +184,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }
@@ -206,7 +205,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </remarks>
     public class EditOperationDialogBase<TDto, TKey, TLocalResource> : EditOperationDialogBase<TDto, TKey, TLocalResource, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResource
     {
 
     }

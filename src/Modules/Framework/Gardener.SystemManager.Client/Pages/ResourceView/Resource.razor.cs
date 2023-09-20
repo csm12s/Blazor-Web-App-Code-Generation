@@ -8,6 +8,7 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.CodeGeneration.Resources;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
@@ -38,7 +39,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionClick(ResourceDto model)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      $"{Localizer["BindingApi"]}-[{model.Name}]",
+                      $"{Localizer[nameof(SystemManagerResource.BindingApi)]}-[{model.Name}]",
                       new ResourceFunctionEditOption(model, model.Name, 0),
                       width: 1200);
         }
@@ -82,7 +83,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             });
 
             await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                        Localizer[SharedLocalResource.SeedData],
+                        Localizer[nameof(SharedLocalResource.SeedData)],
                         data,
                         width: 1300);
         }

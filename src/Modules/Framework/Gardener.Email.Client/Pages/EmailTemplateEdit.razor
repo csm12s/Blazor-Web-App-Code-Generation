@@ -7,36 +7,36 @@
           WrapperCol="new ColLayoutParam { Span = 18 }"
           OnFinish="OnFormFinish"
           Context="model">
-        <FormItem Label="@Localizer[EmailLocalResource.Name]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Name)]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.FromName]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.FromName)]">
             <Input @bind-Value="@model.FromName" />
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Remark]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.Example]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.Example)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Example"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.SubjectTemplate]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.SubjectTemplate)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="10" @bind-Value="@model.SubjectTemplate"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.ContentTemplate]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.ContentTemplate)]">
             <TextArea AutoSize="true" MinRows="5" MaxRows="10" @bind-Value="@model.ContentTemplate"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[EmailLocalResource.IsHtml]">
+        <FormItem Label="@Localizer[nameof(EmailLocalResource.IsHtml)]">
             <Switch @bind-Value="@model.IsHtml"></Switch>
         </FormItem>
-        <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -46,13 +46,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @Localizer[SharedLocalResource.Save]
+                            @Localizer[nameof(SharedLocalResource.Save)]
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @Localizer[SharedLocalResource.Cancel]
+                        @Localizer[nameof(SharedLocalResource.Cancel)]
                     </Button>
                 </SpaceItem>
             </Space>

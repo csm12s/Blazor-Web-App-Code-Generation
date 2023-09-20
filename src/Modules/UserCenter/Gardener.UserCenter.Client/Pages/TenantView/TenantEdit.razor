@@ -5,27 +5,27 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@Localizer[UserCenterResource.Name]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Email]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Email)]">
         <Input @bind-Value="@model.Email" />
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Tel]">
+    <FormItem Label="@Localizer[nameof(UserCenterResource.Tel)]">
         <Input @bind-Value="@model.Tel" />
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.Remark]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -35,13 +35,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @Localizer[SharedLocalResource.Save]
+                        @Localizer[nameof(SharedLocalResource.Save)]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

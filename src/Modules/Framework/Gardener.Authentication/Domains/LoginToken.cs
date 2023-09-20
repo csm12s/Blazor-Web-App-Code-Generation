@@ -11,6 +11,7 @@ using Gardener.Base;
 using Gardener.Base.Entity;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Authentication.Domains
 {
@@ -25,18 +26,23 @@ namespace Gardener.Authentication.Domains
         /// 身份编号
         /// </summary>
         [DisplayName("身份编号")]
+        [Required]
+        [MaxLength(100)]
         public string IdentityId { get; set; } = null!;
 
         /// <summary>
         /// 身份唯一名称
         /// </summary>
         [DisplayName("身份唯一名称")]
+        [Required]
+        [MaxLength(100)]
         public string IdentityName { get; set; } = null!;
 
         /// <summary>
         /// 身份昵称
         /// </summary>
         [DisplayName("身份昵称")]
+        [MaxLength(100)]
         public string? IdentityNickName { get; set; }
 
         /// <summary>
@@ -49,6 +55,8 @@ namespace Gardener.Authentication.Domains
         /// 获取或设置 登录Id
         /// </summary>
         [DisplayName("登录编号")]
+        [Required]
+        [MaxLength(100)]
         public string LoginId { get; set; } = null!;
 
         /// <summary>
@@ -61,6 +69,7 @@ namespace Gardener.Authentication.Domains
         /// 获取或设置 标识值
         /// </summary>
         [DisplayName("Token")]
+        [MaxLength(2000)]
         public string? Value { get; set; }
 
         /// <summary>
@@ -73,6 +82,7 @@ namespace Gardener.Authentication.Domains
         /// 访问IP
         /// </summary>
         [DisplayName("IP")]
+        [MaxLength(20)]
         public string? Ip { get; set; }
     }
 }

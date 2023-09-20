@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.SystemManager.Dtos;
@@ -42,11 +43,11 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             bool result = await codeTypeService.RefreshCodeUtilCache();
             if (result)
             {
-                MessageService.Success(Localizer.Combination(SystemManagerResource.Refresh, SystemManagerResource.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Refresh), nameof(SharedLocalResource.Success)));
             }
             else
             {
-                MessageService.Error(Localizer.Combination(SystemManagerResource.Refresh, SystemManagerResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Refresh), nameof(SharedLocalResource.Fail)));
             }
         }
     }

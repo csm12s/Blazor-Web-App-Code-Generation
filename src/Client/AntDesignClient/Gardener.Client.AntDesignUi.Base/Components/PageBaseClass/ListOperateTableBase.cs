@@ -29,7 +29,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TOperationDialogInput, TOperationDialogOutput, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
         where TDto : class, new()
         where TOperationDialog : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
-        where TLocalResource : SharedLocalResource
         where TOperationDialogInput : OperationDialogInput<TKey>, new()
         where TOperationDialogOutput : OperationDialogOutput, new()
     {
@@ -53,7 +52,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 await OnAddDialogCloseAfter(input, result);
             };
 
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Add], input, onClose);
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Add, input, onClose);
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 await OnEditDialogCloseAfter(input, result);
             };
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Edit], input, onClose);
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Edit, input, onClose);
         }
 
         /// <summary>
@@ -143,7 +142,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Detail], input, output => { return OnDetailDialogCloseAfter(input, output); } );
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Detail, input, output => { return OnDetailDialogCloseAfter(input, output); } );
         }
 
         /// <summary>
@@ -190,7 +189,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListOperateTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
         where TDto : class, new()
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 打开操作对话框
@@ -226,7 +224,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TKey, bool>
         where TDto : class, new()
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TLocalResource : SharedLocalResource
     {
     }
 

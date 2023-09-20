@@ -32,7 +32,7 @@
         @@if (_selectedRows != null && _selectedRows.Count() > 0)
         {
             <p>
-                @@localizer["Tatal"]: @@_total, @@localizer["Selected"]: @@_selectedRows.Count()
+                @@localizer[nameof(SharedLocalResource.Tatal)]: @@_total, @@localizer[nameof(SharedLocalResource.Selected)]: @@_selectedRows.Count()
                 <Button Danger Size="small" OnClick="@@(e => { _table.SetSelection(null); })">
                     @@localizer["Clear"]
                 </Button>
@@ -124,7 +124,7 @@
                     {
                     <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Delete))>
                         <Button Type="@@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @@localizer["DeleteSelected"]
+                                    @@localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                     }
@@ -136,7 +136,7 @@
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Add)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @@localizer[SharedLocalResource.Add]
+                                            @@localizer[nameof(SharedLocalResource.Add)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -144,7 +144,7 @@
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @@localizer[SharedLocalResource.Refresh]
+                                        @@localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -220,14 +220,14 @@
             }
             
             @@*Action Column*@@
-            <ActionColumn Title=@@localizer["Action"] Fixed="right">
+            <ActionColumn Title=@@localizer[nameof(SharedLocalResource.Action)] Fixed="right">
                 <Space>
                     @if(Model.CodeGen.HasEdit)
                     {
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
-                                @@localizer[SharedLocalResource.Edit]
+                                        @@localizer[nameof(SharedLocalResource.Edit)]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
@@ -235,7 +235,7 @@
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDetail(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
-                                @@localizer["Detail"]
+                                    @@localizer[nameof(SharedLocalResource.Detail)]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
@@ -244,7 +244,7 @@
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Delete)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDelete(model.@(Model.CodeGen.PrimaryKeyName))"  Danger Type="@@ButtonType.Link">
-                                @@localizer["Delete"]
+                                        @@localizer[nameof(SharedLocalResource.Delete)]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>

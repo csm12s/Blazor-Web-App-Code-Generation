@@ -7,8 +7,9 @@
 using Gardener.Attributes;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
+using Gardener.Base.Resources;
 using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -27,7 +28,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("Id")]
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
         public TKey Id { get; set; } = default!;
     }
@@ -40,49 +41,49 @@ namespace Gardener.Base
         /// <summary>
         /// 是否锁定
         /// </summary>
-        [DisplayName("IsLocked")]
-        [Order(int.MaxValue-1000)]
+        [Display(Name = nameof(SharedLocalResource.IsLocked), ResourceType = typeof(SharedLocalResource))]
+        [Order(int.MaxValue - 1000)]
         public virtual bool IsLocked { get; set; }
         /// <summary>
         /// 是否逻辑删除
         /// </summary>
-        [DisplayName("IsDeleted")]
+        [Display(Name = nameof(SharedLocalResource.IsDeleted), ResourceType = typeof(SharedLocalResource))]
         [DisabledSearchField]
         public virtual bool IsDeleted { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>
-        [DisplayName("CreatedTime")]
+        [Display(Name = nameof(SharedLocalResource.CreatedTime), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 900)]
         public virtual DateTimeOffset CreatedTime { get; set; }
         /// <summary>
         /// 创建者编号
         /// </summary>
-        [DisplayName("CreateBy")]
+        [Display(Name = nameof(SharedLocalResource.CreateBy), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 800)]
         public virtual string? CreateBy { get; set; }
         /// <summary>
         /// 创建者身份类型
         /// </summary>
-        [DisplayName("CreateIdentityType")]
+        [Display(Name = nameof(SharedLocalResource.CreateIdentityType), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 700)]
         public virtual IdentityType? CreateIdentityType { get; set; }
         /// <summary>
         /// 修改日期
         /// </summary>
-        [DisplayName("UpdatedTime")]
+        [Display(Name = nameof(SharedLocalResource.UpdatedTime), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 600)]
         public virtual DateTimeOffset? UpdatedTime { get; set; }
         /// <summary>
         /// 修改者编号
         /// </summary>
-        [DisplayName("UpdateBy")]
+        [Display(Name = nameof(SharedLocalResource.UpdateBy), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 500)]
         public virtual string? UpdateBy { get; set; }
         /// <summary>
         /// 修改者身份类型
         /// </summary>
-        [DisplayName("UpdateIdentityType")]
+        [Display(Name = nameof(SharedLocalResource.UpdateIdentityType), ResourceType = typeof(SharedLocalResource))]
         [Order(int.MaxValue - 400)]
         public virtual IdentityType? UpdateIdentityType { get; set; }
 
@@ -116,7 +117,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("Id")]
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
         public TKey Id { get; set; } = default!;
 
@@ -132,7 +133,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("Id")]
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
         public TKey Id { get; set; } = default!;
     }
@@ -144,13 +145,13 @@ namespace Gardener.Base
         /// <summary>
         /// 租户编号
         /// </summary>
-        [DisplayName("TenantId")]
+        [Display(Name = nameof(SharedLocalResource.TenantId), ResourceType = typeof(SharedLocalResource))]
         [Order(1001)]
         public virtual Guid? TenantId { get; set; }
         /// <summary>
         /// 租户
         /// </summary>
-        [DisplayName("Tenant")]
+        [Display(Name = nameof(SharedLocalResource.Tenant), ResourceType = typeof(SharedLocalResource))]
         public virtual ITenant? Tenant { get; set; }
     }
 
@@ -163,7 +164,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("Id")]
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
         public TKey Id { get; set; } = default!;
     }
@@ -175,13 +176,13 @@ namespace Gardener.Base
         /// <summary>
         /// 租户编号
         /// </summary>
-        [DisplayName("TenantId")]
+        [Display(Name = nameof(SharedLocalResource.TenantId), ResourceType = typeof(SharedLocalResource))]
         [Order(1001)]
         public virtual Guid? TenantId { get; set; }
         /// <summary>
         /// 租户
         /// </summary>
-        [DisplayName("Tenant")]
+        [Display(Name = nameof(SharedLocalResource.Tenant), ResourceType = typeof(SharedLocalResource))]
         public virtual ITenant? Tenant { get; set; }
     }
 }

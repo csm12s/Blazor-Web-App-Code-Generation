@@ -4,21 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
-using Furion.Localization;
 using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.Base.Resources;
 using Gardener.EntityFramwork;
 using Gardener.LocalizationLocalizer;
 using Gardener.SystemManager.Dtos;
-using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 
 namespace Gardener.SystemManager.Services
 {

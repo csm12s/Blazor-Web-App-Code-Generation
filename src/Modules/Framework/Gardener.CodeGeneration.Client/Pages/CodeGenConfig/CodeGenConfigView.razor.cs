@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using Gardener.Client.AntDesignUi.Base.Components;
 using AntDesign;
+using Gardener.Base.Resources;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 
@@ -95,11 +96,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
             var success = await codeGenConfigClientService.SaveAll(listDto);
             if (success)
             {
-                MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Success)));
             }
             else
             {
-                MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Fail)));
             }
         }
         _saveAllBtnLoading = false;
@@ -116,12 +117,12 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
         if (success)
         {
-            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
+            MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Success)));
             await base.FeedbackRef.CloseAsync(true);
         }
         else
         {
-            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
+            MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Fail)));
         }
 
         _saveAllBtnLoading = false;

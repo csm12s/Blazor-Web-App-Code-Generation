@@ -19,14 +19,14 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                         <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                         </ResourceAuthorize>
                 </AntDesign.Col>
@@ -34,24 +34,24 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_attachment_delete_selected"]" />
-             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+             <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
-             <Column Title="@Localizer[AttachmentLocalResource.BusinessType]" @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
+             <Column Title="@Localizer[nameof(AttachmentLocalResource.BusinessType)]" @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagPro>
             </Column>
-             <Column Title="@Localizer[AttachmentLocalResource.BusinessId]" @bind-Field="@model.BusinessId" Filterable />
-             <Column Title="@Localizer[AttachmentLocalResource.FileType]" @bind-Field="@model.FileType" TData="AttachmentFileType" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
+             <Column Title="@Localizer[nameof(AttachmentLocalResource.BusinessId)]" @bind-Field="@model.BusinessId" Filterable />
+             <Column Title="@Localizer[nameof(AttachmentLocalResource.FileType)]" @bind-Field="@model.FileType" TData="AttachmentFileType" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagPro> @model.ContentType
             </Column>
-             <Column Title="@Localizer[AttachmentLocalResource.Size]" @bind-Field="@model.Size" Filterable>
+             <Column Title="@Localizer[nameof(AttachmentLocalResource.Size)]" @bind-Field="@model.Size" Filterable>
                 @model.Size B
             </Column>
             @*<Column @bind-Field="@model.Path" />
             <Column @bind-Field="@model.Name" />*@
-            <Column Title="@Localizer[AttachmentLocalResource.Suffix]" @bind-Field="@model.Suffix" Filterable />
-             <Column Title="@Localizer[AttachmentLocalResource.OriginalName]" @bind-Field="@model.OriginalName" Style="max-width:200px" Filterable />
-            <Column Title="@Localizer[AttachmentLocalResource.Url]" @bind-Field="@model.Url" Filterable>
+            <Column Title="@Localizer[nameof(AttachmentLocalResource.Suffix)]" @bind-Field="@model.Suffix" Filterable />
+             <Column Title="@Localizer[nameof(AttachmentLocalResource.OriginalName)]" @bind-Field="@model.OriginalName" Style="max-width:200px" Filterable />
+            <Column Title="@Localizer[nameof(AttachmentLocalResource.Url)]" @bind-Field="@model.Url" Filterable>
 
                 @if (model.FileType.Equals(AttachmentFileType.Image))
                 {
@@ -72,20 +72,20 @@
                 }
 
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" />
             <ActionColumn>
 
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Detail)]" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

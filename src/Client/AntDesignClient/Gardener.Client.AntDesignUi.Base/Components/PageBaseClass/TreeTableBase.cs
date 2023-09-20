@@ -27,7 +27,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource>
         where TDto : class, new()
         where TKey : notnull
-        where TLocalResource : SharedLocalResource
     {
 
         #region abstract mothed
@@ -113,7 +112,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             var _tempDatas = await GetTree();
             if (_tempDatas == null)
             {
-                MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
+                MessageService.Error(this.Localizer.Combination(nameof(SharedLocalResource.Load), nameof(SharedLocalResource.Fail)));
             }
             else
             {
@@ -188,7 +187,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await BaseService.FakeDeletes(ids.ToArray());
                 if (result)
                 {
-                    MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                    MessageService.Success(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                     var pKey = GetParentKey(dto);
                     if (_datas != null && pKey != null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
@@ -201,7 +200,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 else
                 {
-                    MessageService.Error(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    MessageService.Error(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
                 }
             }
         }
@@ -213,7 +212,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected Task OnClickEdit(TDto dto)
         {
             TDialogInput option = GetEditOption(dto);
-            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Edit],
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Edit)],
                 option,
                  result =>
                 {
@@ -226,7 +225,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected Task OnClickAdd()
         {
-            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Add)],
                 GetAddOption(),
                 result =>
                 {
@@ -241,7 +240,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected Task OnClickAddChildren(TDto dto)
         {
-            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Add)],
                 GetAddOption(dto),
                  result =>
                 {
@@ -256,7 +255,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(this.Localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
             }
             else
             {
@@ -268,12 +267,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var result = await BaseService.FakeDeletes(ids.Distinct().ToArray());
                     if (result)
                     {
-                        MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                        MessageService.Success(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                         await ReLoadTable(true);
                     }
                     else
                     {
-                        MessageService.Error(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                        MessageService.Error(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
                     }
                 }
             }
@@ -286,7 +285,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected Task OnClickDetail(TDto dto)
         {
             TDialogInput option = GetSelectOption(dto);
-            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Detail], option);
+            return OpenOperationDialogAsync(Localizer[nameof(SharedLocalResource.Detail)], option);
         }
 
         /// <summary>
@@ -424,7 +423,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TLocalResource"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TDto : class, new() where TKey : notnull where TLocalResource : SharedLocalResource
+        where TDto : class, new() where TKey : notnull
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>

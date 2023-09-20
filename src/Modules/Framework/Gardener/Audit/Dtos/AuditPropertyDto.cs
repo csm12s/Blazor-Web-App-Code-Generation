@@ -4,52 +4,60 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Audit.Resources;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Audit.Dtos
 {
     /// <summary>
     /// 属性审计信息
     /// </summary>
+    [Display(Name = nameof(AuditLocalResource.AuditProperty), ResourceType = typeof(AuditLocalResource))]
     public class AuditPropertyDto : BaseDto<Guid>
     {
 
         /// <summary>
         /// 名称
         /// </summary>
-        [DisplayName("DisplayName")]
+        [Display(Name = nameof(AuditLocalResource.DisplayName), ResourceType = typeof(AuditLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string DisplayName { get; set; } = null!;
 
         /// <summary>
         /// 字段名称
         /// </summary>
-        [DisplayName("FieldName")]
+        [Display(Name = nameof(AuditLocalResource.FieldName), ResourceType = typeof(AuditLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string FieldName { get; set; } = null!;
 
         /// <summary>
         /// 旧值
         /// </summary>
-        [DisplayName("OriginalValue")]
+        [Display(Name = nameof(AuditLocalResource.OriginalValue), ResourceType = typeof(AuditLocalResource))]
         public string? OriginalValue { get; set; }
 
         /// <summary>
         /// 新值
         /// </summary>
-        [DisplayName("NewValue")]
+        [Display(Name = nameof(AuditLocalResource.NewValue), ResourceType = typeof(AuditLocalResource))]
         public string? NewValue { get; set; }
 
         /// <summary>
         /// 数据类型
         /// </summary>
-        [DisplayName("DataType")]
+        [Display(Name = nameof(AuditLocalResource.DataType), ResourceType = typeof(AuditLocalResource))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string DataType { get; set; } = null!;
 
         /// <summary>
         /// 实体审计编号  
         /// </summary>
-        [DisplayName("AuditEntityid")]
-        public Guid AuditEntityid { get; set; }
+        [Display(Name = nameof(AuditLocalResource.AuditEntityId), ResourceType = typeof(AuditLocalResource))]
+        public Guid AuditEntityId { get; set; }
     }
 }

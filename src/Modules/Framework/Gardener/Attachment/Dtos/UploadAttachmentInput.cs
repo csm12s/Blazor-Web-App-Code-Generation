@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Enums;
+using Gardener.Base.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Attachment.Dtos
@@ -17,12 +18,13 @@ namespace Gardener.Attachment.Dtos
         /// <summary>
         /// 业务ID
         /// </summary>
-        [MaxLength(64, ErrorMessage = "最大长度不能大于{1}")]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(64, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string BusinessId { get; set; } = null!;
         /// <summary>
         /// 附件业务类型
         /// </summary>
-        [Required(ErrorMessage = "附件业务类型不能为空")]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public AttachmentBusinessType BusinessType { get; set; }
 
         /// <summary>

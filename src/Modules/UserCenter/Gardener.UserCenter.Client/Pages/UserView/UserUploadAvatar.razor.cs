@@ -122,12 +122,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 else
                 {
                     MessagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
+                    MessagerService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Success)));
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
+                MessagerService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Fail)));
             }
         }
         /// <summary>
@@ -151,15 +151,15 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 return;
             }
             //更新到数据库
-            var state = await UserService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
+            var state = await UserService.UpdateAvatar(new UpdateUserAvatarInput { Id = userDto.Id, Avatar = imageUrl });
             if (state)
             {
-                MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Success));
+                MessagerService.Success(Localizer.Combination(nameof(SharedLocalResource.Avatar), nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));
                 await this.FeedbackRef.CloseAsync(imageUrl);
             }
             else
             {
-                MessagerService.Error(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
+                MessagerService.Error(Localizer.Combination(nameof(SharedLocalResource.Avatar), nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Fail)));
             }
 
         }

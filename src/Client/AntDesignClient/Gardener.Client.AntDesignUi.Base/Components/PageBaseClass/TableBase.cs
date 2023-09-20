@@ -27,7 +27,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TLocalResource">本地化资源</typeparam>
     /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
     /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
-    public abstract class TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
+    public abstract class TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new()
     {
         /// <summary>
         /// table引用
@@ -314,14 +314,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (!result)
                 {
                     temp1.IsLocked = !isLocked;
-                    string msg = isLocked ? Localizer[SharedLocalResource.Lock] : Localizer[SharedLocalResource.Unlock];
+                    string msg = isLocked ? Localizer[nameof(SharedLocalResource.Lock)] : Localizer[nameof(SharedLocalResource.Unlock)];
 
-                    MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
+                    MessageService.Error($"{msg} {Localizer[nameof(SharedLocalResource.Fail)]}");
                 }
             }
             else
             {
-                MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
+                MessageService.Error($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
             }
 
             _lockBtnLoading.Stop(model);
@@ -380,7 +380,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{Localizer[nameof(SharedLocalResource.Error)]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }
@@ -397,7 +397,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </remarks>
     public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResource
     {
     }
 

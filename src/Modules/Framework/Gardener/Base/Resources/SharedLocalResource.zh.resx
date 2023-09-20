@@ -123,12 +123,6 @@
   <data name="Add" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="AddChildren" xml:space="preserve">
-    <value>添加子项</value>
-  </data>
-  <data name="Authorizing" xml:space="preserve">
-    <value>验证中</value>
-  </data>
   <data name="Avatar" xml:space="preserve">
     <value>头像</value>
   </data>
@@ -144,9 +138,6 @@
   <data name="Binding" xml:space="preserve">
     <value>绑定</value>
   </data>
-  <data name="BindingApi" xml:space="preserve">
-    <value>绑定接口</value>
-  </data>
   <data name="BindingResource" xml:space="preserve">
     <value>绑定资源</value>
   </data>
@@ -159,14 +150,6 @@
   <data name="CH" xml:space="preserve">
     <value>中文</value>
   </data>
-  <data name="Client_Login_Fail" xml:space="preserve">
-    <value>客户端登录失败</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Client_No_Find" xml:space="preserve">
-    <value>客户端未找到</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -176,10 +159,6 @@
   </data>
   <data name="Collapse" xml:space="preserve">
     <value>收起</value>
-  </data>
-  <data name="Controller_Need_Comment" xml:space="preserve">
-    <value>接口方法需要备注</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
@@ -196,9 +175,6 @@
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="DeleteAndIncludChildren" xml:space="preserve">
-    <value>删除(包含子项)</value>
-  </data>
   <data name="DeleteSelected" xml:space="preserve">
     <value>删除选中</value>
   </data>
@@ -213,10 +189,6 @@
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
-  </data>
-  <data name="Email_Server_No_Find" xml:space="preserve">
-    <value>邮件服务器未找到</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="EN" xml:space="preserve">
     <value>英文</value>
@@ -410,10 +382,6 @@
     <value>任务调度不存在</value>
     <comment>ErrorCodeMessage</comment>
   </data>
-  <data name="'{0}' is required" xml:space="preserve">
-    <value>”{0}“是必填项</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
   <data name="Query_Value_Type_No_Find_Converter" xml:space="preserve">
     <value>查询的值类型“{0}”未找到转换器</value>
     <comment>ErrorCodeMessage</comment>
@@ -479,10 +447,6 @@
   </data>
   <data name="Enable" xml:space="preserve">
     <value>启用</value>
-  </data>
-  <data name="Data_Not_Find" xml:space="preserve">
-    <value>数据未找到</value>
-    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="User_Info_Get_Error_Retry_Login" xml:space="preserve">
     <value>用户信息获取失败,请重新登陆。</value>
@@ -644,10 +608,6 @@
   <data name="Times" xml:space="preserve">
     <value>次</value>
   </data>
-  <data name="Data_Key_Uniqueness_Conflict" xml:space="preserve">
-    <value>数据键“{0}”唯一性冲突</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
   <data name="Search_Error_DB_Field_Is_Null" xml:space="preserve">
     <value>查询出错，检索字段在数据库中可能为null</value>
     <comment>ErrorCodeMessage</comment>
@@ -756,69 +716,6 @@
   <data name="Total" xml:space="preserve">
     <value>总数</value>
   </data>
-  <data name="'{0}' cannot be empty" xml:space="preserve">
-    <value>“{0}”不能为空</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' cannot be greater than {1}" xml:space="preserve">
-    <value>“{0}”不能大于{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' cannot be greater than {1} in length" xml:space="preserve">
-    <value>“{0}”的长度不能大于{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' cannot be less than {1}" xml:space="preserve">
-    <value>“{0}”不能小于{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' cannot be less than {1} in length" xml:space="preserve">
-    <value>“{0}”的长度不能小于{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' cannot be longer than {1} characters" xml:space="preserve">
-    <value>“{0}”不能超过{1}个字符</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' does not match pattern {1}" xml:space="preserve">
-    <value>“{0}”不匹配模式{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be at least {1} characters" xml:space="preserve">
-    <value>“{0}”必须至少为{1}个字符</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be between {1} and {2}" xml:space="preserve">
-    <value>“{0}”必须介于{1}和{2}之间</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be between {1} and {2} characters" xml:space="preserve">
-    <value>“{0}”必须介于{1}和{2}之间</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be between {1} and {2} in length" xml:space="preserve">
-    <value>“{0}”必须在{1}和{2}之间</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be exactly {1} characters" xml:space="preserve">
-    <value>“{0}”必须恰好是{1}个字符</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be exactly {1} in length" xml:space="preserve">
-    <value>“{0}”的长度必须恰好为{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must be one of [{1}]" xml:space="preserve">
-    <value>“{0}”必须是[{1}]中的一个</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="'{0}' must equal {1}" xml:space="preserve">
-    <value>“{0}”必须等于{1}</value>
-    <comment>ValidationTypeMessageSettings</comment>
-  </data>
-  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
-    <value>确认密码不一致</value>
-  </data>
   <data name="Exception" xml:space="preserve">
     <value>异常</value>
   </data>
@@ -826,8 +723,67 @@
     <value>密码错误</value>
     <comment>ErrorCodeMessage</comment>
   </data>
-  <data name="Validation error on field '{0}'" xml:space="preserve">
-    <value>字段“{0}”上的验证错误</value>
-    <comment>ValidationTypeMessageSettings</comment>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="SystemTenant" xml:space="preserve">
+    <value>系统租户</value>
+  </data>
+  <data name="SystemTenantResource" xml:space="preserve">
+    <value>系统租户资源</value>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>浏览器</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>桌面</value>
+  </data>
+  <data name="LoginToken" xml:space="preserve">
+    <value>登录令牌</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>手机</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>服务端</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="ClientId" xml:space="preserve">
+    <value>客户端编号</value>
+  </data>
+  <data name="ClientLoginInput" xml:space="preserve">
+    <value>客户端登录输入</value>
+  </data>
+  <data name="EncryptionValue" xml:space="preserve">
+    <value>加密的值</value>
+  </data>
+  <data name="LoginInput" xml:space="preserve">
+    <value>登录输入</value>
+  </data>
+  <data name="LoginType" xml:space="preserve">
+    <value>登录类型</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="RefreshToken" xml:space="preserve">
+    <value>刷新令牌</value>
+  </data>
+  <data name="Timespan" xml:space="preserve">
+    <value>时间戳</value>
+  </data>
+  <data name="AddChildren" xml:space="preserve">
+    <value>添加子集</value>
+  </data>
+  <data name="DeleteAndIncludChildren" xml:space="preserve">
+    <value>删除时同时删除子集</value>
   </data>
 </root>

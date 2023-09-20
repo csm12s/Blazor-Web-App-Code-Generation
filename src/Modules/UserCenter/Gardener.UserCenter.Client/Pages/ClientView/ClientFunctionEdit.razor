@@ -23,7 +23,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_client_function_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
-                                    @Localizer[SharedLocalResource.DeleteSelected]
+                                    @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -32,7 +32,7 @@
                                 <ResourceAuthorize ResourceKey="system_manager_client_function_add_page_show">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
-                                            @Localizer[SharedLocalResource.Select]
+                                            @Localizer[nameof(SharedLocalResource.Select)]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>

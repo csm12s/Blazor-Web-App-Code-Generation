@@ -4,11 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.EasyJob.Resources;
+using System.ComponentModel.DataAnnotations;
+
 namespace Gardener.EasyJob.Dtos
 {
     /// <summary>
     /// 运行耗时
     /// </summary>
+    [Display(Name = nameof(EasyJobLocalResource.SysJobLogElapsedTime), ResourceType = typeof(EasyJobLocalResource))]
     public class SysJobLogElapsedTime
     {
 
@@ -28,14 +32,19 @@ namespace Gardener.EasyJob.Dtos
         /// <summary>
         /// 执行耗时
         /// </summary>
+        [Display(Name = nameof(EasyJobLocalResource.ElapsedTime), ResourceType = typeof(EasyJobLocalResource))] 
         public long ElapsedTime { get; set; }
+
         /// <summary>
         /// 任务名
         /// </summary>
+        [Display(Name = nameof(EasyJobLocalResource.JobName), ResourceType = typeof(EasyJobLocalResource))] 
         public string JobName { get; set; }
+
         /// <summary>
         /// 时间
         /// </summary>
+        [Display(Name = nameof(EasyJobLocalResource.Time), ResourceType = typeof(EasyJobLocalResource))] 
         public string Time { get; set; }
     }
 }

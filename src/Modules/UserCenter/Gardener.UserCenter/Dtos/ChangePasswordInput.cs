@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -11,6 +13,7 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 修改密码输入
     /// </summary>
+    [Display(Name = nameof(UserCenterResource.ChangePassword), ResourceType = typeof(UserCenterResource))]
     public class ChangePasswordInput
     {
         /// <summary>
@@ -29,23 +32,27 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 老密码
         /// </summary>
-        [Required]
-        [MaxLength(32)]
-        [MinLength(5)]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [Display(Name = nameof(UserCenterResource.OldPassword), ResourceType = typeof(UserCenterResource))]
         public string OldPassword { get; set; }
         /// <summary>
         /// 新密码
         /// </summary>
-        [Required]
-        [MaxLength(32)]
-        [MinLength(5)]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [Display(Name = nameof(UserCenterResource.NewPassword), ResourceType = typeof(UserCenterResource))]
         public string NewPassword { get; set; }
         /// <summary>
         /// 新密码-确认
         /// </summary>
-        [Required]
-        [MaxLength(32)]
-        [MinLength(5)]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(32, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(5, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [Display(Name = nameof(UserCenterResource.ConfirmNewPassword), ResourceType = typeof(UserCenterResource))]
+        [Compare(nameof(NewPassword), ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.CompareMustMatchValidationError))]
         public string ConfirmNewPassword { get; set; }
     }
 }

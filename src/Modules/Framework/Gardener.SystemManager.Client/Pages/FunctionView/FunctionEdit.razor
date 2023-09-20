@@ -6,22 +6,22 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@Localizer[SystemManagerResource.Id]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Id)]">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>
-     <FormItem Label="@Localizer[SystemManagerResource.Group]">
+     <FormItem Label="@Localizer[nameof(SharedLocalResource.Group)]">
         <Input @bind-Value="@model.Group" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Service]">
+     <FormItem Label="@Localizer[nameof(SharedLocalResource.Service)]">
         <Input @bind-Value="@model.Service" />
     </FormItem>
-     <FormItem Label="@Localizer[SystemManagerResource.Summary]">
+     <FormItem Label="@Localizer[nameof(SharedLocalResource.Summary)]">
         <Input @bind-Value="@model.Summary" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Path]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Path)]">
         <Input @bind-Value="@model.Path" />
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Method]">
+     <FormItem Label="@Localizer[nameof(SharedLocalResource.Method)]">
         <SimpleSelect @bind-Value="@_currentEditModelHttpMethodType"
                       DefaultValue="@(model.Method.ToString())"
                       Style="width:120px;">
@@ -33,22 +33,22 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.Description]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Description)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Description"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[SystemManagerResource.EnableAudit]">
+    <FormItem Label="@Localizer[nameof(SystemManagerResource.EnableAudit)]">
         <Switch @bind-Value="@model.EnableAudit"></Switch>
     </FormItem>
-    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -58,13 +58,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @Localizer[SharedLocalResource.Save]
+                        @Localizer[nameof(SharedLocalResource.Save)]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

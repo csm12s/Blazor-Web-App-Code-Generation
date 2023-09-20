@@ -9,33 +9,38 @@
       TModel="SysJobDetailDto"
       Context="model">
     <Tabs DefaultActiveKey="1" Type="@TabType.Line" @bind-ActiveKey="tabActiveKey">
-        <TabPane Key="baseInfo" Tab="@Localizer["Job"]" Closable="false">
+        <TabPane Key="baseInfo" Tab="@Localizer[nameof(EasyJobLocalResource.Job)]" Closable="false">
             <Row Gutter="24">
                 <GridCol Span="11">
-                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider> *@
-                    <FormItem Label="@Localizer[EasyJobLocalResource.JobId]">
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.JobId)]">
                         <Input @bind-Value="@model.JobId" />
                     </FormItem>
-                    <FormItem Label="@Localizer[EasyJobLocalResource.GroupName]">
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.GroupName)]">
                         <Input @bind-Value="@model.GroupName" />
                     </FormItem>
-                    <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
+                    <FormItem Label="@Localizer[nameof(SharedLocalResource.Description)]">
                         <TextArea @bind-Value="@model.Description" />
                     </FormItem>
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Concurrent)]">
+                        <Switch @bind-Value="@model.Concurrent"></Switch>
+                    </FormItem>
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.IncludeAnnotations)]">
+                        <Switch @bind-Value="@model.IncludeAnnotations"></Switch>
+                    </FormItem>
+                    
                     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
                     {
-                        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+                        <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
                             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
                         </FormItem>
-                        <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+                        <FormItem Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
                             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
                         </FormItem>
                     }
                 </GridCol>
                 <GridCol Offset="1" Span="12">
-                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["TaskSittings"]</Divider> *@
-                    <FormItem Label="@Localizer[EasyJobLocalResource.JobType]">
-                        <RadioGroup @bind-Value="@(model.CreateType)">
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.JobType)]">
+                        <RadioGroup TValue="JobCreateType" @bind-Value="@(model.CreateType)" OnChange="OnChangeCreateType">
                             @foreach (var gitem in EnumHelper.EnumToDictionary<JobCreateType>())
                             {
                                 <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
@@ -44,27 +49,47 @@
                     </FormItem>
                     @if (JobCreateType.BuiltIn.Equals(model.CreateType))
                     {
-                        <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.AssemblyName)]">
                             <Input @bind-Value="@model.AssemblyName" />
                         </FormItem>
-                        <FormItem Label="@Localizer[EasyJobLocalResource.JobTypeFullName]">
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.JobTypeFullName)]">
                             <Input @bind-Value="@model.JobType" />
                         </FormItem>
                     }
-                    <FormItem Label="@Localizer[EasyJobLocalResource.Concurrent]">
-                        <Switch @bind-Value="@model.Concurrent"></Switch>
-                    </FormItem>
-                    <FormItem Label="@Localizer[EasyJobLocalResource.IncludeAnnotations]">
-                        <Switch @bind-Value="@model.IncludeAnnotations"></Switch>
-                    </FormItem>
-                    <FormItem Label="@Localizer[EasyJobLocalResource.Properties]">
+                    @if (JobCreateType.Http.Equals(model.CreateType) && httpJobProperties!=null)
+                    {
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.RequestUri)]">
+                            <Input @bind-Value="@httpJobProperties.RequestUri" />
+                        </FormItem>
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.ClientName)]">
+                            <Input @bind-Value="@httpJobProperties.ClientName" />
+                        </FormItem>
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.EnsureSuccessStatusCode)]">
+                            <Switch @bind-Value="@httpJobProperties.EnsureSuccessStatusCode"></Switch>
+                        </FormItem>
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Body)]">
+                            <TextArea @bind-Value="@httpJobProperties.Body" MinRows="2" />
+                        </FormItem>
+                        <FormItem Label="@Localizer[nameof(EasyJobLocalResource.HttpMethod)]">
+                            <SimpleSelect @bind-Value="@_currentEditModelHttpMethod"
+                                          Style="width:120px;">
+                                <SelectOptions>
+                                    @foreach (var gitem in EnumHelper.EnumToDictionary<HttpMethod>())
+                                    {
+                                        <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
+                                    }
+                                </SelectOptions>
+                            </SimpleSelect>
+                        </FormItem>
+                    }
+                    <FormItem Label="@Localizer[nameof(EasyJobLocalResource.Properties)]">
                         <TextArea @bind-Value="@model.Properties" MinRows="3" />
                     </FormItem>
                 </GridCol>
             </Row>
            
         </TabPane>
-        <TabPane Key="script" Tab="@Localizer["Script"]" Closable="false" Disabled="@(!JobCreateType.Script.Equals(model.CreateType))">
+        <TabPane Key="script" Tab="@Localizer[nameof(EasyJobLocalResource.Script)]" Closable="false" Disabled="@(!JobCreateType.Script.Equals(model.CreateType))">
             <style>
                 .my-editor-class {
                     min-height: 70Vh
@@ -79,13 +104,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @Localizer[SharedLocalResource.Save]
+                        @Localizer[nameof(SharedLocalResource.Save)]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

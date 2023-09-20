@@ -39,17 +39,17 @@
 <Row Gutter="24">
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["Total"]" Value="@runsNumberCount.Total" />
+        <Statistic Title="@Localizer[nameof(SharedLocalResource.Total)]" Value="@runsNumberCount.Total" />
     </Card>
     </Col>
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["Succeed"]" Value="@runsNumberCount.Succeed" />
+        <Statistic Title="@Localizer[nameof(SharedLocalResource.Succeed)]" Value="@runsNumberCount.Succeed" />
     </Card>
     </Col>
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["Failed"]" Value="@runsNumberCount.Fail" />
+        <Statistic Title="@Localizer[nameof(SharedLocalResource.Failed)]" Value="@runsNumberCount.Fail" />
     </Card>
     </Col>
 </Row>
@@ -67,9 +67,9 @@
             <Col Span="24">
             <SimpleSelect DefaultValue="total" Style="width:120px;" OnSelectedItemChanged="OnSelectedJobRunCountType">
                 <SelectOptions>
-                    <SimpleSelectOption Value="total" Label="@Localizer["Total"]"></SimpleSelectOption>
-                    <SimpleSelectOption Value="succeed" Label="@Localizer["Succeed"]"></SimpleSelectOption>
-                    <SimpleSelectOption Value="fail" Label="@Localizer["Failed"]"></SimpleSelectOption>
+                    <SimpleSelectOption Value="total" Label="@Localizer[nameof(SharedLocalResource.Total)]"></SimpleSelectOption>
+                    <SimpleSelectOption Value="succeed" Label="@Localizer[nameof(SharedLocalResource.Succeed)]"></SimpleSelectOption>
+                    <SimpleSelectOption Value="fail" Label="@Localizer[nameof(SharedLocalResource.Failed)]"></SimpleSelectOption>
                  </SelectOptions>
              </SimpleSelect>
             </Col>
