@@ -135,6 +135,12 @@
   <data name="Blocked" xml:space="preserve">
     <value>Blocked</value>
   </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Client name</value>
+  </data>
   <data name="ClusterId" xml:space="preserve">
     <value>Cluster id</value>
   </data>
@@ -153,6 +159,9 @@
   <data name="EndTime" xml:space="preserve">
     <value>End time</value>
   </data>
+  <data name="EnsureSuccessStatusCode" xml:space="preserve">
+    <value>Ensure success status code</value>
+  </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>ErrorToReady</value>
   </data>
@@ -164,6 +173,9 @@
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>Group name</value>
+  </data>
+  <data name="HttpMethod" xml:space="preserve">
+    <value>Http method</value>
   </data>
   <data name="IdentityId" xml:space="preserve">
     <value>Identity id</value>
@@ -242,6 +254,9 @@
   </data>
   <data name="RealTimeMonitor" xml:space="preserve">
     <value>Real time monitor</value>
+  </data>
+  <data name="RequestUri" xml:space="preserve">
+    <value>Request uri</value>
   </data>
   <data name="ResetOnlyOnce" xml:space="preserve">
     <value>Reset only once</value>

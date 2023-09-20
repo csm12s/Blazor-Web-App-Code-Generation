@@ -86,13 +86,6 @@ namespace Gardener.EasyJob.Impl.Services
                     });
                 }
             }
-            //HttpJobMessage httpJobMessage = new HttpJobMessage();
-            //httpJobMessage.RequestUri = "http://www.baidu.com";
-            //httpJobMessage.HttpMethod = System.Net.Http.HttpMethod.Get;
-            //httpJobMessage.ClientName = "test";
-            //httpJobMessage.EnsureSuccessStatusCode = true;
-            //httpJobMessage.Body = null;
-            //var me = System.Text.Json.JsonSerializer.Serialize(httpJobMessage);
             return page;
         }
 

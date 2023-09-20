@@ -135,8 +135,14 @@
   <data name="Blocked" xml:space="preserve">
     <value>阻塞</value>
   </data>
+  <data name="Body" xml:space="preserve">
+    <value>主体</value>
+  </data>
   <data name="BuiltIn" xml:space="preserve">
     <value>内置</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>客户端名称</value>
   </data>
   <data name="ClusterId" xml:space="preserve">
     <value>集群编号</value>
@@ -156,6 +162,9 @@
   <data name="EndTime" xml:space="preserve">
     <value>结束时间</value>
   </data>
+  <data name="EnsureSuccessStatusCode" xml:space="preserve">
+    <value>必须是成功状态</value>
+  </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>由失败进入就绪</value>
   </data>
@@ -170,6 +179,9 @@
   </data>
   <data name="Http" xml:space="preserve">
     <value>Http</value>
+  </data>
+  <data name="HttpMethod" xml:space="preserve">
+    <value>请求方法</value>
   </data>
   <data name="IdentityId" xml:space="preserve">
     <value>身份编号</value>
@@ -251,6 +263,9 @@
   </data>
   <data name="RealTimeMonitor" xml:space="preserve">
     <value>实时监控</value>
+  </data>
+  <data name="RequestUri" xml:space="preserve">
+    <value>请求地址</value>
   </data>
   <data name="ResetOnlyOnce" xml:space="preserve">
     <value>启动时重置</value>

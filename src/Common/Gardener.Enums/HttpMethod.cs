@@ -37,6 +37,26 @@ namespace Gardener.Enums
         /// PATCH
         /// </summary>
         [Description("PATCH")]
-        PATCH=4
+        PATCH=4,
+        /// <summary>
+        /// Options
+        /// </summary>
+        [Description("OPTIONS")]
+        OPTIONS = 5,
+        /// <summary>
+        /// Head
+        /// </summary>
+        [Description("HEAD")]
+        HEAD = 6,
+        /// <summary>
+        /// Trace
+        /// </summary>
+        [Description("TRACE")]
+        TRACE = 7,
+        /// <summary>
+        /// Trace
+        /// </summary>
+        [Description("CONNECT")]
+        CONNECT = 8,
     }
 }

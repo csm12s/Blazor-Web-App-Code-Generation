@@ -115,11 +115,29 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Body 的本地化字符串。
+        /// </summary>
+        public static string Body {
+            get {
+                return ResourceManager.GetString("Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 BuiltIn 的本地化字符串。
         /// </summary>
         public static string BuiltIn {
             get {
                 return ResourceManager.GetString("BuiltIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ClientName 的本地化字符串。
+        /// </summary>
+        public static string ClientName {
+            get {
+                return ResourceManager.GetString("ClientName", resourceCulture);
             }
         }
         
@@ -187,6 +205,15 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 EnsureSuccessStatusCode 的本地化字符串。
+        /// </summary>
+        public static string EnsureSuccessStatusCode {
+            get {
+                return ResourceManager.GetString("EnsureSuccessStatusCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ErrorToReady 的本地化字符串。
         /// </summary>
         public static string ErrorToReady {
@@ -228,6 +255,15 @@ namespace Gardener.EasyJob.Resources {
         public static string Http {
             get {
                 return ResourceManager.GetString("Http", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 HttpMethod 的本地化字符串。
+        /// </summary>
+        public static string HttpMethod {
+            get {
+                return ResourceManager.GetString("HttpMethod", resourceCulture);
             }
         }
         
@@ -471,6 +507,15 @@ namespace Gardener.EasyJob.Resources {
         public static string RealTimeMonitor {
             get {
                 return ResourceManager.GetString("RealTimeMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 RequestUri 的本地化字符串。
+        /// </summary>
+        public static string RequestUri {
+            get {
+                return ResourceManager.GetString("RequestUri", resourceCulture);
             }
         }
         

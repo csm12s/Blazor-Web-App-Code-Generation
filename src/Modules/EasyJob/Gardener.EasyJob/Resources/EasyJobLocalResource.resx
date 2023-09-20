@@ -135,8 +135,14 @@
   <data name="Blocked" xml:space="preserve">
     <value>Blocked</value>
   </data>
+  <data name="Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
   <data name="BuiltIn" xml:space="preserve">
     <value>BuiltIn</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>ClientName</value>
   </data>
   <data name="ClusterId" xml:space="preserve">
     <value>ClusterId</value>
@@ -159,6 +165,9 @@
   <data name="EndTime" xml:space="preserve">
     <value>EndTime</value>
   </data>
+  <data name="EnsureSuccessStatusCode" xml:space="preserve">
+    <value>EnsureSuccessStatusCode</value>
+  </data>
   <data name="ErrorToReady" xml:space="preserve">
     <value>ErrorToReady</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Http" xml:space="preserve">
     <value>Http</value>
+  </data>
+  <data name="HttpMethod" xml:space="preserve">
+    <value>HttpMethod</value>
   </data>
   <data name="IdentityId" xml:space="preserve">
     <value>IdentityId</value>
@@ -254,6 +266,9 @@
   </data>
   <data name="RealTimeMonitor" xml:space="preserve">
     <value>RealTimeMonitor</value>
+  </data>
+  <data name="RequestUri" xml:space="preserve">
+    <value>RequestUri</value>
   </data>
   <data name="ResetOnlyOnce" xml:space="preserve">
     <value>ResetOnlyOnce</value>
