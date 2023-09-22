@@ -60,7 +60,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 头像
         /// </summary>
-        [MaxLength(100)]
+        [MaxLength(1000)]
         [DisplayName("头像")]
         public string? Avatar { get; set; }
         /// <summary>
