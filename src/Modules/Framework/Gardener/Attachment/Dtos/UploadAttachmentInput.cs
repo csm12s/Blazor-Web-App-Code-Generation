@@ -6,6 +6,7 @@
 
 using Gardener.Attachment.Enums;
 using Gardener.Base.Resources;
+using Gardener.FileStore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Attachment.Dtos
@@ -26,15 +27,12 @@ namespace Gardener.Attachment.Dtos
         /// </summary>
         [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public AttachmentBusinessType BusinessType { get; set; }
-
         /// <summary>
-        /// File save path in server
+        /// 文件存储服务
         /// </summary>
-        public string FileSavePath { get; set; } = string.Empty;
-
-        /// <summary>
-        /// File save folder in server
-        /// </summary>
-        public string FileSaveFolder { get; set; } = string.Empty;
+        /// <remarks>
+        /// 可以选择不同的存储服务
+        /// </remarks>
+        public string? FileStoreServiceId { get; set; }
     }
 }

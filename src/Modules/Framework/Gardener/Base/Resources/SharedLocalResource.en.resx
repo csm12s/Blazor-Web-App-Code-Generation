@@ -220,6 +220,9 @@
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
   </data>
+  <data name="DefaultFileStoreService" xml:space="preserve">
+    <value>Default file store service</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -306,6 +309,15 @@
   <data name="Field_Required" xml:space="preserve">
     <value>The value of field “{0}” cannot be null</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="FileStoreServiceType" xml:space="preserve">
+    <value>File store service type</value>
+  </data>
+  <data name="File_Store_Service_Config_Not_Find" xml:space="preserve">
+    <value>The {0} file store service config not find</value>
+  </data>
+  <data name="File_Store_Service_Type_Unsupported" xml:space="preserve">
+    <value>file store service type unsupported</value>
   </data>
   <data name="Filter_Group_Operate_Error" xml:space="preserve">
     <value>Filter group operate error</value>

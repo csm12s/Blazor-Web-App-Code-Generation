@@ -231,6 +231,9 @@
   <data name="Debug" xml:space="preserve">
     <value>Debug</value>
   </data>
+  <data name="DefaultFileStoreService" xml:space="preserve">
+    <value>DefaultFileStoreService</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -317,6 +320,15 @@
   </data>
   <data name="Field_Required" xml:space="preserve">
     <value>Field_Required</value>
+  </data>
+  <data name="FileStoreServiceType" xml:space="preserve">
+    <value>FileStoreServiceType</value>
+  </data>
+  <data name="File_Store_Service_Config_Not_Find" xml:space="preserve">
+    <value>File_Store_Service_Config_Not_Find</value>
+  </data>
+  <data name="File_Store_Service_Type_Unsupported" xml:space="preserve">
+    <value>File_Store_Service_Type_Unsupported</value>
   </data>
   <data name="Filter_Group_Operate_Error" xml:space="preserve">
     <value>Filter_Group_Operate_Error</value>

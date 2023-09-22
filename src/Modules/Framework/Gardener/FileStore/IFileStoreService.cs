@@ -19,22 +19,13 @@ namespace Gardener.FileStore
         /// </summary>
         /// <param name="partialPath"></param>
         void Delete(string partialPath);
+
         /// <summary>
         /// 获取文件
         /// </summary>
         /// <param name="partialPath"></param>
         /// <returns></returns>
         Stream Get(string partialPath);
-        /// <summary>
-        /// 文件上传基础目录
-        /// </summary>
-        /// <returns></returns>
-        string GetBaseDirectoryPath();
-        /// <summary>
-        /// 文件上传基础Url
-        /// </summary>
-        /// <returns></returns>
-        string GetBaseUrl();
 
         /// <summary>
         /// 保存文件
@@ -43,13 +34,5 @@ namespace Gardener.FileStore
         /// <param name="partialPath"></param>
         /// <returns>文件访问路径</returns>
         Task<string> Save(Stream file, string partialPath);
-
-        /// <summary>
-        /// Save file to server
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="fileSavePath"></param>
-        /// <returns></returns>
-        Task<bool> SaveToLocal(Stream stream, string fileSavePath);
     }
 }

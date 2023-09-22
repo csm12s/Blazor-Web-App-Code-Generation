@@ -403,6 +403,15 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
+        ///   查找类似 DefaultFileStoreService 的本地化字符串。
+        /// </summary>
+        public static string DefaultFileStoreService {
+            get {
+                return ResourceManager.GetString("DefaultFileStoreService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Delete 的本地化字符串。
         /// </summary>
         public static string Delete {
@@ -660,6 +669,33 @@ namespace Gardener.Base.Resources {
         public static string FieldChangeDetails {
             get {
                 return ResourceManager.GetString("FieldChangeDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File_Store_Service_Config_Not_Find 的本地化字符串。
+        /// </summary>
+        public static string File_Store_Service_Config_Not_Find {
+            get {
+                return ResourceManager.GetString("File_Store_Service_Config_Not_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File_Store_Service_Type_Unsupported 的本地化字符串。
+        /// </summary>
+        public static string File_Store_Service_Type_Unsupported {
+            get {
+                return ResourceManager.GetString("File_Store_Service_Type_Unsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 FileStoreServiceType 的本地化字符串。
+        /// </summary>
+        public static string FileStoreServiceType {
+            get {
+                return ResourceManager.GetString("FileStoreServiceType", resourceCulture);
             }
         }
         

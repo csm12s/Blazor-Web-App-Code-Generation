@@ -4,9 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.LinqBuilder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -20,22 +21,19 @@ namespace Gardener.FileStore.Core.LocalStore
     {
 
         private LocalFileStoreSettings _localFileStoreSettings;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        /// <summary>
-        /// 请求上下文访问器
-        /// </summary>
-        private readonly IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="options"></param>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="httpContextAccessor"></param>
-        public LocalFileStoreService(IOptions<LocalFileStoreSettings> options, IWebHostEnvironment hostingEnvironment, IHttpContextAccessor httpContextAccessor)
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="localFileStoreSettings"></param>
+        /// <param name="serviceScopeFactory"></param>
+        public LocalFileStoreService(IServiceScopeFactory serviceScopeFactory,LocalFileStoreSettings localFileStoreSettings)
         {
-            this._localFileStoreSettings = options.Value;
-            this._hostingEnvironment = hostingEnvironment;
-            this._httpContextAccessor = httpContextAccessor;
+            _localFileStoreSettings = localFileStoreSettings;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         /// <summary>
@@ -56,6 +54,8 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <returns></returns>
         public string GetBaseDirectoryPath()
         {
+            using var scope = _serviceScopeFactory.CreateScope();
+            IWebHostEnvironment _hostingEnvironment = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
             string baseDirectory = Path.Combine(_hostingEnvironment.WebRootPath, GetBaseDirectory());
             return baseDirectory;
         }
@@ -63,15 +63,21 @@ namespace Gardener.FileStore.Core.LocalStore
         /// 获取服务器的访问地址
         /// </summary>
         /// <returns></returns>
-        public string GetBaseUrl() 
+        public string GetBaseUrl()
         {
+            if (!string.IsNullOrEmpty(_localFileStoreSettings.Domain))
+            {
+                return _localFileStoreSettings.Domain;
+            }
+            using var scope = _serviceScopeFactory.CreateScope();
+            IHttpContextAccessor _httpContextAccessor= scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
             var context = _httpContextAccessor.HttpContext;
-            if(context == null) 
+            if (context == null)
             {
                 throw new InvalidOperationException("HttpContext is null");
             }
             Uri url = new Uri(context.Request.GetRequestUrlAddress());
-            return url.Scheme+"://"+url.Authority +"/"+ GetBaseDirectory()+"/";
+            return url.Scheme + "://" + url.Authority + "/" + GetBaseDirectory();
         }
         /// <summary>
         ///  保存文件
@@ -84,43 +90,17 @@ namespace Gardener.FileStore.Core.LocalStore
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
                 var directory = Path.GetDirectoryName(filePath);
-                if (directory == null) 
-                {
-                    throw new ArgumentException($"the {filePath} not find directory", "filePath");
-                }
-                Directory.CreateDirectory(directory);
-            }
-            using (FileStream filestream = File.Create(filePath))
-            {
-                await file.CopyToAsync(filestream);
-            }
-            return GetBaseUrl() + partialPath;
-        }
-
-        /// <summary>
-        /// Save file to server
-        /// </summary>
-        /// <param name="file"></param>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public async Task<bool> SaveToLocal(Stream file, string filePath)
-        {
-            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
-            {
-                var directory = Path.GetDirectoryName(filePath);
                 if (directory == null)
                 {
                     throw new ArgumentException($"the {filePath} not find directory", "filePath");
                 }
                 Directory.CreateDirectory(directory);
             }
-
             using (FileStream filestream = File.Create(filePath))
             {
                 await file.CopyToAsync(filestream);
             }
-
-            return true;
+            return GetBaseUrl() +"/"+ partialPath;
         }
 
         /// <summary>
