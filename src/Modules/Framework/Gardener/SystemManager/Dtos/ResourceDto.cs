@@ -53,7 +53,6 @@ namespace Gardener.SystemManager.Dtos
         /// 资源图标
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.Icon), ResourceType = typeof(SystemManagerResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(50, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Icon { get; set; }
         /// <summary>
