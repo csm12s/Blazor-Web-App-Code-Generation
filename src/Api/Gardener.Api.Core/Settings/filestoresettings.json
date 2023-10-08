@@ -1,6 +1,6 @@
 {
   "FileStoreSettings": {
-    "DefaultFileStoreService": "aliOss1",
+    "DefaultFileStoreService": "local1",
     "Services": [
       {
         "FileStoreServiceId": "local1",

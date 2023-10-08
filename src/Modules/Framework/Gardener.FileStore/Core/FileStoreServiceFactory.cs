@@ -46,7 +46,7 @@ namespace Gardener.FileStore.Core
             if (services.ContainsKey(serviceId)) return services[serviceId];
 
             FileStoreSettings settings = _options.Value;
-            var configDic = settings.Services.FirstOrDefault(x => !x.ContainsKey(nameof(FileStoreSettingsBase.FileStoreServiceId)) && serviceId.Equals(x[nameof(FileStoreSettingsBase.FileStoreServiceId)]));
+            var configDic = settings.Services.FirstOrDefault(x => x.ContainsKey(nameof(FileStoreSettingsBase.FileStoreServiceId)) && serviceId.Equals(x[nameof(FileStoreSettingsBase.FileStoreServiceId)]));
             if (configDic == null)
             {
                 throw Oops.Bah(ExceptionCode.File_Store_Service_Config_Not_Find, serviceId);
