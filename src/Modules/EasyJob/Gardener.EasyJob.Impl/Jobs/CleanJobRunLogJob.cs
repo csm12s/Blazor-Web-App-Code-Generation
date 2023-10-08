@@ -15,7 +15,7 @@ namespace Gardener.EasyJob.Impl.Jobs
     /// <summary>
     /// 清理定时任务日志任务
     /// </summary>
-    [JobDetail("job_CleanJobRunLog", Description = "清理定时任务日志任务", GroupName = "System", Concurrent = false)]
+    [JobDetail("job_CleanJobRunLog", Description = "清理定时任务日志任务,附加参数day可以指定保留天数，默认是保留30天。", GroupName = "System", Concurrent = false)]
     [PeriodMinutes(10, TriggerId = "trigger_CleanJobRunLogJob", Description = "清理定时任务日志任务触发器")]
     public class CleanJobRunLogJob : IJob
     {
@@ -37,11 +37,26 @@ namespace Gardener.EasyJob.Impl.Jobs
         /// <exception cref="NotImplementedException"></exception>
         public Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
-            DateTimeOffset current = DateTimeOffset.Now.AddDays(-30);
+            int day = 30;
+            if (!string.IsNullOrWhiteSpace(context.JobDetail.Properties))
+            {
+                Dictionary<string, object>? keyValues = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(context.JobDetail.Properties);
+                if(keyValues != null && keyValues.ContainsKey("day"))
+                {
+                    object? days = keyValues["day"];
+
+                    if (days!=null)
+                    {
+                        day = int.Parse(days.ToString() ?? day+"");
+                    }
+                }
+            }
+
+            DateTimeOffset current = DateTimeOffset.Now.AddDays(-day);
             using var factory = serviceScopeFactory.CreateScope();
             IRepository<SysJobLog> repository = factory.ServiceProvider.GetRequiredService<IRepository<SysJobLog>>();
             long count = 0;
-            while(true)
+            while (true)
             {
                 IEnumerable<SysJobLog> logs = repository
                .AsQueryable(false)
@@ -56,7 +71,7 @@ namespace Gardener.EasyJob.Impl.Jobs
                 repository.Context.SaveChanges();
                 count += logs.Count();
             }
-            context.Result = $"执行完成，移除{count}条记录。";
+            context.Result = $"执行完成，保留近{day}天记录，移除{count}条记录。";
             return Task.CompletedTask;
         }
     }

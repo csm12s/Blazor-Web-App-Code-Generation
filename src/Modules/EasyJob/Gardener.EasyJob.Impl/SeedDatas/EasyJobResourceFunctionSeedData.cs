@@ -57,6 +57,7 @@ namespace Gardener.EasyJob.Impl.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),FunctionId=Guid.Parse("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),CreatedTime=DateTimeOffset.Parse("2023-08-13 11:32:03"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),FunctionId=Guid.Parse("249577f0-a0e4-42ea-beed-2a035533933f"),CreatedTime=DateTimeOffset.Parse("2023-08-13 11:32:03"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),FunctionId=Guid.Parse("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),CreatedTime=DateTimeOffset.Parse("2023-08-13 11:32:03"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("54e062f1-d353-4a67-905e-f2cc5f14d689"),FunctionId=Guid.Parse("3942a4b5-0545-49af-b8b4-195249960b6b"),CreatedTime=DateTimeOffset.Parse("2023-10-08 15:09:35"),},
          };
         }
     }

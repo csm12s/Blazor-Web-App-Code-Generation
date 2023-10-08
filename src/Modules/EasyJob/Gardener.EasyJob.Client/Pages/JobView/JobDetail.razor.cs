@@ -1,4 +1,5 @@
-﻿using Gardener.Base.Resources;
+﻿using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
@@ -72,6 +73,32 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             operationDialogSettings.ModalMaximizable = true;
 
             return base.OpenOperationDialogAsync<JobLogConsole, JobLogConsoleInput, bool>(detail.Description ?? detail.JobId, new JobLogConsoleInput(detail.JobId), operationDialogSettings: operationDialogSettings);
+        }
+        /// <summary>
+        /// 启动
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task OnClickRun(int id)
+        {
+            if (await ConfirmService.YesNo(EasyJobLocalResource.Run) == ConfirmResult.Yes)
+            {
+                _actionBtnLoading.Start("run" + id);
+
+                bool result = await sysJobDetailService.Run(id);
+                if (result)
+                {
+                    //成功
+                    MessageService.Success(Localizer.Combination(nameof(EasyJobLocalResource.Run), nameof(SharedLocalResource.Success)));
+                    await base.ReLoadTable();
+                }
+                else
+                {
+                    //失败
+                    MessageService.Error(Localizer.Combination(nameof(EasyJobLocalResource.Run), nameof(SharedLocalResource.Fail)));
+                }
+                _actionBtnLoading.Stop("run" + id);
+            }
         }
     }
 }

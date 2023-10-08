@@ -49,6 +49,10 @@ namespace Gardener.EasyJob.Client.Services
         {
             return apiCaller.PostWithoutBodyAsync<bool>($"{controller}/{id}/start");
         }
+        public Task<bool> Run(int id)
+        {
+            return apiCaller.PostWithoutBodyAsync<bool>($"{controller}/{id}/run");
+        }
 
         public Task<bool> StartAll()
         {

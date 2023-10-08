@@ -34,6 +34,12 @@ namespace Gardener.EasyJob.Services
         Task<bool> Start(int id);
 
         /// <summary>
+        /// 执行作业
+        /// </summary>
+        /// <param name="id"></param>
+        Task<bool> Run(int id);
+
+        /// <summary>
         /// 暂停所有作业
         /// </summary>
         /// <returns></returns>
