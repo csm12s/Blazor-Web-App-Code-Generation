@@ -16,23 +16,23 @@ namespace Gardener.Attachment.Enums
         /// <summary>
         /// 头像
         /// </summary>
-        [Description("头像")]
+        [Description("Avatar")]
         Avatar,
         /// <summary>
         /// 订单
         /// </summary>
-        [Description("订单")]
+        [Description("Order")]
         Order,
         /// <summary>
         /// 聊天
         /// </summary>
-        [Description("聊天")]
+        [Description("WoChat")]
         WoChat,
 
         /// <summary>
         /// 报表
         /// </summary>
-        [Description("报表")]
+        [Description("Report")]
         Report
     }
 }
