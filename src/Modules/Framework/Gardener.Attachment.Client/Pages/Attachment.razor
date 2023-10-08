@@ -38,11 +38,11 @@
                  <span>@model.Tenant?.Name</span>
              </Column>
              <Column Title="@Localizer[nameof(AttachmentLocalResource.BusinessType)]" @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagPro>
+                 <TagPro Text="@Localizer[EnumHelper.GetEnumDescriptionOrName(model.BusinessType)]"></TagPro>
             </Column>
              <Column Title="@Localizer[nameof(AttachmentLocalResource.BusinessId)]" @bind-Field="@model.BusinessId" Filterable />
              <Column Title="@Localizer[nameof(AttachmentLocalResource.FileType)]" @bind-Field="@model.FileType" TData="AttachmentFileType" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagPro> @model.ContentType
+                 <TagPro Text="@Localizer[EnumHelper.GetEnumDescriptionOrName(model.FileType)]"></TagPro> @model.ContentType
             </Column>
              <Column Title="@Localizer[nameof(AttachmentLocalResource.Size)]" @bind-Field="@model.Size" Filterable>
                 @model.Size B

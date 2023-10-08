@@ -16,22 +16,22 @@ namespace Gardener.Attachment.Enums
         /// <summary>
         /// 图片
         /// </summary>
-        [Description("图片")]
+        [Description("Image")]
         Image,
         /// <summary>
         /// 视频
         /// </summary>
-        [Description("视频")]
+        [Description("Video")]
         Video,
         /// <summary>
         /// 音频
         /// </summary>
-        [Description("音频")]
+        [Description("Audio")]
         Audio,
         /// <summary>
         /// Other
         /// </summary>
-        [Description("其他")]
+        [Description("Other")]
         Other
     }
 }

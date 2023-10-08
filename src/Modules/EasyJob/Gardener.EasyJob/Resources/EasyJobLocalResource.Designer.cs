@@ -556,6 +556,15 @@ namespace Gardener.EasyJob.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Run 的本地化字符串。
+        /// </summary>
+        public static string Run {
+            get {
+                return ResourceManager.GetString("Run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Running 的本地化字符串。
         /// </summary>
         public static string Running {

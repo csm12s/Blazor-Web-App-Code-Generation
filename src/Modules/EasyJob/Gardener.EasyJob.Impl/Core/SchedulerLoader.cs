@@ -7,6 +7,7 @@
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Furion.Schedule;
+using Gardener.Base.Resources;
 using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Resources;
@@ -45,7 +46,7 @@ namespace Gardener.EasyJob.Impl.Core
             switch (jobDetail.CreateType)
             {
                 case JobCreateType.Script when string.IsNullOrEmpty(jobDetail.ScriptCode):
-                    throw Oops.Oh(ExceptionCode.Required, nameof(jobDetail.ScriptCode));
+                    throw Oops.Oh(Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.RequiredValidationError)), Lo.GetValue<EasyJobLocalResource>(nameof(EasyJobLocalResource.ScriptCode)));
                 case JobCreateType.Script:
                     {
                         jobType = _dynamicJobCompiler.BuildJob(jobDetail.ScriptCode);
@@ -90,7 +91,7 @@ namespace Gardener.EasyJob.Impl.Core
             if (newJooDetail.CreateType == JobCreateType.Script)
             {
                 if (string.IsNullOrEmpty(newJooDetail.ScriptCode))
-                    throw Oops.Oh(ExceptionCode.Required, Lo.GetValue<EasyJobLocalResource>(nameof(newJooDetail.ScriptCode)));
+                    throw Oops.Oh(Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.RequiredValidationError)), Lo.GetValue<EasyJobLocalResource>(nameof(EasyJobLocalResource.ScriptCode)));
 
                 if (newJooDetail.ScriptCode != oldScriptCode)
                 {

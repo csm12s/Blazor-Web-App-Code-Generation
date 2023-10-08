@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.FileStore.ALiOSS\Gardener.FileStore.ALiOSS.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
 

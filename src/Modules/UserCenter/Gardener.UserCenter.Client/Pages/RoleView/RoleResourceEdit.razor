@@ -54,6 +54,6 @@
 @{
     string GetFullName(ResourceDto resource)
     {
-        return "[" + resource.Type.GetEnumDescription() + "]" + resource.Name;
+        return "[" + Gardener.LocalizationLocalizer.Lo.GetValue<Gardener.SystemManager.Resources.SystemManagerResource>(resource.Type.GetEnumDescriptionOrName()) + "]" + resource.Name;
     }
 }

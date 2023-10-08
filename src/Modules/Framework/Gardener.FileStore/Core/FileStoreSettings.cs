@@ -5,27 +5,27 @@
 // -----------------------------------------------------------------------------
 
 using Furion.ConfigurableOptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace Gardener.FileStore.Core.LocalStore
+namespace Gardener.FileStore.Core
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LocalFileStoreSettings : FileStoreSettingsBase, IConfigurableOptions
+    public class FileStoreSettings : IConfigurableOptions
     {
         /// <summary>
-        /// 存储的基础目录,在wwwroot下
-        /// 为空时，默认是upload 路径
+        /// 默认服务类型
         /// </summary>
-        public string BaseDirectory { get; set; } = "upload";
-
-
+        public string DefaultFileStoreService { get; set; } = null!;
         /// <summary>
-        /// 域名
+        /// 服务配置集合
         /// </summary>
-        /// <remarks>
-        /// 为空时，使用服务访问地址
-        /// </remarks>
-        public string? Domain { get; set; }
+        public List<Dictionary<string,object>> Services { get; set; }=new ();
     }
 }

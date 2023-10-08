@@ -786,4 +786,16 @@
   <data name="DeleteAndIncludChildren" xml:space="preserve">
     <value>删除时同时删除子集</value>
   </data>
+  <data name="File_Store_Service_Config_Not_Find" xml:space="preserve">
+    <value>文件系统服务{0}配置未找到</value>
+  </data>
+  <data name="FileStoreServiceType" xml:space="preserve">
+    <value>文件存储服务类型</value>
+  </data>
+  <data name="DefaultFileStoreService" xml:space="preserve">
+    <value>默认文件存储服务</value>
+  </data>
+  <data name="File_Store_Service_Type_Unsupported" xml:space="preserve">
+    <value>不支持文件系统服务类型{0}</value>
+  </data>
 </root>

@@ -44,6 +44,11 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("FileStoreServiceId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("FileType")
                         .HasColumnType("INTEGER");
 
@@ -17775,7 +17780,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Avatar")
-                        .HasMaxLength(100)
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreateBy")

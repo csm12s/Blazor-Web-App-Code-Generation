@@ -129,6 +129,9 @@
   <data name="ContentType" xml:space="preserve">
     <value>Content type</value>
   </data>
+  <data name="FileStoreServiceId" xml:space="preserve">
+    <value>File store service id</value>
+  </data>
   <data name="FileType" xml:space="preserve">
     <value>File type</value>
   </data>

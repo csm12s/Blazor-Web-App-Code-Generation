@@ -41,7 +41,7 @@
     <Resource Include="Settings\jwtsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Settings\localfilestoresettings.json">
+    <Resource Include="Settings\filestoresettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Settings\logsettings.json">
@@ -74,7 +74,7 @@
     <None Update="Settings\jwtsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Settings\localfilestoresettings.json">
+    <None Update="Settings\filestoresettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings\localizationsettings.json">

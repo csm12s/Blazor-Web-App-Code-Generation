@@ -48,7 +48,7 @@ namespace Gardener.UserCenter.Dtos
         /// 头像
         /// </summary>
         [Display(Name = nameof(UserCenterResource.Avatar), ResourceType = typeof(UserCenterResource))]
-        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MaxLength(1000, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Avatar { get; set; }
         /// <summary>
         /// 邮箱

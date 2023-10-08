@@ -170,11 +170,6 @@ namespace Gardener.Enums
         [Description("已存在同名任务调度")]
         Task_Allready_Exist,
         /// <summary>
-        /// 字段“{0}”不能为空
-        /// </summary>
-        [Description("字段“{0}”不能为空")]
-        Required,
-        /// <summary>
         /// 字段“{0}”禁止修改
         /// </summary>
         [Description("字段“{0}”禁止修改")]
@@ -189,6 +184,15 @@ namespace Gardener.Enums
         /// </summary>
         [Description("确认密码不一致")]
         Confirm_New_Password_Inconformity,
-
+        /// <summary>
+        /// 文件系统服务{0}配置未找到
+        /// </summary>
+        [Description("文件系统服务{0}配置未找到")]
+        File_Store_Service_Config_Not_Find,
+        /// <summary>
+        /// 不支持文件系统服务类型{0}
+        /// </summary>
+        [Description("不支持文件系统服务类型{0}")]
+        File_Store_Service_Type_Unsupported
     }
 }

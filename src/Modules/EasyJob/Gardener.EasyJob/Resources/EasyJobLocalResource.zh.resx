@@ -279,6 +279,9 @@
   <data name="RetryTimeout" xml:space="preserve">
     <value>重试间隔时间</value>
   </data>
+  <data name="Run" xml:space="preserve">
+    <value>运行</value>
+  </data>
   <data name="Running" xml:space="preserve">
     <value>正在运行</value>
   </data>

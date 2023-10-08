@@ -63,7 +63,7 @@
                  <TagYesNo Yes="model.IncludeAnnotations"></TagYesNo>
              </Column> *@
              <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" />
-             <ActionColumn Width="200" Fixed="right">
+             <ActionColumn Width="250" Fixed="right">
                  <Space>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_edit">
                          <SpaceItem>
@@ -83,6 +83,13 @@
                          <SpaceItem>
                              <Tooltip Title="@(EasyJobLocalResource.Log)" ArrowPointAtCenter="true">
                                  <Button Icon="profile" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OpenJobLogConsole(model)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_run">
+                         <SpaceItem>
+                             <Tooltip Title="@Localizer[nameof(EasyJobLocalResource.Run)]" ArrowPointAtCenter="true">
+                                 <Button Icon="play-circle" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Loading=@(_actionBtnLoading["run"+model.Id]) OnClick="()=>OnClickRun(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>

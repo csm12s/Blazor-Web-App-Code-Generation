@@ -66,10 +66,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     userDto.Id.ToString());
                 uploadAttachmentInput.Add(nameof(UploadAttachmentInput.BusinessType),
                     uploadParams.AttachmentBusinessType);
-                uploadAttachmentInput.Add(nameof(UploadAttachmentInput.FileSavePath),
-                    uploadParams.FileSavePath);
-                uploadAttachmentInput.Add(nameof(UploadAttachmentInput.FileSaveFolder),
-                    uploadParams.FileSaveFolder);
                 //上传附件附带身份信息
                 var authDic = await authenticationStateManager.GetCurrentTokenHeaders();
                 if(authDic != null)

@@ -34,7 +34,7 @@ namespace Gardener.Attachment.Services
     [ApiDescriptionSettings("SystemBaseServices")]
     public class AttachmentService : ServiceBase<Domains.Attachment, AttachmentDto, Guid, GardenerMultiTenantDbContextLocator>, IAttachmentService
     {
-        private readonly IFileStoreService fileStoreService;
+        private readonly IFileStoreServiceFactory fileStoreServiceFactory;
         private readonly IRepository<Domains.Attachment, GardenerMultiTenantDbContextLocator> repository;
         private readonly IIdentityService identityService;
 
@@ -42,13 +42,13 @@ namespace Gardener.Attachment.Services
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        /// <param name="fileStoreService"></param>
         /// <param name="identityService"></param>
-        public AttachmentService(IRepository<Domains.Attachment, GardenerMultiTenantDbContextLocator> repository, IFileStoreService fileStoreService, IIdentityService identityService) : base(repository)
+        /// <param name="fileStoreServiceFactory"></param>
+        public AttachmentService(IRepository<Domains.Attachment, GardenerMultiTenantDbContextLocator> repository, IIdentityService identityService, IFileStoreServiceFactory fileStoreServiceFactory) : base(repository)
         {
-            this.fileStoreService = fileStoreService;
             this.repository = repository;
             this.identityService = identityService;
+            this.fileStoreServiceFactory = fileStoreServiceFactory;
         }
         /// <summary>
         /// 上传附件
@@ -75,26 +75,13 @@ namespace Gardener.Attachment.Services
             attachment.Name = fileName;
             string savePartialPath = $"{input.BusinessType}/{DateTime.Now.ToString("yyyMMdd")}/".ToLower();
             attachment.Path = savePartialPath;
-
             // save file
+            IFileStoreService fileStoreService =
+                string.IsNullOrEmpty(input.FileStoreServiceId) ? 
+                fileStoreServiceFactory.GetDefaultFileStoreService() :
+                fileStoreServiceFactory.GetFileStoreService(input.FileStoreServiceId);
             string url = await fileStoreService.Save(file.OpenReadStream(), savePartialPath + fileName);
-            if (!string.IsNullOrEmpty(input.FileSavePath))
-            {
-                await fileStoreService.SaveToLocal(file.OpenReadStream(), input.FileSavePath);
-            }
-            else if (!string.IsNullOrEmpty(input.FileSaveFolder))
-            {
-                var fileExt = Path.GetExtension(file.FileName);
-                var originName = file.FileName.Replace(fileExt, "");
-                var newName = originName
-                    + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")
-                    + "_" + IdHelper.GetGuid32()
-                    + fileExt;
-
-                await fileStoreService.Save(file.OpenReadStream(),
-                    Path.Combine(input.FileSaveFolder, newName));
-            }
-
+            attachment.FileStoreServiceId = fileStoreService.GetFileStoreServiceSettings().FileStoreServiceId;
             attachment.Url = url;
             attachment.CreatedTime = DateTime.Now;
             var entity = await base.Insert(attachment);
@@ -137,6 +124,10 @@ namespace Gardener.Attachment.Services
             Domains.Attachment attachment = await repository.FindAsync(id);
             if (attachment == null) return false;
             await repository.DeleteAsync(attachment);
+            IFileStoreService fileStoreService =
+                string.IsNullOrEmpty(attachment.FileStoreServiceId) ?
+                fileStoreServiceFactory.GetDefaultFileStoreService() :
+                fileStoreServiceFactory.GetFileStoreService(attachment.FileStoreServiceId);
             fileStoreService.Delete(Path.Combine(attachment.Path, attachment.Name));
             return true;
         }

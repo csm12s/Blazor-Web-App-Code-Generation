@@ -86,5 +86,12 @@ namespace Gardener.Attachment.Dtos
         [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string Suffix { get; set; } = null!;
+        /// <summary>
+        /// 文件存储服务编号
+        /// </summary>
+        [Display(Name = nameof(AttachmentLocalResource.FileStoreServiceId), ResourceType = typeof(AttachmentLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        public string FileStoreServiceId { get; set; }=null!;
     }
 }

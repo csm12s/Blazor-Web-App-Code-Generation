@@ -279,6 +279,31 @@ namespace Gardener.EasyJob.Impl.Services
         }
 
         /// <summary>
+        /// 执行作业
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpPost]
+        public async Task<bool> Run([ApiSeat(ApiSeats.ActionStart)] int id)
+        {
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == id, false);
+            if (sysJobDetail == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
+            var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            ScheduleResult scheduleResult= _schedulerFactory.TryRunJob(sysJobDetail.JobId);
+            if (ScheduleResult.Succeed.Equals(scheduleResult))
+            { 
+                return true;
+            }
+            throw Oops.Oh(Lo.Combination<EasyJobLocalResource>(nameof(EasyJobLocalResource.RunningStatus)), scheduleResult);
+        }
+
+        /// <summary>
         /// 暂停所有作业
         /// </summary>
         /// <returns></returns>

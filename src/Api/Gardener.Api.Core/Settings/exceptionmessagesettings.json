@@ -3,7 +3,7 @@
   "ValidationTypeMessageSettings": {
     "Definitions": [
       //设置校验错误提示
-      //[ "Required", "x" ] //值不能为空或Null
+      //[ "Required", "Required" ] //值不能为空或Null
     ]
   },
   "ErrorCodeMessageSettings": {
@@ -35,6 +35,7 @@
       [ "Filter_Group_Operate_Error", "Filter_Group_Operate_Error" ], //条件组中的操作类型错误
       [ "Field_In_Type_Not_Found", "Field_In_Type_Not_Found" ], //指定的属性“{0}”在类型“{1}”中不存在
       [ "Field_Cannot_Be_Modified", "Field_Cannot_Be_Modified" ], //字段“{0}”禁止修改
+      [ "File_Store_Service_Config_Not_Find", "File_Store_Service_Config_Not_Find" ], //文件系统服务{0}配置未找到
 
       //G
       //H
@@ -58,8 +59,6 @@
       [ "Refreshtoken_No_Exist_Or_Expire", "Refreshtoken_No_Exist_Or_Expire" ], //刷新token不存在或已过期
       [ "Request_Url_Is_Invalid", "Request_Url_Is_Invalid" ], //请求的地址无效
       [ "Refreshtoken_Cannot_Used_In_Authentication", "Refreshtoken_Cannot_Used_In_Authentication" ], //刷新token不能用于鉴权
-      [ "Required", "'{0}' is required" ], //字段“{0}”不能为空
-
       //S
       [ "Sugar_Repository_Init_Fail", "Sugar_Repository_Init_Fail" ], //SugarRepository 初始化错误
       [ "Search_Error_DB_Field_Is_Null", "Search_Error_DB_Field_Is_Null" ], //查询出错，检索字段在数据库中可能为null

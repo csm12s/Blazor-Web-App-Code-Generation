@@ -5,7 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.FileStore;
-using Gardener.FileStore.Core.LocalStore;
+using Gardener.FileStore.Core;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -21,10 +22,22 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddFileLocalStore(this IServiceCollection services)
         {
-            services.AddScoped<IFileStoreService, LocalFileStoreService>();
-            services
-               .AddConfigurableOptions<LocalFileStoreSettings>();
+            //配置
+            services.AddConfigurableOptions<FileStoreSettings>();
 
+            //文件存储服务工厂
+            services.AddSingleton<IFileStoreServiceFactory, FileStoreServiceFactory>();
+
+            //默认的文件存储服务
+            services.AddSingleton<IFileStoreService>(serviceProvider => {
+                var fileStoreServiceFactory = serviceProvider.GetRequiredService<IFileStoreServiceFactory>();
+                var service = fileStoreServiceFactory.GetDefaultFileStoreService();
+                if(service == null)
+                {
+                    throw new ArgumentNullException("DefaultFileStoreService");
+                }
+                return service;
+            });
             return services;
         }
     }
