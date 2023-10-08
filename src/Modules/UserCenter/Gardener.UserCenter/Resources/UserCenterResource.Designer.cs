@@ -675,6 +675,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string VerifyCodeKey {
+            get {
+                return ResourceManager.GetString("VerifyCodeKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string WeChat {
             get {
                 return ResourceManager.GetString("WeChat", resourceCulture);

@@ -4,7 +4,9 @@
 @attribute [ReuseTabsPage(Ignore = true)]
 <div class="main__b__0">
     <div class="login">
-        <Form Model="@loginInput"
+        <Form @ref="form"
+              TModel="Gardener.Authorization.Dtos.LoginInput"
+              Model="@loginInput"
               OnFinish="OnLogin"
               Loading="loading"
               LabelCol="new ColLayoutParam { Span = 6 }"
@@ -30,7 +32,7 @@
                         <FormItem Label="@Localizer[nameof(UserCenterResource.VerifyCode)]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true} })>
                             <Row>
                                 <AntDesign.Col Span="18">
-                                    <AntDesign.Input Placeholder="@Localizer[nameof(UserCenterResource.VerifyCode)]" Size="large" @bind-Value="@context.VerifyCode" />
+                                    <AntDesign.Input Placeholder="@Localizer[nameof(UserCenterResource.VerifyCode)]" Size="large" @bind-Value="@context.VerifyCode" TValue="string" OnChange="OnVerifyCodeInputed" />
                                 </AntDesign.Col>
                                 <AntDesign.Col Span="6">
                                     <ImageVerifyCode @bind-VerifyCodeKey="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
@@ -38,7 +40,7 @@
                                 </AntDesign.Col>
                             </Row>
                         </FormItem>
-                        <FormItem Label="验证码Key" Style="display:none">
+                        <FormItem Label="@Localizer[nameof(UserCenterResource.VerifyCodeKey)]" Style="display:none">
                             <Input @bind-Value="@context.VerifyCodeKey" />
                         </FormItem>
                     </ChildContent>

@@ -40,11 +40,12 @@ namespace Gardener.ImageVerifyCode.Core
         public async Task<VerifyCodeOutput> Create(VerifyCodeInput input)
         {
             ImageVerifyCodeInput imageInput = (ImageVerifyCodeInput)input;
-            var (code,image) = InnerCreate(imageInput);
-            ImageVerifyCodeOutput verifyCodeInfo = new ImageVerifyCodeOutput() 
+            var (code, image, codeLength) = InnerCreate(imageInput);
+            ImageVerifyCodeOutput verifyCodeInfo = new ImageVerifyCodeOutput()
             {
                 Key = Guid.NewGuid().ToString(),
-                Base64Image = Convert.ToBase64String(image)
+                Base64Image = Convert.ToBase64String(image),
+                CodeLength = codeLength
             };
             await this.store.Add(VerifyCodeTypeEnum.Image, verifyCodeInfo.Key, code, settings.CodeExpire);
             return verifyCodeInfo;
@@ -55,7 +56,7 @@ namespace Gardener.ImageVerifyCode.Core
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        private (string,byte[]) InnerCreate(ImageVerifyCodeInput param)
+        private (string, byte[], int?) InnerCreate(ImageVerifyCodeInput param)
         {
             param.CreateCodeParam = param.CreateCodeParam ?? new CharacterCodeCreateParam();
             if (!param.CreateCodeParam.CharacterCount.HasValue)
@@ -74,9 +75,9 @@ namespace Gardener.ImageVerifyCode.Core
             string code = null!;
             byte[] image = null!;
             CharacterCodeCreateParam characterVerifyCodeParam = param.CreateCodeParam;
-            code= RandomCodeCreator.Create(characterVerifyCodeParam.Type.Value, characterVerifyCodeParam.CharacterCount.Value);
+            code = RandomCodeCreator.Create(characterVerifyCodeParam.Type.Value, characterVerifyCodeParam.CharacterCount.Value);
             image = RandomCodeImageCreatorFromSkiaSharp.Create(code, param.FontSize.Value);
-            return (code, image);
+            return (code, image, characterVerifyCodeParam.CharacterCount.Value);
         }
 
         /// <summary>

@@ -85,7 +85,7 @@ namespace Gardener.VerifyCode.Core
                 ToEmail=toEmail
             });
             await this.store.Add(VerifyCodeTypeEnum.Email, key, code, settings.CodeExpire);
-            return new EmailVerifyCodeOutput { Key= key };
+            return new EmailVerifyCodeOutput { Key= key ,CodeLength= param.CharacterCount };
         }
 
         /// <summary>

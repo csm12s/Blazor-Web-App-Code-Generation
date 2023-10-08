@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
@@ -21,6 +22,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
 {
     public partial class Login
     {
+        private Form<LoginInput>? form;
         private bool loading = false;
         private bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
@@ -63,6 +65,24 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 }
             }
         }
+       
+        private void OnVerifyCodeInputed(string code)
+        {
+            if(_imageVerifyCode==null)
+            {
+                return;
+            }
+            var codeOutput=_imageVerifyCode.GetCodeOutput();
+            if (codeOutput == null || codeOutput.CodeLength==null)
+            {
+                return;
+            }
+            if (loginInput.VerifyCode.Length == codeOutput.CodeLength)
+            {
+                form?.Submit();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

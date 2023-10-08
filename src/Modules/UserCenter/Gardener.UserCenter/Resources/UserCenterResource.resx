@@ -321,6 +321,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value />
   </data>
+  <data name="VerifyCodeKey" xml:space="preserve">
+    <value />
+  </data>
   <data name="WeChat" xml:space="preserve">
     <value />
   </data>

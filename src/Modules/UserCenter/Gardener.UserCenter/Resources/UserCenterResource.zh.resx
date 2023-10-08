@@ -315,6 +315,9 @@
   <data name="VerifyCode" xml:space="preserve">
     <value>验证码</value>
   </data>
+  <data name="VerifyCodeKey" xml:space="preserve">
+    <value>验证码唯一键</value>
+  </data>
   <data name="WeChat" xml:space="preserve">
     <value>微信</value>
   </data>

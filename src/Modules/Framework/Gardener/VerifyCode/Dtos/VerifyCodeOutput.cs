@@ -23,5 +23,9 @@ namespace Gardener.VerifyCode.Dtos
         /// </summary>
         [DisplayName("验证码唯一键")]
         public string Key { get; set; } = null!;
+        /// <summary>
+        /// 验证码长度
+        /// </summary>
+        public int? CodeLength { get; set; }
     }
 }

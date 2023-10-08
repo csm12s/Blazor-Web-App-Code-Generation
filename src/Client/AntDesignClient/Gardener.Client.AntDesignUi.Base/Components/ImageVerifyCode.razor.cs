@@ -44,6 +44,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         private bool isLoading = false;
 
+        private ImageVerifyCodeOutput? codeOutput;
         protected override async Task OnInitializedAsync()
         {
             await ReLoadVerifyCode();
@@ -70,11 +71,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     CharacterCount = CharacterCount
                 }
             };
-            ImageVerifyCodeOutput output = await verifyCodeService.Create(input);
-            if (output != null)
+            codeOutput = await verifyCodeService.Create(input);
+            if (codeOutput != null)
             {
-                verifyCodeImage = "data:image/gif;base64," + output.Base64Image;
-                VerifyCodeKey = output.Key;
+                verifyCodeImage = "data:image/gif;base64," + codeOutput.Base64Image;
+                VerifyCodeKey = codeOutput.Key;
                 await VerifyCodeKeyChanged.InvokeAsync(VerifyCodeKey);
             }
             if (removeTask != null)
@@ -82,6 +83,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 await removeTask; 
             }
             isLoading = false;
+        }
+
+        public ImageVerifyCodeOutput? GetCodeOutput()
+        {
+            return codeOutput;
         }
     }
 }
