@@ -87,6 +87,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 锁定按钮加载中
         /// </summary>
         protected ClientMultiLoading _lockBtnLoading = new ClientMultiLoading(false);
+        /// <summary>
+        /// 操作按钮加载中
+        /// </summary>
+        protected ClientMultiLoading _actionBtnLoading = new ClientMultiLoading(false);
 
         /// <summary>
         /// 用户在当前页面使用该资源是否越权-用于绑定式判断资源权限
