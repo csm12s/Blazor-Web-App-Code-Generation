@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.LinqBuilder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -137,6 +136,13 @@ namespace Gardener.FileStore.Core.LocalStore
             }
             throw new FileNotFoundException("文件未找到,path=" + partialPath);
         }
-
+        /// <summary>
+        /// 获取当前存储服务配置
+        /// </summary>
+        /// <returns></returns>
+        public FileStoreSettingsBase GetFileStoreServiceSettings()
+        {
+            return _localFileStoreSettings;
+        }
     }
 }

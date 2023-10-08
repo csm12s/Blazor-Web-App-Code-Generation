@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230920070730_v0.0.1")]
+    [Migration("20231008054048_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -46,6 +46,11 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FileStoreServiceId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("FileType")
                         .HasColumnType("INTEGER");
@@ -17778,7 +17783,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Avatar")
-                        .HasMaxLength(100)
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreateBy")

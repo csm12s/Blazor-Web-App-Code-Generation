@@ -7,7 +7,6 @@ namespace Gardener.FileStore.ALiOSS
     /// </summary>
     public class ALiOSSFileStoreService : IFileStoreService
     {
-
         private readonly ALiOSSFileStoreSettings _storeSettings;
         private readonly OssClient _ossClient;
         /// <summary>
@@ -31,6 +30,15 @@ namespace Gardener.FileStore.ALiOSS
         public void Delete(string partialPath)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取当前存储服务配置
+        /// </summary>
+        /// <returns></returns>
+        public FileStoreSettingsBase GetFileStoreServiceSettings()
+        {
+            return _storeSettings;
         }
 
         public Stream Get(string partialPath)

@@ -1,12 +1,14 @@
 {
   "FileStoreSettings": {
     "DefaultFileStoreService": "aliOss1",
-    "Services": {
-      "local1": {
+    "Services": [
+      {
+        "FileStoreServiceId": "local1",
         "FileStoreServiceType": "Local",
         "BaseDirectory": "upload"
       },
-      "aliOss1": {
+      {
+        "FileStoreServiceId": "aliOss1",
         "FileStoreServiceType": "ALiOSS",
         "AccessKeyId": "LTAI5t8t8qE8FtzzvkJNT5Zg",
         "AccessKeySecret": "QftKwydzLPpdmzXR5h8nGBZE1Bkmlz",
@@ -15,6 +17,6 @@
         "Endpoint": "https://oss-cn-beijing.aliyuncs.com",
         "Domain": "https://gardenertest.oss-cn-beijing.aliyuncs.com"
       }
-    }
+    ]
   }
 }

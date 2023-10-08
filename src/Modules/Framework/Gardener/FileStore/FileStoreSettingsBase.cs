@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace Gardener.FileStore
@@ -19,5 +21,11 @@ namespace Gardener.FileStore
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public FileStoreServiceType FileStoreServiceType { get; set; } = FileStoreServiceType.Local;
 
+        /// <summary>
+        /// 文件存储服务编号
+        /// </summary>
+        [Required, MaxLength(20)]
+        [DisplayName("文件存储服务编号")]
+        public string FileStoreServiceId { get; set; } = null!;
     }
 }

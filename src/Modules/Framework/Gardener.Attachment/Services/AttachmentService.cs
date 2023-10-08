@@ -81,6 +81,7 @@ namespace Gardener.Attachment.Services
                 fileStoreServiceFactory.GetDefaultFileStoreService() :
                 fileStoreServiceFactory.GetFileStoreService(input.FileStoreServiceId);
             string url = await fileStoreService.Save(file.OpenReadStream(), savePartialPath + fileName);
+            attachment.FileStoreServiceId = fileStoreService.GetFileStoreServiceSettings().FileStoreServiceId;
             attachment.Url = url;
             attachment.CreatedTime = DateTime.Now;
             var entity = await base.Insert(attachment);
@@ -123,6 +124,10 @@ namespace Gardener.Attachment.Services
             Domains.Attachment attachment = await repository.FindAsync(id);
             if (attachment == null) return false;
             await repository.DeleteAsync(attachment);
+            IFileStoreService fileStoreService =
+                string.IsNullOrEmpty(attachment.FileStoreServiceId) ?
+                fileStoreServiceFactory.GetDefaultFileStoreService() :
+                fileStoreServiceFactory.GetFileStoreService(attachment.FileStoreServiceId);
             fileStoreService.Delete(Path.Combine(attachment.Path, attachment.Name));
             return true;
         }

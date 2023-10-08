@@ -46,17 +46,16 @@ namespace Gardener.FileStore.Core
             if (services.ContainsKey(serviceId)) return services[serviceId];
 
             FileStoreSettings settings = _options.Value;
-
-            if (!settings.Services.ContainsKey(serviceId))
+            var configDic = settings.Services.FirstOrDefault(x => !x.ContainsKey(nameof(FileStoreSettingsBase.FileStoreServiceId)) && serviceId.Equals(x[nameof(FileStoreSettingsBase.FileStoreServiceId)]));
+            if (configDic == null)
             {
                 throw Oops.Bah(ExceptionCode.File_Store_Service_Config_Not_Find, serviceId);
             }
-            var configDic= settings.Services[serviceId];
-            object? fileStoreServiceType =null;
+            object? fileStoreServiceType = null;
             if (!configDic.TryGetValue(nameof(FileStoreSettingsBase.FileStoreServiceType), out fileStoreServiceType))
             {
                 throw Oops.Oh(
-                    Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.RequiredValidationError)), 
+                    Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.RequiredValidationError)),
                     Lo.GetValue<SharedLocalResource>(nameof(SharedLocalResource.FileStoreServiceType))
                 );
             }

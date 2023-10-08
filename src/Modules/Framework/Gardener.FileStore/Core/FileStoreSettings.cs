@@ -26,6 +26,6 @@ namespace Gardener.FileStore.Core
         /// <summary>
         /// 服务配置集合
         /// </summary>
-        public Dictionary<string,Dictionary<string,object>> Services { get; set; }=new ();
+        public List<Dictionary<string,object>> Services { get; set; }=new ();
     }
 }

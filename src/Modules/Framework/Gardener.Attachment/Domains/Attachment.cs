@@ -78,5 +78,11 @@ namespace Gardener.Attachment.Domains
         [Required, MaxLength(20)]
         [DisplayName("后缀")]
         public string Suffix { get; set; } = null!;
+        /// <summary>
+        /// 文件存储服务编号
+        /// </summary>
+        [Required, MaxLength(20)]
+        [DisplayName("文件存储服务编号")]
+        public string FileStoreServiceId { get; set; } = null!;
     }
 }

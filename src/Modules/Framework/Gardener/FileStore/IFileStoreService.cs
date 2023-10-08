@@ -15,6 +15,12 @@ namespace Gardener.FileStore
     public interface IFileStoreService
     {
         /// <summary>
+        /// 获取当前存储服务配置
+        /// </summary>
+        /// <returns></returns>
+        FileStoreSettingsBase GetFileStoreServiceSettings();
+
+        /// <summary>
         /// 删除文件
         /// </summary>
         /// <param name="partialPath"></param>
