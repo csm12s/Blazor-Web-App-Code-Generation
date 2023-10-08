@@ -619,7 +619,7 @@ namespace Gardener.WoChat.Client.Components
                 else
                 {
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Success)));
+                    messageService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Fail)));
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)

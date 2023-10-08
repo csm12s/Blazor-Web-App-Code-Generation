@@ -122,7 +122,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 else
                 {
                     MessagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    MessagerService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Success)));
+                    MessagerService.Error(Localizer.Combination(nameof(SharedLocalResource.Upload), nameof(SharedLocalResource.Fail)));
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
