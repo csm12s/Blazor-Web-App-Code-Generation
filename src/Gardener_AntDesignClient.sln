@@ -133,7 +133,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox.Impl", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.LocalizationLocalizer", "Modules\Framework\Gardener.LocalizationLocalizer\Gardener.LocalizationLocalizer.csproj", "{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.FileStore.ALiOSS", "Modules\Framework\Gardener.FileStore.ALiOSS\Gardener.FileStore.ALiOSS.csproj", "{E66DC25B-5927-4859-8003-DB9E765CAC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.FileStore.ALiOSS", "Modules\Framework\Gardener.FileStore.ALiOSS\Gardener.FileStore.ALiOSS.csproj", "{E66DC25B-5927-4859-8003-DB9E765CAC13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

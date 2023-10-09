@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "iconfont"; /* Project id 4278137 */
+    src: url('./iconfont.woff2?t=1696821631076') format('woff2'), url('./iconfont.woff?t=1696821631076') format('woff'), url('./iconfont.ttf?t=1696821631076') format('truetype');
+}
+
+.anticon-iconfont {
+    font-family: "iconfont" !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.anticon-iconfont:before {
+    display: block !important;
+}
+/*
+    上面不需要修改
+    下面可以增加新图标
+*/
+.icon-cron:before {
+    content: "\e6c8";
+}
+
+.icon-guid:before {
+    content: "\e6e6";
+}

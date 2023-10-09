@@ -1,0 +1,85 @@
+﻿@page "/tools/guid"
+@using Gardener.Common;
+@using Gardener.LocalizationLocalizer;
+@using System.Text;
+
+@inherits ReuseTabsPageBase
+
+<GridRow>
+    <GridCol Span="12">
+        <Divider Orientation="left">生成GUID</Divider>
+        <Checkbox @bind-Checked="guidUpper">
+            大写
+        </Checkbox>
+        <Checkbox @bind-Checked="removeGuid_">
+            移除-
+        </Checkbox>
+        <label>个数：</label><InputNumber @bind-Value="@guidNumber"></InputNumber>
+        <Button Type="@ButtonType.Primary" OnClick="OnGenerateGuid">@Localizer[nameof(SharedLocalResource.Generate)]</Button>
+        <TextArea AutoSize @bind-Value="guids" MinRows="6"></TextArea>
+     </GridCol>
+     <GridCol Span="12">
+         <Divider Orientation="left">生成19位雪花ID</Divider>
+         <label>个数：</label><InputNumber @bind-Value="@snowIdNumber"></InputNumber>
+         <Button Type="@ButtonType.Primary" OnClick="OnGenerateSnowId">@Localizer[nameof(SharedLocalResource.Generate)]</Button>
+         <TextArea AutoSize @bind-Value="snowIds" MinRows="6"></TextArea>
+     </GridCol>
+ </GridRow>
+
+ @code {
+    [Inject]
+    private ILocalizationLocalizer Localizer { get; set; } = null!;
+
+    private bool guidUpper = false;
+
+    private bool removeGuid_ = false;
+
+    private int guidNumber = 5;
+
+    private string guids = string.Empty;
+
+    private int snowIdNumber = 5;
+
+    private string snowIds = string.Empty;
+    /// <summary>
+    /// 生成guid
+    /// </summary>
+    private void OnGenerateGuid()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < guidNumber; i++)
+        {
+            string guid = Guid.NewGuid().ToString();
+
+            if (guidUpper)
+            {
+                guid = guid.ToUpper();
+            }
+            else
+            {
+                guid = guid.ToLower();
+            }
+            if (removeGuid_)
+            {
+                guid = guid.Replace("-", "");
+            }
+            sb.AppendLine(guid);
+        }
+        guids = sb.ToString();
+    }
+    /// <summary>
+    /// 生成snowId
+    /// </summary>
+    private void OnGenerateSnowId()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < snowIdNumber; i++)
+        {
+            string id = IdHelper.GetNextId(i).ToString();
+            sb.AppendLine(id);
+        }
+        snowIds = sb.ToString();
+    }
+
+}
