@@ -348,6 +348,14 @@ namespace Gardener.WoChat.Client.Components
             openGroupMode = true;
         }
         /// <summary>
+        /// 开启会话模式确认-取消
+        /// </summary>
+        private void OnClickOpenGroupModeCancel()
+        {
+            openGroupMode = false;
+            openGroupSelectedUsers.SetAllValue(false);
+        }
+        /// <summary>
         /// 开启会话模式确认
         /// </summary>
         private async Task OnClickOpenGroupModeOk()
