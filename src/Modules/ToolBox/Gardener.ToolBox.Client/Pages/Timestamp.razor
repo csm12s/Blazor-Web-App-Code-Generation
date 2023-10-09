@@ -1,0 +1,60 @@
+﻿@page "/tools/timestamp"
+@using Gardener.Common;
+@using Gardener.LocalizationLocalizer;
+@using System.Text;
+
+@inherits ReuseTabsPageBase
+
+<GridRow>
+    <GridCol Span="24">
+        <Divider Orientation="left">时间戳转换</Divider>
+        <GridRow>
+            <GridCol Span="10">
+                <DatePicker TValue="DateTime?" ShowTime="@true"
+                            Format="yyyy-MM-dd HH:mm:ss" @bind-Value="dateTime" Style="width:100%" />
+            </GridCol>
+            <GridCol Span="4" Style="text-align:center;">
+                <Button Icon="arrow-right" Type="@ButtonType.Primary" OnClick="OnDateTimeToTimestamp"></Button>
+                <Button Icon="arrow-left" Type="@ButtonType.Primary" OnClick="OnTimestampToDateTime"></Button>
+            </GridCol>
+            <GridCol Span="10">
+                <Input @bind-Value="timestamp"></Input>
+            </GridCol>
+        </GridRow>
+    </GridCol>
+</GridRow>
+
+@code {
+    [Inject]
+    private ILocalizationLocalizer Localizer { get; set; } = null!;
+
+    DateTime? dateTime;
+
+    long? timestamp;
+
+    /// <summary>
+    ///
+    /// </summary>
+    private void OnDateTimeToTimestamp()
+    {
+        if (dateTime != null)
+        {
+            timestamp= DateTimeHelper.DateTimeToTimestamp(dateTime.Value);
+        }
+
+    }
+    /// <summary>
+    ///
+    /// </summary>
+    private void OnTimestampToDateTime()
+    {
+        if (timestamp != null)
+        {
+            if ((timestamp + "").Length == 10)
+            {
+                timestamp = timestamp * 1000;
+            }
+            dateTime = DateTimeHelper.TimestampToDateTime(timestamp.Value);
+        }
+    }
+}

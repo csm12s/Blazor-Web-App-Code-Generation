@@ -138,6 +138,9 @@
     <value>Colors</value>
     <comment>menu</comment>
   </data>
+  <data name="menu:dev_tools_timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
   <data name="menu:system_login" xml:space="preserve">
     <value>Login</value>
     <comment>menu</comment>
