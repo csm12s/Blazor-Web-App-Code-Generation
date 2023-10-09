@@ -21,7 +21,7 @@ public class IdHelper
     /// <returns></returns>
     public static long GetNextId(int generatorId = 0)
     {
-        var generator = new IdGenerator(0);
+        var generator = new IdGenerator(generatorId);
         var id = generator.CreateId();
         return id;
     }
