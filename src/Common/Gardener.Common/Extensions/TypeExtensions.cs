@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using MiniExcelLibs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +81,21 @@ namespace Gardener.Common
         public static string? GetDescription(this Type type, bool inherit = true)
         {
             DescriptionAttribute? desc = type.GetAttribute<DescriptionAttribute>(inherit);
-            return desc == null ? type.FullName : desc.Description;
+            if (desc != null)
+            {
+                return desc.Description;
+            }
+            DisplayNameAttribute? displayName = type.GetAttribute<DisplayNameAttribute>(inherit);
+            if (displayName != null)
+            {
+                return displayName.DisplayName;
+            }
+            DisplayAttribute? display = type.GetAttribute<DisplayAttribute>(inherit);
+            if (display != null)
+            {
+                return display.GetName();
+            }
+            return type.FullName;
         }
 
         /// <summary>
