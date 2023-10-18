@@ -5,7 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
-using System.ComponentModel;
+using Gardener.Base.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -17,7 +18,7 @@ namespace Gardener.Base
         /// <summary>
         /// 是否逻辑删除
         /// </summary>
-        [DisplayName("IsDeleted")]
+        [Display(Name = nameof(SharedLocalResource.IsDeleted), ResourceType = typeof(SharedLocalResource))]
         [DisabledSearchField]
         public bool IsDeleted { get; set; }
     }

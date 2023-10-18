@@ -4,7 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.ComponentModel;
+using Gardener.Base.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -17,7 +18,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("Id")]
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         public TKey Id { get; set; }
     }
 }

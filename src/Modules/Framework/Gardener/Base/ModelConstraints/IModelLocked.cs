@@ -4,7 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.ComponentModel;
+using Gardener.Base.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -16,7 +17,7 @@ namespace Gardener.Base
         /// <summary>
         /// 是否锁定
         /// </summary>
-        [DisplayName("IsLocked")]
+        [Display(Name = nameof(SharedLocalResource.IsLocked), ResourceType = typeof(SharedLocalResource))]
         public bool IsLocked { get; set; }
     }
 }
