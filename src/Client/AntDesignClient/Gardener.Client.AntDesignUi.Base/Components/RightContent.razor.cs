@@ -28,6 +28,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         private ILocalizationLocalizer localizer { get; set; } = null!;
         [Inject]
         private IClientCultureService clientCultureService { get; set; } = null!;
+        [Inject]
+        private ReuseTabsService reuseTabsService { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -66,7 +68,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     //NavigationManager.NavigateTo("/auth/login?returnUrl="+ Uri.EscapeDataString(NavigationManager.Uri));
                     //await InvokeAsync(StateHasChanged);
                     //移除所有tab
-                    ClientNavTabControl.RemoveAllNavTabPage();
+                    reuseTabsService.CloseAll();
                     break;
             }
         }

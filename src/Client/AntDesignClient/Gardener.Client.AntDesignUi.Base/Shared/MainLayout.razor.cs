@@ -61,10 +61,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 
         /// </summary>
         private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();
-        /// <summary>
-        /// 
-        /// </summary>
-        private ReuseTabs reuseTabs = null!;
+        
         /// <summary>
         /// 初始化菜单
         /// </summary>
@@ -142,8 +139,6 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
                     return Task.CompletedTask;
                 });
             }
-            ClientNavTabControl.SetReuseTabs(reuseTabs);
-
             var task1= JsTool.Document.SetTitle(systemConfig.SystemName);
             //导航控制
             var task2= base.OnInitializedAsync();

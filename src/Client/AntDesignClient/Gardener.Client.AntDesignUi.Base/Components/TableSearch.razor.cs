@@ -541,7 +541,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="eventArgs"></param>
         /// <param name="values"></param>
-        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs)
+        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs<DateTime?[]> eventArgs)
         {
             if (eventArgs.Dates != null && eventArgs.Dates.Length > 0)
             {
