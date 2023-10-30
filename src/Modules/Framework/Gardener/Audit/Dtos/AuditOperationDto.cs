@@ -83,7 +83,7 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 关联数据审计
         /// </summary>
-        [Display(Name = nameof(AuditLocalResource.AuditEntitys), ResourceType = typeof(AuditLocalResource))]
-        public List<AuditEntityDto>? AuditEntitys { get; set; }
+        [Display(Name = nameof(AuditLocalResource.AuditEntities), ResourceType = typeof(AuditLocalResource))]
+        public ICollection<AuditEntityDto>? AuditEntities { get; set; }
     }
 }

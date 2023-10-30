@@ -676,10 +676,12 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OperaterName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OperaterType")
+                        .HasMaxLength(100)
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Parameters")
@@ -693,6 +695,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ResourceName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -736,6 +739,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DataType")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -822,7 +826,6 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Path")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 

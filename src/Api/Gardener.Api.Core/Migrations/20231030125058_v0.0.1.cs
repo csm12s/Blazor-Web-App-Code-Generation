@@ -76,16 +76,6 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ResourceName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OperaterId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    OperaterName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Ip = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    UserAgent = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Method = table.Column<int>(type: "INTEGER", nullable: false),
-                    Parameters = table.Column<string>(type: "TEXT", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -94,7 +84,17 @@ namespace Gardener.Api.Core.Migrations
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ResourceName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    OperaterId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    OperaterName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    OperaterType = table.Column<int>(type: "INTEGER", maxLength: 100, nullable: false),
+                    Ip = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    UserAgent = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Method = table.Column<int>(type: "INTEGER", nullable: false),
+                    Parameters = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,14 +264,6 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Method = table.Column<int>(type: "INTEGER", nullable: false),
-                    EnableAudit = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -279,7 +271,15 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Method = table.Column<int>(type: "INTEGER", nullable: false),
+                    EnableAudit = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -422,16 +422,6 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Icon = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false),
-                    ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    SupportMultiTenant = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Hide = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -439,7 +429,17 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Icon = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    SupportMultiTenant = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Hide = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -731,14 +731,6 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DataId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    TypeName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    OperationType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperaterId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    OperaterName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperationId = table.Column<Guid>(type: "TEXT", nullable: false),
                     AuditOperationId = table.Column<Guid>(type: "TEXT", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -748,7 +740,15 @@ namespace Gardener.Api.Core.Migrations
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DataId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    TypeName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    OperationType = table.Column<int>(type: "INTEGER", nullable: false),
+                    OperaterId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    OperaterName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
+                    OperationId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1026,12 +1026,6 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DisplayName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    FieldName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    OriginalValue = table.Column<string>(type: "TEXT", nullable: true),
-                    NewValue = table.Column<string>(type: "TEXT", nullable: true),
-                    DataType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    AuditEntityId = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -1040,7 +1034,13 @@ namespace Gardener.Api.Core.Migrations
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DisplayName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    FieldName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    OriginalValue = table.Column<string>(type: "TEXT", nullable: true),
+                    NewValue = table.Column<string>(type: "TEXT", nullable: true),
+                    DataType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    AuditEntityId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

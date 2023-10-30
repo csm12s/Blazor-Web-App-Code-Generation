@@ -192,6 +192,9 @@
   <data name="Order" xml:space="preserve">
     <value>排序</value>
   </data>
+  <data name="Parent" xml:space="preserve">
+    <value>父级</value>
+  </data>
   <data name="ParentId" xml:space="preserve">
     <value>父级编号</value>
   </data>

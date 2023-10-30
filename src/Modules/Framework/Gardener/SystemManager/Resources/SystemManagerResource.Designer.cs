@@ -288,6 +288,15 @@ namespace Gardener.SystemManager.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Parent {
+            get {
+                return ResourceManager.GetString("Parent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string ParentId {
             get {
                 return ResourceManager.GetString("ParentId", resourceCulture);

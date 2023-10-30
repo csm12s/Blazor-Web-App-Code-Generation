@@ -16,7 +16,7 @@ namespace Gardener.Audit.Dtos
     /// 属性审计信息
     /// </summary>
     [Display(Name = nameof(AuditLocalResource.AuditProperty), ResourceType = typeof(AuditLocalResource))]
-    public class AuditPropertyDto : BaseDto<Guid>
+    public class AuditPropertyDto : TenantBaseDto<Guid>
     {
 
         /// <summary>

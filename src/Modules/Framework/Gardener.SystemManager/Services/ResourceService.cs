@@ -151,13 +151,14 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         public async Task<List<FunctionDto>> GetFunctions([ApiSeat(ApiSeats.ActionStart)] Guid id)
         {
-            return await _resourceFunctionRespository.AsQueryable(false)
+            List<FunctionDto> functions= await _resourceFunctionRespository.AsQueryable(false)
                  .Include(x => x.Function)
                  .Where(x => x.ResourceId.Equals(id))
                  .Select(x => x.Function)
                  .Where(x => x.IsDeleted == false && x.IsLocked == false)
                  .Select(x => x.Adapt<FunctionDto>())
                  .ToListAsync();
+            return functions;
         }
 
         /// <summary>
