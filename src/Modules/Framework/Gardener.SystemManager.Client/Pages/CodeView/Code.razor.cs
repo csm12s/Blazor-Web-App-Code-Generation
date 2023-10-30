@@ -55,7 +55,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         /// <returns></returns>
         protected override Task<bool> OnClickAddRunBefore(CodeEditParams input)
         {
-            input.CodeTypeId = this.Options.Data;
+            input.CodeTypeId = this.Options?.Data;
 
             return base.OnClickAddRunBefore(input);
         }
