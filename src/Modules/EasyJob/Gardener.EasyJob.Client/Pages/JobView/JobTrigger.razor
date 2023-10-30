@@ -59,8 +59,8 @@
              <Column @bind-Field="@model.Status" Filterable Title="@Localizer[nameof(SharedLocalResource.Status)]" Width="150" Fixed="left">
                  <TagPro Text="@model.Status" Localizer="Localizer" />
              </Column>
-             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.LastRunTime)]" Width="200" />
-             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.NextRunTime)]" Width="200" />
+             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.LastRunTime)]" Width="200" />
+             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.NextRunTime)]" Width="200" />
              <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[nameof(EasyJobLocalResource.ElapsedTime)]" Width="150" />
              <Column @bind-Field="@model.NumberOfRuns" Filterable Title="@Localizer[nameof(EasyJobLocalResource.NumberOfRuns)]" Width="150" />
              <Column @bind-Field="@model.NumberOfErrors" Filterable Title="@Localizer[nameof(SharedLocalResource.NumberOfErrors)]" Width="150" />
@@ -81,8 +81,8 @@
              <Column @bind-Field="@model.MaxNumberOfErrors" Filterable Title="@Localizer[nameof(SharedLocalResource.MaxNumberOfErrors)]" Width="150" />
              <Column @bind-Field="@model.NumRetries" Filterable Title="@Localizer[nameof(SharedLocalResource.NumRetries)]" Width="150" />
              <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[nameof(SharedLocalResource.RetryTimeout)]" Width="150" />
-             <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.StartTime)]" Width="200" />
-             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.EndTime)]" Width="200" />
+             <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.StartTime)]" Width="200" />
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.EndTime)]" Width="200" />
              <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" />
              <ActionColumn Width="300" Fixed="right">
                  <Space>
