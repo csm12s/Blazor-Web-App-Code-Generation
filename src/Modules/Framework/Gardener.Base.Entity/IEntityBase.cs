@@ -11,11 +11,20 @@ namespace Gardener.Base.Entity
     /// <summary>
     /// Entity 接口
     /// </summary>
+    /// <remarks>
+    /// 实现该接口即认为是数据实体
+    /// </remarks>
+    public interface IEntityBase : IEntityBase<MasterDbContextLocator>
+    {
+    }
+    /// <summary>
+    /// Entity 接口
+    /// </summary>
     /// <typeparam name="TDbContextLocator1"></typeparam>
     /// <remarks>
     /// 实现该接口即认为是数据实体
     /// </remarks>
-    public interface IDBEntityBase<TDbContextLocator1> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator
+    public interface IEntityBase<TDbContextLocator1> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator
     {
     }
     /// <summary>
@@ -26,7 +35,7 @@ namespace Gardener.Base.Entity
     /// <remarks>
     /// 实现该接口即认为是数据实体
     /// </remarks>
-    public interface IDBEntityBase<TDbContextLocator1, TDbContextLocator2> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator
+    public interface IEntityBase<TDbContextLocator1, TDbContextLocator2> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator
     {
     }
     /// <summary>
@@ -38,7 +47,7 @@ namespace Gardener.Base.Entity
     /// <remarks>
     /// 实现该接口即认为是数据实体
     /// </remarks>
-    public interface IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator where TDbContextLocator3 : class, IDbContextLocator
+    public interface IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator where TDbContextLocator3 : class, IDbContextLocator
     {
     }
     /// <summary>
@@ -51,7 +60,7 @@ namespace Gardener.Base.Entity
     /// <remarks>
     /// 实现该接口即认为是数据实体
     /// </remarks>
-    public interface IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator where TDbContextLocator3 : class, IDbContextLocator where TDbContextLocator4 : class, IDbContextLocator
+    public interface IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> : IPrivateEntity where TDbContextLocator1 : class, IDbContextLocator where TDbContextLocator2 : class, IDbContextLocator where TDbContextLocator3 : class, IDbContextLocator where TDbContextLocator4 : class, IDbContextLocator
     {
     }
 }

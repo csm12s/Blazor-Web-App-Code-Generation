@@ -6,45 +6,14 @@
 
 using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 租户
     /// </summary>
-    [Description("租户")]
-    public class SystemTenant : GardenerEntityBase<Guid>, IEntitySeedData<SystemTenant>, ITenant
+    public class SystemTenant : SystemTenantDto, IEntityBase, IEntitySeedData<SystemTenant>
     {
-        /// <summary>
-        /// 租户名称
-        /// </summary>
-        [DisplayName("租户名称")]
-        [Required, MaxLength(50)]
-        public string Name { get; set; } = null!;
-
-        /// <summary>
-        /// 电子邮箱
-        /// </summary>
-        [MaxLength(256)]
-        [DisplayName("Email")]
-        public string? Email { get; set; }
-
-        /// <summary>
-        /// 手机号码
-        /// </summary>
-        [MaxLength(32)]
-        [DisplayName("Tel")]
-        public string? Tel { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        [DisplayName("备注")]
-        [MaxLength(100)]
-        public string? Remark { get; set; }
-
         /// <summary>
         /// 租户资源关系
         /// </summary>

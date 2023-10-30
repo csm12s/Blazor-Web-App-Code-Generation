@@ -110,7 +110,6 @@ namespace Gardener.Base
         }
     }
 
-
     /// <summary>
     /// dto基础类
     /// </summary>
@@ -127,8 +126,6 @@ namespace Gardener.Base
         public TKey Id { get; set; } = default!;
 
     }
-
-
 
     /// <summary>
     /// 多租户Dto基类
@@ -183,7 +180,6 @@ namespace Gardener.Base
         [NotMapped]
         public virtual ITenant? Tenant { get; set; }
     }
-
 
     /// <summary>
     /// 多租户Dto基类

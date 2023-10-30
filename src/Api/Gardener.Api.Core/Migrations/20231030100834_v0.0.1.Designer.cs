@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231008054048_v0.0.1")]
+    [Migration("20231030100834_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -3702,6 +3702,23 @@ namespace Gardener.Api.Core.Migrations
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
                             UpdatedTime = 1307201769656320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307287030353920480L,
+                            Description = "run",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9CE66FD424573026F51E14093CC7E5ED",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/{id}/run",
+                            Service = "定时任务-任务服务",
+                            Summary = "执行作业"
                         },
                         new
                         {
@@ -8670,6 +8687,22 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307287029104640480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_run",
+                            Name = "运行",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
                             Id = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -9964,7 +9997,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307171637862400480L,
                             Hide = false,
-                            Icon = "code",
+                            Icon = "iconfont icon-cron",
                             IsDeleted = false,
                             IsLocked = false,
                             Key = "dev_tools_cron",
@@ -9976,7 +10009,49 @@ namespace Gardener.Api.Core.Migrations
                             Type = 1000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
-                            UpdatedTime = 1307171969454080480L
+                            UpdatedTime = 1307288700026880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cc41cdf3-8595-47b8-8c59-a171bf9b061a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307288485171200480L,
+                            Hide = false,
+                            Icon = "iconfont icon-guid",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_guid",
+                            Name = "Guid",
+                            Order = 30,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/guid",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307288708976640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5e667965-2515-4410-a40b-370546f81cc5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307288733798400480L,
+                            Hide = false,
+                            Icon = "field-time",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_timestamp",
+                            Name = "时间戳",
+                            Order = 40,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/timestamp",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307288764866560480L
                         },
                         new
                         {
@@ -11640,6 +11715,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
                             FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
                             CreatedTime = 1307187673559040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
+                            FunctionId = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
+                            CreatedTime = 1307287031296000480L
                         },
                         new
                         {
