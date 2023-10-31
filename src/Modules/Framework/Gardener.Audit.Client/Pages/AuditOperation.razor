@@ -55,7 +55,12 @@
              <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[nameof(AuditLocalResource.OperaterType)]">
                  <TagPro Text="@model.OperaterType">@Localizer[EnumHelper.GetEnumDescriptionOrName(model.OperaterType)??model.OperaterType.ToString()]</TagPro>
             </Column>
-             <Column @bind-Field="@model.ResourceName" Style="max-width:200px;" Filterable Title="@Localizer[nameof(AuditLocalResource.ResourceName)]" />
+             <Column @bind-Field="@model.ResourceName" Style="max-width:200px;" Filterable Title="@Localizer[nameof(AuditLocalResource.ResourceName)]" >
+                 @if (!string.IsNullOrEmpty(model.ResourceName))
+                {
+                    <a href="system_manager/function?Id=@model.ResourceId">@model.ResourceName</a>
+                }
+             </Column>
              <Column @bind-Field="@model.Ip" Title="@Localizer[nameof(SharedLocalResource.Ip)]" />
              <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" Title="@Localizer[nameof(SharedLocalResource.Method)]" />
              <Column @bind-Field="@model.Path" Width="300" Filterable Title="@Localizer[nameof(SharedLocalResource.Path)]" />
