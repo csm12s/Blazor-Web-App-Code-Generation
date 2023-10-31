@@ -58,7 +58,18 @@
              <Column @bind-Field="@model.ResourceName" Style="max-width:200px;" Filterable Title="@Localizer[nameof(AuditLocalResource.ResourceName)]" >
                  @if (!string.IsNullOrEmpty(model.ResourceName))
                 {
-                    <a href="system_manager/function?Id=@model.ResourceId">@model.ResourceName</a>
+                    <ResourceAuthorize ResourceKey="system_manager_function">
+                        <Authorized>
+                            <a href="system_manager/function?Id=@model.ResourceId">@model.ResourceName</a>
+                        </Authorized>
+                        <NotAuthorized>
+                            <lable>@model.ResourceName</lable>
+                        </NotAuthorized>
+                    </ResourceAuthorize>
+                }
+                else
+                {
+                    <lable>--</lable>
                 }
              </Column>
              <Column @bind-Field="@model.Ip" Title="@Localizer[nameof(SharedLocalResource.Ip)]" />
