@@ -88,6 +88,7 @@ namespace Gardener.Authentication.Core
         /// <exception cref="NotImplementedException"></exception>
         public Task<bool> Verify(Identity identity)
         {
+            DateTimeOffset current = DateTimeOffset.Now;
             return _loginTokenRepository
                 .AsQueryable(false)
                 .Where(x =>
@@ -98,7 +99,7 @@ namespace Gardener.Authentication.Core
                 x.IdentityId.Equals(identity.Id) &&
                 x.IdentityType.Equals(identity.IdentityType) &&
                 x.LoginClientType.Equals(identity.LoginClientType) &&
-                x.EndTime > DateTimeOffset.Now)
+                x.EndTime > current)
                 .AnyAsync();
         }
 
@@ -109,6 +110,7 @@ namespace Gardener.Authentication.Core
         /// <returns></returns>
         public Task<LoginTokenDto?> GetAvailableToken(Identity identity)
         {
+            DateTimeOffset current = DateTimeOffset.Now;
             return _loginTokenRepository
                 .AsQueryable(false)
                 .Where(x =>
@@ -119,7 +121,7 @@ namespace Gardener.Authentication.Core
                 x.IdentityId.Equals(identity.Id) &&
                 x.IdentityType.Equals(identity.IdentityType) &&
                 x.LoginClientType.Equals(identity.LoginClientType) &&
-                x.EndTime > DateTimeOffset.Now)
+                x.EndTime > current)
                 .Select(x => x.Adapt<LoginTokenDto>())
                 .FirstOrDefaultAsync();
         }
