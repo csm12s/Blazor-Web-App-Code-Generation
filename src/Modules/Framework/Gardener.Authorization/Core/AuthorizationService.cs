@@ -37,21 +37,28 @@ namespace Gardener.Authorization.Core
         /// </summary>
         private readonly IIdentityService _identityService;
         /// <summary>
+        /// 
+        /// </summary>
+        private readonly ILoginTokenStorageService _loginTokenStorageService;
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="apiEndpointStoreService"></param>
         /// <param name="identityPermissionService"></param>
         /// <param name="identityService"></param>
+        /// <param name="loginTokenStorageService"></param>
         public AuthorizationService(IHttpContextAccessor httpContextAccessor,
             IApiEndpointQueryService apiEndpointStoreService,
             IIdentityPermissionService identityPermissionService,
-            IIdentityService identityService)
+            IIdentityService identityService,
+            ILoginTokenStorageService loginTokenStorageService)
         {
             _httpContextAccessor = httpContextAccessor;
             _apiEndpointStoreService = apiEndpointStoreService;
             _identityPermissionService = identityPermissionService;
             _identityService = identityService;
+            _loginTokenStorageService = loginTokenStorageService;
         }
 
 
@@ -75,7 +82,7 @@ namespace Gardener.Authorization.Core
                 return false;
             }
             //LoginId 已不可用
-            if (!await _identityPermissionService.CheckLoginIdUsable(identity.LoginId))
+            if (!await _loginTokenStorageService.Verify(identity))
             {
                 return false;
             }

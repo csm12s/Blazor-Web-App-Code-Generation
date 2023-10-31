@@ -943,6 +943,15 @@ namespace Gardener.Base.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Logged out 的本地化字符串。
+        /// </summary>
+        public static string LoggedOut {
+            get {
+                return ResourceManager.GetString("LoggedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 LoginClientType 的本地化字符串。
         /// </summary>
         public static string LoginClientType {

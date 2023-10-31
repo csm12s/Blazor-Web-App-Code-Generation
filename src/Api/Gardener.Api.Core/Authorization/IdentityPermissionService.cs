@@ -32,7 +32,6 @@ namespace Gardener.Authorization.Core
         private readonly IRepository<ResourceFunction> _resourceFunctionRepository;
         private readonly IRepository<Function> _functionRepository;
         private readonly IRepository<Client> _clientRepository;
-        private readonly IRepository<LoginToken> _loginTokenRepository;
         /// <summary>
         /// 身份权限服务
         /// </summary>
@@ -42,9 +41,8 @@ namespace Gardener.Authorization.Core
         /// <param name="resourceFunctionRepository"></param>
         /// <param name="functionRepository"></param>
         /// <param name="clientRepository"></param>
-        /// <param name="loginTokenRepository"></param>
         /// <param name="resourceRepository"></param>
-        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Role> roleRepository, IRepository<RoleResource> roleResourceRepository, IRepository<ResourceFunction> resourceFunctionRepository, IRepository<Function> functionRepository, IRepository<Client> clientRepository, IRepository<LoginToken> loginTokenRepository, IRepository<Resource> resourceRepository)
+        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Role> roleRepository, IRepository<RoleResource> roleResourceRepository, IRepository<ResourceFunction> resourceFunctionRepository, IRepository<Function> functionRepository, IRepository<Client> clientRepository, IRepository<Resource> resourceRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
@@ -52,7 +50,6 @@ namespace Gardener.Authorization.Core
             _resourceFunctionRepository = resourceFunctionRepository;
             _functionRepository = functionRepository;
             _clientRepository = clientRepository;
-            _loginTokenRepository = loginTokenRepository;
             _resourceRepository = resourceRepository;
         }
 
@@ -78,7 +75,7 @@ namespace Gardener.Authorization.Core
             }
             if (IdentityType.User.Equals(identity.IdentityType))
             {
-               
+
                 return await CurrentUserHaveFunction(int.Parse(identity.Id), api.Key);
             }
             else if (IdentityType.Client.Equals(identity.IdentityType))
@@ -101,7 +98,7 @@ namespace Gardener.Authorization.Core
             }
             if (IdentityType.User.Equals(identity.IdentityType))
             {
-                int userId=int.Parse(identity.Id);
+                int userId = int.Parse(identity.Id);
                 //超管
                 return _userRepository.AsQueryable(false)
                      .Include(u => u.Roles)
@@ -265,15 +262,6 @@ namespace Gardener.Authorization.Core
             return clientId;
         }
 
-        /// <summary>
-        /// 检测loginId是否可用
-        /// </summary>
-        /// <param name="loginId"></param>
-        /// <returns></returns>
-        public Task<bool> CheckLoginIdUsable(string loginId)
-        {
-            return _loginTokenRepository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.LoginId.Equals(loginId)).AnyAsync();
-        }
         /// <summary>
         /// 检测是否有该资源的使用权限
         /// </summary>

@@ -798,4 +798,7 @@
   <data name="File_Store_Service_Type_Unsupported" xml:space="preserve">
     <value>不支持文件系统服务类型{0}</value>
   </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>已退出登录</value>
+  </data>
 </root>

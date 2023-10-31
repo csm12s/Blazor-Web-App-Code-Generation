@@ -8,6 +8,7 @@ using Gardener.Authentication.Enums;
 using Gardener.Base;
 using Gardener.Base.Resources;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Authentication.Dtos
@@ -80,5 +81,11 @@ namespace Gardener.Authentication.Dtos
         [Display(Name = nameof(SharedLocalResource.Ip), ResourceType = typeof(SharedLocalResource))]
         [MaxLength(20, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Ip { get; set; }
+
+        /// <summary>
+        /// 已退出登录
+        /// </summary>
+        [Display(Name = nameof(SharedLocalResource.LoggedOut), ResourceType = typeof(SharedLocalResource))]
+        public bool LoggedOut { get; set; }
     }
 }

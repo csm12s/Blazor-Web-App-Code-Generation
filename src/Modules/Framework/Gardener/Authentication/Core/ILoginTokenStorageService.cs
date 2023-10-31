@@ -5,49 +5,45 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Dtos;
-using Gardener.Authorization.Dtos;
 using System.Threading.Tasks;
 
-namespace Gardener.Authorization.Core
+namespace Gardener.Authentication.Core
 {
     /// <summary>
-    /// 身份权限服务
+    /// 登录token存储服务
     /// </summary>
-    public interface IIdentityPermissionService
+    public interface ILoginTokenStorageService
     {
-
         /// <summary>
-        /// 检测是否有该资源的使用权限
+        /// 保存token
         /// </summary>
+        /// <param name="token"></param>
         /// <param name="identity"></param>
-        /// <param name="resourceKey"></param>
         /// <returns></returns>
-        Task<bool> Check(Identity? identity, string resourceKey);
-
+        Task<bool> Save(JsonWebToken token, Identity identity);
         /// <summary>
-        /// 检测是否有该功能点的使用权限
+        /// 更新现有token值和过期时间
         /// </summary>
-        /// <param name="identity"></param>
-        /// <param name="api"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
-        Task<bool> Check(Identity? identity, ApiEndpoint? api);
-
+        Task<bool> Update(LoginTokenDto token);
         /// <summary>
-        /// 获取身份的编号
+        /// 登出token
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        object GetIdentityId(Identity identity);
-
+        Task<bool> LogOut(Identity identity);
         /// <summary>
-        /// 判断是否是超级管理员
+        /// 验证是否可用
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// <para> 用户身份：分配了至少一个超级管理角色就认为是超级管理</para>
-        /// <para>其他身份：暂不支持</para>
-        /// </remarks>
-        Task<bool> IsSuperAdministrator(Identity? identity);
+        Task<bool> Verify(Identity identity);
+        /// <summary>
+        /// 获取可用token
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        Task<LoginTokenDto?> GetAvailableToken(Identity identity);
     }
 }
