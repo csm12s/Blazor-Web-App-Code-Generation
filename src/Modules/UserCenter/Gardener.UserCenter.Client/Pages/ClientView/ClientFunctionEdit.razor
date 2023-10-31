@@ -1,5 +1,5 @@
 ﻿@using Gardener.SystemManager.Dtos
-@inherits OperationDialogBase<ClientFunctionEditOption, bool>
+@inherits OperationDialogBase<ClientFunctionEditOption, bool,UserCenterResource>
 <Row Style="margin-top:10px;">
     <AntDesign.Col>
         <Table DataSource="@_functionDtos"
@@ -12,10 +12,8 @@
                Style="min-height:75Vh"
                HidePagination="true"
                Bordered="true"
-               SelectedRows="@_selectedFunctionDtos"
                SelectedRowsChanged="SelectedRowsChanged"
-               EnableVirtualization
-        >
+               EnableVirtualization>
             <TitleTemplate>
                 @if (this.Options.Type == 0)
                 {
@@ -23,7 +21,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_client_function_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
-                                    @Localizer[nameof(SharedLocalResource.DeleteSelected)]
+                                     @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -63,14 +61,14 @@
                     <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
                 </ResourceAuthorize>
                 <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
-                <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
-                <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
-                <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
-                <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
-                <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
-                    <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
-                </Column>
-                <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
+                 <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
+                 <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
+                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
+                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
+                 <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
+                     <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
+                 </Column>
+                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
                     <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
                 </Column>
             </ColumnDefinitions>

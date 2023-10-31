@@ -141,6 +141,9 @@
   <data name="BasicSettings" xml:space="preserve">
     <value />
   </data>
+  <data name="BindingApi" xml:space="preserve">
+    <value />
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value />
   </data>

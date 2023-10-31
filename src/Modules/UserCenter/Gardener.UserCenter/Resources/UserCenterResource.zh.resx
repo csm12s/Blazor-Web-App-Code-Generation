@@ -135,6 +135,9 @@
   <data name="BasicSettings" xml:space="preserve">
     <value>基础信息</value>
   </data>
+  <data name="BindingApi" xml:space="preserve">
+    <value>绑定接口</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>修改密码</value>
   </data>

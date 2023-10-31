@@ -3,13 +3,11 @@
     <AntDesign.Col>
         <Table DataSource="@_functionDtos"
                TItem="FunctionDto"
-               PageSize="_functionDtos.Count()"
                Loading="@_loading"
                Context="model"
                Size=@TableSize.Small
-               HidePagination="true"
                Bordered="true"
-               SelectedRows="@_selectedFunctionDtos"
+               HidePagination="true"
                SelectedRowsChanged="SelectedRowsChanged"
                ScrollY="75Vh"
                Style="max-height:75Vh;"
@@ -54,7 +52,7 @@
                                 <ResourceAuthorize ResourceKey="system_manager_resource_function_binding">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()" Loading="_bindLoading">
-                                            @localizer[nameof(SystemManagerResource.Binding)]
+                                            @Localizer[nameof(SystemManagerResource.Binding)]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>

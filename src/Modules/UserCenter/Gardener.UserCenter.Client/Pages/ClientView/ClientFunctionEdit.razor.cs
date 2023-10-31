@@ -11,6 +11,7 @@ using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -42,7 +43,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
     /// <summary>
     /// 
     /// </summary>
-    public partial class ClientFunctionEdit : OperationDialogBase<ClientFunctionEditOption, bool>
+    public partial class ClientFunctionEdit : OperationDialogBase<ClientFunctionEditOption, bool, UserCenterResource>
     {
         [Inject]
         private IFunctionService FunctionService { get; set; } = null!;
@@ -149,7 +150,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionAddPageClick(Guid id)
         {
             await this.OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-                $"{Localizer["BindingApi"]}-[{this.Options.Name}]",
+                $"{Localizer[nameof(UserCenterResource.BindingApi)]}-[{this.Options.Name}]",
                      new ClientFunctionEditOption { Id = id, Type = 1 },
                      width: 1200,
                      onClose: async result =>
