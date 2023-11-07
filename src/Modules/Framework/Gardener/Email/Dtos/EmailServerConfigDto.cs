@@ -10,7 +10,6 @@ using Gardener.Email.Enums;
 using Gardener.Email.Resources;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Email.Dtos
@@ -18,7 +17,6 @@ namespace Gardener.Email.Dtos
     /// <summary>
     /// 邮件服务器配置信息
     /// </summary>
-    [Description("邮件服务器配置信息")]
     [Display(Name = nameof(EmailLocalResource.EmailServerConfig), ResourceType = typeof(EmailLocalResource))]
     public class EmailServerConfigDto :BaseDto<Guid>
     {
@@ -95,7 +93,10 @@ namespace Gardener.Email.Dtos
             {
                 foreach (string tag in this.Tags.Split(","))
                 {
-                    tags.Add(Enum.Parse<EmailServerTag>(tag));
+                    if (!string.IsNullOrEmpty(tag))
+                    {
+                        tags.Add(Enum.Parse<EmailServerTag>(tag));
+                    }
                 }
             }
             return tags;

@@ -5,62 +5,19 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
+using Gardener.Base.Entity;
+using Gardener.Email.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Email.Domains
 {
     /// <summary>
     /// 邮件模板信息
     /// </summary>
-    [Description("邮件模板信息")]
-    public class EmailTemplate : GardenerEntityBase<Guid>, IEntitySeedData<EmailTemplate>
+    public class EmailTemplate : EmailTemplateDto, IEntityBase, IEntitySeedData<EmailTemplate>
     {
-        /// <summary>
-        /// 名称
-        /// </summary>
-        [DisplayName("名称")]
-        [MaxLength(30), Required]
-        public string Name { get; set; } = null!;
-        /// <summary>
-        /// 描述
-        /// </summary>
-        [DisplayName("备注")]
-        [MaxLength(500)]
-        public string? Remark { get; set; }
-        /// <summary>
-        /// 发件人
-        /// </summary>
-        [DisplayName("发件人")]
-        [MaxLength(100)]
-        public string? FromName { get; set; }
-        /// <summary>
-        /// 主题模板
-        /// </summary>
-        [DisplayName("主题模板")]
-        [MaxLength(1000)]
-        public string? SubjectTemplate { get; set; }
-        /// <summary>
-        /// 内容模板
-        /// </summary>
-        [DisplayName("内容模板")]
-        [MaxLength(5000)]
-        public string? ContentTemplate { get; set; }
-        /// <summary>
-        /// 例子
-        /// </summary>
-        [DisplayName("例子")]
-        [MaxLength(1000)]
-        public string? Example { get; set; }
-        /// <summary>
-        /// 是否是HTML内容
-        /// </summary>
-        [DisplayName("是否是HTML内容")]
-        public bool IsHtml { get; set; }
         /// <summary>
         /// 
         /// </summary>
