@@ -79,6 +79,9 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
+            <Column @bind-Field="@model.LoggedOut" Filterable Width="150">
+                 <TagYesNo Yes="model.LoggedOut"></TagYesNo>
+            </Column>
              <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="200" />
              <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="200" />
              <Column Title="@Localizer[nameof(SharedLocalResource.OnlineTime)]" TData="string" Width="200">
