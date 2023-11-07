@@ -11202,12 +11202,10 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Exception")
-                        .IsRequired()
                         .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExceptionMessage")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 

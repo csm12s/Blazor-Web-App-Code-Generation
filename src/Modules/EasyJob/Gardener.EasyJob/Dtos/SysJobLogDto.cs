@@ -66,7 +66,6 @@ namespace Gardener.EasyJob.Dtos
         /// 异常
         /// </summary>
         [Display(Name = nameof(EasyJobLocalResource.Exception), ResourceType = typeof(EasyJobLocalResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(5000, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? Exception { get; set; }
 
@@ -74,7 +73,6 @@ namespace Gardener.EasyJob.Dtos
         /// 异常信息
         /// </summary>
         [Display(Name = nameof(EasyJobLocalResource.ExceptionMessage), ResourceType = typeof(EasyJobLocalResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         [MaxLength(1000, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string? ExceptionMessage { get; set; }
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231107075144_v0.0.1")]
+    [Migration("20231107080325_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -11205,12 +11205,10 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Exception")
-                        .IsRequired()
                         .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExceptionMessage")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
