@@ -7,42 +7,46 @@
 using Gardener.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.WoChat.Enums;
-using System.ComponentModel;
+using Gardener.WoChat.Resources;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.WoChat.Dtos
 {
     /// <summary>
     /// Im会话消息列表
     /// </summary>
-    public class ImSessionMessageDto : BaseDto<Guid>
+    [Display(Name = nameof(WoChatResource.ImSessionMessage), ResourceType = typeof(WoChatResource))]
+    public class ImSessionMessageDto : TenantBaseDto<Guid>
     {
         /// <summary>
         /// 会话编号
         /// </summary>
-        [DisplayName("ImSessionId")]
+        [Display(Name = nameof(WoChatResource.ImSessionId), ResourceType = typeof(WoChatResource))]
         public Guid ImSessionId { get; set; }
 
         /// <summary>
         /// 用户编号
         /// </summary>
-        [DisplayName("UserId")]
+        [Display(Name = nameof(WoChatResource.UserId), ResourceType = typeof(WoChatResource))]
         public int UserId { get; set; }
 
         /// <summary>
         /// 消息类型
         /// </summary>
-        [DisplayName("MessageType")]
+        [Display(Name = nameof(WoChatResource.MessageType), ResourceType = typeof(WoChatResource))]
         public ImMessageType MessageType { get; set; }
 
         /// <summary>
         /// 消息
         /// </summary>
-        [DisplayName("Message")]
+        [Display(Name = nameof(WoChatResource.Message), ResourceType = typeof(WoChatResource))]
         public string? Message { get; set; }
 
         /// <summary>
         /// 用户信息
         /// </summary>
+        [NotMapped]
         public UserDto? User { get; set; }
     }
 }
