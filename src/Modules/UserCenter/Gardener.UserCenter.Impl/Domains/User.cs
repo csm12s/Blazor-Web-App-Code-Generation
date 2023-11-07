@@ -77,11 +77,13 @@ namespace Gardener.UserCenter.Impl.Domains
                 .HasOne(x => x.Dept)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.DeptId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientSetNull);
             entityBuilder
                 .HasOne(x => x.Position)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.PositionId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entityBuilder

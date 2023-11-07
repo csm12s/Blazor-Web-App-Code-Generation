@@ -53,6 +53,14 @@ namespace Gardener.Client.Base.Constants
         /// 通知消息弹出时长
         /// </summary>
         public readonly static int ClientNotifierMessageDuration = 3;
+        /// <summary>
+        /// 表格列表删除使用真删除
+        /// </summary>
+        /// <remarks>
+        /// <para>true 调用物理删除接口</para>
+        /// <para>false 调用逻辑删除接口</para>
+        /// </remarks>
+        public readonly static bool TableListDeleteUseTrueDelete=true;
 
     }
 }

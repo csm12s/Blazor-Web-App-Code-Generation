@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231107080325_v0.0.1")]
+    [Migration("20231107100931_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />

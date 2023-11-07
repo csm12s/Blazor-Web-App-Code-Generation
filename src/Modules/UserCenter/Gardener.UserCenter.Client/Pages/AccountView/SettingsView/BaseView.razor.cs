@@ -40,7 +40,10 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
                 Localizer[nameof(SharedLocalResource.UplaodAvatar)],
                 new UserUploadAvatarParams(user, false),
-                width: avatarDrawerWidth);
+                width: avatarDrawerWidth,
+                onClose: (r) => {
+                    return base.RefreshPageDom();
+                });
         }
 
         /// <summary>
