@@ -41,7 +41,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 控制分页每页数量
         /// </summary>
-        protected int _pageSize = ClientConstant.pageSize;
+        protected int _pageSize = ClientConstant.PageSize;
 
         #region override mothed
         /// <summary>

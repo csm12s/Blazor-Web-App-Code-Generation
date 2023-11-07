@@ -61,6 +61,17 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
         /// 启用多标签
         /// </summary>
         public readonly static bool EnabledTabs = true;
+        /// <summary>
+        /// 默认表格大小
+        /// </summary>
+        /// <remarks>
+        /// Default
+        /// Middle
+        /// Small
+        /// </remarks>
+        public readonly static TableSize DefaultTableSize = TableSize.Small;
+
+
 
     }
 }

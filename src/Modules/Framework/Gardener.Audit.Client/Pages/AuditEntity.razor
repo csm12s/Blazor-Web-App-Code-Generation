@@ -10,7 +10,8 @@
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
-           Context="model">
+           Context="model"
+           Size="@ClientConstant.DefaultTableSize">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
                 <TableSearch TDto="AuditEntityDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />

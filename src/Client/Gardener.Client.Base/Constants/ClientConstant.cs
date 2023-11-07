@@ -42,7 +42,7 @@ namespace Gardener.Client.Base.Constants
         /// <summary>
         /// 每页数据量大小
         /// </summary>
-        public readonly static int pageSize = 15;
+        public readonly static int PageSize = 15;
 
         /// <summary>
         /// 通知消息使用MessageBox最大长度超出时，使用通知框

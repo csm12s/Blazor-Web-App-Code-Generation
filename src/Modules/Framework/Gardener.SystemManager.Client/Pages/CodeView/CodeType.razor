@@ -10,7 +10,8 @@
     @bind-PageSize="_pageSize"
     @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
-           Context="model">
+           Context="model"
+           Size="@ClientConstant.DefaultTableSize">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_code_type_refresh">
                 <TableSearch TDto="CodeTypeDto" OnSearch="OnTableSearch" @ref="this._tableSearch" Settings="_tableSearchSettings" CustomLocalizer="Localizer"></TableSearch>

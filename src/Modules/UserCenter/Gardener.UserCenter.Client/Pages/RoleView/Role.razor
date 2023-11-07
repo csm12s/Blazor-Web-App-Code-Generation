@@ -11,7 +11,8 @@
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            Context="model"
-           RemoteDataSource>
+           RemoteDataSource
+            Size="@ClientConstant.DefaultTableSize">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="user_center_role_refresh">
                 <TableSearch TDto="RoleDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />

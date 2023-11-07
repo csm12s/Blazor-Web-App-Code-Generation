@@ -36,7 +36,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <summary>
         /// 控制分页每页数量
         /// </summary>
-        protected int _pageSize = ClientConstant.pageSize;
+        protected int _pageSize = ClientConstant.PageSize;
         /// <summary>
         /// 默认搜索值
         /// </summary>

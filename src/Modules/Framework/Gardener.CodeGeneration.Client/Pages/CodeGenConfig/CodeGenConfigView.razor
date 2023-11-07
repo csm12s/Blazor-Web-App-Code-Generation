@@ -12,7 +12,8 @@
 @bind-PageSize="_pageSize"
 @bind-SelectedRows="_selectedRows"
        Loading="@_tableLoading.Value"
-       Context="model">
+       Context="model"
+Size="@ClientConstant.DefaultTableSize">
     <TitleTemplate>
         <TableSearch TDto="CodeGenConfigSearchDto" CustomLocalizer="Localizer" OnSearch="OnTableSearch" @ref="this.codeGenConfigSearchDtoTableSearch" DefaultValue="_tableSearchDefaultSearchValue"></TableSearch>
         <Row>

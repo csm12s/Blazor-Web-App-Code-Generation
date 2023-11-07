@@ -13,7 +13,8 @@
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            Context="model"
-           RemoteDataSource>
+           RemoteDataSource
+    Size="@ClientConstant.DefaultTableSize">
         <TitleTemplate>
             <TableSearch TDto="CodeGenSearchDto" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
             @*Custom Search*@
