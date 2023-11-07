@@ -432,6 +432,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string PasswordEncryptKey {
+            get {
+                return ResourceManager.GetString("PasswordEncryptKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string PersonalInformation {
             get {
                 return ResourceManager.GetString("PersonalInformation", resourceCulture);

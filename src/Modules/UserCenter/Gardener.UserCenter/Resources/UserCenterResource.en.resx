@@ -240,6 +240,9 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PasswordEncryptKey" xml:space="preserve">
+    <value>Password encrypt key</value>
+  </data>
   <data name="PersonalInformation" xml:space="preserve">
     <value>Personal information</value>
   </data>

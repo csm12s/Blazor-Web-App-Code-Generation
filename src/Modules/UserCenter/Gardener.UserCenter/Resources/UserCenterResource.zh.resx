@@ -234,6 +234,9 @@
   <data name="Password" xml:space="preserve">
     <value>密码</value>
   </data>
+  <data name="PasswordEncryptKey" xml:space="preserve">
+    <value>密码加密键</value>
+  </data>
   <data name="PersonalInformation" xml:space="preserve">
     <value>个人信息</value>
   </data>

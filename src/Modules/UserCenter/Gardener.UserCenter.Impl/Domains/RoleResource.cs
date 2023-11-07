@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
 using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,31 +21,17 @@ namespace Gardener.UserCenter.Impl.Domains
     /// <summary>
     /// 用户和角色关系表
     /// </summary>
-    [Description("角色资源信息")]
-    public class RoleResource : GardenerTenantEntityBaseNoKey<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
+    public class RoleResource : RoleResourceDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
-        /// <summary>
-        /// 角色Id
-        /// </summary>
-        [Required]
-        [DisplayName("角色编号")]
-        public int RoleId { get; set; }
         /// <summary>
         /// 角色
         /// </summary>
-        [DisplayName("角色")]
-        public Role Role { get; set; } = null!;
-        /// <summary>
-        /// 权限Id
-        /// </summary>
-        [Required]
-        [DisplayName("资源编号")]
-        public Guid ResourceId { get; set; }
+        public new Role Role { get; set; } = null!;
+        
         /// <summary>
         /// 权限
         /// </summary>
-        [DisplayName("资源")]
-        public Resource Resource { get; set; } = null!;
+        public new Resource Resource { get; set; } = null!;
 
         /// <summary>
         /// 配置多对多关系

@@ -5,41 +5,25 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
     /// 客户端功能信息
     /// </summary>
-    [Description("客户端功能信息")]
-    public class ClientFunction : GardenerEntityBaseNoKey, IEntityTypeBuilder<ClientFunction>
+    public class ClientFunction : ClientFunctionDto, IEntityBase, IEntityTypeBuilder<ClientFunction>
     {
-        /// <summary>
-        /// 客户端编号
-        /// </summary>
-        [Required]
-        [DisplayName("客户端编号")]
-        public Guid ClientId { get; set; }
-
         /// <summary>
         /// 客户端
         /// </summary>
         [DisplayName("客户端")]
         public Client Client { get; set; } = null!;
-
-        /// <summary>
-        /// 功能Id
-        /// </summary>
-        [Required]
-        [DisplayName("功能编号")]
-        public Guid FunctionId { get; set; }
 
         /// <summary>
         /// 功能
