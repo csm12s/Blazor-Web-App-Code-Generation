@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231107100931_v0.0.1")]
+    [Migration("20231108071646_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -2126,7 +2126,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306782482554880480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2475,7 +2475,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307187666513920480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2755,7 +2755,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259886080480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -3275,7 +3275,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259763200480L,
                             Description = "获取作业分页列表",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -3395,7 +3395,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259742720480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -4554,7 +4554,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306961912012800480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
