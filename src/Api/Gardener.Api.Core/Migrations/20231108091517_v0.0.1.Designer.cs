@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231108071646_v0.0.1")]
+    [Migration("20231108091517_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -15270,6 +15270,42 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552959733760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_export",
+                            Name = "导出操作审计",
+                            Order = 0,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Remark = "导出操作审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0dc989c3-d60a-4ac3-89be-87f485ca820d"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307341930229760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_parameters",
+                            Name = "查看操作审计参数",
+                            Order = 0,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            SupportMultiTenant = true,
+                            Type = 2000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307342036459520480L
+                        },
+                        new
+                        {
                             Id = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -15283,23 +15319,6 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "刷新操作审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552959733760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_export",
-                            Name = "导出操作审计",
-                            Order = 0,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Remark = "导出操作审计",
                             SupportMultiTenant = true,
                             Type = 2000
                         },
