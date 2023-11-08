@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Gardener.Base.Entity;
 using Gardener.Base.Resources;
@@ -15,6 +16,7 @@ using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gardener.SystemManager.Services
 {
@@ -126,7 +128,7 @@ namespace Gardener.SystemManager.Services
         /// </remarks>
         public async Task<IEnumerable<CodeDto>> GetCodes([ApiSeat(ApiSeats.ActionStart)] int codeTypeId)
         {
-            IEnumerable<CodeDto> result= await _codeRepository
+            IEnumerable<CodeDto> result = await _codeRepository
                 .AsQueryable(false)
                 .Include(x => x.CodeType)
                 .Where(x => x.CodeType.IsLocked == false && x.CodeType.IsDeleted == false && x.IsLocked == false && x.IsDeleted == false && x.CodeTypeId == codeTypeId)
@@ -174,6 +176,43 @@ namespace Gardener.SystemManager.Services
                     item.LocalCodeName = localizationLocalizer[item.CodeName];
                 }
             }
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <remarks>
+        /// 根据主键删除一条数据
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override async Task<bool> Delete(int id)
+        {
+            var codes = await _codeRepository.Where(x => x.CodeTypeId.Equals(id)).ToListAsync();
+            foreach (var code in codes)
+            {
+                await code.DeleteAsync();
+            }
+            return await base.Delete(id);
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <remarks>
+        /// 根据多个主键批量删除
+        /// </remarks>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [SwaggerOperation(Summary = "批量删除", Description = "根据多个主键批量删除")]
+        public override async Task<bool> Deletes([FromBody] int[] ids)
+        {
+            foreach(var id in ids)
+            {
+                await Delete(id);
+            }
+            return true;
         }
     }
 }
