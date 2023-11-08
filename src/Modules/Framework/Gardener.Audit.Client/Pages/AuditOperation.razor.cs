@@ -7,8 +7,12 @@
 using Gardener.Audit.Dtos;
 using Gardener.Audit.Resources;
 using Gardener.Audit.Services;
+using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Common;
+using Gardener.Enums;
+using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -27,9 +31,25 @@ namespace Gardener.Audit.Client.Pages
         /// <returns></returns>
         private async Task OnDetailClick(Guid id)
         {
-            List<AuditEntityDto>  auditEntityDtos= await auditOperationService.GetAuditEntity(id);
+            List<AuditEntityDto> auditEntityDtos = await auditOperationService.GetAuditEntity(id);
 
-            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(Localizer[nameof(SharedLocalResource.Detail)],auditEntityDtos, width: 960);
+            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(Localizer[nameof(SharedLocalResource.Detail)], auditEntityDtos, width: 960);
+        }
+
+        /// <summary>
+        /// 查看参数
+        /// </summary>
+        /// <returns></returns>
+        private Task OnShowParametersClick(AuditOperationDto dto)
+        {
+            return OpenOperationDialogAsync<ShowCode, ShowCodeOptions, bool>(
+                        Localizer[nameof(AuditLocalResource.Parameters)],
+                       new ShowCodeOptions()
+                       {
+                           Code = Task.FromResult(dto.Parameters ?? string.Empty),
+                           Language = "json"
+                       },
+                        width: 1300); ;
         }
     }
 }

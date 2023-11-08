@@ -374,7 +374,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<Task<string>, bool>
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<ShowCodeOptions, bool>
         {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
@@ -382,7 +382,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             Task<string> seedData = BaseService.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(Localizer[nameof(SharedLocalResource.SeedData)], seedData, operationDialogSettings: drawerSettings);
+            drawerSettings.ModalMaximizable = true;
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, ShowCodeOptions, bool>(Localizer[nameof(SharedLocalResource.SeedData)], new ShowCodeOptions() { Code = seedData }, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -392,7 +393,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task OnClickShowSeedData()
         {
-            return OnClickShowSeedData<ShowSeedDataCode>();
+            return OnClickShowSeedData<ShowCode>();
         }
 
         /// <summary>

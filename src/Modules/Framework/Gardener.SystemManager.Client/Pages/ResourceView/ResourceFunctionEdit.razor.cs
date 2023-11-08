@@ -232,9 +232,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
             Task<string> data = resourceFunctionService.GetSeedData(resourceIds);
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
+            await OpenOperationDialogAsync<ShowCode, ShowCodeOptions, bool>(
                        Localizer[nameof(SharedLocalResource.SeedData)],
-                       data,
+                       new ShowCodeOptions(data),
                        width: 1300);
         }
     }

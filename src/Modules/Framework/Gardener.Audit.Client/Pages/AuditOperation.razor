@@ -86,6 +86,13 @@
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_parameters">
+                        <SpaceItem>
+                             <Tooltip Title="@Localizer[nameof(AuditLocalResource.Parameters)]" ArrowPointAtCenter="true">
+                                 <Button Icon="ellipsis" Type="@ButtonType.Primary" OnClick="()=>OnShowParametersClick(model)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete">
                         <SpaceItem>
                             <Tooltip Title="@Localizer[nameof(SharedLocalResource.Delete)]" ArrowPointAtCenter="true">

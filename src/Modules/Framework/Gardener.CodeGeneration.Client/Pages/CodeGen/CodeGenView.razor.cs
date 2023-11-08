@@ -221,9 +221,9 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
                 }
         });
 
-        await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
+        await OpenOperationDialogAsync<ShowCode, ShowCodeOptions, bool>(
                     Localizer[nameof(SharedLocalResource.SeedData)],
-                    data,
+                    new ShowCodeOptions(data),
                     width: 1500);
     }
 
