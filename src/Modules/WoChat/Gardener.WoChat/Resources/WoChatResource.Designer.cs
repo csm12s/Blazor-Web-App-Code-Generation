@@ -63,6 +63,33 @@ namespace Gardener.WoChat.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string AllUserIsActive {
+            get {
+                return ResourceManager.GetString("AllUserIsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string Announcement {
+            get {
+                return ResourceManager.GetString("Announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string CurrentUserCanSendMessage {
+            get {
+                return ResourceManager.GetString("CurrentUserCanSendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string DeleteSession {
             get {
                 return ResourceManager.GetString("DeleteSession", resourceCulture);
@@ -99,6 +126,42 @@ namespace Gardener.WoChat.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string ImSession {
+            get {
+                return ResourceManager.GetString("ImSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImSessionId {
+            get {
+                return ResourceManager.GetString("ImSessionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImSessionMessage {
+            get {
+                return ResourceManager.GetString("ImSessionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImUserSession {
+            get {
+                return ResourceManager.GetString("ImUserSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string InitiateGroupChat {
             get {
                 return ResourceManager.GetString("InitiateGroupChat", resourceCulture);
@@ -111,6 +174,42 @@ namespace Gardener.WoChat.Resources {
         public static string InputGroupName {
             get {
                 return ResourceManager.GetString("InputGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string IsActive {
+            get {
+                return ResourceManager.GetString("IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string LastMessageTime {
+            get {
+                return ResourceManager.GetString("LastMessageTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string MessageType {
+            get {
+                return ResourceManager.GetString("MessageType", resourceCulture);
             }
         }
         
@@ -171,9 +270,54 @@ namespace Gardener.WoChat.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string SessionName {
+            get {
+                return ResourceManager.GetString("SessionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string SessionType {
+            get {
+                return ResourceManager.GetString("SessionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string UnreadMessageCount {
+            get {
+                return ResourceManager.GetString("UnreadMessageCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string UserId {
+            get {
+                return ResourceManager.GetString("UserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string UserInfo {
             get {
                 return ResourceManager.GetString("UserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string UsersSignature {
+            get {
+                return ResourceManager.GetString("UsersSignature", resourceCulture);
             }
         }
     }

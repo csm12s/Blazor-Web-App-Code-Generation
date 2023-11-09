@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20231008054048_v0.0.1")]
+    [Migration("20231108091517_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -27,6 +27,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BusinessId")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("TEXT");
 
@@ -148,6 +149,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LoggedOut")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("LoginClientType")
@@ -683,6 +687,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OperaterType")
+                        .HasMaxLength(100)
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Parameters")
@@ -692,7 +697,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ResourceId")
+                    b.Property<Guid?>("ResourceId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ResourceName")
@@ -739,6 +744,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DataType")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -825,7 +831,6 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Path")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
@@ -2121,7 +2126,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306782482554880480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2470,7 +2475,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307187666513920480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2750,7 +2755,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259886080480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -3270,7 +3275,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259763200480L,
                             Description = "获取作业分页列表",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -3390,7 +3395,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259742720480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -3702,6 +3707,23 @@ namespace Gardener.Api.Core.Migrations
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
                             UpdatedTime = 1307201769656320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307287030353920480L,
+                            Description = "run",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9CE66FD424573026F51E14093CC7E5ED",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/{id}/run",
+                            Service = "定时任务-任务服务",
+                            Summary = "执行作业"
                         },
                         new
                         {
@@ -4532,7 +4554,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306961912012800480L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -5301,7 +5323,7 @@ namespace Gardener.Api.Core.Migrations
                             IsDeleted = false,
                             IsLocked = false,
                             Key = "DDE05A70BD80F948C9AEAFB9708090F3",
-                            Method = 0,
+                            Method = 1,
                             Path = "/api/resource-function/seed-data",
                             Service = "资源与接口关系服务",
                             Summary = "获取种子数据"
@@ -5762,7 +5784,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306971987783680480L,
                             Description = "不执行任何内容，token无效将响应401",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -7065,7 +7087,7 @@ namespace Gardener.Api.Core.Migrations
                             Id = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
                             CreatedTime = 1306532718346240480L,
                             Description = "搜索用户数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -7610,3677 +7632,6 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Hide")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Path")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("SupportMultiTenant")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Key");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Resource");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "file",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_attachment",
-                            Name = "附件管理",
-                            Order = 50,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/attachment",
-                            Remark = "附件管理",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_attachment_delete",
-                            Name = "删除附件",
-                            Order = 0,
-                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "null",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_attachment_delete_selected",
-                            Name = "删除选中附件",
-                            Order = 0,
-                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            Path = "null",
-                            Remark = "删除选中附件",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_attachment_detail",
-                            Name = "查看附件",
-                            Order = 0,
-                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            Path = "",
-                            Remark = "查看附件",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_attachment_refresh",
-                            Name = "刷新附件",
-                            Order = 0,
-                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity",
-                            Name = "数据审计",
-                            Order = 2,
-                            ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            Path = "/system_manager/audit-entity",
-                            Remark = "数据审计",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity_delete",
-                            Name = "删除数据审计",
-                            Order = 3,
-                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            Path = "",
-                            Remark = "删除数据审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity_delete_selected",
-                            Name = "删除选中数据审计",
-                            Order = 2,
-                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            Path = "",
-                            Remark = "删除选中数据审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity_detail",
-                            Name = "查询数据审计详情",
-                            Order = 4,
-                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            Path = "",
-                            Remark = "查询数据审计详情",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity_refresh",
-                            Name = "刷新数据审计",
-                            Order = 1,
-                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            Path = "",
-                            Remark = "刷新数据审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552960327680480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_entity_export",
-                            Name = "导出数据审计",
-                            Order = 0,
-                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            Remark = "导出数据审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306546809856000480L,
-                            Hide = false,
-                            Icon = "audit",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit",
-                            Name = "审计管理",
-                            Order = 60,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "",
-                            Remark = "审计管理",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation",
-                            Name = "操作审计",
-                            Order = 1,
-                            ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            Path = "/system_manager/audit-operation",
-                            Remark = "操作审计",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_delete",
-                            Name = "删除操作审计",
-                            Order = 3,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Path = "",
-                            Remark = "删除操作审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_delete_selected",
-                            Name = "删除选中操作审计",
-                            Order = 2,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_detail",
-                            Name = "操作审计数据变更详情",
-                            Order = 0,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Path = "",
-                            Remark = "操作审计数据变更详情",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_refresh",
-                            Name = "刷新操作审计",
-                            Order = 1,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Path = "",
-                            Remark = "刷新操作审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552959733760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_audit_operation_export",
-                            Name = "导出操作审计",
-                            Order = 0,
-                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            Remark = "导出操作审计",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "idcard",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token",
-                            Name = "登录管理",
-                            Order = 70,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/login-token",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token_delete",
-                            Name = "删除登录Token",
-                            Order = 0,
-                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token_delete_selected",
-                            Name = "删除选中登录Token",
-                            Order = 0,
-                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token_lock",
-                            Name = "锁定登录Token",
-                            Order = 0,
-                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token_refresh",
-                            Name = "刷新登录Token",
-                            Order = 0,
-                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552963031040480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_login_token_export",
-                            Name = "导出登录数据",
-                            Order = 0,
-                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            Remark = "导出登录数据",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306546807398400480L,
-                            Hide = false,
-                            Icon = "apartment",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "admin_root",
-                            Name = "后台根节点",
-                            Order = 0,
-                            Path = "",
-                            Remark = "根根节点不能删除，不能改变类型！！。",
-                            SupportMultiTenant = true,
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306546809856000480L,
-                            Hide = false,
-                            Icon = "apartment",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "front_root",
-                            Name = "前台根节点",
-                            Order = 1,
-                            Path = "",
-                            Remark = "根根节点不能删除，不能改变类型！！。",
-                            SupportMultiTenant = true,
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306683595427840480L,
-                            Hide = false,
-                            Icon = "code-sandbox",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_tool_code_gen",
-                            Name = "代码生成",
-                            Order = 41,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_tool/code_gen",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdatedTime = 1306683596595200480L
-                        },
-                        new
-                        {
-                            Id = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307131240755200480L,
-                            Hide = false,
-                            Icon = "hourglass",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job",
-                            Name = "定时任务",
-                            Order = 100,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157544591360480L
-                        },
-                        new
-                        {
-                            Id = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187779358720480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_dashboard",
-                            Name = "仪表盘",
-                            Order = 5,
-                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
-                            Path = "/system_manager/easy_job_dashboard",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157537075200480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail",
-                            Name = "任务",
-                            Order = 10,
-                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
-                            Path = "/system_manager/easy_job_detail",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157546147840480L
-                        },
-                        new
-                        {
-                            Id = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142051000320480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_add",
-                            Name = "添加",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157540433920480L
-                        },
-                        new
-                        {
-                            Id = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142053212160480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_delete",
-                            Name = "删除",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157537546240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("f38347fd-11a3-4e1c-a1b0-a445510e7d8c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142050652160480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_delete_selected",
-                            Name = "删除选中",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157540945920480L
-                        },
-                        new
-                        {
-                            Id = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142052884480480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_detail",
-                            Name = "查看详情",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157538201600480L
-                        },
-                        new
-                        {
-                            Id = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142052474880480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_edit",
-                            Name = "编辑",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157539246080480L
-                        },
-                        new
-                        {
-                            Id = new Guid("df23010b-e960-4c50-b114-e84df2edda4f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307186715463680480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_log",
-                            Name = "日志",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307186742128640480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_monitor_log",
-                            Name = "实时监控日志",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("5e858248-f765-4412-9753-92621f20f611"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142050181120480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_refresh",
-                            Name = "刷新",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157541457920480L
-                        },
-                        new
-                        {
-                            Id = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307142051880960480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_detail_search",
-                            Name = "搜索",
-                            Order = 0,
-                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307157539799040480L
-                        },
-                        new
-                        {
-                            Id = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307200750551040480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_log",
-                            Name = "日志",
-                            Order = 90,
-                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
-                            Path = "/system_manager/easy_job_log",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307201774120960480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_log_detail",
-                            Name = "详情",
-                            Order = 0,
-                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307201775390720480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_log_refresh",
-                            Name = "刷新",
-                            Order = 0,
-                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307201775718400480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_log_search",
-                            Name = "搜索",
-                            Order = 0,
-                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157551267840480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger",
-                            Name = "触发器",
-                            Order = 20,
-                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
-                            Path = "/system_manager/easy_job_trigger",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157552701440480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_add",
-                            Name = "添加",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157554339840480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_delete",
-                            Name = "删除",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("aa2109af-a9cd-48fd-b8b4-a872749b14eb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157552373760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_delete_selected",
-                            Name = "删除选中",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157553971200480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_detail",
-                            Name = "查看详情",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157553561600480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_edit",
-                            Name = "编辑",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187688632320480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_log",
-                            Name = "日志",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307186742824960480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_monitor_log",
-                            Name = "实时监控日志",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307186730618880480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_monitor_state",
-                            Name = "实时监控状态",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307186742415360480L
-                        },
-                        new
-                        {
-                            Id = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307170255175680480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_pause",
-                            Name = "暂停",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157553090560480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_refresh",
-                            Name = "刷新",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307157551882240480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_search",
-                            Name = "搜索",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307170254786560480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_easy_job_trigger_start",
-                            Name = "开启",
-                            Order = 0,
-                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "mail",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_tool",
-                            Name = "邮件工具",
-                            Order = 80,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "",
-                            Remark = "邮件工具",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "setting",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config",
-                            Name = "邮件服务器",
-                            Order = 10,
-                            ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            Path = "/system_manager/email_server_config",
-                            Remark = "邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_add",
-                            Name = "添加邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "添加邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_delete",
-                            Name = "删除邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "删除邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_delete_selected",
-                            Name = "删除选中邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "删除选中邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_detail",
-                            Name = "查看邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "查看邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_edit",
-                            Name = "编辑邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "编辑邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("02337e03-c44f-4029-bbb2-0cc5adf84c29"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_lock",
-                            Name = "锁定邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "锁定邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_refresh",
-                            Name = "刷新邮件服务器配置",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "刷新邮件服务器配置",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_server_config_send",
-                            Name = "发送测试邮件",
-                            Order = 0,
-                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            Path = "",
-                            Remark = "发送测试邮件",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "copy",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_temaplate",
-                            Name = "邮件模板",
-                            Order = 20,
-                            ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            Path = "/system_manager/email_temaplate",
-                            Remark = "邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_add",
-                            Name = "添加邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "添加邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_delete",
-                            Name = "删除邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "删除邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_delete_selected",
-                            Name = "删除选中邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "删除选中邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_detail",
-                            Name = "查看邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "查看邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("08baa5af-4718-4158-9276-1ad1068b9159"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_edit",
-                            Name = "编辑邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "编辑邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_lock",
-                            Name = "锁定邮件模板",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "锁定邮件模板",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_refresh",
-                            Name = "刷新邮件模板列表",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "刷新邮件模板列表",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_email_template_send",
-                            Name = "发送测试邮件",
-                            Order = 0,
-                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            Path = "",
-                            Remark = "发送测试邮件",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306994998394880480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_code_utils",
-                            Name = "字典工具",
-                            Order = 0,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = true,
-                            Type = 2000,
-                            UpdateBy = "6",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306994999357440480L
-                        },
-                        new
-                        {
-                            Id = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961904844800480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code",
-                            Name = "字典",
-                            Order = 20,
-                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            Path = "/system_manager/code_list",
-                            Remark = "字典管理",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306966617108480480L
-                        },
-                        new
-                        {
-                            Id = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961907343360480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_add",
-                            Name = "添加字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "添加字典",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961909780480480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_delete",
-                            Name = "删除字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "删除字典",
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306961909944320480L
-                        },
-                        new
-                        {
-                            Id = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961906503680480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_delete_selected",
-                            Name = "删除选中字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "删除选中字典",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961909370880480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_detail",
-                            Name = "查看字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "查看字典",
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306961910128640480L
-                        },
-                        new
-                        {
-                            Id = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961908142080480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_download_seed_data",
-                            Name = "生成字典种子数据",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "生成字典种子数据",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961908981760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_edit",
-                            Name = "编辑字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "编辑字典",
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306961910292480480L
-                        },
-                        new
-                        {
-                            Id = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961906954240480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_export",
-                            Name = "导出字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "导出字典",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961908613120480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_lock",
-                            Name = "锁定字典",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964577628160480L,
-                            Hide = false,
-                            Icon = "tags",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_manager",
-                            Name = "字典管理",
-                            Order = 90,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306964582297600480L
-                        },
-                        new
-                        {
-                            Id = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961905971200480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_refresh",
-                            Name = "刷新字典列表",
-                            Order = 0,
-                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            Remark = "刷新字典列表",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964580823040480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type",
-                            Name = "字典类型",
-                            Order = 10,
-                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            Path = "/system_manager/code_type",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306966617313280480L
-                        },
-                        new
-                        {
-                            Id = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964897280000480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_add",
-                            Name = "添加字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964899082240480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_codes_manager",
-                            Name = "管理字典类型下字典",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            Remark = "功能与 字典管理->字典 相同",
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1306964905226240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964899471360480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_delete",
-                            Name = "删除字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964896645120480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_delete_selected",
-                            Name = "删除选中字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964898672640480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_detail",
-                            Name = "查看字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964897853440480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_download_seed_data",
-                            Name = "生成字典类型种子数据",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964898344960480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_edit",
-                            Name = "编辑字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964896993280480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_export",
-                            Name = "导出字典类型",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306964896153600480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_refresh",
-                            Name = "刷新字典类型列表",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306994982113280480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_code_type_refresh_code_util_cache",
-                            Name = "刷新字典工具缓存",
-                            Order = 0,
-                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "api",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function",
-                            Name = "接口管理",
-                            Order = 40,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/function",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_delete",
-                            Name = "删除接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_delete_selected",
-                            Name = "删除选中接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_detail",
-                            Name = "查看接口详情",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "查看接口详情",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_download_seed_data",
-                            Name = "查看接口种子数据",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "查看接口种子数据",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_edit",
-                            Name = "编辑接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_enable_audit",
-                            Name = "锁定接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_import",
-                            Name = "导入接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_refresh",
-                            Name = "刷新接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552948224000480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_function_export",
-                            Name = "导出接口",
-                            Order = 0,
-                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            Remark = "导出接口",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "home",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "admin_home",
-                            Name = "首页",
-                            Order = 10,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Path = "/",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "menu",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource",
-                            Name = "资源管理",
-                            Order = 30,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/resource",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_add",
-                            Name = "添加资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "添加资源",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_add_children",
-                            Name = "添加子资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_delete",
-                            Name = "删除资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "删除资源",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_delete_selected",
-                            Name = "删除选中",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "删除选中",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_detail",
-                            Name = "查看资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "查看资源",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_download_seed_data",
-                            Name = "导出种子数据",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_edit",
-                            Name = "编辑资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_function_add_page_show",
-                            Name = "显示可选接口",
-                            Order = 0,
-                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            Path = "",
-                            Remark = "显示可选接口",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_function_binding",
-                            Name = "绑定资源接口关系",
-                            Order = 0,
-                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_function_delete_selected",
-                            Name = "删除选中资源接口关系",
-                            Order = 0,
-                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547599319040480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_function_download_seed_data",
-                            Name = "获取种子数据",
-                            Order = 0,
-                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_lock",
-                            Name = "锁定资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_refresh",
-                            Name = "刷新资源",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_show_function",
-                            Name = "关联资源接口",
-                            Order = 0,
-                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_resource_show_function_1",
-                            Name = "显示已关联接口",
-                            Order = 0,
-                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            Path = "",
-                            Remark = "显示已关联接口",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306546809856000480L,
-                            Hide = false,
-                            Icon = "setting",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager",
-                            Name = "系统管理",
-                            Order = 20,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Path = "",
-                            Remark = "系统管理",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307168600104960480L,
-                            Hide = false,
-                            Icon = "tool",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "dev_tools",
-                            Name = "开发工具",
-                            Order = 200,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307170480128000480L
-                        },
-                        new
-                        {
-                            Id = new Guid("7440535c-8568-4d1a-be5c-b7a93cb9d282"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307168601088000480L,
-                            Hide = false,
-                            Icon = "bg-colors",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "dev_tools_color",
-                            Name = "颜色",
-                            Order = 10,
-                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
-                            Path = "/tools/colors",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307170480332800480L
-                        },
-                        new
-                        {
-                            Id = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307171637862400480L,
-                            Hide = false,
-                            Icon = "code",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "dev_tools_cron",
-                            Name = "Cron",
-                            Order = 20,
-                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
-                            Path = "/tools/cron",
-                            SupportMultiTenant = false,
-                            Type = 1000,
-                            UpdateBy = "1",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307171969454080480L
-                        },
-                        new
-                        {
-                            Id = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307060617400320480L,
-                            Hide = false,
-                            Icon = "user",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center",
-                            Name = "个人中心",
-                            Order = 100,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = true,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307060617809920480L
-                        },
-                        new
-                        {
-                            Id = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307060619407360480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center_settings",
-                            Name = "个人设置",
-                            Order = 0,
-                            ParentId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
-                            Path = "/account/settings",
-                            SupportMultiTenant = true,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307060658892800480L
-                        },
-                        new
-                        {
-                            Id = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202272829440480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center_settings_base",
-                            Name = "基本信息",
-                            Order = 0,
-                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202273812480480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center_settings_binding",
-                            Name = "账号绑定",
-                            Order = 0,
-                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202273525760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center_settings_security",
-                            Name = "安全设置",
-                            Order = 0,
-                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "cloud-server",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client",
-                            Name = "客户端管理",
-                            Order = 45,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/client",
-                            Remark = "客户端管理",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_add",
-                            Name = "添加客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "添加客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_delete",
-                            Name = "删除客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "删除客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_delete_selected",
-                            Name = "删除选中客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "删除选中客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_detail",
-                            Name = "查看客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "查看客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_edit",
-                            Name = "编辑客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "编辑客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_function_add_page_show",
-                            Name = "显示可选接口",
-                            Order = 0,
-                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            Path = "",
-                            Remark = "显示可选接口",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_function_binding",
-                            Name = "绑定客户端接口关系",
-                            Order = 0,
-                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            Path = "",
-                            Remark = "绑定资源接口关系",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_function_delete_selected",
-                            Name = "删除选中客户端接口关系",
-                            Order = 0,
-                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            Path = "",
-                            Remark = "删除选中客户端接口关系",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_refresh",
-                            Name = "刷新客户端",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "刷新客户端",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_show_function",
-                            Name = "关联客户端接口关系",
-                            Order = 0,
-                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            Path = "",
-                            Remark = "关联客户端接口关系",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_client_show_function_1",
-                            Name = "显示已关联接口",
-                            Order = 0,
-                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            Path = "",
-                            Remark = "显示已关联接口",
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "team",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept",
-                            Name = "部门管理",
-                            Order = 3,
-                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            Path = "/user_center/dept",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_add",
-                            Name = "添加部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_add_children",
-                            Name = "添加子级部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_delete",
-                            Name = "删除部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_delete_selected",
-                            Name = "删除选中部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_detail",
-                            Name = "查看部门详情",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "查看部门详情",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_edit",
-                            Name = "编辑部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_dept_refresh",
-                            Name = "刷新部门",
-                            Order = 0,
-                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_login",
-                            Name = "登录",
-                            Order = 0,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Path = "",
-                            Remark = "登录系统",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "crown",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position",
-                            Name = "岗位管理",
-                            Order = 5,
-                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            Path = "/user_center/position",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_add",
-                            Name = "添加岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_delete",
-                            Name = "删除岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_delete_selected",
-                            Name = "删除选中岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_detail",
-                            Name = "查看岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "查看岗位",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_edit",
-                            Name = "编辑岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_lock",
-                            Name = "锁定岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "锁定岗位",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_position_refresh",
-                            Name = "刷新岗位",
-                            Order = 0,
-                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "user-switch",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role",
-                            Name = "角色管理",
-                            Order = 20,
-                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            Path = "/user_center/role",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_add",
-                            Name = "添加角色",
-                            Order = 2,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_delete",
-                            Name = "删除角色",
-                            Order = 1,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_delete_selected",
-                            Name = "删除选中角色",
-                            Order = 0,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_detail",
-                            Name = "查看角色详情",
-                            Order = 0,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "查看角色详情",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_edit",
-                            Name = "编辑角色",
-                            Order = 4,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_lock",
-                            Name = "锁定角色",
-                            Order = 7,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_refresh",
-                            Name = "刷新角色",
-                            Order = 3,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_resource_download_seed_data",
-                            Name = "获取种子数据",
-                            Order = 0,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_resource_select",
-                            Name = "查看角色资源",
-                            Order = 0,
-                            ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            Path = "",
-                            Remark = "查看角色资源",
-                            SupportMultiTenant = true,
-                            Type = 3000
-                        },
-                        new
-                        {
-                            Id = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_set_resource",
-                            Name = "角色分配资源",
-                            Order = 5,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_set_resource_save",
-                            Name = "保存角色资源",
-                            Order = 0,
-                            ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            Path = "",
-                            Remark = "保存角色资源",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"),
-                            CreateBy = "5",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307030707814400480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_role_set_is_super_administrator",
-                            Name = "设置角色为超级管理员",
-                            Order = 0,
-                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            Remark = "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。",
-                            SupportMultiTenant = false,
-                            Type = 3000
-                        },
-                        new
-                        {
-                            Id = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307020067348480480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_tenant_administrator",
-                            Name = "后台租户管理员",
-                            Order = 0,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Remark = "控制全局租户信息的显示，此资源不要分配给租户",
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307021551575040480L
-                        },
-                        new
-                        {
-                            Id = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019908341760480L,
-                            Hide = false,
-                            Icon = "deployment-unit",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant",
-                            Name = "租户管理",
-                            Order = 0,
-                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            Path = "/user_center/tenant",
-                            SupportMultiTenant = false,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019913543680480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_add",
-                            Name = "添加租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019930869760480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_delete",
-                            Name = "删除租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019911249920480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_delete_selected",
-                            Name = "删除选中租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019922186240480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_detail",
-                            Name = "查看租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "6",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307019929804800480L
-                        },
-                        new
-                        {
-                            Id = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019920977920480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_edit",
-                            Name = "编辑租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019916656640480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_lock",
-                            Name = "锁定租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307019914690560480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_refresh",
-                            Name = "刷新租户",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000,
-                            UpdateBy = "6",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307019926507520480L
-                        },
-                        new
-                        {
-                            Id = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
-                            CreateBy = "5",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307030672834560480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_set_resource",
-                            Name = "绑定资源",
-                            Order = 0,
-                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
-                            CreateBy = "5",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307030677667840480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_set_resource_save",
-                            Name = "绑定资源-保存",
-                            Order = 0,
-                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
-                            SupportMultiTenant = false,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"),
-                            CreateBy = "5",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307030676643840480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_tenant_set_resource_select",
-                            Name = "查看已有资源",
-                            Order = 0,
-                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
-                            SupportMultiTenant = false,
-                            Type = 3000,
-                            UpdateBy = "5",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307030680412160480L
-                        },
-                        new
-                        {
-                            Id = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306546809856000480L,
-                            Hide = false,
-                            Icon = "apartment",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center",
-                            Name = "用户中心",
-                            Order = 15,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Path = "",
-                            Remark = "用户中心",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "user",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user",
-                            Name = "用户管理",
-                            Order = 10,
-                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            Path = "/user_center/user",
-                            Remark = "用户管理",
-                            SupportMultiTenant = true,
-                            Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_add",
-                            Name = "添加用户",
-                            Order = 2,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_delete",
-                            Name = "删除用户",
-                            Order = 1,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_delete_selected",
-                            Name = "删除选中用户",
-                            Order = 0,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "删除选中",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_detail",
-                            Name = "查看用户",
-                            Order = 0,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "查看用户",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_edit",
-                            Name = "编辑用户",
-                            Order = 4,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552952463360480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_export",
-                            Name = "导出用户",
-                            Order = 0,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Remark = "导出用户",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_list_edit_avatar",
-                            Name = "编辑用户头像-列表中",
-                            Order = 8,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "编辑用户头像-列表中",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_lock",
-                            Name = "锁定用户",
-                            Order = 7,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_refresh",
-                            Name = "刷新用户",
-                            Order = 3,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Hide = false,
-                            Icon = "",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_role_edit",
-                            Name = "用户分配角色",
-                            Order = 5,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Path = "",
-                            Remark = "",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            CreateBy = "6",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307020016025600480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "user_center_user_role_edit_save",
-                            Name = "保存用户角色",
-                            Order = 0,
-                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            SupportMultiTenant = true,
-                            Type = 2000,
-                            UpdateBy = "6",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307020019138560480L
-                        },
-                        new
-                        {
-                            Id = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreateBy = "4",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306984533504000480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "global_wo_chat_btn",
-                            Name = "WoChat聊天按钮",
-                            Order = 0,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            Remark = "WoChat聊天按钮显资源",
-                            SupportMultiTenant = true,
-                            Type = 2000
-                        });
-                });
-
             modelBuilder.Entity("Gardener.Base.Entity.ResourceFunction", b =>
                 {
                     b.Property<Guid>("ResourceId")
@@ -11640,6 +7991,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
                             FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
                             CreatedTime = 1307187673559040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
+                            FunctionId = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
+                            CreatedTime = 1307287031296000480L
                         },
                         new
                         {
@@ -14586,6 +10943,129 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("EntityCodeGenerationSetting");
                 });
 
+            modelBuilder.Entity("Gardener.EasyJob.Dtos.SysJobTriggerDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Args")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("ElapsedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("EndTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("LastRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MaxNumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MaxNumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("NextRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NumRetries")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ResetOnlyOnce")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Result")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RetryTimeout")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("RunOnStart")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("StartNow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("StartTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<uint>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("SysJobDetailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TriggerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TriggerType")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SysJobDetailId");
+
+                    b.ToTable("SysJobTriggerDto");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("SysJobTriggerDto");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobCluster", b =>
                 {
                     b.Property<int>("Id")
@@ -14739,6 +11219,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("JobDetailDescription")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("JobId")
@@ -14747,6 +11228,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("JobTriggerDescription")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("LastRunTime")
@@ -14788,116 +11270,6 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SysJobLog");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobTrigger", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Args")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("ElapsedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("EndTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("LastRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("MaxNumberOfErrors")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("MaxNumberOfRuns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("NextRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NumRetries")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfErrors")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfRuns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("ResetOnlyOnce")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Result")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RetryTimeout")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("RunOnStart")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("StartNow")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("StartTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TriggerId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TriggerType")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysJobTrigger");
                 });
 
             modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobUserConfig", b =>
@@ -15044,6 +11416,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ContentTemplate")
+                        .IsRequired()
                         .HasMaxLength(5000)
                         .HasColumnType("TEXT");
 
@@ -15057,10 +11430,12 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Example")
+                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FromName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
@@ -15175,6 +11550,91 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Announcement");
+                });
+
+            modelBuilder.Entity("Gardener.SystemManager.Dtos.ResourceDto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Hide")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("SupportMultiTenant")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ResourceDto");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ResourceDto");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
@@ -15300,6 +11760,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Contacts")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
@@ -17814,13 +14275,15 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool?>("IsSuperAdministrator")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("NickName")
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(64)
+                        .HasMaxLength(32)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordEncryptKey")
@@ -18097,6 +14560,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("QQ")
+                        .HasMaxLength(15)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("TenantId")
@@ -18112,6 +14576,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("WeChat")
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
@@ -18343,6 +14808,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Announcement")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreateBy")
@@ -18352,6 +14818,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CurrentUserCanSendMessage")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("DisableSendMessage")
@@ -18367,6 +14836,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SessionName")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SessionType")
@@ -18374,6 +14844,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("UnreadMessageCount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
@@ -18490,6 +14963,3696 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("ImUserSession");
                 });
 
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobTrigger", b =>
+                {
+                    b.HasBaseType("Gardener.EasyJob.Dtos.SysJobTriggerDto");
+
+                    b.HasDiscriminator().HasValue("SysJobTrigger");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
+                {
+                    b.HasBaseType("Gardener.SystemManager.Dtos.ResourceDto");
+
+                    b.HasIndex("Key");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasDiscriminator().HasValue("Resource");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "file",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_attachment",
+                            Name = "附件管理",
+                            Order = 50,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/attachment",
+                            Remark = "附件管理",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_attachment_delete",
+                            Name = "删除附件",
+                            Order = 0,
+                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "null",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_attachment_delete_selected",
+                            Name = "删除选中附件",
+                            Order = 0,
+                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            Path = "null",
+                            Remark = "删除选中附件",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_attachment_detail",
+                            Name = "查看附件",
+                            Order = 0,
+                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            Path = "",
+                            Remark = "查看附件",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_attachment_refresh",
+                            Name = "刷新附件",
+                            Order = 0,
+                            ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity",
+                            Name = "数据审计",
+                            Order = 2,
+                            ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            Path = "/system_manager/audit-entity",
+                            Remark = "数据审计",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity_delete",
+                            Name = "删除数据审计",
+                            Order = 3,
+                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            Path = "",
+                            Remark = "删除数据审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity_delete_selected",
+                            Name = "删除选中数据审计",
+                            Order = 2,
+                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            Path = "",
+                            Remark = "删除选中数据审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity_detail",
+                            Name = "查询数据审计详情",
+                            Order = 4,
+                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            Path = "",
+                            Remark = "查询数据审计详情",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity_refresh",
+                            Name = "刷新数据审计",
+                            Order = 1,
+                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            Path = "",
+                            Remark = "刷新数据审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552960327680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_entity_export",
+                            Name = "导出数据审计",
+                            Order = 0,
+                            ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            Remark = "导出数据审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306546809856000480L,
+                            Hide = false,
+                            Icon = "audit",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit",
+                            Name = "审计管理",
+                            Order = 60,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "",
+                            Remark = "审计管理",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation",
+                            Name = "操作审计",
+                            Order = 1,
+                            ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            Path = "/system_manager/audit-operation",
+                            Remark = "操作审计",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_delete",
+                            Name = "删除操作审计",
+                            Order = 3,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Path = "",
+                            Remark = "删除操作审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_delete_selected",
+                            Name = "删除选中操作审计",
+                            Order = 2,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_detail",
+                            Name = "操作审计数据变更详情",
+                            Order = 0,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Path = "",
+                            Remark = "操作审计数据变更详情",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552959733760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_export",
+                            Name = "导出操作审计",
+                            Order = 0,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Remark = "导出操作审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0dc989c3-d60a-4ac3-89be-87f485ca820d"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307341930229760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_parameters",
+                            Name = "查看操作审计参数",
+                            Order = 0,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            SupportMultiTenant = true,
+                            Type = 2000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307342036459520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_audit_operation_refresh",
+                            Name = "刷新操作审计",
+                            Order = 1,
+                            ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            Path = "",
+                            Remark = "刷新操作审计",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "idcard",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token",
+                            Name = "登录管理",
+                            Order = 70,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/login-token",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token_delete",
+                            Name = "删除登录Token",
+                            Order = 0,
+                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token_delete_selected",
+                            Name = "删除选中登录Token",
+                            Order = 0,
+                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token_lock",
+                            Name = "锁定登录Token",
+                            Order = 0,
+                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token_refresh",
+                            Name = "刷新登录Token",
+                            Order = 0,
+                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552963031040480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_login_token_export",
+                            Name = "导出登录数据",
+                            Order = 0,
+                            ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            Remark = "导出登录数据",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306546807398400480L,
+                            Hide = false,
+                            Icon = "apartment",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "admin_root",
+                            Name = "后台根节点",
+                            Order = 0,
+                            Path = "",
+                            Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306546809856000480L,
+                            Hide = false,
+                            Icon = "apartment",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "front_root",
+                            Name = "前台根节点",
+                            Order = 1,
+                            Path = "",
+                            Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306683595427840480L,
+                            Hide = false,
+                            Icon = "code-sandbox",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_tool_code_gen",
+                            Name = "代码生成",
+                            Order = 41,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_tool/code_gen",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdatedTime = 1306683596595200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307131240755200480L,
+                            Hide = false,
+                            Icon = "hourglass",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job",
+                            Name = "定时任务",
+                            Order = 100,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157544591360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187779358720480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_dashboard",
+                            Name = "仪表盘",
+                            Order = 5,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_dashboard",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157537075200480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail",
+                            Name = "任务",
+                            Order = 10,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_detail",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157546147840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142051000320480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_add",
+                            Name = "添加",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157540433920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142053212160480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_delete",
+                            Name = "删除",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157537546240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f38347fd-11a3-4e1c-a1b0-a445510e7d8c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142050652160480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_delete_selected",
+                            Name = "删除选中",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157540945920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142052884480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_detail",
+                            Name = "查看详情",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157538201600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142052474880480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_edit",
+                            Name = "编辑",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157539246080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("df23010b-e960-4c50-b114-e84df2edda4f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307186715463680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_log",
+                            Name = "日志",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307186742128640480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_monitor_log",
+                            Name = "实时监控日志",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("5e858248-f765-4412-9753-92621f20f611"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142050181120480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157541457920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142051880960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157539799040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307200750551040480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log",
+                            Name = "日志",
+                            Order = 90,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_log",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201774120960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_detail",
+                            Name = "详情",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201775390720480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201775718400480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157551267840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger",
+                            Name = "触发器",
+                            Order = 20,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_trigger",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157552701440480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_add",
+                            Name = "添加",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157554339840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_delete",
+                            Name = "删除",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("aa2109af-a9cd-48fd-b8b4-a872749b14eb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157552373760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_delete_selected",
+                            Name = "删除选中",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553971200480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_detail",
+                            Name = "查看详情",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553561600480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_edit",
+                            Name = "编辑",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187688632320480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_log",
+                            Name = "日志",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307186742824960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_monitor_log",
+                            Name = "实时监控日志",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307186730618880480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_monitor_state",
+                            Name = "实时监控状态",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307186742415360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170255175680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_pause",
+                            Name = "暂停",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553090560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157551882240480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170254786560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_start",
+                            Name = "开启",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307287029104640480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_run",
+                            Name = "运行",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "mail",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_tool",
+                            Name = "邮件工具",
+                            Order = 80,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "",
+                            Remark = "邮件工具",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "setting",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config",
+                            Name = "邮件服务器",
+                            Order = 10,
+                            ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
+                            Path = "/system_manager/email_server_config",
+                            Remark = "邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_add",
+                            Name = "添加邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "添加邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_delete",
+                            Name = "删除邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "删除邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_delete_selected",
+                            Name = "删除选中邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "删除选中邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_detail",
+                            Name = "查看邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "查看邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_edit",
+                            Name = "编辑邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "编辑邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("02337e03-c44f-4029-bbb2-0cc5adf84c29"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_lock",
+                            Name = "锁定邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "锁定邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_refresh",
+                            Name = "刷新邮件服务器配置",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "刷新邮件服务器配置",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_server_config_send",
+                            Name = "发送测试邮件",
+                            Order = 0,
+                            ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            Path = "",
+                            Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "copy",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_temaplate",
+                            Name = "邮件模板",
+                            Order = 20,
+                            ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
+                            Path = "/system_manager/email_temaplate",
+                            Remark = "邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_add",
+                            Name = "添加邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "添加邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_delete",
+                            Name = "删除邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "删除邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_delete_selected",
+                            Name = "删除选中邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "删除选中邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_detail",
+                            Name = "查看邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "查看邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("08baa5af-4718-4158-9276-1ad1068b9159"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_edit",
+                            Name = "编辑邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "编辑邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_lock",
+                            Name = "锁定邮件模板",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "锁定邮件模板",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_refresh",
+                            Name = "刷新邮件模板列表",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "刷新邮件模板列表",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_email_template_send",
+                            Name = "发送测试邮件",
+                            Order = 0,
+                            ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            Path = "",
+                            Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994998394880480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_code_utils",
+                            Name = "字典工具",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = true,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994999357440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961904844800480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code",
+                            Name = "字典",
+                            Order = 20,
+                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            Path = "/system_manager/code_list",
+                            Remark = "字典管理",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306966617108480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961907343360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_add",
+                            Name = "添加字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "添加字典",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961909780480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_delete",
+                            Name = "删除字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "删除字典",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961909944320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961906503680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_delete_selected",
+                            Name = "删除选中字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "删除选中字典",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961909370880480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_detail",
+                            Name = "查看字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "查看字典",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961910128640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908142080480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_download_seed_data",
+                            Name = "生成字典种子数据",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "生成字典种子数据",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908981760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_edit",
+                            Name = "编辑字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "编辑字典",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961910292480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961906954240480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_export",
+                            Name = "导出字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "导出字典",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908613120480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_lock",
+                            Name = "锁定字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964577628160480L,
+                            Hide = false,
+                            Icon = "tags",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_manager",
+                            Name = "字典管理",
+                            Order = 90,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306964582297600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961905971200480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_refresh",
+                            Name = "刷新字典列表",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "刷新字典列表",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964580823040480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type",
+                            Name = "字典类型",
+                            Order = 10,
+                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            Path = "/system_manager/code_type",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306966617313280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964897280000480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_add",
+                            Name = "添加字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964899082240480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_codes_manager",
+                            Name = "管理字典类型下字典",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Remark = "功能与 字典管理->字典 相同",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306964905226240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964899471360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_delete",
+                            Name = "删除字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896645120480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_delete_selected",
+                            Name = "删除选中字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964898672640480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_detail",
+                            Name = "查看字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964897853440480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_download_seed_data",
+                            Name = "生成字典类型种子数据",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964898344960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_edit",
+                            Name = "编辑字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896993280480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_export",
+                            Name = "导出字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896153600480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_refresh",
+                            Name = "刷新字典类型列表",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994982113280480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_refresh_code_util_cache",
+                            Name = "刷新字典工具缓存",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "api",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function",
+                            Name = "接口管理",
+                            Order = 40,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/function",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_delete",
+                            Name = "删除接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_delete_selected",
+                            Name = "删除选中接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_detail",
+                            Name = "查看接口详情",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "查看接口详情",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_download_seed_data",
+                            Name = "查看接口种子数据",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "查看接口种子数据",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_edit",
+                            Name = "编辑接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_enable_audit",
+                            Name = "锁定接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_import",
+                            Name = "导入接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_refresh",
+                            Name = "刷新接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552948224000480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_function_export",
+                            Name = "导出接口",
+                            Order = 0,
+                            ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            Remark = "导出接口",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "home",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "admin_home",
+                            Name = "首页",
+                            Order = 10,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Path = "/",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "menu",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource",
+                            Name = "资源管理",
+                            Order = 30,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/resource",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_add",
+                            Name = "添加资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "添加资源",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_add_children",
+                            Name = "添加子资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_delete",
+                            Name = "删除资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "删除资源",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_delete_selected",
+                            Name = "删除选中",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "删除选中",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_detail",
+                            Name = "查看资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "查看资源",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_download_seed_data",
+                            Name = "导出种子数据",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_edit",
+                            Name = "编辑资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_function_add_page_show",
+                            Name = "显示可选接口",
+                            Order = 0,
+                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            Path = "",
+                            Remark = "显示可选接口",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_function_binding",
+                            Name = "绑定资源接口关系",
+                            Order = 0,
+                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_function_delete_selected",
+                            Name = "删除选中资源接口关系",
+                            Order = 0,
+                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306547599319040480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_function_download_seed_data",
+                            Name = "获取种子数据",
+                            Order = 0,
+                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_lock",
+                            Name = "锁定资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_refresh",
+                            Name = "刷新资源",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_show_function",
+                            Name = "关联资源接口",
+                            Order = 0,
+                            ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_resource_show_function_1",
+                            Name = "显示已关联接口",
+                            Order = 0,
+                            ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            Path = "",
+                            Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306546809856000480L,
+                            Hide = false,
+                            Icon = "setting",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager",
+                            Name = "系统管理",
+                            Order = 20,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Path = "",
+                            Remark = "系统管理",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307168600104960480L,
+                            Hide = false,
+                            Icon = "tool",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools",
+                            Name = "开发工具",
+                            Order = 200,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307170480128000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7440535c-8568-4d1a-be5c-b7a93cb9d282"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307168601088000480L,
+                            Hide = false,
+                            Icon = "bg-colors",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_color",
+                            Name = "颜色",
+                            Order = 10,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/colors",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307170480332800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307171637862400480L,
+                            Hide = false,
+                            Icon = "iconfont icon-cron",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_cron",
+                            Name = "Cron",
+                            Order = 20,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/cron",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307288700026880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cc41cdf3-8595-47b8-8c59-a171bf9b061a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307288485171200480L,
+                            Hide = false,
+                            Icon = "iconfont icon-guid",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_guid",
+                            Name = "Guid",
+                            Order = 30,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/guid",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307288708976640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5e667965-2515-4410-a40b-370546f81cc5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307288733798400480L,
+                            Hide = false,
+                            Icon = "field-time",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_timestamp",
+                            Name = "时间戳",
+                            Order = 40,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/timestamp",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307288764866560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060617400320480L,
+                            Hide = false,
+                            Icon = "user",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center",
+                            Name = "个人中心",
+                            Order = 100,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060617809920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060619407360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings",
+                            Name = "个人设置",
+                            Order = 0,
+                            ParentId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            Path = "/account/settings",
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060658892800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202272829440480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_base",
+                            Name = "基本信息",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202273812480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_binding",
+                            Name = "账号绑定",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202273525760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_security",
+                            Name = "安全设置",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "cloud-server",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client",
+                            Name = "客户端管理",
+                            Order = 45,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/client",
+                            Remark = "客户端管理",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_add",
+                            Name = "添加客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "添加客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_delete",
+                            Name = "删除客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "删除客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_delete_selected",
+                            Name = "删除选中客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "删除选中客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_detail",
+                            Name = "查看客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "查看客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_edit",
+                            Name = "编辑客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "编辑客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_function_add_page_show",
+                            Name = "显示可选接口",
+                            Order = 0,
+                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            Path = "",
+                            Remark = "显示可选接口",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_function_binding",
+                            Name = "绑定客户端接口关系",
+                            Order = 0,
+                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            Path = "",
+                            Remark = "绑定资源接口关系",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_function_delete_selected",
+                            Name = "删除选中客户端接口关系",
+                            Order = 0,
+                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            Path = "",
+                            Remark = "删除选中客户端接口关系",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_refresh",
+                            Name = "刷新客户端",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "刷新客户端",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_show_function",
+                            Name = "关联客户端接口关系",
+                            Order = 0,
+                            ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            Path = "",
+                            Remark = "关联客户端接口关系",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_client_show_function_1",
+                            Name = "显示已关联接口",
+                            Order = 0,
+                            ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            Path = "",
+                            Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "team",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept",
+                            Name = "部门管理",
+                            Order = 3,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/dept",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_add",
+                            Name = "添加部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_add_children",
+                            Name = "添加子级部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_delete",
+                            Name = "删除部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_delete_selected",
+                            Name = "删除选中部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_detail",
+                            Name = "查看部门详情",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "查看部门详情",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_edit",
+                            Name = "编辑部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_dept_refresh",
+                            Name = "刷新部门",
+                            Order = 0,
+                            ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_login",
+                            Name = "登录",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Path = "",
+                            Remark = "登录系统",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "crown",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position",
+                            Name = "岗位管理",
+                            Order = 5,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/position",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_add",
+                            Name = "添加岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_delete",
+                            Name = "删除岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_delete_selected",
+                            Name = "删除选中岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_detail",
+                            Name = "查看岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "查看岗位",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_edit",
+                            Name = "编辑岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_lock",
+                            Name = "锁定岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "锁定岗位",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_position_refresh",
+                            Name = "刷新岗位",
+                            Order = 0,
+                            ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "user-switch",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role",
+                            Name = "角色管理",
+                            Order = 20,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/role",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_add",
+                            Name = "添加角色",
+                            Order = 2,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_delete",
+                            Name = "删除角色",
+                            Order = 1,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_delete_selected",
+                            Name = "删除选中角色",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_detail",
+                            Name = "查看角色详情",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "查看角色详情",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_edit",
+                            Name = "编辑角色",
+                            Order = 4,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_lock",
+                            Name = "锁定角色",
+                            Order = 7,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_refresh",
+                            Name = "刷新角色",
+                            Order = 3,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_resource_download_seed_data",
+                            Name = "获取种子数据",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_resource_select",
+                            Name = "查看角色资源",
+                            Order = 0,
+                            ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            Path = "",
+                            Remark = "查看角色资源",
+                            SupportMultiTenant = true,
+                            Type = 3000
+                        },
+                        new
+                        {
+                            Id = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_set_resource",
+                            Name = "角色分配资源",
+                            Order = 5,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_set_resource_save",
+                            Name = "保存角色资源",
+                            Order = 0,
+                            ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            Path = "",
+                            Remark = "保存角色资源",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030707814400480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_set_is_super_administrator",
+                            Name = "设置角色为超级管理员",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Remark = "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。",
+                            SupportMultiTenant = false,
+                            Type = 3000
+                        },
+                        new
+                        {
+                            Id = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307020067348480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_tenant_administrator",
+                            Name = "后台租户管理员",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Remark = "控制全局租户信息的显示，此资源不要分配给租户",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307021551575040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019908341760480L,
+                            Hide = false,
+                            Icon = "deployment-unit",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant",
+                            Name = "租户管理",
+                            Order = 0,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/tenant",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019913543680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_add",
+                            Name = "添加租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019930869760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete",
+                            Name = "删除租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019911249920480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete_selected",
+                            Name = "删除选中租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019922186240480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_detail",
+                            Name = "查看租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019929804800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019920977920480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_edit",
+                            Name = "编辑租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019916656640480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_lock",
+                            Name = "锁定租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019914690560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_refresh",
+                            Name = "刷新租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019926507520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030672834560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource",
+                            Name = "绑定资源",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030677667840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_save",
+                            Name = "绑定资源-保存",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030676643840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_select",
+                            Name = "查看已有资源",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 3000,
+                            UpdateBy = "5",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307030680412160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306546809856000480L,
+                            Hide = false,
+                            Icon = "apartment",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center",
+                            Name = "用户中心",
+                            Order = 15,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Path = "",
+                            Remark = "用户中心",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "user",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user",
+                            Name = "用户管理",
+                            Order = 10,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/user",
+                            Remark = "用户管理",
+                            SupportMultiTenant = true,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_add",
+                            Name = "添加用户",
+                            Order = 2,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_delete",
+                            Name = "删除用户",
+                            Order = 1,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_delete_selected",
+                            Name = "删除选中用户",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "删除选中",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_detail",
+                            Name = "查看用户",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "查看用户",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_edit",
+                            Name = "编辑用户",
+                            Order = 4,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552952463360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_export",
+                            Name = "导出用户",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Remark = "导出用户",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_list_edit_avatar",
+                            Name = "编辑用户头像-列表中",
+                            Order = 8,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "编辑用户头像-列表中",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_lock",
+                            Name = "锁定用户",
+                            Order = 7,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_refresh",
+                            Name = "刷新用户",
+                            Order = 3,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateIdentityType = 0,
+                            CreatedTime = 1306051389542400480L,
+                            Hide = false,
+                            Icon = "",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_role_edit",
+                            Name = "用户分配角色",
+                            Order = 5,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Path = "",
+                            Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307020016025600480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_role_edit_save",
+                            Name = "保存用户角色",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            SupportMultiTenant = true,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307020019138560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "4",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306984533504000480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "global_wo_chat_btn",
+                            Name = "WoChat聊天按钮",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Remark = "WoChat聊天按钮显资源",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        });
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Code", b =>
                 {
                     b.HasOne("Gardener.Base.Entity.CodeType", "CodeType")
@@ -18517,15 +18680,6 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("AuditEntity");
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.HasOne("Gardener.Base.Entity.Resource", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.ResourceFunction", b =>
@@ -18573,6 +18727,20 @@ namespace Gardener.Api.Core.Migrations
                         .HasForeignKey("CodeGenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Dtos.SysJobTriggerDto", b =>
+                {
+                    b.HasOne("Gardener.EasyJob.Impl.Domains.SysJobDetail", null)
+                        .WithMany("JobTriggers")
+                        .HasForeignKey("SysJobDetailId");
+                });
+
+            modelBuilder.Entity("Gardener.SystemManager.Dtos.ResourceDto", b =>
+                {
+                    b.HasOne("Gardener.UserCenter.Impl.Domains.Role", null)
+                        .WithMany("Resources")
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
@@ -18667,6 +18835,15 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Resource", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.CodeType", b =>
                 {
                     b.Navigation("Codes");
@@ -18687,15 +18864,6 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("ResourceFunctions");
                 });
 
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("ResourceFunctions");
-
-                    b.Navigation("TenantResources");
-                });
-
             modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
                 {
                     b.Navigation("TenantResources");
@@ -18704,6 +18872,11 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
                 {
                     b.Navigation("CodeGenConfigs");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobDetail", b =>
+                {
+                    b.Navigation("JobTriggers");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
@@ -18725,6 +18898,8 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Role", b =>
                 {
+                    b.Navigation("Resources");
+
                     b.Navigation("RoleResources");
 
                     b.Navigation("UserRoles");
@@ -18735,6 +18910,15 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("UserExtension");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("ResourceFunctions");
+
+                    b.Navigation("TenantResources");
                 });
 #pragma warning restore 612, 618
         }

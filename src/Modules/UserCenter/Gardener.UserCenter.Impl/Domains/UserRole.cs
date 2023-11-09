@@ -6,42 +6,31 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
     /// 用户和角色关系表
     /// </summary>
-    [Description("用户角色信息")]
-    public class UserRole : GardenerTenantEntityBaseNoKey<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
+    public class UserRole : UserRoleDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
-        /// <summary>
-        /// 用户Id
-        /// </summary>
-        [DisplayName("用户编号")]
-        public int UserId { get; set; }
+        
         /// <summary>
         /// 用户信息
         /// </summary>
-        [DisplayName("用户")]
-        public User? User { get; set; }
-        /// <summary>
-        /// 角色Id
-        /// </summary>
-        [DisplayName("角色编号")]
-        public int RoleId { get; set; }
+        public new User? User { get; set; }
+  
         /// <summary>
         /// 角色信息
         /// </summary>
-        [DisplayName("角色")]
-        public Role? Role { get; set; }
+        public new Role? Role { get; set; }
+
         /// <summary>
         /// 配置
         /// </summary>

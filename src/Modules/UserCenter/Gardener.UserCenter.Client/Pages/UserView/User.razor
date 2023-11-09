@@ -64,7 +64,7 @@
              @bind-SelectedRows="_selectedRows"
                     Loading="@_tableLoading.Value"
                     Context="model"
-                    Size=@TableSize.Small>
+                    Size="@ClientConstant.DefaultTableSize">
                  <TitleTemplate>
                      <ResourceAuthorize ResourceKey="user_center_user_refresh">
                          <TableSearch TDto="UserDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />

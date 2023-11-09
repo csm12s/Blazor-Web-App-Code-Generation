@@ -42,7 +42,7 @@ namespace Gardener.Client.Base.Constants
         /// <summary>
         /// 每页数据量大小
         /// </summary>
-        public readonly static int pageSize = 15;
+        public readonly static int PageSize = 15;
 
         /// <summary>
         /// 通知消息使用MessageBox最大长度超出时，使用通知框
@@ -53,6 +53,14 @@ namespace Gardener.Client.Base.Constants
         /// 通知消息弹出时长
         /// </summary>
         public readonly static int ClientNotifierMessageDuration = 3;
+        /// <summary>
+        /// 表格列表删除使用真删除
+        /// </summary>
+        /// <remarks>
+        /// <para>true 调用物理删除接口</para>
+        /// <para>false 调用逻辑删除接口</para>
+        /// </remarks>
+        public readonly static bool TableListDeleteUseTrueDelete=true;
 
     }
 }

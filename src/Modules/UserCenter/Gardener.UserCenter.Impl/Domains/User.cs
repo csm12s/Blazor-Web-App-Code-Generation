@@ -6,14 +6,14 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
-using Gardener.Base;
 using Gardener.Base.Entity;
-using Gardener.Enums;
+using Gardener.Base.Resources;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
@@ -21,110 +21,40 @@ namespace Gardener.UserCenter.Impl.Domains
     /// <summary>
     /// 用户表
     /// </summary>
-    [Description("用户信息")]
-    public class User : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
+    public class User : UserDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
-        /// <summary>
-        /// 用户表
-        /// </summary>
-        public User()
-        {
-            Roles = new List<Role>();
-            UserRoles = new List<UserRole>();
-        }
-
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        [Required, StringLength(32)]
-        [DisplayName("用户名")]
-        public string UserName { get; set; } = null!;
-        /// <summary>
-        /// 昵称
-        /// </summary>
-        [StringLength(50)]
-        [DisplayName("昵称")]
-        public string? NickName { get; set; }
-        /// <summary>
-        /// 密码加密后的
-        /// </summary>
-        [Required, StringLength(64)]
-        [DisplayName("密码")]
-        public string Password { get; set; } = null!;
         /// <summary>
         /// 密码加密Key
         /// </summary>
-        [Required, StringLength(64)]
-        [DisplayName("密码加密KEY")]
+        [Display(Name = nameof(UserCenterResource.PasswordEncryptKey), ResourceType = typeof(UserCenterResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(64, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
         public string PasswordEncryptKey { get; set; } = null!;
-        /// <summary>
-        /// 头像
-        /// </summary>
-        [MaxLength(1000)]
-        [DisplayName("头像")]
-        public string? Avatar { get; set; }
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        [MaxLength(50)]
-        [DisplayName("邮箱")]
-        public string? Email { get; set; }
-        /// <summary>
-        /// 邮箱是否确认
-        /// </summary>
-        [DisplayName("邮箱是否确认")]
-        public bool EmailConfirmed { get; set; }
-        /// <summary>
-        /// 手机
-        /// </summary>
-        [MaxLength(20)]
-        [DisplayName("手机")]
-        public string? PhoneNumber { get; set; }
-        /// <summary>
-        /// 手机是否确认
-        /// </summary>
-        [DisplayName("手机是否确认")]
-        public bool PhoneNumberConfirmed { get; set; }
-        /// <summary>
-        /// 性别
-        /// </summary>
-        [Required, DefaultValue(Gender.Male)]
-        [DisplayName("性别")]
-        public Gender Gender { get; set; }
+       
         /// <summary>
         /// 多对多
         /// </summary>
-        [DisplayName("角色")]
-        public ICollection<Role> Roles { get; set; }
+        public new ICollection<Role> Roles { get; set; } = new List<Role>();
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<UserRole> UserRoles { get; set; }
+        public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtension? UserExtension { get; set; }
+        public new UserExtension? UserExtension { get; set; }
 
-        /// <summary>
-        /// 部门编号
-        /// </summary>
-        [DisplayName("部门编号")]
-        public int? DeptId { get; set; }
         /// <summary>
         /// 部门
         /// </summary>
-        public Dept? Dept { get; set; }
-        /// <summary>
-        /// 岗位编号
-        /// </summary>
-        [DisplayName("岗位编号")]
-        public int? PositionId { get; set; }
+        public new Dept? Dept { get; set; }
+     
         /// <summary>
         /// 岗位
         /// </summary>
-        public Position? Position;
+        public new Position? Position;
 
         /// <summary>
         /// 配置多对多关系
@@ -147,11 +77,13 @@ namespace Gardener.UserCenter.Impl.Domains
                 .HasOne(x => x.Dept)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.DeptId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientSetNull);
             entityBuilder
                 .HasOne(x => x.Position)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.PositionId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entityBuilder

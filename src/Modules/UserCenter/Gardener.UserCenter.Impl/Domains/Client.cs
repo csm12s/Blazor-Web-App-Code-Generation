@@ -5,68 +5,24 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
+using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
     /// 客户端信息
     /// </summary>
-    [Description("客户端信息")]
-    public class Client : GardenerEntityBase<Guid>, IEntitySeedData<Client>, IEntityTypeBuilder<Client>
+    public class Client : ClientDto, IEntityBase, IEntitySeedData<Client>, IEntityTypeBuilder<Client>
     {
-        /// <summary>
-        /// 名称
-        /// </summary>
-        [DisplayName("名称")]
-        [Required, MaxLength(30)]
-        public string Name { get; set; } = null!;
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        [MaxLength(500), Required]
-        [DisplayName("备注")]
-        public string Remark { get; set; } = null!;
-
-        /// <summary>
-        /// 联系人
-        /// </summary>
-        [DisplayName("联系人")]
-        [MaxLength(20)]
-        public string? Contacts { get; set; }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        [DisplayName("电话")]
-        [MaxLength(20)]
-        public string? Tel { get; set; }
-
-        /// <summary>
-        /// 私钥
-        /// </summary>
-        [Required, StringLength(64)]
-        [DisplayName("私钥")]
-        public string SecretKey { get; set; } = null!;
-
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        [MaxLength(50)]
-        [DisplayName("邮箱")]
-        public string? Email { get; set; }
-
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<ClientFunction> ClientFunctions { get; set; }=new List<ClientFunction>();
+        public List<ClientFunction> ClientFunctions { get; set; } = new List<ClientFunction>();
 
         /// <summary>
         /// 配置信息

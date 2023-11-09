@@ -10,6 +10,7 @@ using Gardener.Authentication.Enums;
 using Gardener.Base.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.Base
 {
@@ -30,6 +31,8 @@ namespace Gardener.Base
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TKey Id { get; set; } = default!;
     }
 
@@ -107,7 +110,6 @@ namespace Gardener.Base
         }
     }
 
-
     /// <summary>
     /// dto基础类
     /// </summary>
@@ -119,24 +121,12 @@ namespace Gardener.Base
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TKey Id { get; set; } = default!;
 
     }
 
-
-    /// <summary>
-    /// 多租户Dto基类
-    /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDtoEmpty<TKey> : TenantBaseDtoEmptyNoKey, IModelId<TKey>, IModelTenant
-    {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
-        [Order(1000)]
-        public TKey Id { get; set; } = default!;
-    }
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
@@ -152,6 +142,7 @@ namespace Gardener.Base
         /// 租户
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Tenant), ResourceType = typeof(SharedLocalResource))]
+        [NotMapped]
         public virtual ITenant? Tenant { get; set; }
     }
 
@@ -159,15 +150,18 @@ namespace Gardener.Base
     /// 多租户Dto基类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDto<TKey> : TenantBaseDtoNoKey, IModelId<TKey>, IModelTenant
+    public abstract class TenantBaseDtoEmpty<TKey> : TenantBaseDtoEmptyNoKey, IModelId<TKey>
     {
         /// <summary>
         /// 编号
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
         [Order(1000)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TKey Id { get; set; } = default!;
     }
+
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
@@ -183,6 +177,23 @@ namespace Gardener.Base
         /// 租户
         /// </summary>
         [Display(Name = nameof(SharedLocalResource.Tenant), ResourceType = typeof(SharedLocalResource))]
+        [NotMapped]
         public virtual ITenant? Tenant { get; set; }
+    }
+
+    /// <summary>
+    /// 多租户Dto基类
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    public abstract class TenantBaseDto<TKey> : TenantBaseDtoNoKey, IModelId<TKey>
+    {
+        /// <summary>
+        /// 编号
+        /// </summary>
+        [Display(Name = nameof(SharedLocalResource.Id), ResourceType = typeof(SharedLocalResource))]
+        [Order(1000)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public TKey Id { get; set; } = default!;
     }
 }

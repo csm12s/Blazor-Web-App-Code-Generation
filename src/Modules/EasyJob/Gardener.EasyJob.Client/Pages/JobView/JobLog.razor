@@ -54,8 +54,8 @@
                  <TagYesNo Yes="model.Succeeded"></TagYesNo>
              </Column>
              <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[nameof(EasyJobLocalResource.ElapsedTime)]" Width="150" />
-             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[nameof(SharedLocalResource.LastRunTime)]" Width="200" />
-             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[nameof(SharedLocalResource.NextRunTime)]" Width="200" />
+             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Title="@Localizer[nameof(SharedLocalResource.LastRunTime)]" Width="200" />
+             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Title="@Localizer[nameof(SharedLocalResource.NextRunTime)]" Width="200" />
              <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" />
              <ActionColumn Width="200" Fixed="right">
                  <Space>

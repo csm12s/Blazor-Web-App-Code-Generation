@@ -54,7 +54,7 @@ namespace Gardener.Authentication.Jobs
             {
                 foreach (LoginToken token in tokens)
                 {
-                    await loginTokenRepository.DeleteAsync(token);
+                    await loginTokenRepository.DeleteNowAsync(token);
                 }
             }
             context.Result = $"执行完成，移除{tokens.Count()}条记录。";

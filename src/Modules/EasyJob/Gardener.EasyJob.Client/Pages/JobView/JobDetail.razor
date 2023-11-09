@@ -11,7 +11,8 @@
     @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            Context="model"
-           ScrollX="100%">
+           ScrollX="100%"
+          Size="@TableSize.Small">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_search">
                 <TableSearch TDto="SysJobDetailDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />

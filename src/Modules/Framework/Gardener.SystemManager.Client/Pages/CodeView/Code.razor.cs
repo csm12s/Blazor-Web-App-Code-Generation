@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
@@ -26,7 +27,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         [Inject]
         protected ICodeTypeService CodeTypeService { get; set; } = null!;
 
-        private TableSize tableSize = TableSize.Default;
+        private TableSize tableSize = ClientConstant.DefaultTableSize;
         protected override void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
         {
             //传入编号，以小table展示
@@ -55,7 +56,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         /// <returns></returns>
         protected override Task<bool> OnClickAddRunBefore(CodeEditParams input)
         {
-            input.CodeTypeId = this.Options.Data;
+            input.CodeTypeId = this.Options?.Data;
 
             return base.OnClickAddRunBefore(input);
         }

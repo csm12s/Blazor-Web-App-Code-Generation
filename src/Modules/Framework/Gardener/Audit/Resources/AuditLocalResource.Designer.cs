@@ -61,6 +61,15 @@ namespace Gardener.Audit.Resources {
         }
         
         /// <summary>
+        ///   查找类似 AuditEntities 的本地化字符串。
+        /// </summary>
+        public static string AuditEntities {
+            get {
+                return ResourceManager.GetString("AuditEntities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 AuditEntity 的本地化字符串。
         /// </summary>
         public static string AuditEntity {
@@ -75,15 +84,6 @@ namespace Gardener.Audit.Resources {
         public static string AuditEntityId {
             get {
                 return ResourceManager.GetString("AuditEntityId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 AuditEntitys 的本地化字符串。
-        /// </summary>
-        public static string AuditEntitys {
-            get {
-                return ResourceManager.GetString("AuditEntitys", resourceCulture);
             }
         }
         

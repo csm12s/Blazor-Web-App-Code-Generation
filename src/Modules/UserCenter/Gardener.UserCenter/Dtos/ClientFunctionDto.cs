@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.UserCenter.Resources;
 using System;
@@ -15,7 +16,7 @@ namespace Gardener.UserCenter.Dtos
     /// 客户端功能信息
     /// </summary>
     [Display(Name = nameof(UserCenterResource.ClientFunction), ResourceType = typeof(UserCenterResource))]
-    public class ClientFunctionDto
+    public class ClientFunctionDto : BaseDto
     {
         /// <summary>
         /// 客户端编号
@@ -31,10 +32,5 @@ namespace Gardener.UserCenter.Dtos
         [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public Guid FunctionId { get; set; }
 
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [Display(Name = nameof(UserCenterResource.CreatedTime), ResourceType = typeof(UserCenterResource))]
-        public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
     }
 }

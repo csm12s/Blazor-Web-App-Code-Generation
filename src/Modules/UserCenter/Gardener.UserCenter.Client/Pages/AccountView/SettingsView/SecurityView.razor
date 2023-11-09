@@ -9,13 +9,13 @@
           Loading="_dialogLoading.Value"
           ValidateMode="@FormValidateMode.Default"
           ValidateOnChange="true">
-        <FormItem Label="@Localizer[nameof(UserCenterResource.OldPassword)]" >
+        <FormItem>
             <Input @bind-Value="@context.OldPassword" Type="password" />
         </FormItem>
-        <FormItem Label="@Localizer[nameof(UserCenterResource.NewPassword)]" >
+        <FormItem>
             <Input @bind-Value="@context.NewPassword" Type="password" />
         </FormItem>
-        <FormItem Label="@Localizer[nameof(UserCenterResource.ConfirmNewPassword)]" >
+        <FormItem>
             <Input @bind-Value="@context.ConfirmNewPassword" Type="password" />
         </FormItem>
         <FormItem WrapperColOffset="8" WrapperColSpan="16">

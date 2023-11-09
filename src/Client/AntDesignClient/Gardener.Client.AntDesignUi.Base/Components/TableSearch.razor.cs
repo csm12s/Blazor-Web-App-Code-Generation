@@ -399,7 +399,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     if (IsDateTimeType(field.Type))
                     {
                         //日期
-                        if (field.Values != null && field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First()))
+                        if (field.Values != null && field.Values.Count() >= 1 && !string.IsNullOrEmpty(field.Values.First()))
                         {
                             FilterRule ruleBegin = new FilterRule();
                             ruleBegin.Field = field.Name;
@@ -408,7 +408,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                             filterGroup.AddRule(ruleBegin);
                         }
 
-                        if (field.Values != null && field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last()))
+                        if (field.Values != null && field.Values.Count() >= 2 && !string.IsNullOrEmpty(field.Values.Last()))
                         {
                             FilterRule ruleEnd = new FilterRule();
                             ruleEnd.Field = field.Name;
@@ -541,7 +541,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="eventArgs"></param>
         /// <param name="values"></param>
-        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs)
+        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs<DateTime?[]> eventArgs)
         {
             if (eventArgs.Dates != null && eventArgs.Dates.Length > 0)
             {

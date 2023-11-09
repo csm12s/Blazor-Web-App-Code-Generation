@@ -84,6 +84,9 @@ namespace Gardener.Audit.Core
                 parameters = await ReadBodyAsync(httpContext.Request);
             }
 
+            Guid? resourceId = api != null ? api.Id : null;
+            string? resourceName = (api != null ? $"{api.Service}:{api.Summary}-{api.Description}" : null);
+
             AuditOperation auditOperation = new AuditOperation()
             {
                 CreatedTime = DateTimeOffset.Now,
@@ -96,10 +99,10 @@ namespace Gardener.Audit.Core
                 OperaterId = identity != null ? identity.Id.ToString() : null,
                 OperaterName = identity != null ? (identity.NickName ?? identity.Name) : null,
                 OperaterType = identity != null ? identity.IdentityType : IdentityType.Unknown,
-                ResourceId = api != null ? api.Id : Guid.Empty,
-                ResourceName = api != null ? $"{api.Service}:{api.Summary}-{api.Description}" : null,
-                CreateBy=identity?.Id,
-                CreateIdentityType=identity?.IdentityType,
+                ResourceId = resourceId,
+                ResourceName = resourceName,
+                CreateBy = identity?.Id,
+                CreateIdentityType = identity?.IdentityType,
                 TenantId = identity?.TenantId,
             };
             await auditService.SaveAuditOperation(auditOperation);

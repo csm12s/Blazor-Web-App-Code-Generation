@@ -58,7 +58,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             };
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
-            Task<string> data =  BaseService.GenerateSeedData(new PageRequest()
+            Task<string> data = BaseService.GenerateSeedData(new PageRequest()
             {
                 PageIndex = 1,
                 PageSize = int.MaxValue,
@@ -82,9 +82,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             });
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
+            await OpenOperationDialogAsync<ShowCode, ShowCodeOptions, bool>(
                         Localizer[nameof(SharedLocalResource.SeedData)],
-                        data,
+                       new ShowCodeOptions(data),
                         width: 1300);
         }
 

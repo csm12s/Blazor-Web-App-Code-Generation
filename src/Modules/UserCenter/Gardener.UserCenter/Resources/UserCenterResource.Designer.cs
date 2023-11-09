@@ -135,6 +135,15 @@ namespace Gardener.UserCenter.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string BindingApi {
+            get {
+                return ResourceManager.GetString("BindingApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
@@ -417,6 +426,15 @@ namespace Gardener.UserCenter.Resources {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string PasswordEncryptKey {
+            get {
+                return ResourceManager.GetString("PasswordEncryptKey", resourceCulture);
             }
         }
         

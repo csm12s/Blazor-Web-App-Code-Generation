@@ -1,6 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "Default": "Data Source=./gardener.db"
+    "Default": "Data Source=./gardener.db;Foreign Keys=False"
     //MySql示例
     //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
     //SqlServer示例

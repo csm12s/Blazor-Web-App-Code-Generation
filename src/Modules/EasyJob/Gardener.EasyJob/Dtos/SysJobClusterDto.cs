@@ -8,7 +8,6 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Resources;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.EasyJob.Dtos

@@ -9,6 +9,7 @@ using Gardener.Email.Dtos;
 using Gardener.Email.Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gardener.Email.Client.Pages
 {
@@ -18,10 +19,12 @@ namespace Gardener.Email.Client.Pages
         {
             get
             {
-                return _editModel.Tags?.Split(",")??new string[0];
+                return _editModel.Tags?.Split(",") ?? new string[0];
             }
             set
             {
+
+                value= value.Where(t => !string.IsNullOrEmpty(t)).ToList();
                 _editModel.Tags = string.Join(",", value);
 
             }

@@ -4,8 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -17,7 +19,7 @@ namespace Gardener.Base
         /// <summary>
         /// 租户编号
         /// </summary>
-        [DisplayName("TenantId")]
+        [Display(Name = nameof(SharedLocalResource.TenantId), ResourceType = typeof(SharedLocalResource))]
         public Guid? TenantId { get; set; }
         /// <summary>
         /// 是否是租户

@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.UserCenter.Resources;
 using System.ComponentModel.DataAnnotations;
@@ -15,11 +16,12 @@ namespace Gardener.UserCenter.Dtos
     /// </summary>
     [Display(Name = nameof(UserCenterResource.UserExtension), ResourceType = typeof(UserCenterResource))]
 
-    public class UserExtensionDto
+    public class UserExtensionDto: TenantBaseDtoNoKey
     {
         /// <summary>
         /// 用户ID
         /// </summary>
+        [Key]
         [Display(Name = nameof(UserCenterResource.UserId), ResourceType = typeof(UserCenterResource))]
         public int UserId { get; set; }
         /// <summary>

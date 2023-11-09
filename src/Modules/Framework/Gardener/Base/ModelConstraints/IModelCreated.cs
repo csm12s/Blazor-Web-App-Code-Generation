@@ -5,8 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Enums;
+using Gardener.Base.Resources;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Base
 {
@@ -18,17 +20,17 @@ namespace Gardener.Base
         /// <summary>
         /// 创建日期
         /// </summary>
-        [DisplayName("CreatedTime")]
+        [Display(Name = nameof(SharedLocalResource.CreatedTime), ResourceType = typeof(SharedLocalResource))]
         public DateTimeOffset CreatedTime { get; set; }
         /// <summary>
         /// 创建者编号
         /// </summary>
-        [DisplayName("CreateBy")]
+        [Display(Name = nameof(SharedLocalResource.CreateBy), ResourceType = typeof(SharedLocalResource))]
         public string? CreateBy { get; set; }
         /// <summary>
         /// 创建者身份类型
         /// </summary>
-        [DisplayName("CreateIdentityType")]
+        [Display(Name = nameof(SharedLocalResource.CreateIdentityType), ResourceType = typeof(SharedLocalResource))]
         public IdentityType? CreateIdentityType { get; set; }
     }
 }

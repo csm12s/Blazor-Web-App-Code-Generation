@@ -26,13 +26,12 @@ namespace Gardener.Audit.Dtos
         /// </summary>
         [Display(Name = nameof(AuditLocalResource.ResourceName), ResourceType = typeof(AuditLocalResource))]
         [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        public string ResourceName { get; set; } = null!;
+        public string? ResourceName { get; set; } = null!;
         /// <summary>
         /// 资源编号
         /// </summary>
         [Display(Name = nameof(AuditLocalResource.ResourceId), ResourceType = typeof(AuditLocalResource))]
-        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
-        public Guid ResourceId { get; set; }
+        public Guid? ResourceId { get; set; }
         /// <summary>
         /// 操作者编号
         /// </summary>
@@ -44,7 +43,7 @@ namespace Gardener.Audit.Dtos
         /// </summary>
         [Display(Name = nameof(AuditLocalResource.OperaterName), ResourceType = typeof(AuditLocalResource))]
         [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
-        public string OperaterName { get; set; } = null!;
+        public string? OperaterName { get; set; }
         /// <summary>
         /// 操作者类型
         /// </summary>
@@ -83,7 +82,7 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 关联数据审计
         /// </summary>
-        [Display(Name = nameof(AuditLocalResource.AuditEntitys), ResourceType = typeof(AuditLocalResource))]
-        public List<AuditEntityDto>? AuditEntitys { get; set; }
+        [Display(Name = nameof(AuditLocalResource.AuditEntities), ResourceType = typeof(AuditLocalResource))]
+        public ICollection<AuditEntityDto>? AuditEntities { get; set; }
     }
 }

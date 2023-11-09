@@ -6,9 +6,9 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
+using Gardener.Base.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,33 +17,34 @@ namespace Gardener.Base.Entity
     /// <summary>
     /// 租户资源信息
     /// </summary>
-    [Description("租户资源信息")]
-    public class SystemTenantResource : GardenerEntityBaseNoKey<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<SystemTenantResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<SystemTenantResource>
+    [Display(Name = nameof(SharedLocalResource.SystemTenantResource), ResourceType = typeof(SharedLocalResource))]
+    public class SystemTenantResource : BaseDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<SystemTenantResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<SystemTenantResource>
     {
         /// <summary>
         /// 租户编号
         /// </summary>
-        [Required]
-        [DisplayName("租户编号")]
+        [Display(Name = nameof(SharedLocalResource.TenantId), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
         public Guid TenantId { get; set; }
 
         /// <summary>
         /// 租户
         /// </summary>
-        [DisplayName("Tenant")]
+        [Display(Name = nameof(SharedLocalResource.Tenant), ResourceType = typeof(SharedLocalResource))]
         [NotMapped]
         public SystemTenant Tenant { get; set; } = default!;
 
         /// <summary>
         /// 资源编号
         /// </summary>
-        [Required]
-        [DisplayName("资源编号")]
+        [Display(Name = nameof(SharedLocalResource.ResourceId), ResourceType = typeof(SharedLocalResource))]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+
         public Guid ResourceId { get; set; }
         /// <summary>
         /// 权限
         /// </summary>
-        [DisplayName("资源")]
+        [Display(Name = nameof(SharedLocalResource.Resource), ResourceType = typeof(SharedLocalResource))]
         public Resource Resource { get; set; } = default!;
 
         /// <summary>

@@ -12,6 +12,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components.PageBaseClass;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Common;
+using IdGen;
 using Mapster;
 using System.Reflection;
 
@@ -41,7 +42,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 控制分页每页数量
         /// </summary>
-        protected int _pageSize = ClientConstant.pageSize;
+        protected int _pageSize = ClientConstant.PageSize;
 
         #region override mothed
         /// <summary>
@@ -235,26 +236,28 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
         }
 
-        #region Fake delete
+        #region Delete
 
         /// <summary>
-        /// 点击删除按钮(逻辑删除)
+        /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        protected virtual async Task OnClickDelete(TKey id)
+        /// <param name="trueDelete">物理删除</param>
+        /// <returns></returns>
+        protected virtual async Task OnClickDelete(TKey id, bool trueDelete)
         {
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
             {
-                var result = await BaseService.FakeDelete(id);
+                var result = trueDelete ? await BaseService.Delete(id) : await BaseService.FakeDelete(id);
                 if (result)
                 {
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
                     if (_pageIndex > 1 && _datas?.Count() == 0)
                     {
                         _pageIndex = _pageIndex - 1;
                     }
-                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                     await ReLoadTable();
                 }
                 else
@@ -266,9 +269,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// 点击删除选中按钮(逻辑删除)
+        /// 点击删除选中按钮(物理删除)
         /// </summary>
-        protected virtual async Task OnClickDeletes()
+        /// <param name="trueDelete">物理删除</param>
+        /// <returns></returns>
+        protected virtual async Task OnClickDeletes(bool trueDelete)
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
@@ -279,10 +284,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 _deletesBtnLoading = true;
                 if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    var result = await BaseService.FakeDeletes(_selectedRows.Select(x => GetKey(x)).ToArray());
+
+                    var result = trueDelete ? await BaseService.Deletes(_selectedRows.Select(x => GetKey(x)).ToArray()) : await BaseService.FakeDeletes(_selectedRows.Select(x => GetKey(x)).ToArray());
                     if (result)
                     {
                         MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
+
                         //删除整页，且是最后一页
                         if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
@@ -297,11 +304,31 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
                     }
-                }
 
+                }
                 _deletesBtnLoading = false;
             }
         }
+
+        #region Fake delete
+
+        /// <summary>
+        /// 点击删除按钮
+        /// </summary>
+        /// <param name="id"></param>
+        protected virtual Task OnClickFakeDelete(TKey id)
+        {
+            return OnClickDelete(id, false);
+        }
+
+        /// <summary>
+        /// 点击删除选中按钮
+        /// </summary>
+        protected virtual Task OnClickFakeDeletes()
+        {
+            return OnClickDeletes(false);
+        }
+
         #endregion
 
         #region True Delete
@@ -310,68 +337,35 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        protected virtual async Task OnClickTrueDelete(TKey id)
+        protected virtual Task OnClickTrueDelete(TKey id)
         {
-            if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
-            {
-                var result = await BaseService.Delete(id);
-                if (result)
-                {
-                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
-                    PageRequest pageRequest = GetPageRequest();
-                    //当前页被删完了
-                    if (_pageIndex > 1 && _datas?.Count() == 0)
-                    {
-                        _pageIndex = _pageIndex - 1;
-                    }
-                    await ReLoadTable();
-                }
-                else
-                {
-                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
-                }
-            }
-
+            return OnClickDelete(id, true);
         }
         /// <summary>
         /// 点击删除选中按钮(物理删除)
         /// </summary>
         /// <returns></returns>
-        protected virtual async Task OnClickTrueDeletes()
+        protected virtual Task OnClickTrueDeletes()
         {
-            if (_selectedRows == null || _selectedRows.Count() == 0)
-            {
-                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
-            }
-            else
-            {
-                _deletesBtnLoading = true;
-                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
-                {
+            return OnClickDeletes(true);
+        }
+        #endregion
 
-                    var result = await BaseService.Deletes(_selectedRows.Select(x => GetKey(x)).ToArray());
-                    if (result)
-                    {
-                        MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
+        /// <summary>
+        /// 点击删除按钮
+        /// </summary>
+        /// <param name="id"></param>
+        protected virtual Task OnClickDelete(TKey id)
+        {
+            return OnClickDelete(id, ClientConstant.TableListDeleteUseTrueDelete);
+        }
 
-                        //删除整页，且是最后一页
-                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-                        {
-                            await ReLoadTable(true, true);
-                        }
-                        else
-                        {
-                            await ReLoadTable(false, true);
-                        }
-                    }
-                    else
-                    {
-                        MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
-                    }
-
-                }
-                _deletesBtnLoading = false;
-            }
+        /// <summary>
+        /// 点击删除选中按钮
+        /// </summary>
+        protected virtual Task OnClickDeletes()
+        {
+            return OnClickDeletes(ClientConstant.TableListDeleteUseTrueDelete);
         }
         #endregion
 
@@ -380,7 +374,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<Task<string>, bool>
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<ShowCodeOptions, bool>
         {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
@@ -388,7 +382,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             Task<string> seedData = BaseService.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(Localizer[nameof(SharedLocalResource.SeedData)], seedData, operationDialogSettings: drawerSettings);
+            drawerSettings.ModalMaximizable = true;
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, ShowCodeOptions, bool>(Localizer[nameof(SharedLocalResource.SeedData)], new ShowCodeOptions() { Code = seedData }, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -398,7 +393,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task OnClickShowSeedData()
         {
-            return OnClickShowSeedData<ShowSeedDataCode>();
+            return OnClickShowSeedData<ShowCode>();
         }
 
         /// <summary>

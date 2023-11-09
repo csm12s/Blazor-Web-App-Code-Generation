@@ -31,21 +31,25 @@ namespace Gardener.Authentication.Core
     /// </summary>
     public class JwtBearerService : IJwtService
     {
-        private readonly JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
+        private readonly JwtSecurityTokenHandler tokenHandler;
 
         private readonly JWTOptions jWTOptions;
 
         private readonly IIdentityConverter identityConverter;
+        private readonly ILoginTokenStorageService loginTokenStorageService;
 
         /// <summary>
         /// 初始化声明
         /// </summary>
         /// <param name="jWTOptions"></param>
         /// <param name="identityConverter"></param>
-        public JwtBearerService(IOptions<JWTOptions> jWTOptions, IIdentityConverter identityConverter)
+        /// <param name="loginTokenStorageService"></param>
+        public JwtBearerService(IOptions<JWTOptions> jWTOptions, IIdentityConverter identityConverter, ILoginTokenStorageService loginTokenStorageService)
         {
             this.jWTOptions = jWTOptions.Value;
             this.identityConverter = identityConverter;
+            tokenHandler = new JwtSecurityTokenHandler();
+            this.loginTokenStorageService = loginTokenStorageService;
         }
 
         /// <summary>
@@ -58,30 +62,16 @@ namespace Gardener.Authentication.Core
             // New Token
             var (accessToken, accessTokenExpires) = CreateToken(identity, JwtTokenType.AccessToken);
             var (refreshToken, refreshTokenExpires) = CreateToken(identity, JwtTokenType.RefreshToken);
-            //存储refreshToken
-            //写入刷新token
-            await Db.GetRepository<LoginToken>().InsertAsync(new LoginToken()
-            {
-                TenantId = identity.TenantId,
-                IdentityId = identity.Id,
-                IdentityName = identity.Name,
-                IdentityNickName = identity.NickName,
-                IdentityType = identity.IdentityType,
-                LoginId = identity.LoginId,
-                LoginClientType = identity.LoginClientType,
-                Value = refreshToken,
-                EndTime = refreshTokenExpires,
-                CreatedTime = DateTimeOffset.Now,
-                Ip = App.HttpContext?.GetRemoteIpAddressToIPv4()
-
-            });
-            return new JsonWebToken()
+            JsonWebToken jsonWeb = new JsonWebToken()
             {
                 AccessToken = accessToken,
                 AccessTokenExpires = accessTokenExpires.ToUnixTimeSeconds(),
                 RefreshToken = refreshToken,
                 RefreshTokenExpires = refreshTokenExpires.ToUnixTimeSeconds()
             };
+            //存储refreshToken
+            await loginTokenStorageService.Save(jsonWeb, identity);
+            return jsonWeb;
         }
 
         /// <summary>
@@ -92,45 +82,34 @@ namespace Gardener.Authentication.Core
         public async Task<JsonWebToken> RefreshToken(string oldRefreshToken)
         {
             Identity identity = ReadToken(oldRefreshToken);
-            IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
-
-            LoginToken? loginToken = repository.AsQueryable(false).Where(x =>
-            x.IsDeleted == false
-            && x.IsLocked == false
-            && x.IdentityId.Equals(identity.Id)
-            && x.IdentityType.Equals(identity.IdentityType)
-            && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
-
+            LoginTokenDto? loginToken =await loginTokenStorageService.GetAvailableToken(identity);
             //异常token检测
-            if (loginToken == null || loginToken.Value != oldRefreshToken || loginToken.EndTime <= DateTimeOffset.Now)
+            if (loginToken == null || loginToken.Value != oldRefreshToken)
             {
-                //token删除
-                if (loginToken != null)
-                {
-                    await repository.FakeDeleteNowByKeyAsync(loginToken.Id);
-                }
                 throw Oops.Oh(ExceptionCode.Refreshtoken_No_Exist_Or_Expire);
             }
             var jwtOpt = GetJWTSettingsOptions(identity.IdentityType);
-            //设置非绝对过期，生成新的刷新token
+            //设置非绝对过期，生成新的刷新token并刷新存储
             if (!jwtOpt.IsRefreshAbsoluteExpired)
             {
+                // New RefreshToken Token
                 var (refreshToken, refreshTokenExpires) = CreateToken(identity, JwtTokenType.RefreshToken);
                 //更新刷新token
                 loginToken.Value = refreshToken;
                 loginToken.EndTime = refreshTokenExpires;
                 loginToken.UpdatedTime = DateTimeOffset.Now;
-                await repository.UpdateIncludeAsync(loginToken, new string[] { nameof(LoginToken.Value), nameof(LoginToken.EndTime), nameof(LoginToken.UpdatedTime) });
+                await loginTokenStorageService.Update(loginToken);
             }
-            // New Token
+            // New AccessToken Token
             var (accessToken, accessTokenExpires) = CreateToken(identity, JwtTokenType.AccessToken);
-            return new JsonWebToken()
+            JsonWebToken token= new JsonWebToken()
             {
                 AccessToken = accessToken,
                 AccessTokenExpires = accessTokenExpires.ToUnixTimeSeconds(),
                 RefreshToken = loginToken.Value,
                 RefreshTokenExpires = loginToken.EndTime.ToUnixTimeSeconds()
             };
+            return token;
         }
 
         /// <summary>
@@ -138,13 +117,9 @@ namespace Gardener.Authentication.Core
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
-        public async Task<bool> RemoveRefreshToken(Identity identity)
+        public Task<bool> RemoveRefreshToken(Identity identity)
         {
-            IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
-            var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).ToListAsync();
-            await refreshTokens.ForEachAsync(async x => await repository.FakeDeleteByKeyAsync(x.Id));
-
-            return true;
+            return loginTokenStorageService.LogOut(identity);
         }
         /// <summary>
         /// 创建
@@ -210,8 +185,8 @@ namespace Gardener.Authentication.Core
                 IssuedAt = now.DateTime,
                 Expires = expires.DateTime
             };
-            SecurityToken token = _tokenHandler.CreateToken(descriptor);
-            string accessToken = _tokenHandler.WriteToken(token);
+            SecurityToken token = tokenHandler.CreateToken(descriptor);
+            string accessToken = tokenHandler.WriteToken(token);
             return (accessToken, expires);
         }
 
@@ -223,7 +198,7 @@ namespace Gardener.Authentication.Core
         private Identity ReadToken(string tokenStr)
         {
 
-            JwtSecurityToken jwtSecurityToken = _tokenHandler.ReadJwtToken(tokenStr);
+            JwtSecurityToken jwtSecurityToken = tokenHandler.ReadJwtToken(tokenStr);
             Claim? identityTypeCla = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
             if (identityTypeCla == null)
             {
@@ -239,7 +214,7 @@ namespace Gardener.Authentication.Core
                 ValidAudience = jWTSettingsOptions.ValidAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(jWTSettingsOptions.IssuerSigningKey))
             };
-            ClaimsPrincipal principal = _tokenHandler.ValidateToken(tokenStr, parameters, out _);
+            ClaimsPrincipal principal = tokenHandler.ValidateToken(tokenStr, parameters, out _);
 
             Identity? identity = identityConverter.ClaimsPrincipalToIdentity(principal);
             if (identity == null)

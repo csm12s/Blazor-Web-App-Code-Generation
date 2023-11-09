@@ -21,8 +21,8 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseMainTable<TDto, TKey, TLocalResource> 
-        : BaseTable<TDto, TKey, TLocalResource> 
+    public abstract class BaseMainTable<TDto, TKey, TLocalResource>
+        : BaseTable<TDto, TKey, TLocalResource>
         where TDto : class, new()
     {
         /// <summary>
@@ -36,7 +36,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <summary>
         /// 控制分页每页数量
         /// </summary>
-        protected int _pageSize = ClientConstant.pageSize;
+        protected int _pageSize = ClientConstant.PageSize;
         /// <summary>
         /// 默认搜索值
         /// </summary>
@@ -44,8 +44,8 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <summary>
         /// 预设搜索过滤
         /// </summary>
-        protected List<FilterGroup> _presetSearchFilterGroups = new ();
-        protected List<FilterGroup> _customSearchFilterGroups = new ();
+        protected List<FilterGroup> _presetSearchFilterGroups = new();
+        protected List<FilterGroup> _customSearchFilterGroups = new();
         /// <summary>
         /// 确认提示服务
         /// </summary>
@@ -163,7 +163,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task ReLoadTableAfterDeleteLastPage()
         {
             //删除整页，且是最后一页
-            if (_selectedRows!=null && _selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+            if (_selectedRows != null && _selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
             {
                 await ReLoadTable(true);
             }
@@ -296,7 +296,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<Task<string>, bool>
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<ShowCodeOptions, bool>
         {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
@@ -304,7 +304,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             Task<string> seedData = _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(localizer[nameof(SharedLocalResource.SeedData)], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, ShowCodeOptions, bool>(localizer[nameof(SharedLocalResource.SeedData)], new ShowCodeOptions() { Code = seedData }, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -314,7 +314,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <returns></returns>
         protected virtual async Task OnClickShowSeedData()
         {
-            await OnClickShowSeedData<ShowSeedDataCode>();
+            await OnClickShowSeedData<ShowCode>();
         }
 
         /// <summary>
@@ -436,9 +436,9 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    public abstract class BaseMainTable<TDto, TKey, TOperationDialog, TLocalResource> 
-        : BaseMainTable<TDto, TKey, TLocalResource> 
-        where TDto : class, new() 
+    public abstract class BaseMainTable<TDto, TKey, TOperationDialog, TLocalResource>
+        : BaseMainTable<TDto, TKey, TLocalResource>
+        where TDto : class, new()
         where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
         /// <summary>
@@ -470,7 +470,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Edit(id);
             Func<OperationDialogOutput<TKey>?, Task> onClose = async (result) =>
             {
-                if (result!=null && result.Succeeded)
+                if (result != null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);

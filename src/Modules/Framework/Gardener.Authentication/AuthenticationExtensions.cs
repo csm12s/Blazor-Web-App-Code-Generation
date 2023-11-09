@@ -36,8 +36,11 @@ namespace Microsoft.Extensions.DependencyInjection
             //配置
             services.AddConfigurableOptions<JWTOptions>();
             //工具
-            services.TryAddSingleton<IJwtService, JwtBearerService>();
             services.TryAddSingleton<IIdentityConverter, IdentityConverter>();
+            //处理当前请求token
+            services.TryAddScoped<IJwtService, JwtBearerService>();
+            //token存储
+            services.TryAddScoped<ILoginTokenStorageService, LoginTokenStorageService>();
             //当前请求身份
             services.TryAddScoped<IIdentityService, IdentityService>();
             //mvc配置

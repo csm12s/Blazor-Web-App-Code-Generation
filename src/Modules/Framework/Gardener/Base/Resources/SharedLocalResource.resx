@@ -411,6 +411,9 @@
   <data name="Lock" xml:space="preserve">
     <value>Lock</value>
   </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>Logged out</value>
+  </data>
   <data name="LoginClientType" xml:space="preserve">
     <value>LoginClientType</value>
   </data>

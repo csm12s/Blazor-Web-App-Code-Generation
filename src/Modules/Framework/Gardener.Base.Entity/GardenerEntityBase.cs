@@ -61,7 +61,7 @@ namespace Gardener.Base
     /// Entity基础预置信息
     /// </summary>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class EntityBaseInfoNoKey : BaseDto
@@ -73,7 +73,7 @@ namespace Gardener.Base
     /// </summary>
     /// <typeparam name="TKey">主键类型</typeparam>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class EntityBaseInfo<TKey> : EntityBaseInfoNoKey, IModelId<TKey>
@@ -90,7 +90,7 @@ namespace Gardener.Base
     /// </summary>
     /// <typeparam name="TKey">主键类型</typeparam>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class EntityBaseInfoEmpty<TKey> : IModelId<TKey>
@@ -107,7 +107,7 @@ namespace Gardener.Base
     /// 多租户Entity基础信息
     /// </summary>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenant
@@ -129,7 +129,7 @@ namespace Gardener.Base
     /// 多租户空Entity基础信息
     /// </summary>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenant
@@ -152,7 +152,7 @@ namespace Gardener.Base
     /// </summary>
     /// <typeparam name="TKey">主键类型</typeparam>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class TenantEntityBaseInfo<TKey> : TenantEntityBaseInfoNoKey, IModelId<TKey>
@@ -169,7 +169,7 @@ namespace Gardener.Base
     /// </summary>
     /// <typeparam name="TKey">主键类型</typeparam>
     /// <remarks>
-    /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
+    /// 基础此类只能继承属性和字段，还需实现 IEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
     public abstract class TenantEntityBaseInfoEmpty<TKey> : TenantEntityBaseInfoNoKeyAndEmpty, IModelId<TKey>
@@ -194,7 +194,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKey :
         EntityBaseInfoNoKey,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 无主键基类
@@ -206,7 +206,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKey<TDbContextLocator1> :
         EntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -220,7 +220,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2> :
         EntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -236,7 +236,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         EntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -254,7 +254,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         EntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -271,7 +271,7 @@ namespace Gardener.Base
     /// </remarks>
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKeyAndEmpty :
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 无主键基类
@@ -282,7 +282,7 @@ namespace Gardener.Base
     /// </remarks>
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKeyAndEmpty<TDbContextLocator1> :
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -295,7 +295,7 @@ namespace Gardener.Base
     /// </remarks>
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2> :
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -310,7 +310,7 @@ namespace Gardener.Base
     /// </remarks>
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -327,7 +327,7 @@ namespace Gardener.Base
     /// </remarks>
     [SuppressSniffer]
     public abstract class GardenerEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -345,7 +345,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKey :
         TenantEntityBaseInfoNoKey,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 多租户无主键基类
@@ -357,7 +357,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKey<TDbContextLocator1> :
         TenantEntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -371,7 +371,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2> :
         TenantEntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -387,7 +387,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         TenantEntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -405,7 +405,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKey<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         TenantEntityBaseInfoNoKey,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -423,7 +423,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKeyAndEmpty :
         TenantEntityBaseInfoNoKeyAndEmpty,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 多租户无主键基类
@@ -435,7 +435,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKeyAndEmpty<TDbContextLocator1> :
         TenantEntityBaseInfoNoKeyAndEmpty,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -449,7 +449,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2> :
         TenantEntityBaseInfoNoKeyAndEmpty,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -465,7 +465,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         TenantEntityBaseInfoNoKeyAndEmpty,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -483,7 +483,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseNoKeyAndEmpty<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         TenantEntityBaseInfoNoKeyAndEmpty,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -505,7 +505,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase :
         EntityBaseInfo<int>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 单主键基类
@@ -517,7 +517,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase<TKey> :
         EntityBaseInfo<TKey>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 单主键基类
@@ -530,7 +530,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase<TKey, TDbContextLocator1> :
         EntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -545,7 +545,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase<TKey, TDbContextLocator1, TDbContextLocator2> :
         EntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -562,7 +562,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         EntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -581,7 +581,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBase<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         EntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -599,7 +599,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty :
         EntityBaseInfoEmpty<int>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 单主键基类-无内置字段
@@ -611,7 +611,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty<TKey> :
         EntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 单主键基类-无内置字段
@@ -624,7 +624,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty<TKey, TDbContextLocator1> :
         EntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -639,7 +639,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2> :
         EntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -656,7 +656,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         EntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -675,7 +675,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         EntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -693,7 +693,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase :
         TenantEntityBaseInfo<int>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 多租户单主键基类
@@ -705,7 +705,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase<TKey> :
         TenantEntityBaseInfo<TKey>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 多租户单主键基类
@@ -718,7 +718,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase<TKey, TDbContextLocator1> :
         TenantEntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -733,7 +733,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase<TKey, TDbContextLocator1, TDbContextLocator2> :
         TenantEntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -750,7 +750,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         TenantEntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -769,7 +769,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBase<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         TenantEntityBaseInfo<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -787,7 +787,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseEmpty :
         TenantEntityBaseInfoEmpty<int>,
-        IDBEntityBase<MasterDbContextLocator>
+        IEntityBase<MasterDbContextLocator>
     { }
     /// <summary>
     /// 多租户单主键无内置字段基类
@@ -800,7 +800,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseEmpty<TKey, TDbContextLocator1> :
         TenantEntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1>
+        IEntityBase<TDbContextLocator1>
         where TDbContextLocator1 : class, IDbContextLocator
     { }
     /// <summary>
@@ -815,7 +815,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2> :
         TenantEntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
     { }
@@ -832,7 +832,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3> :
         TenantEntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator
@@ -851,7 +851,7 @@ namespace Gardener.Base
     [SuppressSniffer]
     public abstract class GardenerTenantEntityBaseEmpty<TKey, TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator4> :
         TenantEntityBaseInfoEmpty<TKey>,
-        IDBEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
+        IEntityBase<TDbContextLocator1, TDbContextLocator2, TDbContextLocator3, TDbContextLocator3>
         where TDbContextLocator1 : class, IDbContextLocator
         where TDbContextLocator2 : class, IDbContextLocator
         where TDbContextLocator3 : class, IDbContextLocator

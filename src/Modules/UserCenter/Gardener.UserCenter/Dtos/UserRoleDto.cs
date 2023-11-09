@@ -4,8 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.UserCenter.Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -14,7 +14,7 @@ namespace Gardener.UserCenter.Dtos
     /// 用户角色关系
     /// </summary>
     [Display(Name = nameof(UserCenterResource.UserRole), ResourceType = typeof(UserCenterResource))]
-    public class UserRoleDto
+    public class UserRoleDto: TenantBaseDtoNoKey
     {
         /// <summary>
         /// 用户Id
@@ -36,10 +36,5 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Display(Name = nameof(UserCenterResource.Role), ResourceType = typeof(UserCenterResource))]
         public RoleDto? Role { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [Display(Name = nameof(UserCenterResource.CreatedTime), ResourceType = typeof(UserCenterResource))]
-        public DateTimeOffset CreatedTime { get; set; }
     }
 }

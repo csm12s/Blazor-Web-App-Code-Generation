@@ -5,67 +5,24 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
     /// 角色表
     /// </summary>
-    [Description("角色信息")]
-    public class Role : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
+    public class Role : RoleDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
-        /// <summary>
-        /// 角色表
-        /// </summary>
-        public Role()
-        {
-            Users = new List<User>();
-            UserRoles = new List<UserRole>();
-            RoleResources=new List<RoleResource>();
-        }
-
-        /// <summary>
-        /// 角色名称
-        /// </summary>
-        [MaxLength(100), Required]
-        [DisplayName("名称")]
-        public string Name { get; set; } = null!;
-
-        /// <summary>
-        /// 角色描述
-        /// </summary>
-        [MaxLength(500), Required]
-        [DisplayName("备注")]
-        public string Remark { get; set; } = null!;
-
-        /// <summary>
-        /// 是否是超级管理员
-        /// 超级管理员拥有所有权限
-        /// </summary>
-        [DisplayName("是否是超级管理员")]
-        public bool IsSuperAdministrator { get; set; }
-
-        /// <summary>
-        /// 是否是默认角色
-        /// </summary>
-        /// <remarks>
-        /// 添加用户时默认添加该角色
-        /// </remarks>
-        [DisplayName("是否是默认角色")]
-        public bool IsDefault { get; set; }
-
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<User> Users { get; set; }= new List<User>();
+        public ICollection<User> Users { get; set; } = new List<User>();
 
         /// <summary>
         /// 多对多中间表
@@ -75,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<RoleResource> RoleResources { get; set; }=new List<RoleResource>();
+        public List<RoleResource> RoleResources { get; set; } = new List<RoleResource>();
 
 
         /// <summary>

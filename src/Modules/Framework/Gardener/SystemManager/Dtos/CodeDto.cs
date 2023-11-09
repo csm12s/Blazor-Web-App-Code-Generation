@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using Gardener.Attributes;
 using Gardener.SystemManager.Resources;
 using Gardener.Base.Resources;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.SystemManager.Dtos
 {
@@ -43,6 +44,7 @@ namespace Gardener.SystemManager.Dtos
         /// </summary>
         [DisabledSearchField]
         [Display(Name = nameof(SystemManagerResource.LocalCodeName), ResourceType = typeof(SystemManagerResource))]
+        [NotMapped]
         public string LocalCodeName { get; set; } = null!;
         /// <summary>
         /// 排序
@@ -66,6 +68,7 @@ namespace Gardener.SystemManager.Dtos
         /// 字典类型
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.CodeType), ResourceType = typeof(SystemManagerResource))]
+        [NotMapped]
         public CodeTypeDto CodeType { get; set; } = null!;
     }
 }

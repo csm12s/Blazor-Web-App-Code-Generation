@@ -6,16 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\**" />
-    <Content Remove="Properties\**" />
-    <EmbeddedResource Remove="Properties\**" />
-    <None Remove="Properties\**" />
-  </ItemGroup>
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.13" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Client\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />

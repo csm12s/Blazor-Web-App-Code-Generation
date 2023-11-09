@@ -5,64 +5,20 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.UserCenter.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
     /// 部门信息
     /// </summary>
-    [Description("部门信息")]
-    public class Dept : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
+    public class Dept : DeptDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
-        /// <summary>
-        /// 名称
-        /// </summary>
-        [DisplayName("名称")]
-        [Required, MaxLength(30)]
-        public string Name { get; set; } = null!;
-
-        /// <summary>
-        /// 联系人
-        /// </summary>
-        [DisplayName("联系人")]
-        [MaxLength(20)]
-        public string? Contacts { get; set; }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        [DisplayName("电话")]
-        [MaxLength(20)]
-        public string? Tel { get; set; }
-
-        /// <summary>
-        /// 资源排序
-        /// </summary>
-        [Required, DefaultValue(0)]
-        [DisplayName("排序")]
-        public int Order { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        [DisplayName("备注")]
-        [MaxLength(100)]
-        public string? Remark { get; set; }
-
-        /// <summary>
-        /// 父级id
-        /// </summary>
-        [DisplayName("父级编号")]
-        public int? ParentId { get; set; }
-
         /// <summary>
         /// 父级
         /// </summary>
@@ -71,7 +27,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 子集
         /// </summary>
-        public ICollection<Dept>? Children { get; set; }
+        public new ICollection<Dept>? Children { get; set; }
 
         /// <summary>
         /// 多对多

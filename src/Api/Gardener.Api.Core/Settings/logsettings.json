@@ -16,7 +16,7 @@
 			}
 		},
 		"File": {
-			"FileName": "logs/application-{0:yyyy}-{0:MM}-{0:dd}.log", // 日志文件完整路径或文件名，推荐 .log 作为拓展名      
+			"FileName": "logs/application-{0:yyyy}-{0:MM}-{0:dd}-log.log", // 日志文件完整路径或文件名，推荐 .log 作为拓展名      
 			"Append": true, // 追加到已存在日志文件或覆盖它们      
 			"MinimumLevel": "Information", // 最低日志记录级别      
 			// 10 MB

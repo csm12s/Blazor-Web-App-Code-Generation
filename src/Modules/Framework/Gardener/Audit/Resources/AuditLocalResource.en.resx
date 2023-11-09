@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuditEntities" xml:space="preserve">
+    <value>Audit entities</value>
+  </data>
   <data name="AuditEntity" xml:space="preserve">
     <value>Audit entity</value>
   </data>
   <data name="AuditEntityid" xml:space="preserve">
     <value>Audit entity id</value>
-  </data>
-  <data name="AuditEntitys" xml:space="preserve">
-    <value>Audit entitys</value>
   </data>
   <data name="AuditOperation" xml:space="preserve">
     <value>Audit operation</value>

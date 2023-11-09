@@ -9,6 +9,7 @@ using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components.PageBaseClass;
+using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Mapster;
 
@@ -173,18 +174,29 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
         }
 
+        #region delete
         /// <summary>
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        protected async Task OnClickDelete(TDto dto)
+        protected Task OnClickDelete(TDto dto)
+        {
+            return OnClickDelete(dto, ClientConstant.TableListDeleteUseTrueDelete);
+        }
+
+        /// <summary>
+        /// 点击删除按钮
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="trueDelete">真实删除</param>
+        protected async Task OnClickDelete(TDto dto, bool trueDelete)
         {
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
             {
                 //找到所有子集
                 List<TKey> ids = new List<TKey>() { GetKey(dto) };
                 GetTreeAllChildrenNodes(dto, ids);
-                var result = await BaseService.FakeDeletes(ids.ToArray());
+                var result = trueDelete ? await BaseService.Deletes(ids.ToArray()) : await BaseService.FakeDeletes(ids.ToArray());
                 if (result)
                 {
                     MessageService.Success(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
@@ -204,6 +216,46 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
             }
         }
+
+        /// <summary>
+        /// 点击删除选中按钮
+        /// </summary>
+        /// <param name="trueDelete">真实删除</param>
+        protected async Task OnClickDeletes(bool trueDelete)
+        {
+            if (_selectedRows == null || _selectedRows.Count() == 0)
+            {
+                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
+            }
+            else
+            {
+                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
+                {
+                    List<TKey> ids = new List<TKey>();
+                    ids.AddRange(_selectedRows.Select(x => GetKey(x)).ToArray());
+                    _selectedRows.ForEach(x => { GetTreeAllChildrenNodes(x, ids); });
+                    var result = trueDelete ? await BaseService.Deletes(ids.Distinct().ToArray()) : await BaseService.FakeDeletes(ids.Distinct().ToArray());
+                    if (result)
+                    {
+                        MessageService.Success(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
+                        await ReLoadTable(true);
+                    }
+                    else
+                    {
+                        MessageService.Error(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 点击删除选中按钮
+        /// </summary>
+        protected Task OnClickDeletes()
+        {
+            return OnClickDeletes(ClientConstant.TableListDeleteUseTrueDelete);
+        }
+        #endregion
 
         /// <summary>
         /// 点击编辑按钮
@@ -248,35 +300,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 });
         }
 
-        /// <summary>
-        /// 点击删除选中按钮
-        /// </summary>
-        protected async Task OnClickDeletes()
-        {
-            if (_selectedRows == null || _selectedRows.Count() == 0)
-            {
-                MessageService.Warn(Localizer[nameof(SharedLocalResource.NoRowsAreSelected)]);
-            }
-            else
-            {
-                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
-                {
-                    List<TKey> ids = new List<TKey>();
-                    ids.AddRange(_selectedRows.Select(x => GetKey(x)).ToArray());
-                    _selectedRows.ForEach(x => { GetTreeAllChildrenNodes(x, ids); });
-                    var result = await BaseService.FakeDeletes(ids.Distinct().ToArray());
-                    if (result)
-                    {
-                        MessageService.Success(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
-                        await ReLoadTable(true);
-                    }
-                    else
-                    {
-                        MessageService.Error(this.Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// 点击编辑按钮
@@ -413,7 +436,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
         where TDto : class, new()
         where TKey : notnull
-    {}
+    { }
     /// <summary>
     /// 树形table基类-支持多租户
     /// </summary>
@@ -562,5 +585,5 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource> where TDto : class, new() where TKey : notnull
-    {}
+    { }
 }
