@@ -6,15 +6,11 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
 using Gardener.Base.Entity;
 using Gardener.EntityFramwork.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 
 namespace Gardener.EntityFramwork
@@ -52,8 +48,9 @@ namespace Gardener.EntityFramwork
                                             options.AddDbPool<GardenerMultiTenantDbContext, GardenerMultiTenantDbContextLocator>(dbProvider);
                                             //注入审计数据库上下文
                                             options.AddDbPool<GardenerAuditDbContext, GardenerAuditDbContextLocator>(dbProvider);
-                                        },
-                                            migrationAssemblyName);
+                                        }, migrationAssemblyName);
+            //要在使用db前注册上。
+            services.AddHostedService<DbBackgroundService>();
         }
 
         /// <summary>
@@ -63,30 +60,6 @@ namespace Gardener.EntityFramwork
         /// <param name="env"></param>
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var logger = App.GetService<ILogger<DbContextStartup>>();
-            var initDb = bool.Parse(App.Configuration["DefaultDbSettings:InitDb"] ?? "false");
-            var autoMigration = bool.Parse(App.Configuration["DefaultDbSettings:AutoMigration"] ?? "false");
-            // 判断开发环境！！！必须！！！！
-            if (env.IsDevelopment())
-            {
-                Scoped.Create((_, scope) =>
-                {
-                    var defaultDbContext = scope.ServiceProvider.GetRequiredService<GardenerDbContext>();
-                    var auditDbContext = scope.ServiceProvider.GetRequiredService<GardenerAuditDbContext>();
-                    if (initDb)//TODO: 如果数据库已存在，这里不会建表
-                    {
-                        defaultDbContext.Database.EnsureCreated();
-                        auditDbContext.Database.EnsureCreated();
-                        logger.LogInformation("数据库初始化完成");
-                    }
-                    if (autoMigration)
-                    {
-                        defaultDbContext.Database.Migrate();
-                        auditDbContext.Database.Migrate();
-                        logger.LogInformation("数据库迁移完成");
-                    }
-                });
-            }
         }
     }
 }
