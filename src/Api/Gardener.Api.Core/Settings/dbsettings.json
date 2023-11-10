@@ -16,8 +16,12 @@
     //"Microsoft.EntityFrameworkCore.InMemory"
     //"Npgsql.EntityFrameworkCore.PostgreSQL"
     //"FirebirdSql.EntityFrameworkCore.Firebird"
-    "InitDb": false, //打开数据库自动初始化
-    "AutoMigration": false, //打开数据库自动迁移
+    //说明：在开发环境时有效
+    //AutoMigration=false,InitDb=true 需手动删除db文件，启动后将生成db
+    //AutoMigration=true,InitDb=false 需手动删除db文件，手动生成增量迁移文件，启动后将生成db
+    //AutoMigration=true,InitDb=true 需手动删除db文件，手动生成增量迁移文件，启动后将生成db
+    "AutoMigration": true, //需要有迁移文件，如果没有迁移文件不会迁移，迁移后会生成迁移记录在表中，如果迁移记录与实际表版本不一致，将异常。
+    "InitDb": false, //不需要迁移文件，如果数据库已存在，不生成，如果不存在，生成数据库，生成的数据库没有迁移记录，无法再使用migrate进行迁移。
     "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
   }
 }
