@@ -26,13 +26,14 @@ namespace Gardener.EntityFramwork.Core
         /// 处理
         /// </summary>
         /// <param name="entityEntries"></param>
+        /// <param name="identity"></param>
         /// <param name="handleTenant">是否处理租户信息</param>
         /// <remarks>
         /// <para> 添加时：设置<see cref="IModelCreated"/></para>
         /// <para>修改时：设置<see cref="IModelUpdated"/>中相关字段的值</para>
         /// <paramref name="handleTenant"/>=true 将处理租户相关字段和租户越权拦截
         /// </remarks>
-        public static void Handle(IEnumerable<EntityEntry>? entityEntries, bool handleTenant = false)
+        public static void Handle(IEnumerable<EntityEntry>? entityEntries, Identity? identity, bool handleTenant = false)
         {
             if (entityEntries == null || !entityEntries.Any())
             {
@@ -49,7 +50,6 @@ namespace Gardener.EntityFramwork.Core
             {
                 return;
             }
-            Identity? identity = IdentityUtil.GetIdentity();
             foreach (var entity in entityEntries)
             {
 

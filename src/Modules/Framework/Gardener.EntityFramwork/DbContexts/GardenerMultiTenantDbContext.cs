@@ -6,6 +6,7 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Gardener.Authentication.Core;
 using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.EntityFramwork.Core;
@@ -27,12 +28,18 @@ namespace Gardener.EntityFramwork.DbContexts
     [AppDbContext("Default")]
     public class GardenerMultiTenantDbContext : AppDbContext<GardenerMultiTenantDbContext, GardenerMultiTenantDbContextLocator>, IModelBuilderFilter
     {
+        private readonly IOrmAuditService ormAuditService;
+        private readonly IIdentityService identityService;
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="options"></param>
-        public GardenerMultiTenantDbContext(DbContextOptions<GardenerMultiTenantDbContext> options) : base(options)
+        /// <param name="ormAuditService"></param>
+        /// <param name="identityService"></param>
+        public GardenerMultiTenantDbContext(DbContextOptions<GardenerMultiTenantDbContext> options, IOrmAuditService ormAuditService, IIdentityService identityService) : base(options)
         {
+            this.ormAuditService = ormAuditService;
+            this.identityService = identityService;
         }
         /// <summary>
         /// 解决sqlite 不支持datetimeoffset问题（损失很小的精度）
@@ -76,8 +83,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (context == null) { return; }
 
             //基础数据初始化
-            GlobalEntityEntryHandle.Handle(context.ChangeTracker.Entries(), true);
-            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
+            GlobalEntityEntryHandle.Handle(context.ChangeTracker.Entries(),identityService.GetIdentity(), true);
             ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
         }
 
@@ -88,7 +94,6 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <param name="result"></param>
         protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
-            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavedChangesEvent();
         }
         /// <summary>
@@ -97,7 +102,7 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <returns></returns>
         public Guid GetTenantId()
         {
-            return IdentityUtil.GetIdentity()?.TenantId ?? Guid.Empty;
+            return identityService.GetIdentity()?.TenantId ?? Guid.Empty;
         }
         /// <summary>
         /// 查询时添加租户编号条件

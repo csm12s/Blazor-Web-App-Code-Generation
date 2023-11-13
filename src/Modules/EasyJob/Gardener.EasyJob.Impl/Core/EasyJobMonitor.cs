@@ -80,14 +80,14 @@ namespace Gardener.EasyJob.Impl.Core
             #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName, new EasyJobRunLogNotificationData(logDto));
             #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-            if (!string.IsNullOrWhiteSpace(context.JobDetail.Properties))
-            {
-                JsonElement properties =System.Text.Json.JsonSerializer.SerializeToElement(context.JobDetail.Properties);
+            //if (!string.IsNullOrWhiteSpace(context.JobDetail.Properties))
+            //{
+            //    JsonElement properties =System.Text.Json.JsonSerializer.SerializeToElement(context.JobDetail.Properties);
                 //properties.c
                 //JsonElement disableLogSaveEl= properties.GetProperty("disableLogSave")
                 //if (properties.c)
                 //bool disableLogSave = properties.TryGetProperty("disableLogSave").GetBoolean();
-            }
+            //}
             using var factory = serviceScopeFactory.CreateScope();
             IRepository<SysJobLog> repository = factory.ServiceProvider.GetRequiredService<IRepository<SysJobLog>>();
             repository.InsertNow(jobLog);

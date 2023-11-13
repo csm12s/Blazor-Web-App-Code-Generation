@@ -87,7 +87,6 @@ namespace Gardener.Api.Core.Authorization.Subscribes
             IEventSource eventSource = context.Source;
 
             Function function = (Function)eventSource.Payload;
-            IApiEndpointQueryService apiEndpointQueryService = App.GetService<IApiEndpointQueryService>();
             await apiEndpointQueryService.ClearApiEndpointCacheKey(function.Adapt<ApiEndpoint>());
         }
     }

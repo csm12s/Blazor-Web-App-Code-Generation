@@ -25,13 +25,16 @@ namespace Gardener.Authentication.Core
     public class LoginTokenStorageService : ILoginTokenStorageService
     {
         private readonly IRepository<LoginToken, GardenerMultiTenantDbContextLocator> _loginTokenRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="loginTokenRepository"></param>
-        public LoginTokenStorageService(IRepository<LoginToken, GardenerMultiTenantDbContextLocator> loginTokenRepository)
+        /// <param name="httpContextAccessor"></param>
+        public LoginTokenStorageService(IRepository<LoginToken, GardenerMultiTenantDbContextLocator> loginTokenRepository, IHttpContextAccessor httpContextAccessor)
         {
             _loginTokenRepository = loginTokenRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -73,7 +76,7 @@ namespace Gardener.Authentication.Core
                 Value = token.RefreshToken,
                 EndTime = DateTimeOffset.FromUnixTimeSeconds(token.RefreshTokenExpires),
                 CreatedTime = DateTimeOffset.Now,
-                Ip = App.HttpContext?.GetRemoteIpAddressToIPv4()
+                Ip = _httpContextAccessor.HttpContext?.GetRemoteIpAddressToIPv4()
             };
             await _loginTokenRepository.InsertAsync(loginToken);
 

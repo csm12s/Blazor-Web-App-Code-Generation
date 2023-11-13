@@ -25,6 +25,7 @@ using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
 using Furion.DependencyInjection;
 using Gardener.Base.Entity;
+using Gardener.Authentication.Core;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -40,6 +41,7 @@ namespace Gardener.UserCenter.Impl.Services
         private readonly IRepository<UserExtension, GardenerMultiTenantDbContextLocator> _userExtensionRepository;
         private readonly IRepository<Dept, GardenerMultiTenantDbContextLocator> _deptRepository;
         private readonly IDynamicFilterService _filterService;
+        private readonly IIdentityService _identityService;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -49,13 +51,15 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="roleRepository"></param>
         /// <param name="deptRepository"></param>
         /// <param name="filterService"></param>
+        /// <param name="identityService"></param>
         public UserService(
             IRepository<User, GardenerMultiTenantDbContextLocator> userRepository,
             IRepository<UserExtension, GardenerMultiTenantDbContextLocator> userExtensionRepository,
             IRepository<UserRole, GardenerMultiTenantDbContextLocator> userRoleRepository,
-            IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository, 
+            IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository,
             IRepository<Dept, GardenerMultiTenantDbContextLocator> deptRepository,
-            IDynamicFilterService filterService) : base(userRepository)
+            IDynamicFilterService filterService,
+            IIdentityService identityService) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
@@ -63,6 +67,7 @@ namespace Gardener.UserCenter.Impl.Services
             _roleRepository = roleRepository;
             _deptRepository = deptRepository;
             _filterService = filterService;
+            _identityService = identityService;
         }
 
         /// <summary>
@@ -321,7 +326,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public Task<string> GetCurrentUserId()
         {
-            var id = IdentityUtil.GetIdentityId();
+            var id = _identityService.GetIdentity()?.Id;
             if (id == null)
             {
                 throw new ArgumentNullException("CurrentUserId");

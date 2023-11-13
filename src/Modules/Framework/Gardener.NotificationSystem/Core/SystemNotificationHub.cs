@@ -26,19 +26,23 @@ namespace Gardener.NotificationSystem.Core
         private readonly IEventBus eventBus;
         private readonly IIdentityService identityService;
         private readonly ISystemNotificationService systemNotificationService;
+        private readonly IEnumerable<ISystemNotificationHubGrouper> groupers;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="eventBus"></param>
         /// <param name="identityService"></param>
         /// <param name="systemNotificationService"></param>
+        /// <param name="groupers"></param>
         public SystemNotificationHub(IEventBus eventBus,
             IIdentityService identityService,
-            ISystemNotificationService systemNotificationService)
+            ISystemNotificationService systemNotificationService,
+            IEnumerable<ISystemNotificationHubGrouper> groupers)
         {
             this.eventBus = eventBus;
             this.identityService = identityService;
             this.systemNotificationService = systemNotificationService;
+            this.groupers = groupers;
         }
 
         /// <summary>
@@ -79,7 +83,6 @@ namespace Gardener.NotificationSystem.Core
             await systemNotificationService.SetUserOnline(identity, this.Context.ConnectionId);
 
             //分组器
-            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
             List<Task<IEnumerable<string>>> tasks = new();
             foreach (var grouper in groupers)
             {
@@ -126,7 +129,6 @@ namespace Gardener.NotificationSystem.Core
             }
             await systemNotificationService.SetUserOffline(identity, this.Context.ConnectionId);
             //分组器
-            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
             List<Task<IEnumerable<string>>> tasks = new();
             foreach (var grouper in groupers)
             {
