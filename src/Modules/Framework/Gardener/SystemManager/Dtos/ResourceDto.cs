@@ -67,7 +67,6 @@ namespace Gardener.SystemManager.Dtos
         /// 父级编号
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.ParentId), ResourceType = typeof(SystemManagerResource))]
-        [NotMapped]
         public Guid? ParentId { get; set; }
         /// <summary>
         /// 子集
