@@ -421,6 +421,40 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resource",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Icon = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    SupportMultiTenant = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Hide = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resource", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Resource_Resource_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Resource",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Role",
                 columns: table => new
                 {
@@ -526,6 +560,7 @@ namespace Gardener.Api.Core.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    SysJobDetailId = table.Column<int>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -548,6 +583,11 @@ namespace Gardener.Api.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SysJobDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SysJobDetail_SysJobDetail_SysJobDetailId",
+                        column: x => x.SysJobDetailId,
+                        principalTable: "SysJobDetail",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -582,6 +622,48 @@ namespace Gardener.Api.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SysJobLog", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysJobTrigger",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    TriggerId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    JobId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    TriggerType = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    AssemblyName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Args = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Status = table.Column<uint>(type: "INTEGER", nullable: false),
+                    StartTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    EndTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    LastRunTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    NextRunTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    NumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
+                    MaxNumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
+                    NumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
+                    MaxNumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
+                    NumRetries = table.Column<int>(type: "INTEGER", nullable: false),
+                    RetryTimeout = table.Column<int>(type: "INTEGER", nullable: false),
+                    StartNow = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RunOnStart = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ResetOnlyOnce = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Result = table.Column<string>(type: "TEXT", maxLength: 5000, nullable: true),
+                    ElapsedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysJobTrigger", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -796,22 +878,36 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResourceDto",
+                name: "ResourceFunction",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Icon = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false),
-                    ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    SupportMultiTenant = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Hide = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FunctionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceFunction", x => new { x.ResourceId, x.FunctionId });
+                    table.ForeignKey(
+                        name: "FK_ResourceFunction_Function_FunctionId",
+                        column: x => x.FunctionId,
+                        principalTable: "Function",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ResourceFunction_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleResource",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -819,21 +915,24 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResourceDto", x => x.Id);
+                    table.PrimaryKey("PK_RoleResource", x => new { x.RoleId, x.ResourceId });
                     table.ForeignKey(
-                        name: "FK_ResourceDto_ResourceDto_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "ResourceDto",
-                        principalColumn: "Id");
+                        name: "FK_RoleResource_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ResourceDto_Role_RoleId",
+                        name: "FK_RoleResource_Role_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Role",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -901,35 +1000,11 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SysJobTriggerDto",
+                name: "SystemTenantResource",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TriggerId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    JobId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    TriggerType = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    AssemblyName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Args = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Status = table.Column<uint>(type: "INTEGER", nullable: false),
-                    StartTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    EndTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    LastRunTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    NextRunTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    NumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
-                    MaxNumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
-                    NumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
-                    MaxNumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
-                    NumRetries = table.Column<int>(type: "INTEGER", nullable: false),
-                    RetryTimeout = table.Column<int>(type: "INTEGER", nullable: false),
-                    StartNow = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RunOnStart = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ResetOnlyOnce = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Result = table.Column<string>(type: "TEXT", maxLength: 5000, nullable: true),
-                    ElapsedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
-                    SysJobDetailId = table.Column<int>(type: "INTEGER", nullable: true),
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -941,12 +1016,19 @@ namespace Gardener.Api.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SysJobTriggerDto", x => x.Id);
+                    table.PrimaryKey("PK_SystemTenantResource", x => new { x.TenantId, x.ResourceId });
                     table.ForeignKey(
-                        name: "FK_SysJobTriggerDto_SysJobDetail_SysJobDetailId",
-                        column: x => x.SysJobDetailId,
-                        principalTable: "SysJobDetail",
-                        principalColumn: "Id");
+                        name: "FK_SystemTenantResource_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SystemTenantResource_SystemTenant_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "SystemTenant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1039,96 +1121,6 @@ namespace Gardener.Api.Core.Migrations
                         name: "FK_UserRole_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResourceFunction",
-                columns: table => new
-                {
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FunctionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ResourceFunction", x => new { x.ResourceId, x.FunctionId });
-                    table.ForeignKey(
-                        name: "FK_ResourceFunction_Function_FunctionId",
-                        column: x => x.FunctionId,
-                        principalTable: "Function",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ResourceFunction_ResourceDto_ResourceId",
-                        column: x => x.ResourceId,
-                        principalTable: "ResourceDto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleResource",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleResource", x => new { x.RoleId, x.ResourceId });
-                    table.ForeignKey(
-                        name: "FK_RoleResource_ResourceDto_ResourceId",
-                        column: x => x.ResourceId,
-                        principalTable: "ResourceDto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RoleResource_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SystemTenantResource",
-                columns: table => new
-                {
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SystemTenantResource", x => new { x.TenantId, x.ResourceId });
-                    table.ForeignKey(
-                        name: "FK_SystemTenantResource_ResourceDto_ResourceId",
-                        column: x => x.ResourceId,
-                        principalTable: "ResourceDto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SystemTenantResource_SystemTenant_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "SystemTenant",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1584,12 +1576,12 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ResourceDto",
-                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Discriminator", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "RoleId", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                table: "Resource",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, 0, 1306546807398400480L, "Resource", false, "apartment", false, false, "admin_root", "后台根节点", 0, null, "", "根根节点不能删除，不能改变类型！！。", null, true, 0, null, null, null },
-                    { new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"), null, 0, 1306546809856000480L, "Resource", false, "apartment", false, false, "front_root", "前台根节点", 1, null, "", "根根节点不能删除，不能改变类型！！。", null, true, 0, null, null, null }
+                    { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, 0, 1306546807398400480L, false, "apartment", false, false, "admin_root", "后台根节点", 0, null, "", "根根节点不能删除，不能改变类型！！。", true, 0, null, null, null },
+                    { new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"), null, 0, 1306546809856000480L, false, "apartment", false, false, "front_root", "前台根节点", 1, null, "", "根根节点不能删除，不能改变类型！！。", true, 0, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1646,19 +1638,19 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ResourceDto",
-                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Discriminator", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "RoleId", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                table: "Resource",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), "4", 1, 1306984533504000480L, "Resource", false, null, false, false, "global_wo_chat_btn", "WoChat聊天按钮", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "WoChat聊天按钮显资源", null, true, 2000, null, null, null },
-                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), null, 0, 1306051389542400480L, "Resource", false, "home", false, false, "admin_home", "首页", 10, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "/", "", null, true, 1000, null, null, null },
-                    { new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), "2", 1, 1307020067348480480L, "Resource", false, null, false, false, "system_tenant_administrator", "后台租户管理员", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "控制全局租户信息的显示，此资源不要分配给租户", null, false, 2000, "2", 1, 1307021551575040480L },
-                    { new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), "6", 1, 1306994998394880480L, "Resource", false, null, false, false, "system_code_utils", "字典工具", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, null, true, 2000, "6", 1, 1306994999357440480L },
-                    { new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "1", 1, 1307168600104960480L, "Resource", false, "tool", false, false, "dev_tools", "开发工具", 200, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, null, false, 1000, "1", 1, 1307170480128000480L },
-                    { new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "2", 1, 1307060617400320480L, "Resource", false, "user", false, false, "account_center", "个人中心", 100, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, null, true, 1000, "2", 1, 1307060617809920480L },
-                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), null, 0, 1306546809856000480L, "Resource", false, "apartment", false, false, "user_center", "用户中心", 15, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "用户中心", null, true, 1000, null, null, null },
-                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, 0, 1306546809856000480L, "Resource", false, "setting", false, false, "system_manager", "系统管理", 20, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "系统管理", null, true, 1000, null, null, null },
-                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_login", "登录", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "登录系统", null, true, 2000, null, null, null }
+                    { new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), "4", 1, 1306984533504000480L, false, null, false, false, "global_wo_chat_btn", "WoChat聊天按钮", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "WoChat聊天按钮显资源", true, 2000, null, null, null },
+                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), null, 0, 1306051389542400480L, false, "home", false, false, "admin_home", "首页", 10, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "/", "", true, 1000, null, null, null },
+                    { new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), "2", 1, 1307020067348480480L, false, null, false, false, "system_tenant_administrator", "后台租户管理员", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "控制全局租户信息的显示，此资源不要分配给租户", false, 2000, "2", 1, 1307021551575040480L },
+                    { new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), "6", 1, 1306994998394880480L, false, null, false, false, "system_code_utils", "字典工具", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, true, 2000, "6", 1, 1306994999357440480L },
+                    { new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "1", 1, 1307168600104960480L, false, "tool", false, false, "dev_tools", "开发工具", 200, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, false, 1000, "1", 1, 1307170480128000480L },
+                    { new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "2", 1, 1307060617400320480L, false, "user", false, false, "account_center", "个人中心", 100, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, true, 1000, "2", 1, 1307060617809920480L },
+                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), null, 0, 1306546809856000480L, false, "apartment", false, false, "user_center", "用户中心", 15, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "用户中心", true, 1000, null, null, null },
+                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, 0, 1306546809856000480L, false, "setting", false, false, "system_manager", "系统管理", 20, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "系统管理", true, 1000, null, null, null },
+                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), null, 0, 1306051389542400480L, false, "", false, false, "system_login", "登录", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "登录系统", true, 2000, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1681,30 +1673,30 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ResourceDto",
-                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Discriminator", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "RoleId", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                table: "Resource",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, 0, 1306051389542400480L, "Resource", false, "api", false, false, "system_manager_function", "接口管理", 40, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/function", "", null, false, 1000, null, null, null },
-                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), null, 0, 1306051389542400480L, "Resource", false, "menu", false, false, "system_manager_resource", "资源管理", 30, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/resource", "", null, false, 1000, null, null, null },
-                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), null, 0, 1306051389542400480L, "Resource", false, "user-switch", false, false, "user_center_role", "角色管理", 20, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/role", "", null, true, 1000, null, null, null },
-                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), null, 0, 1306546809856000480L, "Resource", false, "audit", false, false, "system_manager_audit", "审计管理", 60, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "审计管理", null, true, 1000, null, null, null },
-                    { new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "1", 1, 1307131240755200480L, "Resource", false, "hourglass", false, false, "system_manager_easy_job", "定时任务", 100, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", null, null, false, 1000, "1", 1, 1307157544591360480L },
-                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), null, 0, 1306051389542400480L, "Resource", false, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", null, true, 1000, null, null, null },
-                    { new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"), "1", 1, 1306683595427840480L, "Resource", false, "code-sandbox", false, false, "system_tool_code_gen", "代码生成", 41, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_tool/code_gen", null, null, false, 1000, null, null, 1306683596595200480L },
-                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), null, 0, 1306051389542400480L, "Resource", false, "team", false, false, "user_center_dept", "部门管理", 3, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", null, true, 1000, null, null, null },
-                    { new Guid("5e667965-2515-4410-a40b-370546f81cc5"), "1", 1, 1307288733798400480L, "Resource", false, "field-time", false, false, "dev_tools_timestamp", "时间戳", 40, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/timestamp", null, null, false, 1000, "1", 1, 1307288764866560480L },
-                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), null, 0, 1306051389542400480L, "Resource", false, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", null, false, 1000, null, null, null },
-                    { new Guid("7440535c-8568-4d1a-be5c-b7a93cb9d282"), "1", 1, 1307168601088000480L, "Resource", false, "bg-colors", false, false, "dev_tools_color", "颜色", 10, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/colors", null, null, false, 1000, "1", 1, 1307170480332800480L },
-                    { new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), "2", 1, 1307060619407360480L, "Resource", false, null, false, false, "account_center_settings", "个人设置", 0, new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "/account/settings", null, null, true, 1000, "2", 1, 1307060658892800480L },
-                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, 0, 1306051389542400480L, "Resource", false, "user", false, false, "user_center_user", "用户管理", 10, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/user", "用户管理", null, true, 1000, null, null, null },
-                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), null, 0, 1306051389542400480L, "Resource", false, "file", false, false, "system_manager_attachment", "附件管理", 50, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/attachment", "附件管理", null, true, 1000, null, null, null },
-                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), null, 0, 1306051389542400480L, "Resource", false, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", null, false, 1000, null, null, null },
-                    { new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "1", 1, 1306964577628160480L, "Resource", false, "tags", false, false, "system_manager_code_manager", "字典管理", 90, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, null, null, false, 1000, "1", 1, 1306964582297600480L },
-                    { new Guid("cc41cdf3-8595-47b8-8c59-a171bf9b061a"), "1", 1, 1307288485171200480L, "Resource", false, "iconfont icon-guid", false, false, "dev_tools_guid", "Guid", 30, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/guid", null, null, false, 1000, "1", 1, 1307288708976640480L },
-                    { new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"), "1", 1, 1307171637862400480L, "Resource", false, "iconfont icon-cron", false, false, "dev_tools_cron", "Cron", 20, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/cron", null, null, false, 1000, "1", 1, 1307288700026880480L },
-                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, 0, 1306051389542400480L, "Resource", false, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", null, true, 1000, null, null, null },
-                    { new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), "6", 1, 1307019908341760480L, "Resource", false, "deployment-unit", false, false, "user_center_tenant", "租户管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/tenant", null, null, false, 1000, null, null, null }
+                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, 0, 1306051389542400480L, false, "api", false, false, "system_manager_function", "接口管理", 40, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/function", "", false, 1000, null, null, null },
+                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), null, 0, 1306051389542400480L, false, "menu", false, false, "system_manager_resource", "资源管理", 30, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/resource", "", false, 1000, null, null, null },
+                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), null, 0, 1306051389542400480L, false, "user-switch", false, false, "user_center_role", "角色管理", 20, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/role", "", true, 1000, null, null, null },
+                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), null, 0, 1306546809856000480L, false, "audit", false, false, "system_manager_audit", "审计管理", 60, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "审计管理", true, 1000, null, null, null },
+                    { new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "1", 1, 1307131240755200480L, false, "hourglass", false, false, "system_manager_easy_job", "定时任务", 100, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", null, false, 1000, "1", 1, 1307157544591360480L },
+                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), null, 0, 1306051389542400480L, false, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", true, 1000, null, null, null },
+                    { new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"), "1", 1, 1306683595427840480L, false, "code-sandbox", false, false, "system_tool_code_gen", "代码生成", 41, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_tool/code_gen", null, false, 1000, null, null, 1306683596595200480L },
+                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), null, 0, 1306051389542400480L, false, "team", false, false, "user_center_dept", "部门管理", 3, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", true, 1000, null, null, null },
+                    { new Guid("5e667965-2515-4410-a40b-370546f81cc5"), "1", 1, 1307288733798400480L, false, "field-time", false, false, "dev_tools_timestamp", "时间戳", 40, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/timestamp", null, false, 1000, "1", 1, 1307288764866560480L },
+                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), null, 0, 1306051389542400480L, false, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", false, 1000, null, null, null },
+                    { new Guid("7440535c-8568-4d1a-be5c-b7a93cb9d282"), "1", 1, 1307168601088000480L, false, "bg-colors", false, false, "dev_tools_color", "颜色", 10, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/colors", null, false, 1000, "1", 1, 1307170480332800480L },
+                    { new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), "2", 1, 1307060619407360480L, false, null, false, false, "account_center_settings", "个人设置", 0, new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "/account/settings", null, true, 1000, "2", 1, 1307060658892800480L },
+                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, 0, 1306051389542400480L, false, "user", false, false, "user_center_user", "用户管理", 10, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/user", "用户管理", true, 1000, null, null, null },
+                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), null, 0, 1306051389542400480L, false, "file", false, false, "system_manager_attachment", "附件管理", 50, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/attachment", "附件管理", true, 1000, null, null, null },
+                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), null, 0, 1306051389542400480L, false, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", false, 1000, null, null, null },
+                    { new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "1", 1, 1306964577628160480L, false, "tags", false, false, "system_manager_code_manager", "字典管理", 90, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, null, false, 1000, "1", 1, 1306964582297600480L },
+                    { new Guid("cc41cdf3-8595-47b8-8c59-a171bf9b061a"), "1", 1, 1307288485171200480L, false, "iconfont icon-guid", false, false, "dev_tools_guid", "Guid", 30, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/guid", null, false, 1000, "1", 1, 1307288708976640480L },
+                    { new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"), "1", 1, 1307171637862400480L, false, "iconfont icon-cron", false, false, "dev_tools_cron", "Cron", 20, new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"), "/tools/cron", null, false, 1000, "1", 1, 1307288700026880480L },
+                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, 0, 1306051389542400480L, false, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", true, 1000, null, null, null },
+                    { new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), "6", 1, 1307019908341760480L, false, "deployment-unit", false, false, "user_center_tenant", "租户管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/tenant", null, false, 1000, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1807,101 +1799,101 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ResourceDto",
-                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Discriminator", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "RoleId", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                table: "Resource",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_add_children", "添加子级部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("07af05b1-6f3e-49fa-9959-463e246346df"), "6", 1, 1307019922186240480L, "Resource", false, null, false, false, "user_center_tenant_detail", "查看租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, "6", 1, 1307019929804800480L },
-                    { new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_delete_selected", "删除选中", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除选中", null, false, 2000, null, null, null },
-                    { new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_edit", "编辑用户", 4, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_login_token_lock", "锁定登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_detail", "查看用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "查看用户", null, true, 2000, null, null, null },
-                    { new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_add", "添加岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_edit", "编辑角色", 4, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"), "1", 1, 1307187779358720480L, "Resource", false, null, false, false, "system_manager_easy_job_dashboard", "仪表盘", 5, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_dashboard", null, null, false, 1000, null, null, null },
-                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_refresh", "刷新部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_delete_selected", "删除选中部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_refresh", "刷新角色", 3, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_edit", "编辑岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_detail", "查看角色详情", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "查看角色详情", null, true, 2000, null, null, null },
-                    { new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), "1", 1, 1306964580823040480L, "Resource", false, null, false, false, "system_manager_code_type", "字典类型", 10, new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "/system_manager/code_type", null, null, false, 1000, "2", 1, 1306966617313280480L },
-                    { new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_edit", "编辑部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_refresh", "刷新资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_refresh", "刷新客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "刷新客户端", null, false, 2000, null, null, null },
-                    { new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), "5", 1, 1307030672834560480L, "Resource", false, null, false, false, "user_center_tenant_set_resource", "绑定资源", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_login_token_delete", "删除登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_delete_selected", "删除选中岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"), "1", 1, 1306552948224000480L, "Resource", false, null, false, false, "system_manager_function_export", "导出接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, "导出接口", null, false, 2000, null, null, null },
-                    { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", null, true, 2000, null, null, null },
-                    { new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"), "6", 1, 1307020016025600480L, "Resource", false, null, false, false, "user_center_user_role_edit_save", "保存用户角色", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, null, null, true, 2000, "6", 1, 1307020019138560480L },
-                    { new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), "6", 1, 1307019916656640480L, "Resource", false, null, false, false, "user_center_tenant_lock", "锁定租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), "1", 1, 1307157537075200480L, "Resource", false, null, false, false, "system_manager_easy_job_detail", "任务", 10, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_detail", null, null, false, 1000, "1", 1, 1307157546147840480L },
-                    { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_add", "添加角色", 2, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_attachment_detail", "查看附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "查看附件", null, true, 2000, null, null, null },
-                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_refresh", "刷新接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_enable_audit", "锁定接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_import", "导入接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_add", "添加客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "添加客户端", null, false, 2000, null, null, null },
-                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_set_resource", "角色分配资源", 5, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"), "2", 1, 1307202272829440480L, "Resource", false, null, false, false, "account_center_settings_base", "基本信息", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_show_function", "关联客户端接口关系", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "关联客户端接口关系", null, false, 2000, null, null, null },
-                    { new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_download_seed_data", "导出种子数据", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("87377abe-785d-426c-b052-f706a2c7173d"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_lock", "锁定用户", 7, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_detail", "查看客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "查看客户端", null, false, 2000, null, null, null },
-                    { new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_add", "添加资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "添加资源", null, false, 2000, null, null, null },
-                    { new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"), "6", 1, 1307019914690560480L, "Resource", false, null, false, false, "user_center_tenant_refresh", "刷新租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, "6", 1, 1307019926507520480L },
-                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), null, 0, 1306051389542400480L, "Resource", false, "copy", false, false, "system_manager_email_temaplate", "邮件模板", 20, new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), "/system_manager/email_temaplate", "邮件模板", null, false, 1000, null, null, null },
-                    { new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), "1", 1, 1307157551267840480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger", "触发器", 20, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_trigger", null, null, false, 1000, null, null, null },
-                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_detail", "查看接口详情", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口详情", null, false, 2000, null, null, null },
-                    { new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_edit", "编辑客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "编辑客户端", null, false, 2000, null, null, null },
-                    { new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_lock", "锁定岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "锁定岗位", null, true, 2000, null, null, null },
-                    { new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_delete", "删除资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除资源", null, false, 2000, null, null, null },
-                    { new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"), "2", 1, 1307202273525760480L, "Resource", false, null, false, false, "account_center_settings_security", "安全设置", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_add", "添加用户", 2, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), null, 0, 1306051389542400480L, "Resource", false, "setting", false, false, "system_manager_email_server_config", "邮件服务器", 10, new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), "/system_manager/email_server_config", "邮件服务器配置", null, false, 1000, null, null, null },
-                    { new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), "1", 1, 1307200750551040480L, "Resource", false, null, false, false, "system_manager_easy_job_log", "日志", 90, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_log", null, null, false, 1000, null, null, null },
-                    { new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"), "2", 1, 1307202273812480480L, "Resource", false, null, false, false, "account_center_settings_binding", "账号绑定", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_delete", "删除客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除客户端", null, false, 2000, null, null, null },
-                    { new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_lock", "锁定资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"), "1", 1, 1306552952463360480L, "Resource", false, null, false, false, "user_center_user_export", "导出用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, "导出用户", null, true, 2000, null, null, null },
-                    { new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_delete_selected", "删除选中角色", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_delete_selected", "删除选中客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除选中客户端", null, false, 2000, null, null, null },
-                    { new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_delete", "删除接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"), "6", 1, 1307019920977920480L, "Resource", false, null, false, false, "user_center_tenant_edit", "编辑租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_detail", "查看部门详情", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "查看部门详情", null, true, 2000, null, null, null },
-                    { new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_lock", "锁定角色", 7, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_operation", "操作审计", 1, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-operation", "操作审计", null, true, 1000, null, null, null },
-                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_detail", "查看岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "查看岗位", null, true, 2000, null, null, null },
-                    { new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_delete_selected", "删除选中接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"), "1", 1, 1306552963031040480L, "Resource", false, null, false, false, "system_manager_login_token_export", "导出登录数据", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, "导出登录数据", null, true, 2000, null, null, null },
-                    { new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_resource_download_seed_data", "获取种子数据", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_add_children", "添加子资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_login_token_refresh", "刷新登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_function_download_seed_data", "查看接口种子数据", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口种子数据", null, false, 2000, null, null, null },
-                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_entity", "数据审计", 2, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-entity", "数据审计", null, true, 1000, null, null, null },
-                    { new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"), "6", 1, 1307019913543680480L, "Resource", false, null, false, false, "user_center_tenant_add", "添加租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_delete", "删除用户", 1, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), "1", 1, 1306961904844800480L, "Resource", false, null, false, false, "system_manager_code", "字典", 20, new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "/system_manager/code_list", "字典管理", null, false, 1000, "2", 1, 1306966617108480480L },
-                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_detail", "查看资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "查看资源", null, false, 2000, null, null, null },
-                    { new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"), "6", 1, 1307019930869760480L, "Resource", false, null, false, false, "user_center_tenant_delete", "删除租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("d982a072-4681-45d9-8489-7a14218adb04"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_delete", "删除角色", 1, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("d998802f-776e-4137-bc63-d8d818464f98"), null, 0, 1306051389542400480L, "Resource", false, "null", false, false, "system_manager_attachment_delete_selected", "删除选中附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "null", "删除选中附件", null, true, 2000, null, null, null },
-                    { new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_delete", "删除部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_edit", "编辑资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_dept_add", "添加部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_show_function", "关联资源接口", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_refresh", "刷新用户", 3, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"), "5", 1, 1307030707814400480L, "Resource", false, null, false, false, "user_center_role_set_is_super_administrator", "设置角色为超级管理员", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), null, "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。", null, false, 3000, null, null, null },
-                    { new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_user_list_edit_avatar", "编辑用户头像-列表中", 8, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "编辑用户头像-列表中", null, true, 2000, null, null, null },
-                    { new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"), "6", 1, 1307019911249920480L, "Resource", false, null, false, false, "user_center_tenant_delete_selected", "删除选中租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_attachment_delete", "删除附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_login_token_delete_selected", "删除选中登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_attachment_refresh", "刷新附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_position_refresh", "刷新岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", null, true, 2000, null, null, null }
+                    { new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_add_children", "添加子级部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("07af05b1-6f3e-49fa-9959-463e246346df"), "6", 1, 1307019922186240480L, false, null, false, false, "user_center_tenant_detail", "查看租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, "6", 1, 1307019929804800480L },
+                    { new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_delete_selected", "删除选中", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除选中", false, 2000, null, null, null },
+                    { new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_edit", "编辑用户", 4, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_login_token_lock", "锁定登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", true, 2000, null, null, null },
+                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_detail", "查看用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "查看用户", true, 2000, null, null, null },
+                    { new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_add", "添加岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", true, 2000, null, null, null },
+                    { new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_edit", "编辑角色", 4, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"), "1", 1, 1307187779358720480L, false, null, false, false, "system_manager_easy_job_dashboard", "仪表盘", 5, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_dashboard", null, false, 1000, null, null, null },
+                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_refresh", "刷新部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_delete_selected", "删除选中部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_refresh", "刷新角色", 3, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_edit", "编辑岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", true, 2000, null, null, null },
+                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_detail", "查看角色详情", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "查看角色详情", true, 2000, null, null, null },
+                    { new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), "1", 1, 1306964580823040480L, false, null, false, false, "system_manager_code_type", "字典类型", 10, new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "/system_manager/code_type", null, false, 1000, "2", 1, 1306966617313280480L },
+                    { new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_edit", "编辑部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_refresh", "刷新资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_refresh", "刷新客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "刷新客户端", false, 2000, null, null, null },
+                    { new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), "5", 1, 1307030672834560480L, false, null, false, false, "user_center_tenant_set_resource", "绑定资源", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_login_token_delete", "删除登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", true, 2000, null, null, null },
+                    { new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_delete_selected", "删除选中岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", true, 2000, null, null, null },
+                    { new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"), "1", 1, 1306552948224000480L, false, null, false, false, "system_manager_function_export", "导出接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, "导出接口", false, 2000, null, null, null },
+                    { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", true, 2000, null, null, null },
+                    { new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"), "6", 1, 1307020016025600480L, false, null, false, false, "user_center_user_role_edit_save", "保存用户角色", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, null, true, 2000, "6", 1, 1307020019138560480L },
+                    { new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), "6", 1, 1307019916656640480L, false, null, false, false, "user_center_tenant_lock", "锁定租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), "1", 1, 1307157537075200480L, false, null, false, false, "system_manager_easy_job_detail", "任务", 10, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_detail", null, false, 1000, "1", 1, 1307157546147840480L },
+                    { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", true, 2000, null, null, null },
+                    { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_add", "添加角色", 2, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_attachment_detail", "查看附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "查看附件", true, 2000, null, null, null },
+                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_refresh", "刷新接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_enable_audit", "锁定接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_import", "导入接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_add", "添加客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "添加客户端", false, 2000, null, null, null },
+                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_set_resource", "角色分配资源", 5, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"), "2", 1, 1307202272829440480L, false, null, false, false, "account_center_settings_base", "基本信息", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, false, 2000, null, null, null },
+                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_show_function", "关联客户端接口关系", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "关联客户端接口关系", false, 2000, null, null, null },
+                    { new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_download_seed_data", "导出种子数据", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("87377abe-785d-426c-b052-f706a2c7173d"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_lock", "锁定用户", 7, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_detail", "查看客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "查看客户端", false, 2000, null, null, null },
+                    { new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_add", "添加资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "添加资源", false, 2000, null, null, null },
+                    { new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"), "6", 1, 1307019914690560480L, false, null, false, false, "user_center_tenant_refresh", "刷新租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, "6", 1, 1307019926507520480L },
+                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), null, 0, 1306051389542400480L, false, "copy", false, false, "system_manager_email_temaplate", "邮件模板", 20, new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), "/system_manager/email_temaplate", "邮件模板", false, 1000, null, null, null },
+                    { new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), "1", 1, 1307157551267840480L, false, null, false, false, "system_manager_easy_job_trigger", "触发器", 20, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_trigger", null, false, 1000, null, null, null },
+                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_detail", "查看接口详情", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口详情", false, 2000, null, null, null },
+                    { new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_edit", "编辑客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "编辑客户端", false, 2000, null, null, null },
+                    { new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_lock", "锁定岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "锁定岗位", true, 2000, null, null, null },
+                    { new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_delete", "删除资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除资源", false, 2000, null, null, null },
+                    { new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"), "2", 1, 1307202273525760480L, false, null, false, false, "account_center_settings_security", "安全设置", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, false, 2000, null, null, null },
+                    { new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_add", "添加用户", 2, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), null, 0, 1306051389542400480L, false, "setting", false, false, "system_manager_email_server_config", "邮件服务器", 10, new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), "/system_manager/email_server_config", "邮件服务器配置", false, 1000, null, null, null },
+                    { new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), "1", 1, 1307200750551040480L, false, null, false, false, "system_manager_easy_job_log", "日志", 90, new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"), "/system_manager/easy_job_log", null, false, 1000, null, null, null },
+                    { new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"), "2", 1, 1307202273812480480L, false, null, false, false, "account_center_settings_binding", "账号绑定", 0, new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), null, null, false, 2000, null, null, null },
+                    { new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_delete", "删除客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除客户端", false, 2000, null, null, null },
+                    { new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_lock", "锁定资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"), "1", 1, 1306552952463360480L, false, null, false, false, "user_center_user_export", "导出用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, "导出用户", true, 2000, null, null, null },
+                    { new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_delete_selected", "删除选中角色", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_delete_selected", "删除选中客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除选中客户端", false, 2000, null, null, null },
+                    { new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_delete", "删除接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"), "6", 1, 1307019920977920480L, false, null, false, false, "user_center_tenant_edit", "编辑租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_detail", "查看部门详情", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "查看部门详情", true, 2000, null, null, null },
+                    { new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_lock", "锁定角色", 7, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_operation", "操作审计", 1, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-operation", "操作审计", true, 1000, null, null, null },
+                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_detail", "查看岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "查看岗位", true, 2000, null, null, null },
+                    { new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_delete_selected", "删除选中接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", false, 2000, null, null, null },
+                    { new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"), "1", 1, 1306552963031040480L, false, null, false, false, "system_manager_login_token_export", "导出登录数据", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, "导出登录数据", true, 2000, null, null, null },
+                    { new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_resource_download_seed_data", "获取种子数据", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_add_children", "添加子资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_login_token_refresh", "刷新登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", true, 2000, null, null, null },
+                    { new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_function_download_seed_data", "查看接口种子数据", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口种子数据", false, 2000, null, null, null },
+                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_entity", "数据审计", 2, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-entity", "数据审计", true, 1000, null, null, null },
+                    { new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"), "6", 1, 1307019913543680480L, false, null, false, false, "user_center_tenant_add", "添加租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_delete", "删除用户", 1, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), "1", 1, 1306961904844800480L, false, null, false, false, "system_manager_code", "字典", 20, new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "/system_manager/code_list", "字典管理", false, 1000, "2", 1, 1306966617108480480L },
+                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_detail", "查看资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "查看资源", false, 2000, null, null, null },
+                    { new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"), "6", 1, 1307019930869760480L, false, null, false, false, "user_center_tenant_delete", "删除租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("d982a072-4681-45d9-8489-7a14218adb04"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_delete", "删除角色", 1, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", true, 2000, null, null, null },
+                    { new Guid("d998802f-776e-4137-bc63-d8d818464f98"), null, 0, 1306051389542400480L, false, "null", false, false, "system_manager_attachment_delete_selected", "删除选中附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "null", "删除选中附件", true, 2000, null, null, null },
+                    { new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_delete", "删除部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_edit", "编辑资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_dept_add", "添加部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", true, 2000, null, null, null },
+                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_show_function", "关联资源接口", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", false, 2000, null, null, null },
+                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_refresh", "刷新用户", 3, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", true, 2000, null, null, null },
+                    { new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"), "5", 1, 1307030707814400480L, false, null, false, false, "user_center_role_set_is_super_administrator", "设置角色为超级管理员", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), null, "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。", false, 3000, null, null, null },
+                    { new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_user_list_edit_avatar", "编辑用户头像-列表中", 8, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "编辑用户头像-列表中", true, 2000, null, null, null },
+                    { new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"), "6", 1, 1307019911249920480L, false, null, false, false, "user_center_tenant_delete_selected", "删除选中租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, false, 2000, null, null, null },
+                    { new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_attachment_delete", "删除附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", true, 2000, null, null, null },
+                    { new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_login_token_delete_selected", "删除选中登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", true, 2000, null, null, null },
+                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_attachment_refresh", "刷新附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", true, 2000, null, null, null },
+                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_position_refresh", "刷新岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", true, 2000, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -2002,94 +1994,94 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ResourceDto",
-                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Discriminator", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "RoleId", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                table: "Resource",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Hide", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "SupportMultiTenant", "Type", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"), "1", 1, 1307170255175680480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_pause", "暂停", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("02337e03-c44f-4029-bbb2-0cc5adf84c29"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_lock", "锁定邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "锁定邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_add", "添加邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "添加邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"), "5", 1, 1307030676643840480L, "Resource", false, null, false, false, "user_center_tenant_set_resource_select", "查看已有资源", 0, new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), null, null, null, false, 3000, "5", 1, 1307030680412160480L },
-                    { new Guid("08baa5af-4718-4158-9276-1ad1068b9159"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_edit", "编辑邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "编辑邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("0dc989c3-d60a-4ac3-89be-87f485ca820d"), "2", 1, 1307341930229760480L, "Resource", false, null, false, false, "system_manager_audit_operation_parameters", "查看操作审计参数", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, null, null, true, 2000, "2", 1, 1307342036459520480L },
-                    { new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_edit", "编辑邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "编辑邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_delete_selected", "删除选中邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "删除选中邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_operation_delete", "删除操作审计", 3, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "删除操作审计", null, true, 2000, null, null, null },
-                    { new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"), "1", 1, 1306961906954240480L, "Resource", false, null, false, false, "system_manager_code_export", "导出字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "导出字典", null, false, 2000, null, null, null },
-                    { new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_delete_selected", "删除选中邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "删除选中邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"), "1", 1, 1307201775390720480L, "Resource", false, null, false, false, "system_manager_easy_job_log_refresh", "刷新", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_operation_detail", "操作审计数据变更详情", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "操作审计数据变更详情", null, true, 2000, null, null, null },
-                    { new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_entity_delete", "删除数据审计", 3, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "删除数据审计", null, true, 2000, null, null, null },
-                    { new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"), "6", 1, 1306994982113280480L, "Resource", false, null, false, false, "system_manager_code_type_refresh_code_util_cache", "刷新字典工具缓存", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"), "1", 1, 1306552959733760480L, "Resource", false, null, false, false, "system_manager_audit_operation_export", "导出操作审计", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, "导出操作审计", null, true, 2000, null, null, null },
-                    { new Guid("36a4434a-f702-42be-a211-862d0b3b5288"), "1", 1, 1306961909370880480L, "Resource", false, null, false, false, "system_manager_code_detail", "查看字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "查看字典", null, false, 2000, "1", 1, 1306961910128640480L },
-                    { new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"), "1", 1, 1307187688632320480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_log", "日志", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_send", "发送测试邮件", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "发送测试邮件", null, false, 2000, null, null, null },
-                    { new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"), "1", 1, 1307201774120960480L, "Resource", false, null, false, false, "system_manager_easy_job_log_detail", "详情", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_entity_detail", "查询数据审计详情", 4, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "查询数据审计详情", null, true, 2000, null, null, null },
-                    { new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_delete", "删除邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "删除邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_show_function_1", "显示已关联接口", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "显示已关联接口", null, false, 2000, null, null, null },
-                    { new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"), "1", 1, 1306961907343360480L, "Resource", false, null, false, false, "system_manager_code_add", "添加字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "添加字典", null, false, 2000, null, null, null },
-                    { new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_function_delete_selected", "删除选中客户端接口关系", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "删除选中客户端接口关系", null, false, 2000, null, null, null },
-                    { new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"), "1", 1, 1306964896153600480L, "Resource", false, null, false, false, "system_manager_code_type_refresh", "刷新字典类型列表", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"), "1", 1, 1306552960327680480L, "Resource", false, null, false, false, "system_manager_audit_entity_export", "导出数据审计", 0, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), null, "导出数据审计", null, true, 2000, null, null, null },
-                    { new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_function_delete_selected", "删除选中资源接口关系", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"), "1", 1, 1306961908981760480L, "Resource", false, null, false, false, "system_manager_code_edit", "编辑字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "编辑字典", null, false, 2000, "1", 1, 1306961910292480480L },
-                    { new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"), "1", 1, 1306961909780480480L, "Resource", false, null, false, false, "system_manager_code_delete", "删除字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "删除字典", null, false, 2000, "1", 1, 1306961909944320480L },
-                    { new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"), "1", 1, 1307170254786560480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_start", "开启", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"), "1", 1, 1307287029104640480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_run", "运行", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_operation_delete_selected", "删除选中操作审计", 2, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "", null, true, 2000, null, null, null },
-                    { new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"), "1", 1, 1306964897853440480L, "Resource", false, null, false, false, "system_manager_code_type_download_seed_data", "生成字典类型种子数据", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("5e858248-f765-4412-9753-92621f20f611"), "1", 1, 1307142050181120480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_refresh", "刷新", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157541457920480L },
-                    { new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"), "1", 1, 1307157553561600480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_edit", "编辑", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"), "1", 1, 1306547599319040480L, "Resource", false, null, false, false, "system_manager_resource_function_download_seed_data", "获取种子数据", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"), "1", 1, 1306964896993280480L, "Resource", false, null, false, false, "system_manager_code_type_export", "导出字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("693cd650-3b03-4bdf-8080-14112547329c"), "1", 1, 1307142051880960480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_search", "搜索", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157539799040480L },
-                    { new Guid("696c06fd-a230-4472-adca-d378747091a4"), "1", 1, 1307142052474880480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_edit", "编辑", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157539246080480L },
-                    { new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"), "1", 1, 1306964899082240480L, "Resource", false, null, false, false, "system_manager_code_type_codes_manager", "管理字典类型下字典", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, "功能与 字典管理->字典 相同", null, false, 2000, "1", 1, 1306964905226240480L },
-                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_detail", "查看邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "查看邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_entity_refresh", "刷新数据审计", 1, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "刷新数据审计", null, true, 2000, null, null, null },
-                    { new Guid("807029ec-be10-4faa-a332-bcb1021ff966"), "5", 1, 1307030677667840480L, "Resource", false, null, false, false, "user_center_tenant_set_resource_save", "绑定资源-保存", 0, new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_entity_delete_selected", "删除选中数据审计", 2, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "删除选中数据审计", null, true, 2000, null, null, null },
-                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_show_function_1", "显示已关联接口", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "显示已关联接口", null, false, 2000, null, null, null },
-                    { new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"), "1", 1, 1306961908142080480L, "Resource", false, null, false, false, "system_manager_code_download_seed_data", "生成字典种子数据", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "生成字典种子数据", null, false, 2000, null, null, null },
-                    { new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"), "1", 1, 1306964896645120480L, "Resource", false, null, false, false, "system_manager_code_type_delete_selected", "删除选中字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"), "1", 1, 1307157553971200480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_detail", "查看详情", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"), "1", 1, 1307157553090560480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_refresh", "刷新", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"), "1", 1, 1306964897280000480L, "Resource", false, null, false, false, "system_manager_code_type_add", "添加字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"), "1", 1, 1307186742128640480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_monitor_log", "实时监控日志", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_function_add_page_show", "显示可选接口", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "显示可选接口", null, false, 2000, null, null, null },
-                    { new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"), "1", 1, 1307201775718400480L, "Resource", false, null, false, false, "system_manager_easy_job_log_search", "搜索", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_resource_select", "查看角色资源", 0, new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), "", "查看角色资源", null, true, 3000, null, null, null },
-                    { new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"), "1", 1, 1306961908613120480L, "Resource", false, null, false, false, "system_manager_code_lock", "锁定字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_client_function_binding", "绑定客户端接口关系", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "绑定资源接口关系", null, false, 2000, null, null, null },
-                    { new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_add", "添加邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "添加邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("aa2109af-a9cd-48fd-b8b4-a872749b14eb"), "1", 1, 1307157552373760480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_delete_selected", "删除选中", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"), "1", 1, 1306964899471360480L, "Resource", false, null, false, false, "system_manager_code_type_delete", "删除字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"), "1", 1, 1307142052884480480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_detail", "查看详情", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157538201600480L },
-                    { new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_send", "发送测试邮件", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "发送测试邮件", null, false, 2000, null, null, null },
-                    { new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_delete", "删除邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "删除邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_refresh", "刷新邮件模板列表", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "刷新邮件模板列表", null, false, 2000, null, null, null },
-                    { new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"), "1", 1, 1306961906503680480L, "Resource", false, null, false, false, "system_manager_code_delete_selected", "删除选中字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "删除选中字典", null, false, 2000, null, null, null },
-                    { new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"), "1", 1, 1307186730618880480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_monitor_state", "实时监控状态", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, "1", 1, 1307186742415360480L },
-                    { new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_function_add_page_show", "显示可选接口", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "显示可选接口", null, false, 2000, null, null, null },
-                    { new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_resource_function_binding", "绑定资源接口关系", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "", null, false, 2000, null, null, null },
-                    { new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"), "1", 1, 1307157552701440480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_add", "添加", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_audit_operation_refresh", "刷新操作审计", 1, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "刷新操作审计", null, true, 2000, null, null, null },
-                    { new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"), "1", 1, 1306964898672640480L, "Resource", false, null, false, false, "system_manager_code_type_detail", "查看字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"), "1", 1, 1307142051000320480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_add", "添加", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157540433920480L },
-                    { new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"), "1", 1, 1307157551882240480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_search", "搜索", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"), "1", 1, 1307157554339840480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_delete", "删除", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_refresh", "刷新邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "刷新邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"), "1", 1, 1306961905971200480L, "Resource", false, null, false, false, "system_manager_code_refresh", "刷新字典列表", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "刷新字典列表", null, false, 2000, null, null, null },
-                    { new Guid("df23010b-e960-4c50-b114-e84df2edda4f"), "1", 1, 1307186715463680480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_log", "日志", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"), "1", 1, 1306964898344960480L, "Resource", false, null, false, false, "system_manager_code_type_edit", "编辑字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, null, false, 2000, null, null, null },
-                    { new Guid("e787f680-8ad9-4154-a036-4978162c8b56"), "1", 1, 1307142053212160480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_delete", "删除", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157537546240480L },
-                    { new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_template_lock", "锁定邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "锁定邮件模板", null, false, 2000, null, null, null },
-                    { new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "user_center_role_set_resource_save", "保存角色资源", 0, new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), "", "保存角色资源", null, true, 2000, null, null, null },
-                    { new Guid("f38347fd-11a3-4e1c-a1b0-a445510e7d8c"), "1", 1, 1307142050652160480L, "Resource", false, null, false, false, "system_manager_easy_job_detail_delete_selected", "删除选中", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, null, false, 2000, "1", 1, 1307157540945920480L },
-                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), null, 0, 1306051389542400480L, "Resource", false, "", false, false, "system_manager_email_server_config_detail", "查看邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "查看邮件服务器配置", null, false, 2000, null, null, null },
-                    { new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"), "1", 1, 1307186742824960480L, "Resource", false, null, false, false, "system_manager_easy_job_trigger_monitor_log", "实时监控日志", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, null, false, 2000, null, null, null }
+                    { new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"), "1", 1, 1307170255175680480L, false, null, false, false, "system_manager_easy_job_trigger_pause", "暂停", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("02337e03-c44f-4029-bbb2-0cc5adf84c29"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_lock", "锁定邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "锁定邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_add", "添加邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "添加邮件模板", false, 2000, null, null, null },
+                    { new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"), "5", 1, 1307030676643840480L, false, null, false, false, "user_center_tenant_set_resource_select", "查看已有资源", 0, new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), null, null, false, 3000, "5", 1, 1307030680412160480L },
+                    { new Guid("08baa5af-4718-4158-9276-1ad1068b9159"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_edit", "编辑邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "编辑邮件模板", false, 2000, null, null, null },
+                    { new Guid("0dc989c3-d60a-4ac3-89be-87f485ca820d"), "2", 1, 1307341930229760480L, false, null, false, false, "system_manager_audit_operation_parameters", "查看操作审计参数", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, null, true, 2000, "2", 1, 1307342036459520480L },
+                    { new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_edit", "编辑邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "编辑邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_delete_selected", "删除选中邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "删除选中邮件模板", false, 2000, null, null, null },
+                    { new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_operation_delete", "删除操作审计", 3, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "删除操作审计", true, 2000, null, null, null },
+                    { new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"), "1", 1, 1306961906954240480L, false, null, false, false, "system_manager_code_export", "导出字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "导出字典", false, 2000, null, null, null },
+                    { new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_delete_selected", "删除选中邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "删除选中邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"), "1", 1, 1307201775390720480L, false, null, false, false, "system_manager_easy_job_log_refresh", "刷新", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, false, 2000, null, null, null },
+                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_operation_detail", "操作审计数据变更详情", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "操作审计数据变更详情", true, 2000, null, null, null },
+                    { new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_entity_delete", "删除数据审计", 3, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "删除数据审计", true, 2000, null, null, null },
+                    { new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"), "6", 1, 1306994982113280480L, false, null, false, false, "system_manager_code_type_refresh_code_util_cache", "刷新字典工具缓存", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"), "1", 1, 1306552959733760480L, false, null, false, false, "system_manager_audit_operation_export", "导出操作审计", 0, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, "导出操作审计", true, 2000, null, null, null },
+                    { new Guid("36a4434a-f702-42be-a211-862d0b3b5288"), "1", 1, 1306961909370880480L, false, null, false, false, "system_manager_code_detail", "查看字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "查看字典", false, 2000, "1", 1, 1306961910128640480L },
+                    { new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"), "1", 1, 1307187688632320480L, false, null, false, false, "system_manager_easy_job_trigger_log", "日志", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_send", "发送测试邮件", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "发送测试邮件", false, 2000, null, null, null },
+                    { new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"), "1", 1, 1307201774120960480L, false, null, false, false, "system_manager_easy_job_log_detail", "详情", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, false, 2000, null, null, null },
+                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_entity_detail", "查询数据审计详情", 4, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "查询数据审计详情", true, 2000, null, null, null },
+                    { new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_delete", "删除邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "删除邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_show_function_1", "显示已关联接口", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "显示已关联接口", false, 2000, null, null, null },
+                    { new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"), "1", 1, 1306961907343360480L, false, null, false, false, "system_manager_code_add", "添加字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "添加字典", false, 2000, null, null, null },
+                    { new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_function_delete_selected", "删除选中客户端接口关系", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "删除选中客户端接口关系", false, 2000, null, null, null },
+                    { new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"), "1", 1, 1306964896153600480L, false, null, false, false, "system_manager_code_type_refresh", "刷新字典类型列表", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"), "1", 1, 1306552960327680480L, false, null, false, false, "system_manager_audit_entity_export", "导出数据审计", 0, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), null, "导出数据审计", true, 2000, null, null, null },
+                    { new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_function_delete_selected", "删除选中资源接口关系", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "", false, 2000, null, null, null },
+                    { new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"), "1", 1, 1306961908981760480L, false, null, false, false, "system_manager_code_edit", "编辑字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "编辑字典", false, 2000, "1", 1, 1306961910292480480L },
+                    { new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"), "1", 1, 1306961909780480480L, false, null, false, false, "system_manager_code_delete", "删除字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "删除字典", false, 2000, "1", 1, 1306961909944320480L },
+                    { new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"), "1", 1, 1307170254786560480L, false, null, false, false, "system_manager_easy_job_trigger_start", "开启", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"), "1", 1, 1307287029104640480L, false, null, false, false, "system_manager_easy_job_detail_run", "运行", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, null, null, null },
+                    { new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_operation_delete_selected", "删除选中操作审计", 2, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "", true, 2000, null, null, null },
+                    { new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"), "1", 1, 1306964897853440480L, false, null, false, false, "system_manager_code_type_download_seed_data", "生成字典类型种子数据", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("5e858248-f765-4412-9753-92621f20f611"), "1", 1, 1307142050181120480L, false, null, false, false, "system_manager_easy_job_detail_refresh", "刷新", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157541457920480L },
+                    { new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"), "1", 1, 1307157553561600480L, false, null, false, false, "system_manager_easy_job_trigger_edit", "编辑", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"), "1", 1, 1306547599319040480L, false, null, false, false, "system_manager_resource_function_download_seed_data", "获取种子数据", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), null, null, false, 2000, null, null, null },
+                    { new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"), "1", 1, 1306964896993280480L, false, null, false, false, "system_manager_code_type_export", "导出字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("693cd650-3b03-4bdf-8080-14112547329c"), "1", 1, 1307142051880960480L, false, null, false, false, "system_manager_easy_job_detail_search", "搜索", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157539799040480L },
+                    { new Guid("696c06fd-a230-4472-adca-d378747091a4"), "1", 1, 1307142052474880480L, false, null, false, false, "system_manager_easy_job_detail_edit", "编辑", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157539246080480L },
+                    { new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"), "1", 1, 1306964899082240480L, false, null, false, false, "system_manager_code_type_codes_manager", "管理字典类型下字典", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, "功能与 字典管理->字典 相同", false, 2000, "1", 1, 1306964905226240480L },
+                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_detail", "查看邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "查看邮件模板", false, 2000, null, null, null },
+                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_entity_refresh", "刷新数据审计", 1, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "刷新数据审计", true, 2000, null, null, null },
+                    { new Guid("807029ec-be10-4faa-a332-bcb1021ff966"), "5", 1, 1307030677667840480L, false, null, false, false, "user_center_tenant_set_resource_save", "绑定资源-保存", 0, new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"), null, null, false, 2000, null, null, null },
+                    { new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_entity_delete_selected", "删除选中数据审计", 2, new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), "", "删除选中数据审计", true, 2000, null, null, null },
+                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_show_function_1", "显示已关联接口", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "显示已关联接口", false, 2000, null, null, null },
+                    { new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"), "1", 1, 1306961908142080480L, false, null, false, false, "system_manager_code_download_seed_data", "生成字典种子数据", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "生成字典种子数据", false, 2000, null, null, null },
+                    { new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"), "1", 1, 1306964896645120480L, false, null, false, false, "system_manager_code_type_delete_selected", "删除选中字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"), "1", 1, 1307157553971200480L, false, null, false, false, "system_manager_easy_job_trigger_detail", "查看详情", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"), "1", 1, 1307157553090560480L, false, null, false, false, "system_manager_easy_job_trigger_refresh", "刷新", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"), "1", 1, 1306964897280000480L, false, null, false, false, "system_manager_code_type_add", "添加字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"), "1", 1, 1307186742128640480L, false, null, false, false, "system_manager_easy_job_detail_monitor_log", "实时监控日志", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, null, null, null },
+                    { new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_function_add_page_show", "显示可选接口", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "显示可选接口", false, 2000, null, null, null },
+                    { new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"), "1", 1, 1307201775718400480L, false, null, false, false, "system_manager_easy_job_log_search", "搜索", 0, new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"), null, null, false, 2000, null, null, null },
+                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_resource_select", "查看角色资源", 0, new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), "", "查看角色资源", true, 3000, null, null, null },
+                    { new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"), "1", 1, 1306961908613120480L, false, null, false, false, "system_manager_code_lock", "锁定字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, null, false, 2000, null, null, null },
+                    { new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_client_function_binding", "绑定客户端接口关系", 0, new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), "", "绑定资源接口关系", false, 2000, null, null, null },
+                    { new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_add", "添加邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "添加邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("aa2109af-a9cd-48fd-b8b4-a872749b14eb"), "1", 1, 1307157552373760480L, false, null, false, false, "system_manager_easy_job_trigger_delete_selected", "删除选中", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"), "1", 1, 1306964899471360480L, false, null, false, false, "system_manager_code_type_delete", "删除字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"), "1", 1, 1307142052884480480L, false, null, false, false, "system_manager_easy_job_detail_detail", "查看详情", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157538201600480L },
+                    { new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_send", "发送测试邮件", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "发送测试邮件", false, 2000, null, null, null },
+                    { new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_delete", "删除邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "删除邮件模板", false, 2000, null, null, null },
+                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_refresh", "刷新邮件模板列表", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "刷新邮件模板列表", false, 2000, null, null, null },
+                    { new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"), "1", 1, 1306961906503680480L, false, null, false, false, "system_manager_code_delete_selected", "删除选中字典", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "删除选中字典", false, 2000, null, null, null },
+                    { new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"), "1", 1, 1307186730618880480L, false, null, false, false, "system_manager_easy_job_trigger_monitor_state", "实时监控状态", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, "1", 1, 1307186742415360480L },
+                    { new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_function_add_page_show", "显示可选接口", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "显示可选接口", false, 2000, null, null, null },
+                    { new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_resource_function_binding", "绑定资源接口关系", 0, new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), "", "", false, 2000, null, null, null },
+                    { new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"), "1", 1, 1307157552701440480L, false, null, false, false, "system_manager_easy_job_trigger_add", "添加", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_audit_operation_refresh", "刷新操作审计", 1, new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), "", "刷新操作审计", true, 2000, null, null, null },
+                    { new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"), "1", 1, 1306964898672640480L, false, null, false, false, "system_manager_code_type_detail", "查看字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"), "1", 1, 1307142051000320480L, false, null, false, false, "system_manager_easy_job_detail_add", "添加", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157540433920480L },
+                    { new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"), "1", 1, 1307157551882240480L, false, null, false, false, "system_manager_easy_job_trigger_search", "搜索", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"), "1", 1, 1307157554339840480L, false, null, false, false, "system_manager_easy_job_trigger_delete", "删除", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null },
+                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_refresh", "刷新邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "刷新邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"), "1", 1, 1306961905971200480L, false, null, false, false, "system_manager_code_refresh", "刷新字典列表", 0, new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), null, "刷新字典列表", false, 2000, null, null, null },
+                    { new Guid("df23010b-e960-4c50-b114-e84df2edda4f"), "1", 1, 1307186715463680480L, false, null, false, false, "system_manager_easy_job_detail_log", "日志", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, null, null, null },
+                    { new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"), "1", 1, 1306964898344960480L, false, null, false, false, "system_manager_code_type_edit", "编辑字典类型", 0, new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), null, null, false, 2000, null, null, null },
+                    { new Guid("e787f680-8ad9-4154-a036-4978162c8b56"), "1", 1, 1307142053212160480L, false, null, false, false, "system_manager_easy_job_detail_delete", "删除", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157537546240480L },
+                    { new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_template_lock", "锁定邮件模板", 0, new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), "", "锁定邮件模板", false, 2000, null, null, null },
+                    { new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"), null, 0, 1306051389542400480L, false, "", false, false, "user_center_role_set_resource_save", "保存角色资源", 0, new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), "", "保存角色资源", true, 2000, null, null, null },
+                    { new Guid("f38347fd-11a3-4e1c-a1b0-a445510e7d8c"), "1", 1, 1307142050652160480L, false, null, false, false, "system_manager_easy_job_detail_delete_selected", "删除选中", 0, new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"), null, null, false, 2000, "1", 1, 1307157540945920480L },
+                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), null, 0, 1306051389542400480L, false, "", false, false, "system_manager_email_server_config_detail", "查看邮件服务器配置", 0, new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), "", "查看邮件服务器配置", false, 2000, null, null, null },
+                    { new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"), "1", 1, 1307186742824960480L, false, null, false, false, "system_manager_easy_job_trigger_monitor_log", "实时监控日志", 0, new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"), null, null, false, 2000, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -2644,19 +2636,14 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "Path", "Method" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResourceDto_Key",
-                table: "ResourceDto",
+                name: "IX_Resource_Key",
+                table: "Resource",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResourceDto_ParentId",
-                table: "ResourceDto",
+                name: "IX_Resource_ParentId",
+                table: "Resource",
                 column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ResourceDto_RoleId",
-                table: "ResourceDto",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResourceFunction_FunctionId",
@@ -2674,8 +2661,8 @@ namespace Gardener.Api.Core.Migrations
                 column: "CodeGenId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SysJobTriggerDto_SysJobDetailId",
-                table: "SysJobTriggerDto",
+                name: "IX_SysJobDetail_SysJobDetailId",
+                table: "SysJobDetail",
                 column: "SysJobDetailId");
 
             migrationBuilder.CreateIndex(
@@ -2751,10 +2738,13 @@ namespace Gardener.Api.Core.Migrations
                 name: "SysJobCluster");
 
             migrationBuilder.DropTable(
+                name: "SysJobDetail");
+
+            migrationBuilder.DropTable(
                 name: "SysJobLog");
 
             migrationBuilder.DropTable(
-                name: "SysJobTriggerDto");
+                name: "SysJobTrigger");
 
             migrationBuilder.DropTable(
                 name: "SysJobUserConfig");
@@ -2787,22 +2777,19 @@ namespace Gardener.Api.Core.Migrations
                 name: "Sys_CodeGen");
 
             migrationBuilder.DropTable(
-                name: "SysJobDetail");
-
-            migrationBuilder.DropTable(
-                name: "ResourceDto");
+                name: "Resource");
 
             migrationBuilder.DropTable(
                 name: "SystemTenant");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
                 name: "AuditOperation");
-
-            migrationBuilder.DropTable(
-                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Dept");

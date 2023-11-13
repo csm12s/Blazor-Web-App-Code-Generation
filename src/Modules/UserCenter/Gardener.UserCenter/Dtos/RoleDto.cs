@@ -6,9 +6,7 @@
 
 using Gardener.Base;
 using Gardener.Base.Resources;
-using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Resources;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -51,10 +49,5 @@ namespace Gardener.UserCenter.Dtos
         /// </remarks>
         [Display(Name = nameof(UserCenterResource.IsDefault), ResourceType = typeof(UserCenterResource))]
         public bool IsDefault { get; set; }
-
-        /// <summary>
-        /// 多对多
-        /// </summary>
-        public ICollection<ResourceDto>? Resources { get; set; }
     }
 }

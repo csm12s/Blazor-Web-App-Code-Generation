@@ -10,6 +10,7 @@ using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.UserCenter.Dtos
 {
@@ -38,6 +39,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 权限
         /// </summary>
+        [NotMapped]
         public ResourceDto Resource { get; set; } = null!;
     }
 }

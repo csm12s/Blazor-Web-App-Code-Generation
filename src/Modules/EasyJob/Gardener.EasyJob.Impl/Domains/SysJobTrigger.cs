@@ -6,6 +6,7 @@
 
 using Gardener.Base.Entity;
 using Gardener.EasyJob.Dtos;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.EasyJob.Impl.Domains
 {

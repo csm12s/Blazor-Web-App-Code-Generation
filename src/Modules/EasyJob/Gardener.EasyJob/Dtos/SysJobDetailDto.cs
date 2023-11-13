@@ -10,6 +10,7 @@ using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Resources;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.EasyJob.Dtos
 {
