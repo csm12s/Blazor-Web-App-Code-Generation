@@ -19,14 +19,6 @@ namespace Gardener.Base.Entity
     public class Resource : ResourceDto, IEntityBase<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Resource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
-        /// 资源信息
-        /// </summary>
-        public Resource()
-        {
-            ResourceFunctions = new List<ResourceFunction>();
-        }
-
-        /// <summary>
         /// 父级
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.Parent), ResourceType = typeof(SystemManagerResource))]

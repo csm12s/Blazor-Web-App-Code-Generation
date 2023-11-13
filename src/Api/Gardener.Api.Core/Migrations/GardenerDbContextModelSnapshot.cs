@@ -7629,1425 +7629,7 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.Base.Entity.ResourceFunction", b =>
-                {
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("FunctionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ResourceId", "FunctionId");
-
-                    b.HasIndex("FunctionId");
-
-                    b.ToTable("ResourceFunction");
-
-                    b.HasData(
-                        new
-                        {
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            FunctionId = new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            FunctionId = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            FunctionId = new Guid("10190ac3-1092-49a9-8ad2-313454b40447"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            FunctionId = new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            FunctionId = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            FunctionId = new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            FunctionId = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            FunctionId = new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            FunctionId = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            FunctionId = new Guid("547d94df-965f-4833-88fb-c3f66244926c"),
-                            CreatedTime = 1306552962355200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            FunctionId = new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            FunctionId = new Guid("1d994e50-d40a-465b-8445-646041a8131a"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            FunctionId = new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            FunctionId = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            FunctionId = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            FunctionId = new Guid("5df6ccb0-8985-4767-9ff2-b306d791194e"),
-                            CreatedTime = 1306552961720320480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            FunctionId = new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"),
-                            CreatedTime = 1306550925844480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            FunctionId = new Guid("571200a8-bde2-430b-84ea-743db7b282cd"),
-                            CreatedTime = 1306550926888960480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            FunctionId = new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"),
-                            CreatedTime = 1306550926888960480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            FunctionId = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
-                            CreatedTime = 1306550927503360480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            FunctionId = new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"),
-                            CreatedTime = 1306550928138240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            FunctionId = new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"),
-                            CreatedTime = 1306550928138240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            FunctionId = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
-                            CreatedTime = 1306550924513280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            FunctionId = new Guid("cd1b93ed-2fae-47f2-83b2-e9b0a949f476"),
-                            CreatedTime = 1306552963686400480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
-                            FunctionId = new Guid("7d53bd2b-b5c2-4a79-91e7-591bd8bb4d22"),
-                            CreatedTime = 1307170277335040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
-                            FunctionId = new Guid("5c83a810-f270-4602-9cc5-4cae64cc032c"),
-                            CreatedTime = 1307201777991680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
-                            FunctionId = new Guid("78fc70a3-d21b-4c7f-8e21-9833ece89eef"),
-                            CreatedTime = 1307201777991680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
-                            FunctionId = new Guid("eea858a2-155b-4934-b4b6-219beaea44f8"),
-                            CreatedTime = 1307201777991680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307201776517120480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307187689349120480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
-                            FunctionId = new Guid("26afb233-f6cc-47bb-b367-0b0b7ce3fe42"),
-                            CreatedTime = 1307201777582080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
-                            FunctionId = new Guid("193923dc-e968-4e75-9531-b090ffae7eb7"),
-                            CreatedTime = 1307170276597760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("5e858248-f765-4412-9753-92621f20f611"),
-                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
-                            CreatedTime = 1307170268057600480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
-                            FunctionId = new Guid("779b4330-2c14-4733-8161-e1230a9db78c"),
-                            CreatedTime = 1307170274304000480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
-                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
-                            CreatedTime = 1307170270883840480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
-                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
-                            CreatedTime = 1307170270556160480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
-                            FunctionId = new Guid("f71b16b5-22d1-4968-aeeb-bbfc3c53aebf"),
-                            CreatedTime = 1307170270556160480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
-                            FunctionId = new Guid("b63017f6-d5a9-469f-a682-b0a2ba622f0b"),
-                            CreatedTime = 1307170275614720480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
-                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
-                            CreatedTime = 1307187672596480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
-                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
-                            CreatedTime = 1307170273546240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
-                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
-                            CreatedTime = 1307187671859200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307187674234880480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
-                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
-                            CreatedTime = 1307187674234880480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
-                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
-                            CreatedTime = 1307187674234880480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307201777131520480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
-                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
-                            CreatedTime = 1307170270064640480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
-                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
-                            CreatedTime = 1307187670999040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
-                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
-                            CreatedTime = 1307187670999040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
-                            FunctionId = new Guid("6f9c2287-753e-42d4-a465-c61dd1820fcf"),
-                            CreatedTime = 1307170272665600480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
-                            FunctionId = new Guid("ed2911d8-c745-4140-90d6-7d82b5252b34"),
-                            CreatedTime = 1307170271211520480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
-                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
-                            CreatedTime = 1307170272276480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
-                            FunctionId = new Guid("f1be2be4-b212-4725-9d5b-d99f0d545a64"),
-                            CreatedTime = 1307170276106240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("df23010b-e960-4c50-b114-e84df2edda4f"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307187689943040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
-                            FunctionId = new Guid("2032eead-2715-4f84-9cb1-2e7bcadad2ab"),
-                            CreatedTime = 1307170269655040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
-                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
-                            CreatedTime = 1307187673559040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
-                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
-                            CreatedTime = 1307187673559040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
-                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
-                            CreatedTime = 1307187673559040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
-                            FunctionId = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
-                            CreatedTime = 1307287031296000480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"),
-                            FunctionId = new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"),
-                            FunctionId = new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"),
-                            FunctionId = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"),
-                            FunctionId = new Guid("39421a19-9cbf-477b-baea-34f40341357f"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"),
-                            FunctionId = new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            FunctionId = new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            FunctionId = new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"),
-                            FunctionId = new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("08baa5af-4718-4158-9276-1ad1068b9159"),
-                            FunctionId = new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"),
-                            FunctionId = new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            FunctionId = new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"),
-                            FunctionId = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"),
-                            FunctionId = new Guid("841c572c-5098-4e72-a590-2b81706aaa93"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            FunctionId = new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"),
-                            FunctionId = new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
-                            FunctionId = new Guid("0bc4b901-d9ee-4fac-91c7-e6ea6d6fb852"),
-                            CreatedTime = 1306961917214720480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
-                            CreatedTime = 1306961922150400480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
-                            CreatedTime = 1306966786068480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
-                            FunctionId = new Guid("06eff7a6-4291-43b0-9c34-58a97aa0fc01"),
-                            CreatedTime = 1306961917972480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
-                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
-                            CreatedTime = 1306966786867200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
-                            FunctionId = new Guid("810235c8-01f5-4255-a30c-fd77ffeb6eab"),
-                            CreatedTime = 1306964900782080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
-                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
-                            CreatedTime = 1306961921249280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
-                            FunctionId = new Guid("ce5a43ff-7ee1-451b-ae23-8acd04f87f71"),
-                            CreatedTime = 1306961921249280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
-                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
-                            CreatedTime = 1306966788812800480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
-                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
-                            CreatedTime = 1306961923010560480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
-                            FunctionId = new Guid("2fe5043f-fd43-45f7-a60b-e76865778c2a"),
-                            CreatedTime = 1306964902236160480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
-                            FunctionId = new Guid("7faa6bc4-385b-4cdd-ad8b-4e1673fc893b"),
-                            CreatedTime = 1306964901601280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
-                            FunctionId = new Guid("f9480a7b-3408-44f0-aca9-78ba66a75799"),
-                            CreatedTime = 1306961918914560480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
-                            FunctionId = new Guid("56871df3-2984-4d02-8ff7-61101f0abc19"),
-                            CreatedTime = 1306964901253120480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
-                            FunctionId = new Guid("1f164c01-cd48-4b41-8c87-0cd7e5dc1973"),
-                            CreatedTime = 1306964901928960480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
-                            FunctionId = new Guid("b3f529a4-ad25-4d14-a86b-c1f4cd3f33e0"),
-                            CreatedTime = 1306961920430080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
-                            FunctionId = new Guid("e242137a-b4ea-4dd9-9692-63885fce93b8"),
-                            CreatedTime = 1306964904099840480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
-                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
-                            CreatedTime = 1306961916436480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
-                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
-                            CreatedTime = 1306964903444480480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
-                            FunctionId = new Guid("213eb6ca-e125-4181-b5bd-3e5666d3e8c9"),
-                            CreatedTime = 1306961914593280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
-                            FunctionId = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
-                            CreatedTime = 1306964902584320480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
-                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
-                            CreatedTime = 1306964903055360480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
-                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
-                            CreatedTime = 1306995003985920480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
-                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
-                            CreatedTime = 1306995003985920480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            FunctionId = new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"),
-                            CreatedTime = 1307020005580800480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
-                            CreatedTime = 1306995002163200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
-                            CreatedTime = 1306995002163200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
-                            FunctionId = new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
-                            FunctionId = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"),
-                            FunctionId = new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            FunctionId = new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            FunctionId = new Guid("8d94c826-ddba-47fe-94c9-333880fee187"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            FunctionId = new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            FunctionId = new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
-                            FunctionId = new Guid("c591c0ca-3305-4684-89bb-278218d13c47"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            FunctionId = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"),
-                            FunctionId = new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"),
-                            FunctionId = new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"),
-                            FunctionId = new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"),
-                            CreatedTime = 1306547596206080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"),
-                            FunctionId = new Guid("dca2b115-3363-4f7f-8bba-b051b8d8603a"),
-                            CreatedTime = 1306552948920320480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            FunctionId = new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"),
-                            CreatedTime = 1306540222341120480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"),
-                            FunctionId = new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            FunctionId = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"),
-                            FunctionId = new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"),
-                            FunctionId = new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"),
-                            CreatedTime = 1306547601367040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"),
-                            FunctionId = new Guid("910d2a4f-85ae-46ff-bddd-b65ffcc6b9e1"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
-                            FunctionId = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
-                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"),
-                            FunctionId = new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"),
-                            FunctionId = new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
-                            FunctionId = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
-                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
-                            FunctionId = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
-                            FunctionId = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"),
-                            FunctionId = new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
-                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
-                            FunctionId = new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
-                            FunctionId = new Guid("a17564d2-df94-493f-9a6c-fd7c35ff7e0a"),
-                            CreatedTime = 1307171977789440480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
-                            FunctionId = new Guid("c2895c9c-11ac-49c2-ace5-eb622299f8f8"),
-                            CreatedTime = 1307171977789440480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            FunctionId = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"),
-                            FunctionId = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"),
-                            FunctionId = new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            FunctionId = new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            FunctionId = new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"),
-                            FunctionId = new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"),
-                            FunctionId = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            FunctionId = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"),
-                            FunctionId = new Guid("af1f0410-e9cc-4a73-9da7-ea45aadac8b2"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"),
-                            FunctionId = new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"),
-                            FunctionId = new Guid("5d67bd9d-853c-4e16-973d-be0511241fc0"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            FunctionId = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            FunctionId = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            FunctionId = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            FunctionId = new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            FunctionId = new Guid("6e2ff941-1e79-4e2a-bbe9-ec68318e5d3a"),
-                            CreatedTime = 1306582975447040480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            FunctionId = new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            FunctionId = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            FunctionId = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("713341f2-47e1-42af-b717-bfa75904d32e"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"),
-                            CreatedTime = 1306971988418560480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            FunctionId = new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"),
-                            CreatedTime = 1306582939402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            FunctionId = new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            FunctionId = new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            FunctionId = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            FunctionId = new Guid("89954833-64a5-4c87-a717-9c863ca3b263"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            FunctionId = new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            FunctionId = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            FunctionId = new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            FunctionId = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            FunctionId = new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            FunctionId = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            FunctionId = new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            FunctionId = new Guid("16517409-c055-447b-8e91-7155537c6d15"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            FunctionId = new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            FunctionId = new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            FunctionId = new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            FunctionId = new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            FunctionId = new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            FunctionId = new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
-                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
-                            CreatedTime = 1307019923640320480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
-                            FunctionId = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
-                            CreatedTime = 1307019918479360480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
-                            FunctionId = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
-                            CreatedTime = 1307019915325440480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
-                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
-                            CreatedTime = 1307019923087360480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
-                            FunctionId = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
-                            CreatedTime = 1307019921326080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
-                            FunctionId = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
-                            CreatedTime = 1307019913953280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
-                            FunctionId = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
-                            CreatedTime = 1307019931443200480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
-                            FunctionId = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
-                            CreatedTime = 1307019912355840480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
-                            FunctionId = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
-                            CreatedTime = 1307021769543680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
-                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
-                            CreatedTime = 1307021769543680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
-                            FunctionId = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
-                            CreatedTime = 1307021769543680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
-                            FunctionId = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
-                            CreatedTime = 1307030680944640480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
-                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1307030681333760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
-                            FunctionId = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
-                            CreatedTime = 1307030681927680480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            FunctionId = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            FunctionId = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            FunctionId = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            FunctionId = new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
-                            CreatedTime = 1307020021166080480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            FunctionId = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
-                            CreatedTime = 1307020017090560480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            FunctionId = new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            FunctionId = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            FunctionId = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
-                            CreatedTime = 1306552953200640480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            FunctionId = new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            FunctionId = new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            FunctionId = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
-                            CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
-                            CreatedTime = 1306984589557760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("27d997d7-e691-4dbe-b5e0-74acbca53d98"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("333a3802-f8d2-4625-9476-dee8bf43fd0d"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("42636f5d-d5f6-4f64-bd2b-e77d80e51ff2"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("752b1623-8898-431f-ab3f-db9ebffae4e6"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("97b24035-cd96-4e28-bc42-103ac7e5fe3f"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"),
-                            CreatedTime = 1306984572805120480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("be639780-fbd0-4335-95e3-91e099d87850"),
-                            CreatedTime = 1306984539791360480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("d481028f-d67e-4ee0-b237-a4883c618486"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("ea2a64ac-bde9-45e5-a879-10b161b3f825"),
-                            CreatedTime = 1306984539402240480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            FunctionId = new Guid("f78ea06a-4c55-4445-9e16-bdc92c9b9fa6"),
-                            CreatedTime = 1306984539402240480L
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -9061,2512 +7643,6 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(32)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SystemTenant");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户1",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
-                        },
-                        new
-                        {
-                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户2",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
-                {
-                    b.Property<Guid>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TenantId", "ResourceId");
-
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("SystemTenantResource");
-
-                    b.HasData(
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961912320480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037961809920480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool?>("AllowNull")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ClassName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("EntityFromTable")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("GenerateBaseClass")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("GenerateLocaleFile")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("GenerateProjectFile")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("GenerateSelectFields")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("GenerateService")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasAdd")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasBatchDelete")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasBatchEdit")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasDelete")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasEdit")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasExport")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasImport")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("HasLock")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("IconName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("MenuNameCH")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MenuNameEN")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("MenuParentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Module")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NameSpace")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NewTableName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OriginModule")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PrimaryKeyName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TableDescriptionCH")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TableDescriptionEN")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TablePrefix")
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("UseChineseKey")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("UseCustomTemplate")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("UseNetColumnAsKey")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sys_CodeGen");
-                });
-
-            modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CodeGenId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ColumnDescription")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ColumnKey")
-                        .HasMaxLength(5)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ColumnName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ColumnSummary")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CustomSearchLength")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CustomSearchType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DbDataType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DbDataTypeText")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("DecimalDigits")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DictTypeCode")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("EditComponentLength")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("EditComponentType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("EffectType")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FkColumnName")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FkColumnNetType")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FkEntityName")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool?>("IsBatchEdit")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsCommon")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsCreate")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsCustomSearch")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsDictRequired")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsDictRetract")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsEdit")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsEntity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsIdentity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsIgnore")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsNullable")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsPrimaryKey")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsRequired")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsSearch")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsSpecialType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsView")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Length")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NetColumnName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NetType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NetTypeRaw")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SearchType")
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ViewComponentType")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CodeGenId");
-
-                    b.ToTable("Sys_CodeGenConfig");
-                });
-
-            modelBuilder.Entity("Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ControllerGroup")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ControllerRoute")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("EntityFullName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ModuleName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EntityCodeGenerationSetting");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Dtos.SysJobTriggerDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Args")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("ElapsedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("EndTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("LastRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("MaxNumberOfErrors")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("MaxNumberOfRuns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("NextRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NumRetries")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfErrors")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfRuns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("ResetOnlyOnce")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Result")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RetryTimeout")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("RunOnStart")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("StartNow")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("StartTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("SysJobDetailId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TriggerId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TriggerType")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SysJobDetailId");
-
-                    b.ToTable("SysJobTriggerDto");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("SysJobTriggerDto");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobCluster", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ClusterId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysJobCluster");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Concurrent")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CreateType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("GroupName")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IncludeAnnotations")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("JobType")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Properties")
-                        .HasMaxLength(2000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ScriptCode")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysJobDetail");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobLog", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ElapsedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Exception")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ExceptionMessage")
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobDetailDescription")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("JobId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("JobTriggerDescription")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("LastRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("NextRunTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfErrors")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("NumberOfRuns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Result")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Succeeded")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TriggerId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<uint>("TriggerStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysJobLog");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobUserConfig", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EnableRealTimeMonitor")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("IdentityId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysJobUserConfig");
-                });
-
-            modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountPassword")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EnableSsl")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FromEmail")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Host")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Port")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tags")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailServerConfig");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("1812e5c1-7bcc-4d51-9b5e-45d610357e0e"),
-                            AccountName = "888888@qq.com",
-                            AccountPassword = "123456",
-                            CreatedTime = 1306051084984320000L,
-                            EnableSsl = false,
-                            FromEmail = "888888@qq.com",
-                            Host = "smtp.qq.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "QQ Email",
-                            Port = 25,
-                            Remark = "QQ Email",
-                            Tags = "Base,QQ"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.Email.Domains.EmailTemplate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ContentTemplate")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Example")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FromName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsHtml")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SubjectTemplate")
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailTemplate");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("90587db9-3c8d-4ec1-80cc-ff001166fd25"),
-                            ContentTemplate = "<p>您的验证码是：<b> @Model.Code </b></p>\r\n                                  <P>时间：@(System.DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\"))</p>",
-                            CreatedTime = 1306051084984320000L,
-                            Example = "{\"Code\":123}",
-                            FromName = "园丁",
-                            IsDeleted = false,
-                            IsHtml = true,
-                            IsLocked = false,
-                            Name = "验证码",
-                            Remark = "发送验证码",
-                            SubjectTemplate = "你好，请查收验证码"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FavourCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("FixTop")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OpposeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ReplyCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Summary")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Announcement");
-                });
-
-            modelBuilder.Entity("Gardener.SystemManager.Dtos.ResourceDto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Hide")
                         .HasColumnType("INTEGER");
@@ -11605,9 +7681,6 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("SupportMultiTenant")
                         .HasColumnType("INTEGER");
 
@@ -11625,3357 +7698,11 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("ResourceDto");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ResourceDto");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Contacts")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SecretKey")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("96c0eec0-861f-4ed2-a183-5604b20bdff9"),
-                            Contacts = "园丁",
-                            CreatedTime = 1305892579553280000L,
-                            Email = "qq@qq.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "测试client1",
-                            Remark = "用于测试",
-                            SecretKey = "9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
-                            Tel = "13838888888"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
-                {
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("FunctionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ClientId", "FunctionId");
-
-                    b.HasIndex("FunctionId");
-
-                    b.ToTable("ClientFunction");
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Dept", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Contacts")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Dept");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Contacts = "老A",
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "北京分部",
-                            Order = 1,
-                            Remark = "北京分部",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Contacts = "老B",
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "昌平办事处",
-                            Order = 1,
-                            ParentId = 1,
-                            Remark = "昌平办事处",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Contacts = "老C",
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "海淀办事处",
-                            Order = 1,
-                            ParentId = 1,
-                            Remark = "海淀办事处",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Contacts = "老D",
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "河北分部",
-                            Order = 1,
-                            Remark = "河北分部",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Contacts = "老E",
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "石家庄办事处",
-                            Order = 1,
-                            ParentId = 4,
-                            Remark = "石家庄办事处",
-                            Tel = "400-8888888"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Position", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Duty")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Grade")
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Qualifications")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Right")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Salary")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Target")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Position");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "董事长"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "总经理"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsSuperAdministrator")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDefault = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            IsSuperAdministrator = true,
-                            Name = "超级管理员",
-                            Remark = "拥有所有权限"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedTime = 1305892579553280000L,
-                            IsDefault = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            IsSuperAdministrator = false,
-                            Name = "浏览者",
-                            Remark = "只能浏览"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedTime = 1305892579553280000L,
-                            IsDefault = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            IsSuperAdministrator = false,
-                            Name = "租户1_管理员",
-                            Remark = "租户1_管理员",
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedTime = 1305892579553280000L,
-                            IsDefault = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            IsSuperAdministrator = false,
-                            Name = "租户2_管理员",
-                            Remark = "租户2_管理员",
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.RoleResource", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RoleId", "ResourceId");
-
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("RoleResource");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202293350400480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202293350400480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202294722560480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202294722560480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307202293350400480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
-                            CreatedTime = 1307019360624640480L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971660800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307037971578880480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("DeptId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool?>("IsSuperAdministrator")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NickName")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(32)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordEncryptKey")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PositionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeptId");
-
-                    b.HasIndex("PositionId");
-
-                    b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Avatar = "./assets/logo.png",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Avatar = "./avatars/2.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员2",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Avatar = "./avatars/3.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员3",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin3"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Avatar = "./avatars/4.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员4",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin4"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Avatar = "./avatars/5.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员5",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin5"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Avatar = "./avatars/6.jpg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员6",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin6"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Avatar = "./avatars/1.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "管理员1",
-                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "admin1"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Avatar = "./avatars/7.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 3,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "测试员",
-                            Password = "60759dd06243d0837b88ab9b7183e6df",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 2,
-                            UserName = "testuser"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Avatar = "./avatars/8.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "东方财富播报",
-                            Password = "bed99107b3729bb4cc015185ff30aaff",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            UserName = "dongfangcaifu"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Avatar = "./avatars/9.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "租户1用户1",
-                            Password = "40a693e8e3fad5807e0a9f241752dd2c",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            UserName = "zuhu1_user1"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Avatar = "./avatars/10.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "租户2用户1",
-                            Password = "093195e5bda467b3c6f791e530bbf996",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            UserName = "zuhu2_user1"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Avatar = "./avatars/11.jpeg",
-                            CreatedTime = 1305892579553280000L,
-                            DeptId = 2,
-                            EmailConfirmed = false,
-                            Gender = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            NickName = "租户2用户2",
-                            Password = "55ac694faa3b8ca826beb0cea3f2b4c4",
-                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
-                            PhoneNumberConfirmed = false,
-                            PositionId = 1,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            UserName = "zuhu2_user2"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.UserExtension", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CityId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("QQ")
-                        .HasMaxLength(15)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("WeChat")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("UserExtension");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 8,
-                            CreatedTime = 0L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            QQ = "123456"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 5,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 6,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 7,
-                            RoleId = 1,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 8,
-                            RoleId = 2,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            RoleId = 3,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            RoleId = 4,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            RoleId = 4,
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1305892579553280000L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("EndTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VerifyCodeType")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VerifyCodeLog");
-                });
-
-            modelBuilder.Entity("Gardener.WoChat.Domains.ImSession", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("AllUserIsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Announcement")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("CurrentUserCanSendMessage")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("DisableSendMessage")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("LastMessageTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SessionName")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SessionType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UnreadMessageCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UsersSignature")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImSession");
-                });
-
-            modelBuilder.Entity("Gardener.WoChat.Domains.ImSessionMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("ImSessionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MessageType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImSessionMessage");
-                });
-
-            modelBuilder.Entity("Gardener.WoChat.Domains.ImUserSession", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("ImSessionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImUserSession");
-                });
-
-            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobTrigger", b =>
-                {
-                    b.HasBaseType("Gardener.EasyJob.Dtos.SysJobTriggerDto");
-
-                    b.HasDiscriminator().HasValue("SysJobTrigger");
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.HasBaseType("Gardener.SystemManager.Dtos.ResourceDto");
-
                     b.HasIndex("Key");
 
                     b.HasIndex("ParentId");
 
-                    b.HasDiscriminator().HasValue("Resource");
+                    b.ToTable("Resource");
 
                     b.HasData(
                         new
@@ -18650,6 +11377,7244 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.ResourceFunction", b =>
+                {
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("FunctionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ResourceId", "FunctionId");
+
+                    b.HasIndex("FunctionId");
+
+                    b.ToTable("ResourceFunction");
+
+                    b.HasData(
+                        new
+                        {
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            FunctionId = new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            FunctionId = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            FunctionId = new Guid("10190ac3-1092-49a9-8ad2-313454b40447"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            FunctionId = new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            FunctionId = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            FunctionId = new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            FunctionId = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            FunctionId = new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            FunctionId = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            FunctionId = new Guid("547d94df-965f-4833-88fb-c3f66244926c"),
+                            CreatedTime = 1306552962355200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            FunctionId = new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            FunctionId = new Guid("1d994e50-d40a-465b-8445-646041a8131a"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            FunctionId = new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            FunctionId = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            FunctionId = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            FunctionId = new Guid("5df6ccb0-8985-4767-9ff2-b306d791194e"),
+                            CreatedTime = 1306552961720320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            FunctionId = new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"),
+                            CreatedTime = 1306550925844480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            FunctionId = new Guid("571200a8-bde2-430b-84ea-743db7b282cd"),
+                            CreatedTime = 1306550926888960480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            FunctionId = new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"),
+                            CreatedTime = 1306550926888960480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            FunctionId = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
+                            CreatedTime = 1306550927503360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            FunctionId = new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"),
+                            CreatedTime = 1306550928138240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            FunctionId = new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"),
+                            CreatedTime = 1306550928138240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            FunctionId = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
+                            CreatedTime = 1306550924513280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            FunctionId = new Guid("cd1b93ed-2fae-47f2-83b2-e9b0a949f476"),
+                            CreatedTime = 1306552963686400480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
+                            FunctionId = new Guid("7d53bd2b-b5c2-4a79-91e7-591bd8bb4d22"),
+                            CreatedTime = 1307170277335040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("5c83a810-f270-4602-9cc5-4cae64cc032c"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("78fc70a3-d21b-4c7f-8e21-9833ece89eef"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("eea858a2-155b-4934-b4b6-219beaea44f8"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307201776517120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307187689349120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
+                            FunctionId = new Guid("26afb233-f6cc-47bb-b367-0b0b7ce3fe42"),
+                            CreatedTime = 1307201777582080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
+                            FunctionId = new Guid("193923dc-e968-4e75-9531-b090ffae7eb7"),
+                            CreatedTime = 1307170276597760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("5e858248-f765-4412-9753-92621f20f611"),
+                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
+                            CreatedTime = 1307170268057600480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
+                            FunctionId = new Guid("779b4330-2c14-4733-8161-e1230a9db78c"),
+                            CreatedTime = 1307170274304000480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
+                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
+                            CreatedTime = 1307170270883840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
+                            CreatedTime = 1307170270556160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            FunctionId = new Guid("f71b16b5-22d1-4968-aeeb-bbfc3c53aebf"),
+                            CreatedTime = 1307170270556160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
+                            FunctionId = new Guid("b63017f6-d5a9-469f-a682-b0a2ba622f0b"),
+                            CreatedTime = 1307170275614720480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
+                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
+                            CreatedTime = 1307187672596480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
+                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
+                            CreatedTime = 1307170273546240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
+                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
+                            CreatedTime = 1307187671859200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307187674234880480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
+                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
+                            CreatedTime = 1307187674234880480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
+                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
+                            CreatedTime = 1307187674234880480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307201777131520480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
+                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
+                            CreatedTime = 1307170270064640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
+                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
+                            CreatedTime = 1307187670999040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bfa94510-818b-4058-b20f-e4c95ca23a5b"),
+                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
+                            CreatedTime = 1307187670999040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
+                            FunctionId = new Guid("6f9c2287-753e-42d4-a465-c61dd1820fcf"),
+                            CreatedTime = 1307170272665600480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
+                            FunctionId = new Guid("ed2911d8-c745-4140-90d6-7d82b5252b34"),
+                            CreatedTime = 1307170271211520480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
+                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
+                            CreatedTime = 1307170272276480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
+                            FunctionId = new Guid("f1be2be4-b212-4725-9d5b-d99f0d545a64"),
+                            CreatedTime = 1307170276106240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("df23010b-e960-4c50-b114-e84df2edda4f"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307187689943040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
+                            FunctionId = new Guid("2032eead-2715-4f84-9cb1-2e7bcadad2ab"),
+                            CreatedTime = 1307170269655040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307187673559040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
+                            FunctionId = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
+                            CreatedTime = 1307187673559040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fbcde10a-a6d4-4ee6-a2fe-bd541bb91adf"),
+                            FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
+                            CreatedTime = 1307187673559040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("54e062f1-d353-4a67-905e-f2cc5f14d689"),
+                            FunctionId = new Guid("3942a4b5-0545-49af-b8b4-195249960b6b"),
+                            CreatedTime = 1307287031296000480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"),
+                            FunctionId = new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1f8605fb-70b3-4929-89eb-4cda69cc305b"),
+                            FunctionId = new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3d93eb77-2a72-4b4f-aa79-4da1fc7943c9"),
+                            FunctionId = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("46b8f9b5-fe41-4b55-b39f-4cb398186d2c"),
+                            FunctionId = new Guid("39421a19-9cbf-477b-baea-34f40341357f"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a807706b-ffb3-4f8d-b18d-9a7ee6b88028"),
+                            FunctionId = new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
+                            FunctionId = new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
+                            FunctionId = new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("083fffc4-2600-49bb-87e6-1a92133499ec"),
+                            FunctionId = new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("08baa5af-4718-4158-9276-1ad1068b9159"),
+                            FunctionId = new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("145ec764-6a72-4c4f-85d3-7ad889193970"),
+                            FunctionId = new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
+                            FunctionId = new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("af9b9a49-0094-4e1c-97dc-d0580525244f"),
+                            FunctionId = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b5320a70-11fe-4b7a-9c7e-5bb132e72639"),
+                            FunctionId = new Guid("841c572c-5098-4e72-a590-2b81706aaa93"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
+                            FunctionId = new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ef15af79-1be1-4055-82b0-83a6aa8fdd35"),
+                            FunctionId = new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
+                            FunctionId = new Guid("0bc4b901-d9ee-4fac-91c7-e6ea6d6fb852"),
+                            CreatedTime = 1306961917214720480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
+                            CreatedTime = 1306961922150400480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966786068480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            FunctionId = new Guid("06eff7a6-4291-43b0-9c34-58a97aa0fc01"),
+                            CreatedTime = 1306961917972480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966786867200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            FunctionId = new Guid("810235c8-01f5-4255-a30c-fd77ffeb6eab"),
+                            CreatedTime = 1306964900782080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
+                            CreatedTime = 1306961921249280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("ce5a43ff-7ee1-451b-ae23-8acd04f87f71"),
+                            CreatedTime = 1306961921249280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966788812800480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
+                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
+                            CreatedTime = 1306961923010560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
+                            FunctionId = new Guid("2fe5043f-fd43-45f7-a60b-e76865778c2a"),
+                            CreatedTime = 1306964902236160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
+                            FunctionId = new Guid("7faa6bc4-385b-4cdd-ad8b-4e1673fc893b"),
+                            CreatedTime = 1306964901601280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
+                            FunctionId = new Guid("f9480a7b-3408-44f0-aca9-78ba66a75799"),
+                            CreatedTime = 1306961918914560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
+                            FunctionId = new Guid("56871df3-2984-4d02-8ff7-61101f0abc19"),
+                            CreatedTime = 1306964901253120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
+                            FunctionId = new Guid("1f164c01-cd48-4b41-8c87-0cd7e5dc1973"),
+                            CreatedTime = 1306964901928960480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
+                            FunctionId = new Guid("b3f529a4-ad25-4d14-a86b-c1f4cd3f33e0"),
+                            CreatedTime = 1306961920430080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
+                            FunctionId = new Guid("e242137a-b4ea-4dd9-9692-63885fce93b8"),
+                            CreatedTime = 1306964904099840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
+                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
+                            CreatedTime = 1306961916436480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
+                            CreatedTime = 1306964903444480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            FunctionId = new Guid("213eb6ca-e125-4181-b5bd-3e5666d3e8c9"),
+                            CreatedTime = 1306961914593280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            FunctionId = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
+                            CreatedTime = 1306964902584320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
+                            CreatedTime = 1306964903055360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
+                            CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"),
+                            CreatedTime = 1307020005580800480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
+                            CreatedTime = 1306995002163200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306995002163200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
+                            FunctionId = new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"),
+                            FunctionId = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
+                            FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"),
+                            FunctionId = new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            FunctionId = new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            FunctionId = new Guid("8d94c826-ddba-47fe-94c9-333880fee187"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            FunctionId = new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            FunctionId = new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"),
+                            FunctionId = new Guid("c591c0ca-3305-4684-89bb-278218d13c47"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
+                            FunctionId = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"),
+                            FunctionId = new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"),
+                            FunctionId = new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"),
+                            FunctionId = new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"),
+                            CreatedTime = 1306547596206080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"),
+                            FunctionId = new Guid("dca2b115-3363-4f7f-8bba-b051b8d8603a"),
+                            CreatedTime = 1306552948920320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            FunctionId = new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"),
+                            CreatedTime = 1306540222341120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"),
+                            FunctionId = new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
+                            FunctionId = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4f943ed1-997a-485f-9b54-9824b4ac285c"),
+                            FunctionId = new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("64346edf-1390-4a90-bc63-93f322ed6c8f"),
+                            FunctionId = new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"),
+                            CreatedTime = 1306547601367040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"),
+                            FunctionId = new Guid("910d2a4f-85ae-46ff-bddd-b65ffcc6b9e1"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
+                            FunctionId = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
+                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"),
+                            FunctionId = new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"),
+                            FunctionId = new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
+                            FunctionId = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
+                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
+                            FunctionId = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("c4991844-d3b4-4f9a-9c90-c13114515796"),
+                            FunctionId = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ca1d4b3a-336b-40a5-b683-0fe0bcbabaf8"),
+                            FunctionId = new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
+                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
+                            FunctionId = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
+                            FunctionId = new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            FunctionId = new Guid("a17564d2-df94-493f-9a6c-fd7c35ff7e0a"),
+                            CreatedTime = 1307171977789440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            FunctionId = new Guid("c2895c9c-11ac-49c2-ace5-eb622299f8f8"),
+                            CreatedTime = 1307171977789440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
+                            FunctionId = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4c96cdb4-efc1-4ccc-8ec6-9ca1bc458d8a"),
+                            FunctionId = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"),
+                            FunctionId = new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
+                            FunctionId = new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
+                            FunctionId = new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"),
+                            FunctionId = new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a02edffb-0a63-4106-bac2-ea66f1f65060"),
+                            FunctionId = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            FunctionId = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"),
+                            FunctionId = new Guid("af1f0410-e9cc-4a73-9da7-ea45aadac8b2"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a7555120-c3e4-4f8d-bdf8-371ac22daa50"),
+                            FunctionId = new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"),
+                            FunctionId = new Guid("5d67bd9d-853c-4e16-973d-be0511241fc0"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            FunctionId = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            FunctionId = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            FunctionId = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            FunctionId = new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            FunctionId = new Guid("6e2ff941-1e79-4e2a-bbe9-ec68318e5d3a"),
+                            CreatedTime = 1306582975447040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            FunctionId = new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            FunctionId = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            FunctionId = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("713341f2-47e1-42af-b717-bfa75904d32e"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"),
+                            CreatedTime = 1306971988418560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"),
+                            CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            FunctionId = new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            FunctionId = new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            FunctionId = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            FunctionId = new Guid("89954833-64a5-4c87-a717-9c863ca3b263"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            FunctionId = new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            FunctionId = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            FunctionId = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            FunctionId = new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            FunctionId = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            FunctionId = new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            FunctionId = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            FunctionId = new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            FunctionId = new Guid("16517409-c055-447b-8e91-7155537c6d15"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            FunctionId = new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            FunctionId = new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            FunctionId = new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            FunctionId = new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            FunctionId = new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            FunctionId = new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923640320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            FunctionId = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
+                            CreatedTime = 1307019918479360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            FunctionId = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
+                            CreatedTime = 1307019915325440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923087360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
+                            CreatedTime = 1307019921326080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            FunctionId = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
+                            CreatedTime = 1307019913953280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            FunctionId = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
+                            CreatedTime = 1307019931443200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            FunctionId = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
+                            CreatedTime = 1307019912355840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
+                            CreatedTime = 1307030680944640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1307030681333760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            FunctionId = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
+                            CreatedTime = 1307030681927680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            FunctionId = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            FunctionId = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            FunctionId = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            FunctionId = new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            FunctionId = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
+                            CreatedTime = 1307020021166080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            FunctionId = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            CreatedTime = 1307020017090560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            FunctionId = new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            FunctionId = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            FunctionId = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
+                            CreatedTime = 1306552953200640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            FunctionId = new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            FunctionId = new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            FunctionId = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
+                            CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
+                            CreatedTime = 1306984589557760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("27d997d7-e691-4dbe-b5e0-74acbca53d98"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("333a3802-f8d2-4625-9476-dee8bf43fd0d"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("42636f5d-d5f6-4f64-bd2b-e77d80e51ff2"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("752b1623-8898-431f-ab3f-db9ebffae4e6"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("97b24035-cd96-4e28-bc42-103ac7e5fe3f"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"),
+                            CreatedTime = 1306984572805120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("be639780-fbd0-4335-95e3-91e099d87850"),
+                            CreatedTime = 1306984539791360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("d481028f-d67e-4ee0-b237-a4883c618486"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("ea2a64ac-bde9-45e5-a879-10b161b3f825"),
+                            CreatedTime = 1306984539402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("f78ea06a-4c55-4445-9e16-bdc92c9b9fa6"),
+                            CreatedTime = 1306984539402240480L
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemTenant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户1",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        },
+                        new
+                        {
+                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户2",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TenantId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("SystemTenantResource");
+
+                    b.HasData(
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool?>("AllowNull")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("EntityFromTable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("GenerateBaseClass")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("GenerateLocaleFile")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("GenerateProjectFile")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("GenerateSelectFields")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("GenerateService")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasAdd")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasBatchDelete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasBatchEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasDelete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasExport")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasImport")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasLock")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IconName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MenuNameCH")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MenuNameEN")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("MenuParentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Module")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NameSpace")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NewTableName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginModule")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PrimaryKeyName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TableDescriptionCH")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TableDescriptionEN")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TablePrefix")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("UseChineseKey")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("UseCustomTemplate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("UseNetColumnAsKey")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sys_CodeGen");
+                });
+
+            modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CodeGenId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColumnDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColumnKey")
+                        .HasMaxLength(5)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColumnName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ColumnSummary")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CustomSearchLength")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CustomSearchType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DbDataType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DbDataTypeText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("DecimalDigits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DictTypeCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("EditComponentLength")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EditComponentType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EffectType")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FkColumnName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FkColumnNetType")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FkEntityName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool?>("IsBatchEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsCommon")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsCreate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsCustomSearch")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsDictRequired")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsDictRetract")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsEntity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsIdentity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsIgnore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsNullable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsPrimaryKey")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsRequired")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsSearch")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsSpecialType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsView")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Length")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NetColumnName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NetType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NetTypeRaw")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SearchType")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ViewComponentType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodeGenId");
+
+                    b.ToTable("Sys_CodeGenConfig");
+                });
+
+            modelBuilder.Entity("Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ControllerGroup")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ControllerRoute")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EntityFullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ModuleName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntityCodeGenerationSetting");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobCluster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClusterId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<uint>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobCluster");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Concurrent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreateType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupName")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IncludeAnnotations")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JobType")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Properties")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ScriptCode")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SysJobDetailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SysJobDetailId");
+
+                    b.ToTable("SysJobDetail");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("ElapsedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Exception")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ExceptionMessage")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobDetailDescription")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JobTriggerDescription")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("LastRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("NextRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Result")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Succeeded")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TriggerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<uint>("TriggerStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobLog");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobTrigger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Args")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("ElapsedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("EndTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("LastRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MaxNumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MaxNumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("NextRunTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NumRetries")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ResetOnlyOnce")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Result")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RetryTimeout")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("RunOnStart")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("StartNow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("StartTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<uint>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TriggerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TriggerType")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobTrigger");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobUserConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("EnableRealTimeMonitor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobUserConfig");
+                });
+
+            modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountPassword")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("EnableSsl")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FromEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Host")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Port")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailServerConfig");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1812e5c1-7bcc-4d51-9b5e-45d610357e0e"),
+                            AccountName = "888888@qq.com",
+                            AccountPassword = "123456",
+                            CreatedTime = 1306051084984320000L,
+                            EnableSsl = false,
+                            FromEmail = "888888@qq.com",
+                            Host = "smtp.qq.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "QQ Email",
+                            Port = 25,
+                            Remark = "QQ Email",
+                            Tags = "Base,QQ"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Email.Domains.EmailTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContentTemplate")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Example")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FromName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsHtml")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectTemplate")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTemplate");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("90587db9-3c8d-4ec1-80cc-ff001166fd25"),
+                            ContentTemplate = "<p>您的验证码是：<b> @Model.Code </b></p>\r\n                                  <P>时间：@(System.DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\"))</p>",
+                            CreatedTime = 1306051084984320000L,
+                            Example = "{\"Code\":123}",
+                            FromName = "园丁",
+                            IsDeleted = false,
+                            IsHtml = true,
+                            IsLocked = false,
+                            Name = "验证码",
+                            Remark = "发送验证码",
+                            SubjectTemplate = "你好，请查收验证码"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FavourCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("FixTop")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OpposeCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ReplyCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcement");
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Contacts")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SecretKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("96c0eec0-861f-4ed2-a183-5604b20bdff9"),
+                            Contacts = "园丁",
+                            CreatedTime = 1305892579553280000L,
+                            Email = "qq@qq.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "测试client1",
+                            Remark = "用于测试",
+                            SecretKey = "9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
+                            Tel = "13838888888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
+                {
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("FunctionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ClientId", "FunctionId");
+
+                    b.HasIndex("FunctionId");
+
+                    b.ToTable("ClientFunction");
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Dept", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Contacts")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Dept");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Contacts = "老A",
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "北京分部",
+                            Order = 1,
+                            Remark = "北京分部",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Contacts = "老B",
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "昌平办事处",
+                            Order = 1,
+                            ParentId = 1,
+                            Remark = "昌平办事处",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Contacts = "老C",
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "海淀办事处",
+                            Order = 1,
+                            ParentId = 1,
+                            Remark = "海淀办事处",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Contacts = "老D",
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "河北分部",
+                            Order = 1,
+                            Remark = "河北分部",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Contacts = "老E",
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "石家庄办事处",
+                            Order = 1,
+                            ParentId = 4,
+                            Remark = "石家庄办事处",
+                            Tel = "400-8888888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Duty")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Grade")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Qualifications")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Right")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Salary")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Target")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Position");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "董事长"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "总经理"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSuperAdministrator")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = true,
+                            Name = "超级管理员",
+                            Remark = "拥有所有权限"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "浏览者",
+                            Remark = "只能浏览"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户1_管理员",
+                            Remark = "租户1_管理员",
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户2_管理员",
+                            Remark = "租户2_管理员",
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.RoleResource", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RoleId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("RoleResource");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202294722560480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202294722560480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DeptId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("IsSuperAdministrator")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NickName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordEncryptKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeptId");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Avatar = "./assets/logo.png",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Avatar = "./avatars/2.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员2",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Avatar = "./avatars/3.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员3",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Avatar = "./avatars/4.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员4",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Avatar = "./avatars/5.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员5",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Avatar = "./avatars/6.jpg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员6",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin6"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Avatar = "./avatars/1.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员1",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin1"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Avatar = "./avatars/7.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 3,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "测试员",
+                            Password = "60759dd06243d0837b88ab9b7183e6df",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 2,
+                            UserName = "testuser"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Avatar = "./avatars/8.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "东方财富播报",
+                            Password = "bed99107b3729bb4cc015185ff30aaff",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "dongfangcaifu"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Avatar = "./avatars/9.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户1用户1",
+                            Password = "40a693e8e3fad5807e0a9f241752dd2c",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            UserName = "zuhu1_user1"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Avatar = "./avatars/10.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户1",
+                            Password = "093195e5bda467b3c6f791e530bbf996",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user1"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Avatar = "./avatars/11.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户2",
+                            Password = "55ac694faa3b8ca826beb0cea3f2b4c4",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user2"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.UserExtension", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("QQ")
+                        .HasMaxLength(15)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("WeChat")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserExtension");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 8,
+                            CreatedTime = 0L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            QQ = "123456"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            RoleId = 2,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            RoleId = 3,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            UserId = 11,
+                            RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            UserId = 12,
+                            RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("EndTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("VerifyCodeType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VerifyCodeLog");
+                });
+
+            modelBuilder.Entity("Gardener.WoChat.Domains.ImSession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("AllUserIsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Announcement")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CurrentUserCanSendMessage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("DisableSendMessage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("LastMessageTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SessionName")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SessionType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UnreadMessageCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UsersSignature")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImSession");
+                });
+
+            modelBuilder.Entity("Gardener.WoChat.Domains.ImSessionMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ImSessionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MessageType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImSessionMessage");
+                });
+
+            modelBuilder.Entity("Gardener.WoChat.Domains.ImUserSession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ImSessionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImUserSession");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Code", b =>
                 {
                     b.HasOne("Gardener.Base.Entity.CodeType", "CodeType")
@@ -18677,6 +18642,15 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("AuditEntity");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Resource", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.ResourceFunction", b =>
@@ -18726,18 +18700,11 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Gardener.EasyJob.Dtos.SysJobTriggerDto", b =>
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobDetail", b =>
                 {
                     b.HasOne("Gardener.EasyJob.Impl.Domains.SysJobDetail", null)
                         .WithMany("JobTriggers")
                         .HasForeignKey("SysJobDetailId");
-                });
-
-            modelBuilder.Entity("Gardener.SystemManager.Dtos.ResourceDto", b =>
-                {
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Role", null)
-                        .WithMany("Resources")
-                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
@@ -18832,15 +18799,6 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.HasOne("Gardener.Base.Entity.Resource", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Parent");
-                });
-
             modelBuilder.Entity("Gardener.Base.Entity.CodeType", b =>
                 {
                     b.Navigation("Codes");
@@ -18859,6 +18817,15 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
                 {
                     b.Navigation("ResourceFunctions");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("ResourceFunctions");
+
+                    b.Navigation("TenantResources");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
@@ -18895,8 +18862,6 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Role", b =>
                 {
-                    b.Navigation("Resources");
-
                     b.Navigation("RoleResources");
 
                     b.Navigation("UserRoles");
@@ -18907,15 +18872,6 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("UserExtension");
 
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("ResourceFunctions");
-
-                    b.Navigation("TenantResources");
                 });
 #pragma warning restore 612, 618
         }

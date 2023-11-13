@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.SystemManager.Dtos
 {
@@ -66,11 +67,13 @@ namespace Gardener.SystemManager.Dtos
         /// 父级编号
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.ParentId), ResourceType = typeof(SystemManagerResource))]
+        [NotMapped]
         public Guid? ParentId { get; set; }
         /// <summary>
         /// 子集
         /// </summary>
         [Display(Name = nameof(SystemManagerResource.Children), ResourceType = typeof(SystemManagerResource))]
+        [NotMapped]
         public ICollection<ResourceDto>? Children { get; set; }
         /// <summary>
         /// 类型

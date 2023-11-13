@@ -6,6 +6,8 @@
 
 using Gardener.Base.Entity;
 using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.EasyJob.Impl.Domains
 {
@@ -14,5 +16,10 @@ namespace Gardener.EasyJob.Impl.Domains
     /// </summary>
     public class SysJobDetail : SysJobDetailDto, IEntityBase
     {
+        /// <summary>
+        /// 触发器集合
+        /// </summary>
+        [Display(Name = nameof(EasyJobLocalResource.JobTriggers), ResourceType = typeof(EasyJobLocalResource))]
+        public new IEnumerable<SysJobDetail>? JobTriggers { get; set; }
     }
 }
