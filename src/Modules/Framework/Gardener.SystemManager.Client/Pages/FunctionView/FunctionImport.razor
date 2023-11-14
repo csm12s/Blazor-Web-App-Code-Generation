@@ -41,7 +41,6 @@
                    HidePagination="true"
                    Bordered="true"
                    SelectedRows="@_selectedFunctionDtos"
-                   SelectedRowsChanged="SelectedRowsChanged"
                    EnableVirtualization>
                 <Selection Key="@(model.Path+"_"+model.Method)" />
                 <Column Title="@Localizer[nameof(SharedLocalResource.Service)]" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
