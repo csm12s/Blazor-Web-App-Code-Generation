@@ -20,6 +20,8 @@ using Gardener.Sugar;
 using Gardener.DistributedLock;
 using Gardener.EasyJob.Impl.Core;
 using Gardener.LocalizationLocalizer;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.Linq;
 
 namespace Gardener.Admin
 {
@@ -130,6 +132,15 @@ namespace Gardener.Admin
                 // 添加监控器
                 options.AddMonitor<EasyJobMonitor>();
             });
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+                options.MimeTypes =
+                ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "image/svg+xml" });
+            });
         }
         /// <summary>
         /// 
@@ -155,6 +166,8 @@ namespace Gardener.Admin
             // 配置多语言，必须在 路由注册之前
             app.UseAppLocalization();
             app.ApplicationServices.InitLocalizationLocalizerUtil();
+
+            app.UseResponseCompression();
 
             app.UseStaticFiles();
 
