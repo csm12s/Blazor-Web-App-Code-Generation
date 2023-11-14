@@ -18,7 +18,6 @@ using Gardener.Common;
 using Microsoft.Extensions.Logging;
 using Furion.FriendlyException;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Admin
 {

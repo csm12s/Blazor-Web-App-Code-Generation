@@ -160,9 +160,9 @@ namespace Gardener.UserCenter.Impl.Services
             var user = input.Adapt<User>();
             user.UpdatedTime = DateTimeOffset.Now;
 
-            List<Expression<Func<User, object>>> exclude = new List<Expression<Func<User, object>>>()
+            List<string> exclude = new List<string>()
             {
-                x=>x.CreatedTime
+                nameof(User.CreatedTime)
             };
             //传入了密码就进行修改
             if (!string.IsNullOrEmpty(user.Password))
@@ -173,8 +173,8 @@ namespace Gardener.UserCenter.Impl.Services
             else
             {
                 //不修改密码时要排除掉
-                exclude.Add(x => x.Password);
-                exclude.Add(x => x.PasswordEncryptKey);
+                exclude.Add(nameof(User.Password));
+                exclude.Add(nameof(User.PasswordEncryptKey));
             }
 
             //更新
