@@ -93,7 +93,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         }
         catch (Exception ex)
         {
-            logger.LogError("DeleteAndAddList error", ex);
+            logger.LogError(ex,"DeleteAndAddList error");
         }
 
         #endregion

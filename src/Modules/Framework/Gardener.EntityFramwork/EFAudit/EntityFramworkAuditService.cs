@@ -80,6 +80,8 @@ namespace Gardener.EntityFramwork.EFAudit
         /// <param name="entitys"></param>
         public void SavingChangesEvent(IEnumerable<EntityEntry> entitys)
         {
+            //没有请求的操作，不需要存储数据审计
+            if(_auditOperation == null) { return; }
             try
             {
                 if (entitys == null || !entitys.Any())
@@ -89,7 +91,7 @@ namespace Gardener.EntityFramwork.EFAudit
                 // 获取当前事件对应上下文
                 // 获取所有实体  
                 entitys = entitys.Where(w =>
-               w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted
+                    w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted
                 );
                 if (!entitys.Any()) return;
                 var user = _identityService.GetIdentity();

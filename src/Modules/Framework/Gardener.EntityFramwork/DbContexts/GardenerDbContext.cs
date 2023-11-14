@@ -6,6 +6,7 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Gardener.Authentication.Core;
 using Gardener.EntityFramwork.Core;
 using Gardener.EntityFramwork.EFAudit;
 using Microsoft.EntityFrameworkCore;
@@ -22,12 +23,18 @@ namespace Gardener.EntityFramwork.DbContexts
     [AppDbContext("Default")]
     public class GardenerDbContext : AppDbContext<GardenerDbContext>
     {
+        private readonly IOrmAuditService ormAuditService;
+        private readonly IIdentityService identityService;
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="options"></param>
-        public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
+        /// <param name="ormAuditService"></param>
+        /// <param name="identityService"></param>
+        public GardenerDbContext(DbContextOptions<GardenerDbContext> options, IOrmAuditService ormAuditService, IIdentityService identityService) : base(options)
         {
+            this.ormAuditService = ormAuditService;
+            this.identityService = identityService;
         }
         /// <summary>
         /// 解决sqlite 不支持datetimeoffset问题（损失很小的精度）
@@ -71,8 +78,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (context == null) { return; }
 
             //基础数据初始化
-            GlobalEntityEntryHandle.Handle(context.ChangeTracker.Entries());
-            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
+            GlobalEntityEntryHandle.Handle(context.ChangeTracker.Entries(), identityService.GetIdentity());
             ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
         }
 
@@ -83,7 +89,6 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <param name="result"></param>
         protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
-            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavedChangesEvent();
         }
     }

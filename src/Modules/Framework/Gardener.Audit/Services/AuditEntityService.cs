@@ -28,13 +28,16 @@ namespace Gardener.Audit.Services
     public class AuditEntityService : ServiceBase<AuditEntity, AuditEntityDto, Guid, GardenerMultiTenantDbContextLocator>, IAuditEntityService
     {
         private readonly IRepository<AuditEntity, GardenerMultiTenantDbContextLocator> _auditRepository;
+        private readonly IDynamicFilterService _dynamicFilterService;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        public AuditEntityService(IRepository<AuditEntity, GardenerMultiTenantDbContextLocator> repository) : base(repository)
+        /// <param name="dynamicFilterService"></param>
+        public AuditEntityService(IRepository<AuditEntity, GardenerMultiTenantDbContextLocator> repository, IDynamicFilterService dynamicFilterService) : base(repository)
         {
             this._auditRepository = repository;
+            _dynamicFilterService = dynamicFilterService;
         }
 
         /// <summary>
@@ -48,9 +51,7 @@ namespace Gardener.Audit.Services
         [HttpPost]
         public override async Task<PagedList<AuditEntityDto>> Search(PageRequest request)
         {
-            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-
-            Expression<Func<AuditEntity, bool>> expression = filterService.GetExpression<AuditEntity>(request.FilterGroups);
+            Expression<Func<AuditEntity, bool>> expression = _dynamicFilterService.GetExpression<AuditEntity>(request.FilterGroups);
 
             IQueryable<AuditEntity> queryable = _auditRepository
                 .AsQueryable(false)

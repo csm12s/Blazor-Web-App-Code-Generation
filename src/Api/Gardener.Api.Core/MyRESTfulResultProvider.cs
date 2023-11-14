@@ -17,6 +17,7 @@ using Gardener.Enums;
 using Gardener.Common;
 using Microsoft.Extensions.Logging;
 using Furion.FriendlyException;
+using Microsoft.Extensions.Options;
 
 namespace Gardener.Admin
 {
@@ -31,13 +32,16 @@ namespace Gardener.Admin
         /// 日志记录器
         /// </summary>
         private readonly ILogger<MyRESTfulResultProvider> _logger;
+        private readonly IOptions<JsonOptions> _jsonOptions;
         /// <summary>
         /// RESTful 风格返回值
         /// </summary>
         /// <param name="logger"></param>
-        public MyRESTfulResultProvider(ILogger<MyRESTfulResultProvider> logger)
+        /// <param name="jsonOptions"></param>
+        public MyRESTfulResultProvider(ILogger<MyRESTfulResultProvider> logger, IOptions<JsonOptions> jsonOptions)
         {
             _logger = logger;
+            _jsonOptions = jsonOptions;
         }
 
         /// <summary>
@@ -101,12 +105,12 @@ namespace Gardener.Admin
                 // 处理 401 状态码
                 case StatusCodes.Status401Unauthorized:
                     await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.Unauthorized), errorCode: ExceptionCode.Unauthorized)
-                        , App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
+                        , _jsonOptions.Value.JsonSerializerOptions);
                     break;
                 // 处理 403 状态码
                 case StatusCodes.Status403Forbidden:
                     await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.Forbidden), errorCode: ExceptionCode.Forbidden)
-                        , App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
+                        , _jsonOptions.Value.JsonSerializerOptions);
                     break;
                 default: break;
             }

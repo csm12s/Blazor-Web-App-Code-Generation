@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.RemoteRequest.Extensions;
 using Furion.Schedule;
 using Gardener.EasyJob.Dtos;
@@ -20,6 +19,19 @@ namespace Gardener.EasyJob.Impl.Jobs
     [PeriodSeconds(5, TriggerId = "trigger_DfcfNewsGather", Description = "采集东方财富新闻触发器")]
     public class DfcfNewsGatherJob : IJob
     {
+        private readonly ILogger<DfcfNewsGatherJob> logger;
+        private readonly IEventBus eventBus;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="eventBus"></param>
+        public DfcfNewsGatherJob(ILogger<DfcfNewsGatherJob> logger, IEventBus eventBus)
+        {
+            this.logger = logger;
+            this.eventBus = eventBus;
+        }
+
         static private long lastNewsId = 0;
         /// <summary>
         /// 执行
@@ -29,7 +41,6 @@ namespace Gardener.EasyJob.Impl.Jobs
         /// <returns></returns>
         public Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
-            ILogger logger = App.GetRequiredService<ILogger<DfcfNewsGatherJob>>();
             List<NewsInfo>? resultNews = GetLastNews().Result;
             if (resultNews == null) {
                 context.Result = "执行完成";
@@ -38,7 +49,6 @@ namespace Gardener.EasyJob.Impl.Jobs
             foreach (NewsInfo newsInfo in resultNews)
             {
                 if (stoppingToken.IsCancellationRequested) { break; }
-                IEventBus eventBus = App.GetRequiredService<IEventBus>();
                 DongFangCaiFuNewsEvent newsEvent = new();
                 newsEvent.Title = newsInfo.title;
                 newsEvent.Content = newsInfo.digest;

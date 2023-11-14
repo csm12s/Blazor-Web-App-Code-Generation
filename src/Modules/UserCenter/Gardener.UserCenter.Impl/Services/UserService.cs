@@ -25,6 +25,7 @@ using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
 using Furion.DependencyInjection;
 using Gardener.Base.Entity;
+using Gardener.Authentication.Core;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -40,6 +41,7 @@ namespace Gardener.UserCenter.Impl.Services
         private readonly IRepository<UserExtension, GardenerMultiTenantDbContextLocator> _userExtensionRepository;
         private readonly IRepository<Dept, GardenerMultiTenantDbContextLocator> _deptRepository;
         private readonly IDynamicFilterService _filterService;
+        private readonly IIdentityService _identityService;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -49,13 +51,15 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="roleRepository"></param>
         /// <param name="deptRepository"></param>
         /// <param name="filterService"></param>
+        /// <param name="identityService"></param>
         public UserService(
             IRepository<User, GardenerMultiTenantDbContextLocator> userRepository,
             IRepository<UserExtension, GardenerMultiTenantDbContextLocator> userExtensionRepository,
             IRepository<UserRole, GardenerMultiTenantDbContextLocator> userRoleRepository,
-            IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository, 
+            IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository,
             IRepository<Dept, GardenerMultiTenantDbContextLocator> deptRepository,
-            IDynamicFilterService filterService) : base(userRepository)
+            IDynamicFilterService filterService,
+            IIdentityService identityService) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
@@ -63,6 +67,7 @@ namespace Gardener.UserCenter.Impl.Services
             _roleRepository = roleRepository;
             _deptRepository = deptRepository;
             _filterService = filterService;
+            _identityService = identityService;
         }
 
         /// <summary>
@@ -155,9 +160,9 @@ namespace Gardener.UserCenter.Impl.Services
             var user = input.Adapt<User>();
             user.UpdatedTime = DateTimeOffset.Now;
 
-            List<Expression<Func<User, object>>> exclude = new List<Expression<Func<User, object>>>()
+            List<string> exclude = new List<string>()
             {
-                x=>x.CreatedTime
+                nameof(User.CreatedTime)
             };
             //传入了密码就进行修改
             if (!string.IsNullOrEmpty(user.Password))
@@ -168,8 +173,8 @@ namespace Gardener.UserCenter.Impl.Services
             else
             {
                 //不修改密码时要排除掉
-                exclude.Add(x => x.Password);
-                exclude.Add(x => x.PasswordEncryptKey);
+                exclude.Add(nameof(User.Password));
+                exclude.Add(nameof(User.PasswordEncryptKey));
             }
 
             //更新
@@ -321,7 +326,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public Task<string> GetCurrentUserId()
         {
-            var id = IdentityUtil.GetIdentityId();
+            var id = _identityService.GetIdentity()?.Id;
             if (id == null)
             {
                 throw new ArgumentNullException("CurrentUserId");

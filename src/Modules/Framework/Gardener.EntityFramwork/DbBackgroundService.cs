@@ -23,6 +23,19 @@ namespace Gardener.EntityFramwork
     /// </summary>
     public class DbBackgroundService : BackgroundService
     {
+        private readonly ILogger<DbContextStartup> _logger;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="serviceScopeFactory"></param>
+        public DbBackgroundService(ILogger<DbContextStartup> logger, IServiceScopeFactory serviceScopeFactory)
+        {
+            _logger = logger;
+            _serviceScopeFactory = serviceScopeFactory;
+        }
+
         /// <summary>
         /// 启动
         /// </summary>
@@ -54,19 +67,18 @@ namespace Gardener.EntityFramwork
         /// </summary>
         private void AotuInitDb()
         {
-            var logger = App.GetService<ILogger<DbContextStartup>>();
             var initDb = bool.Parse(App.Configuration["DefaultDbSettings:InitDb"] ?? "false");
             var autoMigration = bool.Parse(App.Configuration["DefaultDbSettings:AutoMigration"] ?? "false");
             // 判断开发环境！！！必须！！！！
             if (App.WebHostEnvironment.IsDevelopment())
             {
-                Scoped.Create((_, scope) =>
+                using (IServiceScope scope = _serviceScopeFactory.CreateScope())
                 {
                     List<DbContext> defaultDbContexts = new List<DbContext>
                     {
-                        scope.ServiceProvider.GetRequiredService<GardenerDbContext>(),
-                        scope.ServiceProvider.GetRequiredService<GardenerMultiTenantDbContext>(),
-                        scope.ServiceProvider.GetRequiredService<GardenerAuditDbContext>()
+                    scope.ServiceProvider.GetRequiredService<GardenerDbContext>(),
+                    scope.ServiceProvider.GetRequiredService<GardenerMultiTenantDbContext>(),
+                    scope.ServiceProvider.GetRequiredService<GardenerAuditDbContext>()
                     };
                     foreach (DbContext dbContext in defaultDbContexts)
                     {
@@ -74,16 +86,16 @@ namespace Gardener.EntityFramwork
                         {
                             //需要有迁移文件，如果没有迁移文件不会迁移，迁移后会生成迁移记录在表中，如果迁移记录与实际表版本不一致，将异常。
                             dbContext.Database.Migrate();
-                            logger.LogInformation($"数据库{dbContext.GetType().FullName}迁移完成");
+                            _logger.LogInformation($"数据库{dbContext.GetType().FullName}迁移完成");
                         }
                         if (initDb)
                         {
                             //不需要迁移文件，如果数据库已存在，不生成，如果不存在，生成数据库，生成的数据库没有迁移记录，无法再使用migrate进行迁移。
                             dbContext.Database.EnsureCreated();
-                            logger.LogInformation($"数据库{dbContext.GetType().FullName}初始化完成");
+                            _logger.LogInformation($"数据库{dbContext.GetType().FullName}初始化完成");
                         }
                     }
-                });
+                }
             }
         }
     }
