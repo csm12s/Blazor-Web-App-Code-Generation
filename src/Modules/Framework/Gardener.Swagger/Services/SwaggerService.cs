@@ -15,6 +15,7 @@ using Gardener.Enums;
 using Gardener.Swagger.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,15 @@ namespace Gardener.Swagger.Services
     [ApiDescriptionSettings("SystemBaseServices")]
     public class SwaggerService : ISwaggerService, IDynamicApiController
     {
-
+        private readonly IOptions<SpecificationDocumentSettingsOptions> _specificationDocumentSettings;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="specificationDocumentSettings"></param>
+        public SwaggerService(IOptions<SpecificationDocumentSettingsOptions> specificationDocumentSettings)
+        {
+            _specificationDocumentSettings = specificationDocumentSettings;
+        }
 
         /// <summary>
         /// 解析api json
@@ -65,7 +74,7 @@ namespace Gardener.Swagger.Services
         public Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup()
         {
             // 载入配置
-            SpecificationDocumentSettingsOptions options = App.GetOptions<SpecificationDocumentSettingsOptions>();
+            SpecificationDocumentSettingsOptions options = _specificationDocumentSettings.Value;
             if (options == null) return Task.FromResult(new List<SwaggerSpecificationOpenApiInfoDto>(0));
             return Task.FromResult(options.GroupOpenApiInfos.Select(x => x.Adapt<SwaggerSpecificationOpenApiInfoDto>()).ToList());
         }
