@@ -7,6 +7,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 	<BlazorEnableCompression>true</BlazorEnableCompression>
 	<Nullable>enable</Nullable>
+    <RunAOTCompilation>true</RunAOTCompilation>
   </PropertyGroup>
 
 
@@ -65,5 +66,4 @@
     <ProjectReference Include="..\..\..\Modules\Framework\Gardener.VerifyCode.Client\Gardener.VerifyCode.Client.csproj" />
     <ProjectReference Include="..\..\..\Modules\UserCenter\Gardener.UserCenter.Client\Gardener.UserCenter.Client.csproj" />
   </ItemGroup>
-
 </Project>
