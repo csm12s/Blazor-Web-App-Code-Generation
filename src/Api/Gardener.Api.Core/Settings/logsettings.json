@@ -1,5 +1,9 @@
 {
 	"Logging": {
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft.AspNetCore.HttpLogging.HttpLoggingMiddleware": "Information"
+		},
 		"Monitor": {
 			"GlobalEnabled": true,
 			"IncludeOfMethods": [],

@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Furion" Version="4.8.8.55" />
-		<PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="7.0.13" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.13" />
+		<PackageReference Include="Furion" Version="4.9.1" />
+		<PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

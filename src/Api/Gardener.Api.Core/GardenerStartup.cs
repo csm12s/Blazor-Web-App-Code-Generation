@@ -86,6 +86,10 @@ namespace Gardener.Admin
             services.AddViewEngine();
             //添加系统通知服务
             services.AddSystemNotify();
+
+            //请求日志
+            services.AddHttpLogging(_ => { });
+
             //文件日志
             services.AddFileLogging(options => {
                 options.FileNameRule = fileName =>
@@ -153,8 +157,7 @@ namespace Gardener.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseHttpLogging();
-
+            
             app.UseHttpsRedirection();
             //启用EnableBuffering 解决Request body获取不到
             app.Use(next => context =>
@@ -170,6 +173,8 @@ namespace Gardener.Admin
             app.UseResponseCompression();
 
             app.UseStaticFiles();
+
+            app.UseHttpLogging();
 
             app.UseRouting();
 
