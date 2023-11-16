@@ -24,23 +24,6 @@ namespace Gardener.Client.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="serviceCollection"></param>
         /// <param name="assemblys"></param>
-        public static void AddServicesWithAttributeOfTypeFromModuleContext(this IServiceCollection serviceCollection, Assembly[] assemblys)
-        {
-            List<Assembly> all = new List<Assembly>();
-            Assembly[]? assemblies = ModuleExtension.GetModuleContext()?.ModeuleAssemblies;
-            if (assemblies != null)
-            {
-                all.AddRange(assemblies);
-            }
-            all.AddRange(assemblys);
-            serviceCollection.AddServicesWithAttributeOfType(all.ToArray());
-        }
-        /// <summary>
-        /// 通过扫描特性注册服务
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="serviceCollection"></param>
-        /// <param name="assemblys"></param>
         public static void AddServicesWithAttributeOfType(this IServiceCollection serviceCollection, params Assembly[] assemblys)
         {
             if (serviceCollection == null)
@@ -164,7 +147,7 @@ namespace Gardener.Client.Core
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                Console.WriteLine("注入服务：" + type.Name + "," + implementation.Name);
+                                //Console.WriteLine("注入服务：" + type.Name + "," + implementation.Name);
                                 serviceCollection.TryAdd(type, implementation, lifetime);
                             }
                         }
@@ -172,12 +155,12 @@ namespace Gardener.Client.Core
                         Type? baseType = implementation.BaseType;
                         if (baseType!=null && !baseType.Equals(typeof(Object)))
                         {
-                            Console.WriteLine("注入服务：" + baseType.Name + "," + implementation.Name);
+                            //Console.WriteLine("注入服务：" + baseType.Name + "," + implementation.Name);
                             serviceCollection.TryAdd(baseType, implementation, lifetime);
                         }
                         else
                         {
-                            Console.WriteLine("注入服务：" + implementation.Name + "," + implementation.Name);
+                            //Console.WriteLine("注入服务：" + implementation.Name + "," + implementation.Name);
                             serviceCollection.TryAdd(implementation, implementation, lifetime);
                         }
                     }

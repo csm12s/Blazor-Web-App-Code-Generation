@@ -69,7 +69,6 @@ namespace Gardener.Client.AntDesignUi.Entry
             services.Configure<AuthSettings>(configuration.GetSection("AuthSettings"));
             #endregion
 
-            
 
             #region 本地化
             services.AddAppLocalization<SharedLocalResource>();

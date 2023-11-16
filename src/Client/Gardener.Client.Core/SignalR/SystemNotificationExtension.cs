@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gardener.Client.Core
@@ -18,11 +17,11 @@ namespace Gardener.Client.Core
         /// <summary>
         /// SignalRClientManager
         /// </summary>
-        /// <param name="builder"></param>
-        public static void AddSignalRClientManager(this WebAssemblyHostBuilder builder) 
+        /// <param name="services"></param>
+        public static void AddSignalRClientManager(this IServiceCollection services) 
         {
-            builder.Services.AddTransient<ISignalRClientBuilder, SignalRClientBuilder>();
-            builder.Services.AddScoped<ISignalRClientManager, SignalRClientManager>();
+            services.AddTransient<ISignalRClientBuilder, SignalRClientBuilder>();
+            services.AddScoped<ISignalRClientManager, SignalRClientManager>();
         }
 
     }

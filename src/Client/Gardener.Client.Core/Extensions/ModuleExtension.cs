@@ -8,6 +8,7 @@ using Gardener.Client.Base;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,48 +26,56 @@ namespace Gardener.Client.Core
         /// <summary>
         /// client 所有模块Assembly
         /// </summary>
-        private static ClientModuleContext? moduleContext;
+        private static ClientModuleManager? clientModuleManager;
 
         /// <summary>
         /// 获取 client 所有模块Assembly
         /// </summary>
         /// <returns></returns>
-        public static ClientModuleContext? GetModuleContext()
+        public static ClientModuleManager? GetModuleContext()
         {
-            return moduleContext;
+            return clientModuleManager;
         }
         /// <summary>
-        /// 启用
+        /// 加载各个dll，并扫描需要注册的服务
         /// </summary>
-        /// <param name="builder"></param>
-        public static void AddModuleLoader(this WebAssemblyHostBuilder builder)
+        /// <param name="services"></param>
+        public static void LoadModulesAndScanServices(this IServiceCollection services)
         {
-            IEnumerable<IConfigurationSection> sections = builder.Configuration.GetSection("ModuleSettings:Dlls").GetChildren();
-            List<string> dlls = new List<string> {
-            "Gardener.Client.Base.dll",
-            "Gardener.Client.Core.dll"
-            };
-            foreach (IConfigurationSection configuration in sections)
+            //加载各个dll
+            services.LoadModules();
+            //扫描需要注册的服务
+            services.AddServicesWithAttributeOfType(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        /// <summary>
+        /// 加载各个dll
+        /// </summary>
+        /// <param name="services"></param>
+        public static void LoadModules(this IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
+            IEnumerable<IConfigurationSection> sections = configuration.GetSection("ModuleSettings:Dlls").GetChildren();
+            List<string> dlls = new();
+            foreach (IConfigurationSection item in sections)
             {
-                if (string.IsNullOrEmpty(configuration.Value)) 
+                if (string.IsNullOrEmpty(item.Value))
                 {
                     continue;
                 }
-                dlls.Add(configuration.Value);
+                dlls.Add(item.Value);
             }
             dlls = dlls.Distinct().ToList();
-            List<Assembly> assemblies = new List<Assembly>();
+
+            clientModuleManager = new ClientModuleManager();
+
             foreach (string dll in dlls)
             {
-                assemblies.Add(Assembly.LoadFrom(dll));
+                clientModuleManager.Add(Assembly.LoadFrom(dll));
                 System.Console.WriteLine("加载DLL：" + dll);
             }
-            moduleContext = new ClientModuleContext
-            {
-                ModeuleDlls = dlls,
-                ModeuleAssemblies = assemblies.ToArray()
-            };
-            builder.Services.AddScoped(typeof(ClientModuleContext), p => moduleContext);
+            services.AddScoped(typeof(ClientModuleManager), p => clientModuleManager);
         }
     }
 }

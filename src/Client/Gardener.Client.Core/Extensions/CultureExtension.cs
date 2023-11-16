@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
@@ -21,15 +22,17 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="host"></param>
+        /// <param name="serviceProvider"></param>
         /// <param name="cultureStorageKey"></param>
         /// <param name="defaultCulture"></param>
-        public async static Task<WebAssemblyHost> UseAppLocalization(this WebAssemblyHost host, string cultureStorageKey, string defaultCulture)
+        public async static Task UseAppLocalization(this IServiceProvider serviceProvider, string cultureStorageKey, string defaultCulture)
         {
-            IClientCultureService cultureService = host.Services.GetRequiredService<IClientCultureService>();
-            await cultureService.Init(cultureStorageKey, defaultCulture);
-            host.Services.InitLocalizationLocalizerUtil();
-            return host;
+            serviceProvider.InitLocalizationLocalizerUtil();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                IClientCultureService cultureService = scope.ServiceProvider.GetRequiredService<IClientCultureService>();
+                await cultureService.Init(cultureStorageKey, defaultCulture);
+            }
         }
 
         /// <summary>
@@ -47,7 +50,7 @@ namespace Gardener.Client.Core
             services.AddLocalization(options =>
             {
                 if (!string.IsNullOrEmpty(resourcesPath))
-                { 
+                {
                     options.ResourcesPath = resourcesPath;
                 }
             });
