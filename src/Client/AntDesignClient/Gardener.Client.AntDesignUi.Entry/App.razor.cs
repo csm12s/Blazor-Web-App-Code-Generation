@@ -16,7 +16,7 @@ namespace Gardener.Client.AntDesignUi.Entry
     public partial class App
     {
         [Inject]
-        private ClientModuleContext moduleContext { get; set; } = null!;
+        private ClientModuleManager moduleContext { get; set; } = null!;
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
         /// <summary>
