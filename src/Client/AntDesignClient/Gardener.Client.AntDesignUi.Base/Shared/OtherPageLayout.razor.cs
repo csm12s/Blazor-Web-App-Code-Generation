@@ -18,11 +18,6 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         [Inject]
         private ISystemConfigService SystemConfigService { get; set; } = null!;
         /// <summary>
-        /// js工具
-        /// </summary>
-        [Inject]
-        private IJsTool JsTool { get; set; } = null!;
-        /// <summary>
         /// 系统配置
         /// </summary>
         private SystemConfig systemConfig = null!;
@@ -30,11 +25,10 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        protected async override Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
         {
             systemConfig = SystemConfigService.GetSystemConfig();
-            await JsTool.Document.SetTitle(systemConfig.SystemName);
-            await base.OnInitializedAsync();
+            return base.OnInitializedAsync();
         }
     }
 }

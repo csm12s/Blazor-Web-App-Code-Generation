@@ -22,8 +22,6 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         [Inject]
         private ISystemConfigService SystemConfigService { get; set; } = null!;
         [Inject]
-        private IJsTool JsTool { get; set; } = null!;
-        [Inject]
         private IClientCultureService clientCultureService { get; set; } = null!;
         [Inject]
         public NavigationManager Navigation { get; set; } = null!;
@@ -31,12 +29,11 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 
         /// </summary>
         /// <returns></returns>
-        protected async override Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
         {
             _locales = clientCultureService.GetSupportedCultures();
             systemConfig = SystemConfigService.GetSystemConfig();
-            await JsTool.Document.SetTitle(systemConfig.SystemName);
-            await base.OnInitializedAsync();
+            return base.OnInitializedAsync();
         }
         /// <summary>
         /// HandleSelectLang

@@ -37,11 +37,6 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 
         /// </summary>
         [Inject]
-        private IJsTool JsTool { get; set; } = null!;
-        /// <summary>
-        /// 
-        /// </summary>
-        [Inject]
         private ILocalizationLocalizer<MenuNameLocalResource> Loc { get; set; } = null!;
         /// <summary>
         /// 
@@ -139,11 +134,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
                     return Task.CompletedTask;
                 });
             }
-            var task1= JsTool.Document.SetTitle(systemConfig.SystemName);
-            //导航控制
-            var task2= base.OnInitializedAsync();
-
-            return Task.WhenAll(task1, task2);
+            return base.OnInitializedAsync();
         }
 
         void toggle()

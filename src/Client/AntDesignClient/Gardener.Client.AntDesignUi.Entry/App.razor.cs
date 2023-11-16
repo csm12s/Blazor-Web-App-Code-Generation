@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components;
 using static AntDesign.FormValidateErrorMessages;
@@ -15,6 +16,11 @@ namespace Gardener.Client.AntDesignUi.Entry
 {
     public partial class App
     {
+        /// <summary>
+        /// 系统配置服务
+        /// </summary>
+        [Inject]
+        private ISystemConfigService SystemConfigService { get; set; } = null!;
         [Inject]
         private ClientModuleManager moduleContext { get; set; } = null!;
         [Inject]
