@@ -7,7 +7,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 	<BlazorEnableCompression>true</BlazorEnableCompression>
 	<Nullable>enable</Nullable>
-    <RunAOTCompilation>true</RunAOTCompilation>
+    <!--<RunAOTCompilation>true</RunAOTCompilation>-->
   </PropertyGroup>
 
 

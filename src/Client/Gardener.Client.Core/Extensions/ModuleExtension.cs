@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
 {
@@ -40,10 +42,10 @@ namespace Gardener.Client.Core
         /// 加载各个dll，并扫描需要注册的服务
         /// </summary>
         /// <param name="services"></param>
-        public static void LoadModulesAndScanServices(this IServiceCollection services)
+        public static void RegisterModulesAndScanServices(this IServiceCollection services)
         {
             //加载各个dll
-            services.LoadModules();
+            services.RegisterModules();
             //扫描需要注册的服务
             services.AddServicesWithAttributeOfType(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -52,7 +54,7 @@ namespace Gardener.Client.Core
         /// 加载各个dll
         /// </summary>
         /// <param name="services"></param>
-        public static void LoadModules(this IServiceCollection services)
+        public static void RegisterModules(this IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
             IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -76,6 +78,28 @@ namespace Gardener.Client.Core
                 System.Console.WriteLine("加载DLL：" + dll);
             }
             services.AddScoped(typeof(ClientModuleManager), p => clientModuleManager);
+        }
+
+        /// <summary>
+        /// 加载模块
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        public static Task LoadModules(this IServiceProvider serviceProvider)
+        {
+            RootComponentMappingCollection rootComponents=serviceProvider.GetRequiredService<RootComponentMappingCollection>();
+            IEnumerable<IModule> modules= serviceProvider.GetServices<IModule>();
+            List<Task> tasks = new List<Task>();
+            foreach (IModule module in modules)
+            {
+                clientModuleManager?.Add(module);
+
+                foreach (var component in module.GetAutoRegisterComponents())
+                {
+                    rootComponents.Add(component.Component, component.Selector);
+                }
+                tasks.Add(module.Load());
+            }
+            return Task.WhenAll(tasks.ToArray());
         }
     }
 }

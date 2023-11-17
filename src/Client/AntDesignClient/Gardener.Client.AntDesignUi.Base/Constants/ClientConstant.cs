@@ -70,6 +70,10 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
         /// Small
         /// </remarks>
         public readonly static TableSize DefaultTableSize = TableSize.Small;
+        /// <summary>
+        /// 启用界面设置抽屉
+        /// </summary>
+        public readonly static bool EnableSettingDrawer = false;
 
 
 

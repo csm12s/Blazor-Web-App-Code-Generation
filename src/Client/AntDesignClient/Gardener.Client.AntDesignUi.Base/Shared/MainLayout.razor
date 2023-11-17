@@ -9,6 +9,7 @@
                 <RightContent />
             </RightContentRender>
             <ChildContent>
+                <Microsoft.AspNetCore.Components.Sections.SectionOutlet SectionName="@Client.Base.Constants.SectionNames.BodyTop" />
                 @if (ClientConstant.EnabledTabs)
                 {
                     <ReuseTabs Class="top-row px-4" TabPaneClass="content px-4" Draggable/>
@@ -17,6 +18,7 @@
                 {
                     @Body
                 }
+                <Microsoft.AspNetCore.Components.Sections.SectionOutlet SectionName="@Client.Base.Constants.SectionNames.BodyBottom" />
             </ChildContent>
             <FooterRender>
                 <FooterView Copyright="@systemConfig?.Copyright" Links="ClientConstant.FooterLinks"></FooterView>
@@ -29,4 +31,7 @@
         @Body
     </NotAuthorized>
 </AuthorizeView>
-<SettingDrawer />
+@if (ClientConstant.EnableSettingDrawer)
+{
+    <SettingDrawer />
+}

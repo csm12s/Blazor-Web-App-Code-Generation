@@ -33,7 +33,7 @@ namespace Gardener.Client.AntDesignUi.Entry
             IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
 
             #region module
-            services.LoadModulesAndScanServices();
+            services.RegisterModulesAndScanServices();
             #endregion
 
             services.AddApiSetting(hostBaseAddress);
@@ -89,9 +89,10 @@ namespace Gardener.Client.AntDesignUi.Entry
         /// 
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public static Task UseInject(this IServiceProvider serviceProvider)
+        public static async Task UseInject(this IServiceProvider serviceProvider)
         {
-            return serviceProvider.UseAppLocalization(ClientConstant.BlazorCultureKey, ClientConstant.DefaultCulture);
+            await serviceProvider.UseAppLocalization(ClientConstant.BlazorCultureKey, ClientConstant.DefaultCulture);
+            await serviceProvider.LoadModules();
         }
     }
 }

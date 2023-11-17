@@ -15,13 +15,16 @@ namespace Gardener.Client.AntDesignUi.Entry
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
+            //ÅäÖÃ
+            builder.Services.TryAddSingleton<IConfiguration>(builder.Configuration);
+            //¸ù×é¼þ
+            builder.Services.TryAddSingleton(builder.RootComponents);
+
             #region log
             builder.Logging.AddConfiguration(
                 builder.Configuration.GetSection("Logging")
             );
             #endregion
-
-            builder.Services.TryAddSingleton<IConfiguration>(builder.Configuration);
 
             builder.Services.Inject(builder.HostEnvironment.BaseAddress);
 
