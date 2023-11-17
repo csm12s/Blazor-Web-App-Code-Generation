@@ -8,11 +8,11 @@
     <base href="/" />
     <link href="./css/index.css?v=0.1.15" rel="stylesheet" />
     <link href="./css/site.css?v=0.1.15" rel="stylesheet" />
-    <link href="_content/AntDesign/css/ant-design-blazor.css?v=0.14.3" rel="stylesheet" />
-    <link href="_content/AntDesign.ProLayout/css/ant-design-pro-layout-blazor.css?v=0.13.1" rel="stylesheet" />
+    <link href="./_content/AntDesign/css/ant-design-blazor.css?v=0.14.3" rel="stylesheet" />
+    <link href="./_content/AntDesign.ProLayout/css/ant-design-pro-layout-blazor.css?v=0.13.1" rel="stylesheet" />
     <link href="./iconfont/iconfont.css?v=0.1.15" rel="stylesheet" />
-    <link href="Gardener.Client.AntDesignUi.Entry.styles.css?v=0.1.15" rel="stylesheet" />
-    <link href="manifest.json?v=0.1.15" rel="manifest" />
+    <link href="./Gardener.Client.AntDesignUi.Entry.styles.css?v=0.1.15" rel="stylesheet" />
+    <link href="./manifest.json?v=0.1.15" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png?v=0.1.15" />
 </head>
 <body>
@@ -39,7 +39,7 @@
         </div>
     </app>
 
-    <script src="_framework/blazor.webassembly.js?v=0.1.15" autostart="false"></script>
+    <script src="./_framework/blazor.webassembly.js?v=0.1.15" autostart="false"></script>
     <script type="module">
         import { BrotliDecode } from './js/decode.min.js';
         Blazor.start({
@@ -62,7 +62,15 @@
             }
         });
     </script>
-    <script src="_content/AntDesign/js/ant-design-blazor.js?v=0.14.3"></script>
+    <script src="./_content/AntDesign/js/ant-design-blazor.js?v=0.14.3"></script>
+    <!--Charts-->
+    <script src="./js/g2plot.js?v=0.14.3" defer></script>
+    <script src="./_content/AntDesign.Charts/ant-design-charts-blazor.js?v=0.13.1" defer></script>
+    <!--BlazorMonaco-->
+    <script src="./_content/BlazorMonaco/jsInterop.js?v=0.34.1" defer></script>
+    <script src="./_content/BlazorMonaco/lib/monaco-editor/min/vs/loader.js?v=0.34.1" defer></script>
+    <script src="./_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.js?v=0.34.1" defer></script>
+
     <script type="text/javascript">
         navigator.serviceWorker.register('service-worker.js');
     </script>

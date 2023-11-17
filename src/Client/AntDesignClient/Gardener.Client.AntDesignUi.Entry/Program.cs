@@ -28,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Entry
 
             builder.Services.Inject(builder.HostEnvironment.BaseAddress);
 
-            var host =builder.Build();
+            var host = builder.Build();
             await host.Services.UseInject();
             await host.RunAsync();
         }
