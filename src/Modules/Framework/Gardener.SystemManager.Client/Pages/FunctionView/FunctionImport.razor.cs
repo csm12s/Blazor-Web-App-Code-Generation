@@ -35,7 +35,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
 
         List<SwaggerSpecificationOpenApiInfoDto> apiInfos = new List<SwaggerSpecificationOpenApiInfoDto>();
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
-        private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
+        private IEnumerable<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         private string _apiJsonUrl = string.Empty;
         private string _selectedGroupValue = string.Empty;
         private SwaggerSpecificationOpenApiInfoDto? _selectedGroup ;
@@ -150,7 +150,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
                     }
                     
                 }
-                _importPercent = Math.Round((count / (double)_selectedFunctionDtos.Count) * 100, 2);
+                _importPercent = Math.Round((count / (double)_selectedFunctionDtos.Count()) * 100, 2);
                 await InvokeAsync(StateHasChanged);
                 
             }
