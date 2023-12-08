@@ -214,17 +214,13 @@ namespace Gardener.WoChat.Services
             {
                 return new ImSessionDto[0];
             }
-            var task1 = imSessionRepository.AsQueryable(false)
+            IEnumerable<ImSessionDto> sessions = await imSessionRepository.AsQueryable(false)
                 .Where(x => sessionIds.Contains(x.Id))
                 .Select(x => x.Adapt<ImSessionDto>())
                 .ToListAsync();
-            var task2 = imUserSessionRepository.AsQueryable(false)
+            IEnumerable<ImUserSession> userSessions = await imUserSessionRepository.AsQueryable(false)
                 .Where(x => sessionIds.Contains(x.ImSessionId))
                 .ToListAsync();
-
-            IEnumerable<ImSessionDto> sessions = await task1;
-            IEnumerable<ImUserSession> userSessions = await task2;
-
             IEnumerable<UserDto> users = await userService.GetUsers(userSessions.Select(x => x.UserId).Distinct());
             //填充用戶信息
             foreach (ImSessionDto session in sessions)
@@ -301,10 +297,8 @@ namespace Gardener.WoChat.Services
                 return false;
             }
             int userId = int.Parse(identity.Id);
-            var task1 = imSessionRepository.FindAsync(imSessionId);
-            var task2 = imUserSessionRepository.AsQueryable(false).Where(x => x.ImSessionId.Equals(imSessionId)).ToListAsync();
-            var session = await task1;
-            var userSessions = await task2;
+            var session = await imSessionRepository.FindAsync(imSessionId);
+            var userSessions = await imUserSessionRepository.AsQueryable(false).Where(x => x.ImSessionId.Equals(imSessionId)).ToListAsync();
             if (session == null || userSessions == null || !userSessions.Any(x => x.UserId.Equals(userId)))
             {
                 return false;
@@ -317,22 +311,22 @@ namespace Gardener.WoChat.Services
                 userSession.SetUpdatedIdentity(identity);
                 userSession.UpdatedTime = DateTimeOffset.Now;
                 userSession.IsActive = false;
-                tasks.Add(imUserSessionRepository.UpdateIncludeAsync(userSession, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
+                await imUserSessionRepository.UpdateIncludeAsync(userSession, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) });
                 //更新会话已有人隐藏了
                 session.AllUserIsActive = false;
                 session.SetUpdatedIdentity(identity);
                 session.UpdatedTime = DateTimeOffset.Now;
-                tasks.Add(imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
+                await imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
             }
             else if (session.SessionType.Equals(ImSessionType.Group))
             {
                 if (userId.ToString().Equals(session.CreateBy))
                 {
                     //解散
-                    tasks.Add(imSessionRepository.DeleteAsync(imSessionId));
-                    userSessions.ForEach(x =>
+                    await imSessionRepository.DeleteAsync(imSessionId);
+                    userSessions.ForEach(async x =>
                     {
-                        tasks.Add(imUserSessionRepository.DeleteAsync(x.Id));
+                        await imUserSessionRepository.DeleteAsync(x.Id);
                         tasks.Add(systemNotificationService.UserGroupRemove(WoChatUtil.GetImGroupName(imSessionId), new Identity()
                         {
                             Id = x.UserId.ToString(),
@@ -345,7 +339,7 @@ namespace Gardener.WoChat.Services
                 {
                     //退出
                     ImUserSession userSession = userSessions.Where(x => x.UserId.Equals(userId)).First();
-                    tasks.Add(imUserSessionRepository.DeleteAsync(userSession.Id));
+                    await imUserSessionRepository.DeleteAsync(userSession.Id);
                     tasks.Add(systemNotificationService.UserGroupRemove(WoChatUtil.GetImGroupName(imSessionId), identity));
                     tasks.Add(systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(imSessionId), new WoChatImSystemMessageNotificationData()
                     {
@@ -394,7 +388,7 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreateIdentityType = identity.IdentityType;
             List<Task> tasks = new List<Task>();
             //入库
-            tasks.Add(imSessionMessageRepository.InsertNowAsync(sessionMessage));
+            await imSessionMessageRepository.InsertAsync(sessionMessage);
             //查找会话
             var user = await userService.Get(userId);
             message = sessionMessage.Adapt<ImSessionMessageDto>();
@@ -405,20 +399,20 @@ namespace Gardener.WoChat.Services
                 {
                     //查看那些用户未激活
                     List<ImUserSession> noActiveUserSessions = await imUserSessionRepository.AsQueryable(false).Where(x => x.IsActive == false && x.ImSessionId.Equals(imSession.Id)).ToListAsync();
-                    noActiveUserSessions.ForEach(x =>
+                    noActiveUserSessions.ForEach(async x =>
                     {
                         //激活
                         x.IsActive = true;
                         x.SetUpdatedIdentity(identity);
                         x.UpdatedTime = DateTimeOffset.Now;
-                        tasks.Add(imUserSessionRepository.UpdateIncludeNowAsync(x, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
+                        await imUserSessionRepository.UpdateIncludeAsync(x, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) });
                     });
                     imSession.AllUserIsActive = true;
                 }
                 //更新会话时间
                 imSession.SetUpdatedIdentity(identity);
                 imSession.LastMessageTime = DateTimeOffset.Now;
-                tasks.Add(imSessionRepository.UpdateIncludeNowAsync(imSession, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
+                await imSessionRepository.UpdateIncludeAsync(imSession, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
             }
             //发送
             tasks.Add(systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImUserMessageNotificationData()
@@ -552,22 +546,18 @@ namespace Gardener.WoChat.Services
             {
                 return null;
             }
-            var task1 = imSessionRepository.AsQueryable(false)
+            ImSessionDto? session = await imSessionRepository.AsQueryable(false)
                 .Where(x => x.Id.Equals(imSessionId))
                 .Select(x => x.Adapt<ImSessionDto>())
                 .FirstOrDefaultAsync();
-            var task2 = imUserSessionRepository.AsQueryable(false)
-                .Where(x => x.ImSessionId.Equals(imSessionId))
-                .Select(x => x.UserId)
-                .ToListAsync();
-
-            ImSessionDto? session = await task1;
             if (session == null)
             {
                 return null;
             }
-            IEnumerable<int> userIds = await task2;
-
+            IEnumerable<int> userIds = await imUserSessionRepository.AsQueryable(false)
+                .Where(x => x.ImSessionId.Equals(imSessionId))
+                .Select(x => x.UserId)
+                .ToListAsync();
             IEnumerable<UserDto> users = await userService.GetUsers(userIds.Distinct());
             //填充用戶信息
             session.Users = users;
