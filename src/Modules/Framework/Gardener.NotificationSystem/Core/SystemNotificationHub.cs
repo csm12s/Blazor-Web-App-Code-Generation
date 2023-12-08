@@ -1,4 +1,10 @@
-﻿using Furion;
+﻿// -----------------------------------------------------------------------------
+// 园丁,是个很简单的管理系统
+//  gitee:https://gitee.com/hgflydream/Gardener 
+//  issues:https://gitee.com/hgflydream/Gardener/issues 
+// -----------------------------------------------------------------------------
+
+using Furion;
 using Furion.InstantMessaging;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
@@ -26,23 +32,19 @@ namespace Gardener.NotificationSystem.Core
         private readonly IEventBus eventBus;
         private readonly IIdentityService identityService;
         private readonly ISystemNotificationService systemNotificationService;
-        private readonly IEnumerable<ISystemNotificationHubGrouper> groupers;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="eventBus"></param>
         /// <param name="identityService"></param>
         /// <param name="systemNotificationService"></param>
-        /// <param name="groupers"></param>
         public SystemNotificationHub(IEventBus eventBus,
             IIdentityService identityService,
-            ISystemNotificationService systemNotificationService,
-            IEnumerable<ISystemNotificationHubGrouper> groupers)
+            ISystemNotificationService systemNotificationService)
         {
             this.eventBus = eventBus;
             this.identityService = identityService;
             this.systemNotificationService = systemNotificationService;
-            this.groupers = groupers;
         }
 
         /// <summary>
@@ -83,29 +85,26 @@ namespace Gardener.NotificationSystem.Core
             await systemNotificationService.SetUserOnline(identity, this.Context.ConnectionId);
 
             //分组器
-            List<Task<IEnumerable<string>>> tasks = new();
+            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
+            List<IEnumerable<string>> groupNameGroups = new();
             foreach (var grouper in groupers)
             {
-                tasks.Add(grouper.GetGroupName(identity));
+                groupNameGroups.Add(await grouper.GetGroupName(identity));
             }
-            if (tasks.Any())
+            //分组完成
+            List<Task> tasks1 = new List<Task>();
+            foreach (IEnumerable<string> groups in groupNameGroups)
             {
-                //分组完成
-                IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
-                List<Task> tasks1 = new List<Task>();
-                foreach (IEnumerable<string> groups in groupNameGroups)
+                if (!groups.Any()) continue;
+                foreach (var group in groups)
                 {
-                    if (!groups.Any()) continue;
-                    foreach (var group in groups)
-                    {
-                        tasks1.Add(base.Groups.AddToGroupAsync(this.Context.ConnectionId, group));
-                    }
+                    tasks1.Add(base.Groups.AddToGroupAsync(this.Context.ConnectionId, group));
                 }
-                if (tasks1.Any())
-                {
-                    //入组完成
-                    await Task.WhenAll(tasks1);
-                }
+            }
+            if (tasks1.Any())
+            {
+                //入组完成
+                await Task.WhenAll(tasks1);
             }
             //用户上线
             await eventBus.PublishAsync(new UserOnlineChangeNotificationData()
@@ -129,29 +128,26 @@ namespace Gardener.NotificationSystem.Core
             }
             await systemNotificationService.SetUserOffline(identity, this.Context.ConnectionId);
             //分组器
-            List<Task<IEnumerable<string>>> tasks = new();
+            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
+            List<IEnumerable<string>> groupNameGroups = new();
             foreach (var grouper in groupers)
             {
-                tasks.Add(grouper.GetGroupName(identity));
+                groupNameGroups.Add(await grouper.GetGroupName(identity));
             }
-            if (tasks.Any())
+            //分组完成
+            List<Task> tasks1 = new List<Task>();
+            foreach (IEnumerable<string> groups in groupNameGroups)
             {
-                //分组完成
-                IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
-                List<Task> tasks1 = new List<Task>();
-                foreach (IEnumerable<string> groups in groupNameGroups)
+                if (!groups.Any()) continue;
+                foreach (var group in groups)
                 {
-                    if (!groups.Any()) continue;
-                    foreach (var group in groups)
-                    {
-                        tasks1.Add(base.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, group));
-                    }
+                    tasks1.Add(base.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, group));
                 }
-                if (tasks1.Any())
-                {
-                    //出组完成
-                    await Task.WhenAll(tasks1);
-                }
+            }
+            if (tasks1.Any())
+            {
+                //出组完成
+                await Task.WhenAll(tasks1);
             }
             //用户离线
             await eventBus.PublishAsync(new UserOnlineChangeNotificationData()
