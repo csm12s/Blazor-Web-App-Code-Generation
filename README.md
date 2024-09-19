@@ -1,5 +1,12 @@
-**Gardener.CodeGeneration**
+**Blazor-Code-Gen**
 
+This uses a versin of Gardener, code gen function(in Gardener.CodeGeneration) is the same in main branch(stable) and develop branch(with more other features).
+Test recently run on develop branch.
+
+For document and latest Gardener, check url:
+https://gitee.com/hgflydream/Gardener
+
+Generate Web system based on DB
 DBを基づいてWebシステムを自動作成
 
 
@@ -10,8 +17,6 @@ DBを基づいてWebシステムを自動作成
 ・環境：Windows、SQL Server, MySQL, SQLite
 
 
-Url:
-https://gitee.com/hgflydream/Gardener
 
 Tables:
 ![1](https://github.com/csm12s/Blazor-Web-App-Code-Generation/assets/64699457/9ef0fd28-dd7f-444c-aa75-afb62c364e94)
