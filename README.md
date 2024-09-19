@@ -2,7 +2,6 @@
 
 DBを基づいてWebシステムを自動作成
 
-## 项目介绍
 
 ・サーバー：C# .Net, Entity Framework, RazorEngine
 
@@ -10,11 +9,6 @@ DBを基づいてWebシステムを自動作成
 
 ・環境：Windows、SQL Server, MySQL, SQLite
 
- **docker 运行** 
-```
-docker pull huhangfei/gardener
-docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
-```
 
 Url:
 https://gitee.com/hgflydream/Gardener
@@ -55,6 +49,5 @@ Other Files Templates (SQL, XML, Json...):
 
 ![FAkPWYmxvf](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/288e25f5-5af2-4af1-b12d-40d82cb8be96)
 
- **qq群**
 
 End
