@@ -1,44 +1,53 @@
-<p align="center"><img src="https://images.gitee.com/uploads/images/2020/1204/145903_cea2bf9d_302533.png" height="80"/></p>
+**Gardener.CodeGeneration**
 
-中文 | [English](README.en.md)
+DBを基づいてWebシステムを自動作成
 
-## 项目介绍
 
-园丁是基于 .net 7开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
-## 演示地址
-用户名：admin、admin1、admin2、admin3、admin4、admin5、admin6
+・サーバー：C# .Net, Entity Framework, RazorEngine
 
-密码：admin
+・クライアント：C# Blazor/WPF, And Design UI
 
-请善待弱鸡 :two_hearts:[http://47.94.212.176:1000](http://47.94.212.176:1000)，初次加载较慢，客官先喝口水吧。请不要随便删除用户数据，演示服务不定期初始化，推荐docker运行进行查看。
+・環境：Windows、SQL Server, MySQL, SQLite
 
- **docker 运行** 
-```
-docker pull huhangfei/gardener
-docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
-```
 
-## 项目特点
-- 新：.Net7 、Blazor WebAssembly 、Furion ；全部新鲜。
-- 简：功能简单实用
-- 细:  **文档详细** 、实现细节拉满
-- 强：多模块划分、拥有强大扩展性
+Url:
+https://gitee.com/hgflydream/Gardener
 
-## 项目文档
-[项目说明文档](https://gitee.com/hgflydream/Gardener/wikis)
+Tables:
+![1](https://github.com/csm12s/Blazor-Web-App-Code-Generation/assets/64699457/9ef0fd28-dd7f-444c-aa75-afb62c364e94)
+Edit:
+![2 edit](https://github.com/csm12s/Blazor-Web-App-Code-Generation/assets/64699457/98d72c67-c7fc-4944-a5e1-2b7ab7074169)
+Edit Column Details:
+![3 setting](https://github.com/csm12s/Blazor-Web-App-Code-Generation/assets/64699457/f81de584-197e-4599-b242-7ea3afbd3a67)
 
-## 贡献代码
+**Generated Files**
 
-感谢每一位为**园丁**贡献代码的朋友，欢迎大家提交 PR 或 Issue。
+１，Server：Model、Controller、Service、API Controller、Locale Files...
 
-## 基情链接
-👉 **[Furion](https://gitee.com/dotnetchina/Furion)**  
-👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
+２，Client：Web Page、API Controller...
 
-## 跟上组织
+３，Other Files：VisualStudio Project File、Json Config...
 
- **qq群**
 
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ILV3MBrcZtr4uUSsKa3njjnpBiUvT0xe&jump_from=webapi">
-<img alt="点击加入" title="点击加入" src="https://images.gitee.com/uploads/images/2021/1101/112200_a6d329a3_302533.png" width="200px" height="200px"/>
-</a>
+
+![NKl2mjMLdJ](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/101313d5-0334-4a64-afa8-78a4d4fe403f)
+
+DB Table Locale:
+
+![Ym2hWo4bC0](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/49cc4309-407c-47a7-beb8-66dfff4b2421)
+
+
+**RazorEngine Source Code**
+
+Model Template:
+![model temp](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/14601a36-d545-4a11-93d4-b045ba0835ac)
+
+View Page Template:
+![view temp](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/7d2651d9-a2e0-48b7-ba0a-a67317f7da6f)
+
+Other Files Templates (SQL, XML, Json...):
+
+![FAkPWYmxvf](https://github.com/csm12s/Blazor-Code-Gen/assets/64699457/288e25f5-5af2-4af1-b12d-40d82cb8be96)
+
+
+End
