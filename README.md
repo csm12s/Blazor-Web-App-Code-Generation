@@ -6,9 +6,9 @@ Test recently run on develop branch.
 For document and latest Gardener, check url:
 https://gitee.com/hgflydream/Gardener
 
-Generate Web system based on DB
+**Generate Web system based on DB**
 
-DBを基づいてWebシステムを自動作成
+**DBを基づいてWebシステムを自動作成**
 
 
 ・サーバー：C# .Net, Entity Framework, RazorEngine
