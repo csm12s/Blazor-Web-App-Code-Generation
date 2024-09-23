@@ -6,6 +6,9 @@ Test recently run on develop branch.
 For document and latest Gardener, check url:
 https://gitee.com/hgflydream/Gardener
 
+Code gen + Report editor: 
+https://github.com/csm12s/Blazor-Report-Editor.git
+
 **Generate Web system based on DB**
 
 **DBを基づいてWebシステムを自動作成**
