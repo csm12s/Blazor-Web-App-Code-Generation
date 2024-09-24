@@ -1,9 +1,9 @@
 **Blazor-Code-Gen**
 
-This uses a versin of Gardener, code gen function(in Gardener.CodeGeneration) is the same in main branch(stable) and develop branch(with more other features).
+This project is based on Gardener v1, code gen function(in Gardener.CodeGeneration) is the same in main branch(stable) and develop branch(with more other features).
 Test recently run on develop branch.
 
-For document and latest Gardener, check url:
+For document and latest Gardener v3, check url:
 https://gitee.com/hgflydream/Gardener
 
 Code gen + Report editor: 
