@@ -13,10 +13,13 @@
 ・環境：Windows、SQL Server
 
 
-This project is based on Gardener v1, code gen function(in Gardener.CodeGeneration) is the same in main branch(stable) and develop branch(with more other features).
-Test recently run on develop branch.
+**Branchs**
 
-For document and latest Gardener v3, check url:
+develop: with more features
+main: stable version
+code gen function(in Gardener.CodeGeneration) is the same in both branch, test recently run on develop branch.
+
+This project is based on Gardener v1, for document and latest Gardener v3, check url:
 https://gitee.com/hgflydream/Gardener
 
 Code gen + Report editor: 
