@@ -1,5 +1,18 @@
 **Blazor-Code-Gen**
 
+
+**Generate Web system based on DB**
+
+**DBを基づいてWebシステムを自動作成**
+
+
+・Server：C# .Net7, Entity Framework, RazorEngine
+
+・Client：C# .Net7, Blazor/WPF, And Design UI
+
+・環境：Windows、SQL Server
+
+
 This project is based on Gardener v1, code gen function(in Gardener.CodeGeneration) is the same in main branch(stable) and develop branch(with more other features).
 Test recently run on develop branch.
 
@@ -8,18 +21,6 @@ https://gitee.com/hgflydream/Gardener
 
 Code gen + Report editor: 
 https://github.com/csm12s/Blazor-Report-Editor.git
-
-
-**Generate Web system based on DB**
-
-**DBを基づいてWebシステムを自動作成**
-
-
-・サーバー：C# .Net, Entity Framework, RazorEngine
-
-・クライアント：C# Blazor/WPF, And Design UI
-
-・環境：Windows、SQL Server
 
 
 
